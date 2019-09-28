@@ -4,6 +4,7 @@ import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.sprites.BrawlerBodySprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
+import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 
 
@@ -123,13 +124,21 @@ class UnitsSystem
     {
         for (int unitIdentifier = 0; unitIdentifier < mCounts; unitIdentifier++)
         {
-            float x = mXs[unitIdentifier];
-            float y = mYs[unitIdentifier];
-            float angle = mAngles[unitIdentifier];
+            readUnit(unitIdentifier, mUnit);
             
-            mBrawlerBodySprite.setPosition(x, y);
-            mBrawlerBodySprite.setMirrored(angle > MathTools.PI_1_2 && angle < MathTools.PI_3_2);
+            float handDistance = 3;
+            
+            mHandSprite.setPosition(mUnit.x + handDistance * Math.cos(mUnit.angle) - VideoConstants.HAND_SPRITE_ORIGIN_X,
+                                    mUnit.y - handDistance * Math.sin(mUnit.angle) - VideoConstants.HAND_SPRITE_ORIGIN_Y - VideoConstants.BRAWLER_BODY_SPRITE_WEAPON_ORIGIN_Y);
+            // Is the hand above?
+            if (mUnit.angle < Math.PI)
+                mHandSprite.draw(screen);
+            mBrawlerBodySprite.setPosition(mUnit.x - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_X, mUnit.y - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_Y);
+            mBrawlerBodySprite.setMirrored(mUnit.angle > MathTools.PI_1_2 && mUnit.angle < MathTools.PI_3_2);
             mBrawlerBodySprite.draw(screen);
+            // Is the hand below?
+            if (mUnit.angle > Math.PI)
+                mHandSprite.draw(screen);
         }
     }
     

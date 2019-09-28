@@ -254,6 +254,12 @@
 		"\\bin\\tazs-javitto.bin.1.png": {
 			"sdcard": false,
 			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources/VideoConstants.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\VideoConstants.java": {
+			"sdcard": false
 		}
 	}
 }

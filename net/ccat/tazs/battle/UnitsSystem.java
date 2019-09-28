@@ -4,6 +4,7 @@ import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.sprites.BrawlerBodySprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
+import net.ccat.tazs.tools.MathTools;
 
 
 /**
@@ -51,7 +52,7 @@ class UnitsSystem
         mCounts++;
         mXs[unitIdentifier] = x;
         mYs[unitIdentifier] = y;
-        mAngles[unitIdentifier] = angle;
+        mAngles[unitIdentifier] = MathTools.wrapAngle(angle);
         return unitIdentifier;
     }
     
@@ -82,6 +83,7 @@ class UnitsSystem
             float angle = mAngles[unitIdentifier];
             
             mBrawlerBodySprite.setPosition(x, y);
+            mBrawlerBodySprite.setMirrored(angle > MathTools.PI_1_2 && angle < MathTools.PI_3_2);
             mBrawlerBodySprite.draw(screen);
         }
     }

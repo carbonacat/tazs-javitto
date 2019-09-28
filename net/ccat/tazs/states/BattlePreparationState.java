@@ -26,6 +26,7 @@ class BattlePreparationState
         mGame.unitsSystem.clear();
         mGame.unitsSystem.addUnit(-32, 0, 0);
         mGame.unitsSystem.addUnit(-64, -32, 0);
+        mGame.unitsSystem.addUnit(64, 16, 3.57);
         mGame.screen.cameraX = -mGame.screen.width() * 0.5f;
         mGame.screen.cameraY = -mGame.screen.height() * 0.5f;
     }

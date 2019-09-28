@@ -212,6 +212,38 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\UnitsSystem.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/handlers": {},
+		"\\net\\ccat\\tazs\\battle\\handlers": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/BrawlerIdleHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\BrawlerIdleHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/UnitHandler": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\UnitHandler": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/tools": {},
+		"\\net\\ccat\\tazs\\tools": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/tools/MathTools.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/tools\\MathTools.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\tools\\MathTools.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\UnitHandler.java": {
+			"sdcard": false
 		}
 	}
 }

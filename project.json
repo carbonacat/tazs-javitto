@@ -184,6 +184,34 @@
 		},
 		"\\.git": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\New folder": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\BrawlerBodySprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\BrawlerBodySprite.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\HandSprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\HandSprite.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\battle/UnitsSystem.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\UnitsSystem.java": {
+			"sdcard": false
 		}
 	}
 }

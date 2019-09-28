@@ -22,6 +22,9 @@ class TitleState
         mGame = game;
     }
     
+    
+    /***** LIFECYCLE *****/
+    
     public void init()
     {
         if (mGame == null)
@@ -53,6 +56,9 @@ class TitleState
     {
         mGame = null;
     }
+    
+    
+    /***** PRIVATE STUFF *****/
     
     private TAZSGame mGame;
     

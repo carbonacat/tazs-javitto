@@ -1,0 +1,27 @@
+{ "frames": {
+   "HandSprite.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 3, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 3, "h": 3 },
+    "sourceSize": { "w": 3, "h": 3 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.15-x64",
+  "image": "HandSprite.png",
+  "format": "RGBA8888",
+  "size": { "w": 3, "h": 3 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "playDefault", "from": 0, "to": 0, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Main", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

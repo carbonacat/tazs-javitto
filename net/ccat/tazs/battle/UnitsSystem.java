@@ -20,8 +20,10 @@ class UnitsSystem
         mXs = new float[UNITS_MAX];
         mYs = new float[UNITS_MAX];
         mAngles = new float[UNITS_MAX];
+        mTimers = new short[UNITS_MAX];
         mBrawlerBodySprite = new BrawlerBodySprite();
         mHandSprite = new HandSprite();
+        mUnit = new Unit();
     }
     
     
@@ -30,7 +32,7 @@ class UnitsSystem
     /**
      * Clears any stored Units.
      */
-    void clear()
+    public void clear()
     {
         mCounts = 0;
     }
@@ -42,7 +44,7 @@ class UnitsSystem
      * @param angle Where the units is looking at, in Radiants.
      * @return the unit's identifier, or IDENTIFIER_NONE if a Unit couldn't be created.
      */
-    int addUnit(float x, float y, float angle)
+    public int addUnit(float x, float y, float angle)
     {
         if (mCounts >= UNITS_MAX)
             return IDENTIFIER_NONE;
@@ -56,15 +58,58 @@ class UnitsSystem
         return unitIdentifier;
     }
     
+    /**
+     * Reads a whole unit.
+     * 
+     * @param unitIdentifier Identifies which unit to read.
+     * @param targetUnit Where to write the unit's properties.
+     */
+    public void readUnit(int unitIdentifier, Unit targetUnit)
+    {
+        targetUnit.x = mXs[unitIdentifier];
+        targetUnit.y = mYs[unitIdentifier];
+        targetUnit.angle = mAngles[unitIdentifier];
+        targetUnit.timer = mTimers[unitIdentifier];
+    }
+    
+    /**
+     * Overwrites a whole unit.
+     * 
+     * @param unitIdentifier Identifies which unit to write.
+     * @param sourceUnit From where to read unit's properties.
+     */
+    public void writeUnit(int unitIdentifier, Unit sourceUnit)
+    {
+        mXs[unitIdentifier] = sourceUnit.x;
+        mYs[unitIdentifier] = sourceUnit.y;
+        mAngles[unitIdentifier] = sourceUnit.angle;
+        mTimers[unitIdentifier] = sourceUnit.timer;
+    }
+    
     
     /***** LIFECYCLE *****/
     
     /**
      * Called when a tick happens.
      */
-    void onTick()
+    public void onTick()
     {
-        
+        for (int unitIdentifier = 0; unitIdentifier < mCounts; unitIdentifier++)
+        {
+            readUnit(unitIdentifier, mUnit);
+
+            // Random walk
+            mUnit.timer--;
+            if (mUnit.timer <= 0)
+            {
+                mUnit.timer = 128;
+                mUnit.angle = MathTools.wrapAngle(mUnit.angle + Math.random() - 0.5f);
+            }
+            mUnit.x += Math.cos(mUnit.angle) * 0.125f;
+            mUnit.y += -Math.sin(mUnit.angle) * 0.125f;
+
+            writeUnit(unitIdentifier, mUnit);
+        }
     }
     
     
@@ -74,7 +119,7 @@ class UnitsSystem
      * Renders all the Units.
      * @param screen The screen to render into.
      */
-    void draw(HiRes16Color screen)
+    public void draw(HiRes16Color screen)
     {
         for (int unitIdentifier = 0; unitIdentifier < mCounts; unitIdentifier++)
         {
@@ -94,8 +139,11 @@ class UnitsSystem
     private float[] mXs;
     private float[] mYs;
     private float[] mAngles;
+    private short[] mTimers;
     private int mCounts = 0;
     
-    public BrawlerBodySprite mBrawlerBodySprite;
-    public HandSprite mHandSprite;
+    private BrawlerBodySprite mBrawlerBodySprite;
+    private HandSprite mHandSprite;
+    // For easing updates for a unit.
+    private Unit mUnit;
 }

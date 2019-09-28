@@ -244,6 +244,16 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\UnitHandler.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/Unit.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\Unit.java": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.1.png": {
+			"sdcard": false,
+			"implements": ""
 		}
 	}
 }

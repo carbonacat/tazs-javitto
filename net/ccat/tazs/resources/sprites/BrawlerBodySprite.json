@@ -12,7 +12,7 @@
   "app": "http://www.aseprite.org/",
   "version": "1.2.15-x64",
   "image": "BrawlerBodySprite.png",
-  "format": "RGBA8888",
+  "format": "I8",
   "size": { "w": 5, "h": 11 },
   "scale": "1",
   "frameTags": [

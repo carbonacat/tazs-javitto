@@ -24,9 +24,13 @@ class BattlePreparationState
     public void init()
     {
         mGame.unitsSystem.clear();
-        mGame.unitsSystem.addUnit(-32, 0, 0);
-        mGame.unitsSystem.addUnit(-64, -32, 0);
-        mGame.unitsSystem.addUnit(64, 16, 3.57);
+        
+        boolean canAddUnit = true;
+        
+        while (canAddUnit)
+        {
+            canAddUnit = mGame.unitsSystem.addUnit((Math.random() - 0.5f) * 100, (Math.random() - 0.5f) * 80, Math.random() * tools.MathTools.PI_2_1) != battle.UnitsSystem.IDENTIFIER_NONE;
+        }
         mGame.screen.cameraX = -mGame.screen.width() * 0.5f;
         mGame.screen.cameraY = -mGame.screen.height() * 0.5f;
     }

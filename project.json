@@ -260,6 +260,19 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\VideoConstants.java": {
 			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.1.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.2.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\palettes": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\palettes\\ModifiedNAJI16.pal": {
+			"sdcard": false
 		}
 	}
 }

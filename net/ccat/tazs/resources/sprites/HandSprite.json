@@ -12,7 +12,7 @@
   "app": "http://www.aseprite.org/",
   "version": "1.2.15-x64",
   "image": "HandSprite.png",
-  "format": "RGBA8888",
+  "format": "I8",
   "size": { "w": 3, "h": 3 },
   "scale": "1",
   "frameTags": [

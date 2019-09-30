@@ -22,9 +22,9 @@ class UnitsSystem
         mYs = new float[UNITS_MAX];
         mAngles = new float[UNITS_MAX];
         mTimers = new short[UNITS_MAX];
+        mHandlers = new UnitHandler[UNITS_MAX];
         mBrawlerBodySprite = new BrawlerBodySprite();
         mHandSprite = new HandSprite();
-        mUnit = new Unit();
     }
     
     
@@ -59,34 +59,6 @@ class UnitsSystem
         return unitIdentifier;
     }
     
-    /**
-     * Reads a whole unit.
-     * 
-     * @param unitIdentifier Identifies which unit to read.
-     * @param targetUnit Where to write the unit's properties.
-     */
-    public void readUnit(int unitIdentifier, Unit targetUnit)
-    {
-        targetUnit.x = mXs[unitIdentifier];
-        targetUnit.y = mYs[unitIdentifier];
-        targetUnit.angle = mAngles[unitIdentifier];
-        targetUnit.timer = mTimers[unitIdentifier];
-    }
-    
-    /**
-     * Overwrites a whole unit.
-     * 
-     * @param unitIdentifier Identifies which unit to write.
-     * @param sourceUnit From where to read unit's properties.
-     */
-    public void writeUnit(int unitIdentifier, Unit sourceUnit)
-    {
-        mXs[unitIdentifier] = sourceUnit.x;
-        mYs[unitIdentifier] = sourceUnit.y;
-        mAngles[unitIdentifier] = sourceUnit.angle;
-        mTimers[unitIdentifier] = sourceUnit.timer;
-    }
-    
     
     /***** LIFECYCLE *****/
     
@@ -97,19 +69,26 @@ class UnitsSystem
     {
         for (int unitIdentifier = 0; unitIdentifier < mCounts; unitIdentifier++)
         {
-            readUnit(unitIdentifier, mUnit);
-
+            int unitTimer = mTimers[unitIdentifier];
+            float unitX = mXs[unitIdentifier];
+            float unitY = mYs[unitIdentifier];
+            float unitAngle = mAngles[unitIdentifier];
+            
             // Random walk
-            mUnit.timer--;
-            if (mUnit.timer <= 0)
+            unitTimer--;
+            if (unitTimer <= 0)
             {
-                mUnit.timer = 128;
-                mUnit.angle = MathTools.wrapAngle(mUnit.angle + Math.random() - 0.5f);
+                unitTimer = 128;
+                unitAngle = MathTools.wrapAngle(unitAngle + Math.random() - 0.5f);
             }
-            mUnit.x += Math.cos(mUnit.angle) * 0.125f;
-            mUnit.y += -Math.sin(mUnit.angle) * 0.125f;
+            unitX += Math.cos(unitAngle) * 0.125f;
+            unitY += -Math.sin(unitAngle) * 0.125f;
 
-            writeUnit(unitIdentifier, mUnit);
+            // Updating the changed state.
+            mTimers[unitIdentifier] = unitTimer;
+            mXs[unitIdentifier] = unitX;
+            mYs[unitIdentifier] = unitY;
+            mAngles[unitIdentifier] = unitAngle;
         }
     }
     
@@ -124,20 +103,21 @@ class UnitsSystem
     {
         for (int unitIdentifier = 0; unitIdentifier < mCounts; unitIdentifier++)
         {
-            readUnit(unitIdentifier, mUnit);
-            
+            float unitX = mXs[unitIdentifier];
+            float unitY = mYs[unitIdentifier];
+            float unitAngle = mAngles[unitIdentifier];
             float handDistance = 3;
             
-            mHandSprite.setPosition(mUnit.x + handDistance * Math.cos(mUnit.angle) - VideoConstants.HAND_SPRITE_ORIGIN_X,
-                                    mUnit.y - handDistance * Math.sin(mUnit.angle) - VideoConstants.HAND_SPRITE_ORIGIN_Y - VideoConstants.BRAWLER_BODY_SPRITE_WEAPON_ORIGIN_Y);
+            mHandSprite.setPosition(unitX + handDistance * Math.cos(unitAngle) - VideoConstants.HAND_SPRITE_ORIGIN_X,
+                                    unitY - handDistance * Math.sin(unitAngle) - VideoConstants.HAND_SPRITE_ORIGIN_Y - VideoConstants.BRAWLER_BODY_SPRITE_WEAPON_ORIGIN_Y);
             // Is the hand above?
-            if (mUnit.angle < Math.PI)
+            if (unitAngle < Math.PI)
                 mHandSprite.draw(screen);
-            mBrawlerBodySprite.setPosition(mUnit.x - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_X, mUnit.y - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_Y);
-            mBrawlerBodySprite.setMirrored(mUnit.angle > MathTools.PI_1_2 && mUnit.angle < MathTools.PI_3_2);
+            mBrawlerBodySprite.setPosition(unitX - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_X, unitY - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_Y);
+            mBrawlerBodySprite.setMirrored(unitAngle > MathTools.PI_1_2 && unitAngle < MathTools.PI_3_2);
             mBrawlerBodySprite.draw(screen);
             // Is the hand below?
-            if (mUnit.angle > Math.PI)
+            if (unitAngle > Math.PI)
                 mHandSprite.draw(screen);
         }
     }
@@ -149,10 +129,9 @@ class UnitsSystem
     private float[] mYs;
     private float[] mAngles;
     private short[] mTimers;
+    private UnitHandler[] mHandlers;
     private int mCounts = 0;
     
     private BrawlerBodySprite mBrawlerBodySprite;
     private HandSprite mHandSprite;
-    // For easing updates for a unit.
-    private Unit mUnit;
 }

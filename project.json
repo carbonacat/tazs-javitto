@@ -273,6 +273,9 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\palettes\\ModifiedNAJI16.pal": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\UnitHandler.java": {
+			"sdcard": false
 		}
 	}
 }

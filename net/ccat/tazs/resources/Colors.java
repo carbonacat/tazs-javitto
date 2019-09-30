@@ -13,4 +13,9 @@ class Colors
     static final int TITLE_COMMAND_COLOR = 15;
     
     static final int SCENE_BG_COLOR = 10;
+    
+    static final int UNITS_ALLIES_PRIMARY_COLOR = 8;
+    static final int UNITS_ALLIES_SECONDARY_COLOR = 3;
+    static final int UNITS_ENEMIES_PRIMARY_COLOR = 10;
+    static final int UNITS_ENEMIES_SECONDARY_COLOR = 5;
 }

@@ -2,6 +2,7 @@ package net.ccat.tazs.battle.handlers;
 
 import femto.mode.HiRes16Color;
 
+import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 
@@ -9,7 +10,15 @@ import net.ccat.tazs.tools.MathTools;
 public class BrawlerIdleHandler
     implements UnitHandler
 {
-    static final BrawlerIdleHandler instance = new BrawlerIdleHandler();
+    static final BrawlerIdleHandler alliedInstance = new BrawlerIdleHandler(true);
+    static final BrawlerIdleHandler ennemyInstance = new BrawlerIdleHandler(false);
+    
+    
+    
+    public BrawlerIdleHandler(boolean isAllied)
+    {
+        mIsAllied = isAllied;
+    }
     
     
     /***** LIFECYCLE *****/
@@ -56,8 +65,27 @@ public class BrawlerIdleHandler
         system.brawlerBodySprite.setPosition(unitX - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_X, unitY - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_Y);
         system.brawlerBodySprite.setMirrored(unitAngle > MathTools.PI_1_2 && unitAngle < MathTools.PI_3_2);
         system.brawlerBodySprite.draw(screen);
+        
+        int unitPixelX = (int)(unitX - VideoConstants.BRAWLER_BODY_SPRITE_SHIRT_X - screen.cameraX) + (system.brawlerBodySprite.isMirrored() ? 1 : 0);
+        int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SPRITE_SHIRT_Y - screen.cameraY);
+        int primaryColor = mIsAllied ? Colors.UNITS_ALLIES_PRIMARY_COLOR : Colors.UNITS_ENEMIES_PRIMARY_COLOR;
+        int secondaryColor = mIsAllied ? Colors.UNITS_ALLIES_SECONDARY_COLOR : Colors.UNITS_ENEMIES_SECONDARY_COLOR;
+        
+        screen.setPixel(unitPixelX, unitPixelY, primaryColor);
+        screen.setPixel(unitPixelX + 1, unitPixelY, secondaryColor);
+        unitPixelY++;
+        screen.setPixel(unitPixelX, unitPixelY, secondaryColor);
+        screen.setPixel(unitPixelX + 1, unitPixelY, primaryColor);
+        unitPixelY++;
+        screen.setPixel(unitPixelX, unitPixelY, primaryColor);
+        screen.setPixel(unitPixelX + 1, unitPixelY, secondaryColor);
+        
+        
         // Is the hand below?
         if (unitAngle > Math.PI)
             system.handSprite.draw(screen);
     }
+    
+    
+    private boolean mIsAllied;
 }

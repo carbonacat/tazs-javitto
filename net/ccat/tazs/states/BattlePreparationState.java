@@ -33,7 +33,10 @@ class BattlePreparationState
         {
             canAddUnit = mGame.unitsSystem.addUnit((Math.random() - 0.5f) * 100, (Math.random() - 0.5f) * 80,
                                                    Math.random() * tools.MathTools.PI_2_1,
-                                                   BrawlerIdleHandler.instance) != battle.UnitsSystem.IDENTIFIER_NONE;
+                                                   BrawlerIdleHandler.alliedInstance) != battle.UnitsSystem.IDENTIFIER_NONE;
+            canAddUnit = mGame.unitsSystem.addUnit((Math.random() - 0.5f) * 100, (Math.random() - 0.5f) * 80,
+                                                   Math.random() * tools.MathTools.PI_2_1,
+                                                   BrawlerIdleHandler.ennemyInstance) != battle.UnitsSystem.IDENTIFIER_NONE;
         }
         mGame.screen.cameraX = -mGame.screen.width() * 0.5f;
         mGame.screen.cameraY = -mGame.screen.height() * 0.5f;

@@ -4,7 +4,7 @@ import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.sprites.BrawlerBodySprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
-import net.ccat.tazs.resources.VideoConstants;
+
 import net.ccat.tazs.tools.MathTools;
 
 
@@ -16,19 +16,29 @@ class UnitsSystem
     public static final int UNITS_MAX = 128;
     public static final int IDENTIFIER_NONE = -1;
     
-    public UnitsSystem()
-    {
-        mXs = new float[UNITS_MAX];
-        mYs = new float[UNITS_MAX];
-        mAngles = new float[UNITS_MAX];
-        mTimers = new short[UNITS_MAX];
-        mHandlers = new UnitHandler[UNITS_MAX];
-        mBrawlerBodySprite = new BrawlerBodySprite();
-        mHandSprite = new HandSprite();
-    }
-    
     
     /***** UNITS *****/
+    
+    /**
+     * X coordinates for all Units.
+     */
+    public float[] unitsXs = new float[UNITS_MAX];
+    /**
+     * Y coordinates for all Units.
+     */
+    public float[] unitsYs = new float[UNITS_MAX];
+    /**
+     * Angles for all Units.
+     */
+    public float[] unitsAngles = new float[UNITS_MAX];
+    /**
+     * Timers for all Units.
+     */
+    public short[] unitsTimers = new short[UNITS_MAX];
+    /**
+     * Handlers for all Units.
+     */
+    public UnitHandler[] unitsHandlers = new UnitHandler[UNITS_MAX];
     
     /**
      * Clears any stored Units.
@@ -39,13 +49,14 @@ class UnitsSystem
     }
     
     /**
-     * Adds a Unit inside the system, at [x, y] and looking at [angle].
+     * Adds a Unit inside the system.
      * @param x The x coordinate.
      * @param y The y coordinate.
      * @param angle Where the units is looking at, in Radiants.
+     * @param handler The Handler for this unit.
      * @return the unit's identifier, or IDENTIFIER_NONE if a Unit couldn't be created.
      */
-    public int addUnit(float x, float y, float angle)
+    public int addUnit(float x, float y, float angle, UnitHandler handler)
     {
         if (mCounts >= UNITS_MAX)
             return IDENTIFIER_NONE;
@@ -53,9 +64,10 @@ class UnitsSystem
         int unitIdentifier = mCounts;
         
         mCounts++;
-        mXs[unitIdentifier] = x;
-        mYs[unitIdentifier] = y;
-        mAngles[unitIdentifier] = MathTools.wrapAngle(angle);
+        unitsXs[unitIdentifier] = x;
+        unitsYs[unitIdentifier] = y;
+        unitsAngles[unitIdentifier] = MathTools.wrapAngle(angle);
+        unitsHandlers[unitIdentifier] = handler;
         return unitIdentifier;
     }
     
@@ -68,32 +80,14 @@ class UnitsSystem
     public void onTick()
     {
         for (int unitIdentifier = 0; unitIdentifier < mCounts; unitIdentifier++)
-        {
-            int unitTimer = mTimers[unitIdentifier];
-            float unitX = mXs[unitIdentifier];
-            float unitY = mYs[unitIdentifier];
-            float unitAngle = mAngles[unitIdentifier];
-            
-            // Random walk
-            unitTimer--;
-            if (unitTimer <= 0)
-            {
-                unitTimer = 128;
-                unitAngle = MathTools.wrapAngle(unitAngle + Math.random() - 0.5f);
-            }
-            unitX += Math.cos(unitAngle) * 0.125f;
-            unitY += -Math.sin(unitAngle) * 0.125f;
-
-            // Updating the changed state.
-            mTimers[unitIdentifier] = unitTimer;
-            mXs[unitIdentifier] = unitX;
-            mYs[unitIdentifier] = unitY;
-            mAngles[unitIdentifier] = unitAngle;
-        }
+            unitsHandlers[unitIdentifier].onTick(this, unitIdentifier);
     }
     
     
     /***** RENDERING *****/
+    
+    public final BrawlerBodySprite brawlerBodySprite = new BrawlerBodySprite();
+    public final HandSprite handSprite = new HandSprite();
     
     /**
      * Renders all the Units.
@@ -102,36 +96,11 @@ class UnitsSystem
     public void draw(HiRes16Color screen)
     {
         for (int unitIdentifier = 0; unitIdentifier < mCounts; unitIdentifier++)
-        {
-            float unitX = mXs[unitIdentifier];
-            float unitY = mYs[unitIdentifier];
-            float unitAngle = mAngles[unitIdentifier];
-            float handDistance = 3;
-            
-            mHandSprite.setPosition(unitX + handDistance * Math.cos(unitAngle) - VideoConstants.HAND_SPRITE_ORIGIN_X,
-                                    unitY - handDistance * Math.sin(unitAngle) - VideoConstants.HAND_SPRITE_ORIGIN_Y - VideoConstants.BRAWLER_BODY_SPRITE_WEAPON_ORIGIN_Y);
-            // Is the hand above?
-            if (unitAngle < Math.PI)
-                mHandSprite.draw(screen);
-            mBrawlerBodySprite.setPosition(unitX - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_X, unitY - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_Y);
-            mBrawlerBodySprite.setMirrored(unitAngle > MathTools.PI_1_2 && unitAngle < MathTools.PI_3_2);
-            mBrawlerBodySprite.draw(screen);
-            // Is the hand below?
-            if (unitAngle > Math.PI)
-                mHandSprite.draw(screen);
-        }
+            unitsHandlers[unitIdentifier].draw(this, unitIdentifier, screen);
     }
     
     
     /***** PRIVATE *****/
     
-    private float[] mXs;
-    private float[] mYs;
-    private float[] mAngles;
-    private short[] mTimers;
-    private UnitHandler[] mHandlers;
     private int mCounts = 0;
-    
-    private BrawlerBodySprite mBrawlerBodySprite;
-    private HandSprite mHandSprite;
 }

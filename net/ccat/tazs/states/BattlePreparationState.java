@@ -3,7 +3,9 @@ package net.ccat.tazs.states;
 import femto.mode.HiRes16Color;
 import femto.State;
 
+import net.ccat.tazs.battle.handlers.BrawlerIdleHandler;
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.tools.MathTools;
 
 
 /**
@@ -29,7 +31,9 @@ class BattlePreparationState
         
         while (canAddUnit)
         {
-            canAddUnit = mGame.unitsSystem.addUnit((Math.random() - 0.5f) * 100, (Math.random() - 0.5f) * 80, Math.random() * tools.MathTools.PI_2_1) != battle.UnitsSystem.IDENTIFIER_NONE;
+            canAddUnit = mGame.unitsSystem.addUnit((Math.random() - 0.5f) * 100, (Math.random() - 0.5f) * 80,
+                                                   Math.random() * tools.MathTools.PI_2_1,
+                                                   BrawlerIdleHandler.instance) != battle.UnitsSystem.IDENTIFIER_NONE;
         }
         mGame.screen.cameraX = -mGame.screen.width() * 0.5f;
         mGame.screen.cameraY = -mGame.screen.height() * 0.5f;

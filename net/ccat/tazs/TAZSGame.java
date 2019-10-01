@@ -28,10 +28,10 @@ class TAZSGame
     
     /***** GAME *****/
     
-    public float sceneXMin = -110;
-    public float sceneYMin = -88;
-    public float sceneXMax = 109;
-    public float sceneYMax = 87;
+    public float sceneXMin = -100;
+    public float sceneYMin = -70;
+    public float sceneXMax = 100;
+    public float sceneYMax = 70;
     public UnitsSystem unitsSystem;
     
     

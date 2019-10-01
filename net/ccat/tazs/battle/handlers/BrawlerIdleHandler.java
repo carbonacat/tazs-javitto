@@ -21,6 +21,14 @@ public class BrawlerIdleHandler
     }
     
     
+    /***** INFORMATION *****/
+    
+    public boolean isAllied()
+    {
+        return mIsAllied;
+    }
+    
+    
     /***** LIFECYCLE *****/
     
     public void onTick(UnitsSystem system, int unitIdentifier) 

@@ -13,7 +13,7 @@ import net.ccat.tazs.tools.MathTools;
  */
 class UnitsSystem
 {
-    public static final int UNITS_MAX = 128;
+    public static final int UNITS_MAX = 16;
     public static final int IDENTIFIER_NONE = -1;
     
     
@@ -45,25 +45,25 @@ class UnitsSystem
      */
     public void clear()
     {
-        mCounts = 0;
+        mCount = 0;
     }
     
     /**
      * Adds a Unit inside the system.
-     * @param x The x coordinate.
-     * @param y The y coordinate.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
      * @param angle Where the units is looking at, in Radiants.
      * @param handler The Handler for this unit.
      * @return the unit's identifier, or IDENTIFIER_NONE if a Unit couldn't be created.
      */
     public int addUnit(float x, float y, float angle, UnitHandler handler)
     {
-        if (mCounts >= UNITS_MAX)
+        if (mCount >= UNITS_MAX)
             return IDENTIFIER_NONE;
 
-        int unitIdentifier = mCounts;
+        int unitIdentifier = mCount;
         
-        mCounts++;
+        mCount++;
         unitsXs[unitIdentifier] = x;
         unitsYs[unitIdentifier] = y;
         unitsAngles[unitIdentifier] = MathTools.wrapAngle(angle);
@@ -76,7 +76,22 @@ class UnitsSystem
      */
     public int freeUnits()
     {
-        return UNITS_MAX - mCounts;
+        return UNITS_MAX - mCount;
+    }
+    
+    /**
+     * Finds a Unit at the given coordinates.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @return the found Unit's identifier, or IDENTIFIER_NONE if none found.
+     */
+    public int findUnit(float x, float y)
+    {
+        // TODO: Implement this properly.
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
+            if (unitsHandlers[unitIdentifier].isAllied())
+                return unitIdentifier;
+        return IDENTIFIER_NONE;
     }
     
     
@@ -87,7 +102,7 @@ class UnitsSystem
      */
     public void onTick()
     {
-        for (int unitIdentifier = 0; unitIdentifier < mCounts; unitIdentifier++)
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
             unitsHandlers[unitIdentifier].onTick(this, unitIdentifier);
     }
     
@@ -103,12 +118,12 @@ class UnitsSystem
      */
     public void draw(HiRes16Color screen)
     {
-        for (int unitIdentifier = 0; unitIdentifier < mCounts; unitIdentifier++)
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
             unitsHandlers[unitIdentifier].draw(this, unitIdentifier, screen);
     }
     
     
     /***** PRIVATE *****/
     
-    private int mCounts = 0;
+    private int mCount = 0;
 }

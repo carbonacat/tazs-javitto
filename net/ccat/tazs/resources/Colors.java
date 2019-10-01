@@ -18,4 +18,8 @@ class Colors
     static final int UNITS_ALLIES_SECONDARY_COLOR = 3;
     static final int UNITS_ENEMIES_PRIMARY_COLOR = 10;
     static final int UNITS_ENEMIES_SECONDARY_COLOR = 5;
+    
+    static final int PREPARATION_HELP_BG = 1;
+    static final int PREPARATION_HELP_ACTIVE = 15;
+    static final int PREPARATION_HELP_INACTIVE = 5;
 }

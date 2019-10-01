@@ -47,7 +47,9 @@ class TitleState
         
         screen.setTextPosition(0 , COMMAND_HEIGHT);
         screen.setTextColor(Colors.TITLE_COMMAND_COLOR);
-        screen.print(Texts.TITLE_COMMAND_QUICK);
+        screen.print(Texts.BUTTON_A);
+        screen.print(Texts.MISC_SEPARATOR);
+        screen.print(Texts.TITLE_COMMANDS_QUICK_BATTLE);
         
         screen.flush();
     }

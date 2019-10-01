@@ -87,7 +87,13 @@ class BattlePreparationState
         if ((hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsHandlers[hoveredUnitIdentifier].isAllied()))
         {
             newMode = MODE_REMOVE;
-            mHoveredUnit = hoveredUnitIdentifier;
+            if (Button.B.justPressed())
+            {
+                mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
+                mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
+            }
+            else
+                mHoveredUnitIdentifier = hoveredUnitIdentifier;
         }
         else if (mCursorX < 0)
         {
@@ -138,18 +144,14 @@ class BattlePreparationState
         
         if (mMode == MODE_REMOVE)
         {
-            if (mHoveredUnit != UnitsSystem.IDENTIFIER_NONE)
-                screen.setTextColor(Colors.PREPARATION_HELP_ACTIVE);
-            else
-                screen.setTextColor(Colors.PREPARATION_HELP_INACTIVE);
+            boolean hasHoveredUnit = (mHoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE);
+            
+            screen.setTextColor(hasHoveredUnit ? Colors.PREPARATION_HELP_ACTIVE : Colors.PREPARATION_HELP_INACTIVE);
             screen.print(Texts.BUTTON_B);
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.HELP_COMMANDS_REMOVE_UNIT_X);
-            // TODO: Use the selected type's name.
-            if (mHoveredUnit != UnitsSystem.IDENTIFIER_NONE)
-                screen.print(Texts.UNITS_BRAWLER_NAME);
-            else
-                screen.print(Texts.UNITS_UNKNOWN_NAME);
+            // TODO: Use the actual Unit's type's name.
+            screen.print(hasHoveredUnit ? Texts.UNITS_BRAWLER_NAME : Texts.UNITS_UNKNOWN_NAME);
         }
         else if ((mMode == MODE_PLACE) || (mMode == MODE_NO_MORE_UNITS))
         {
@@ -178,7 +180,7 @@ class BattlePreparationState
     private float mCursorX;
     private float mCursorY;
     private int mMode = MODE_INVALID;
-    private int mHoveredUnit = UnitsSystem.IDENTIFIER_NONE;
+    private int mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
     
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
     

@@ -67,8 +67,36 @@ class UnitsSystem
         unitsXs[unitIdentifier] = x;
         unitsYs[unitIdentifier] = y;
         unitsAngles[unitIdentifier] = MathTools.wrapAngle(angle);
+        unitsTimers[unitIdentifier] = 0;
         unitsHandlers[unitIdentifier] = handler;
         return unitIdentifier;
+    }
+    
+    /**
+     * Removes a Unit from this System.
+     * @param unitIdentifier the Unit's identifier.
+     * @return true if removed, false elsewhere.
+     * 
+     * NOTE: Removing a Unit will change some Unit's identifiers.
+     */
+    public boolean removeUnit(int unitIdentifier)
+    {
+        if ((unitIdentifier < 0) || (unitIdentifier >= mCount))
+            return false;
+        mCount--;
+        
+        int lastUnitIdentifier = mCount;
+        
+        // Swaps this Unit with the last one, if there is one.
+        if ((unitIdentifier != lastUnitIdentifier) && (lastUnitIdentifier >= 0))
+        {
+            unitsXs[unitIdentifier] = unitsXs[lastUnitIdentifier];
+            unitsYs[unitIdentifier] = unitsYs[lastUnitIdentifier];
+            unitsAngles[unitIdentifier] = unitsAngles[lastUnitIdentifier];
+            unitsTimers[unitIdentifier] = unitsTimers[lastUnitIdentifier];
+            unitsHandlers[unitIdentifier] = unitsHandlers[lastUnitIdentifier];
+        }
+        return true;
     }
     
     /**

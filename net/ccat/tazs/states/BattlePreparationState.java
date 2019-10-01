@@ -139,7 +139,7 @@ class BattlePreparationState
         
         mGame.cursorSprite.draw(screen, mCursorX - VideoConstants.CURSOR_ORIGIN_X, mCursorY - VideoConstants.CURSOR_ORIGIN_Y);
         
-        screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), HELP_BOX_MIN_Y - mGame.screen.height(), Colors.PREPARATION_HELP_BG);
+        screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.PREPARATION_HELP_BG);
         screen.setTextPosition(HELP_X, HELP_Y);
         
         if (mMode == MODE_REMOVE)
@@ -190,7 +190,7 @@ class BattlePreparationState
     private static final int MODE_NO_MORE_UNITS = 3;
     private static final int MODE_REMOVE = 4;
     
-    private static final int HELP_BOX_MIN_Y = 176 - 2 - 8 - 2;
+    private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
     private static final int HELP_X = 2;
     private static final int HELP_Y = HELP_BOX_MIN_Y + 2;
 }

@@ -24,4 +24,11 @@ public class MathTools
             angle += PI_2_1;
         return angle;
     }
+    
+    public static float abs(float value)
+    {
+        if (value < 0)
+            return -value;
+        return value;
+    }
 }

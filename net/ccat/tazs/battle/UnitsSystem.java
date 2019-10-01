@@ -115,10 +115,14 @@ class UnitsSystem
      */
     public int findUnit(float x, float y)
     {
-        // TODO: Implement this properly.
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
-            if (unitsHandlers[unitIdentifier].isAllied())
+        {
+            float relativeX = x - unitsXs[unitIdentifier];
+            float relativeY = y - unitsYs[unitIdentifier];
+            
+            if ((tools.MathTools.abs(relativeX) <= FIND_DISTANCE_MAX) && (tools.MathTools.abs(relativeY) < FIND_DISTANCE_MAX))
                 return unitIdentifier;
+        }
         return IDENTIFIER_NONE;
     }
     
@@ -154,4 +158,6 @@ class UnitsSystem
     /***** PRIVATE *****/
     
     private int mCount = 0;
+    
+    private static final float FIND_DISTANCE_MAX = 4.f;
 }

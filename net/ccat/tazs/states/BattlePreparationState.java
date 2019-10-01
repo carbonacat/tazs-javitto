@@ -29,17 +29,11 @@ class BattlePreparationState
     {
         mGame.unitsSystem.clear();
         
-        boolean canAddUnit = true;
-        
-        while (canAddUnit)
-        {
-            canAddUnit = mGame.unitsSystem.addUnit((Math.random() - 1.f) * 100, (Math.random() - 0.5f) * 80,
-                                                   0,
-                                                   BrawlerIdleHandler.alliedInstance) != battle.UnitsSystem.IDENTIFIER_NONE;
-            canAddUnit = mGame.unitsSystem.addUnit((Math.random() - 0.0f) * 100, (Math.random() - 0.5f) * 80,
-                                                   Math.PI,
-                                                   BrawlerIdleHandler.ennemyInstance) != battle.UnitsSystem.IDENTIFIER_NONE;
-        }
+        // TODO: Eventually will be setup with a proper battle plan.
+        for (int i = 0; i < 10; i++)
+            mGame.unitsSystem.addUnit((Math.random() - 0.0f) * 100, (Math.random() - 0.5f) * 80,
+                                      Math.PI,
+                                      BrawlerIdleHandler.ennemyInstance) != battle.UnitsSystem.IDENTIFIER_NONE;
         mGame.screen.cameraX = mGame.sceneXMin;
         mGame.screen.cameraY = mGame.sceneYMin;
         mCursorX = 0;

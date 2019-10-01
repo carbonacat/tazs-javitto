@@ -13,7 +13,7 @@ import net.ccat.tazs.tools.MathTools;
  */
 class UnitsSystem
 {
-    public static final int UNITS_MAX = 128;
+    public static final int UNITS_MAX = 256;
     public static final int IDENTIFIER_NONE = -1;
     
     

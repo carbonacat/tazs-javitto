@@ -87,7 +87,7 @@ class BattlePreparationState
         if ((hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsHandlers[hoveredUnitIdentifier].isAllied()))
         {
             newMode = MODE_REMOVE;
-            if (Button.B.justPressed())
+            if (Button.B.isPressed())
             {
                 mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
                 mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
@@ -97,7 +97,7 @@ class BattlePreparationState
         }
         else if (mCursorX < 0)
         {
-            if (Button.A.justPressed())
+            if (Button.A.isPressed())
             {
                 mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0, BrawlerIdleHandler.alliedInstance);
                 // Resets the animation.

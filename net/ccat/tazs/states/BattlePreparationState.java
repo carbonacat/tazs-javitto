@@ -7,6 +7,7 @@ import femto.State;
 import net.ccat.tazs.battle.handlers.BrawlerIdleHandler;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.CursorSprite;
+import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 
 
@@ -39,9 +40,10 @@ class BattlePreparationState
                                                    Math.PI,
                                                    BrawlerIdleHandler.ennemyInstance) != battle.UnitsSystem.IDENTIFIER_NONE;
         }
-        mGame.screen.cameraX = -mGame.screen.width() * 0.5f;
-        mGame.screen.cameraY = -mGame.screen.height() * 0.5f;
-        mGame.cursorSprite.setPosition(0, 0);
+        mGame.screen.cameraX = mGame.sceneXMin;
+        mGame.screen.cameraY = mGame.sceneYMin;
+        mCursorX = 0;
+        mCursorY = 0;
         mGame.cursorSprite.playInvalid();
     }
     
@@ -68,22 +70,21 @@ class BattlePreparationState
     
     private void updateCursor()
     {
-        float cursorX = mGame.cursorSprite.x;
-        float cursorY = mGame.cursorSprite.y;
-
         if (Button.Up.isPressed())
-            cursorY -= CURSOR_PIXELS_PER_TICK;
+            mCursorY = Math.max(mCursorY - CURSOR_PIXELS_PER_TICK, mGame.sceneYMin);
         if (Button.Down.isPressed())
-            cursorY += CURSOR_PIXELS_PER_TICK;
+            mCursorY = Math.min(mCursorY + CURSOR_PIXELS_PER_TICK, mGame.sceneYMax);
         if (Button.Left.isPressed())
-            cursorX -= CURSOR_PIXELS_PER_TICK;
+            mCursorX = Math.max(mCursorX - CURSOR_PIXELS_PER_TICK, mGame.sceneXMin);
         if (Button.Right.isPressed())
-            cursorX += CURSOR_PIXELS_PER_TICK;
-        mGame.cursorSprite.x = cursorX;
-        mGame.cursorSprite.y = cursorY;
+            mCursorX = Math.min(mCursorX + CURSOR_PIXELS_PER_TICK, mGame.sceneXMax);
+        mGame.cursorSprite.setPosition(mCursorX - VideoConstants.CURSOR_ORIGIN_X, mCursorY - VideoConstants.CURSOR_ORIGIN_Y);
     }
     
     private TAZSGame mGame;
+    
+    private float mCursorX;
+    private float mCursorY;
     
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
 }

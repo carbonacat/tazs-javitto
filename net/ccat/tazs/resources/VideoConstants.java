@@ -14,4 +14,7 @@ class VideoConstants
     
     public static final float HAND_SPRITE_ORIGIN_X = 1;
     public static final float HAND_SPRITE_ORIGIN_Y = 1;
+    
+    public static final float CURSOR_ORIGIN_X = 3;
+    public static final float CURSOR_ORIGIN_Y = 3;
 }

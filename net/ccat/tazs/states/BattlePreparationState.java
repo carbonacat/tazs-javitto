@@ -78,6 +78,32 @@ class BattlePreparationState
             mCursorX = Math.max(mCursorX - CURSOR_PIXELS_PER_TICK, mGame.sceneXMin);
         if (Button.Right.isPressed())
             mCursorX = Math.min(mCursorX + CURSOR_PIXELS_PER_TICK, mGame.sceneXMax);
+            
+        int newCursorMode;
+            
+        if (mCursorX < 0)
+            newCursorMode = CURSOR_MODE_PLACEABLE;
+        else
+            newCursorMode = CURSOR_MODE_INVALID;
+        if (newCursorMode != mCursorMode)
+        {
+            mCursorMode = newCursorMode;
+            switch (mCursorMode)
+            {
+            case CURSOR_MODE_INVALID:
+                mGame.cursorSprite.playInvalid();
+                break;
+            case CURSOR_MODE_PLACEABLE:
+                mGame.cursorSprite.playPlace();
+                break;
+            case CURSOR_MODE_REMOVEABLE:
+                mGame.cursorSprite.playDelete();
+                break;
+            case CURSOR_MODE_TARGET:
+                mGame.cursorSprite.playTarget();
+                break;
+            }
+        }
         mGame.cursorSprite.setPosition(mCursorX - VideoConstants.CURSOR_ORIGIN_X, mCursorY - VideoConstants.CURSOR_ORIGIN_Y);
     }
     
@@ -85,6 +111,11 @@ class BattlePreparationState
     
     private float mCursorX;
     private float mCursorY;
+    private int mCursorMode = CURSOR_MODE_INVALID;
     
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
+    private static final int CURSOR_MODE_INVALID = 0;
+    private static final int CURSOR_MODE_PLACEABLE = 1;
+    private static final int CURSOR_MODE_REMOVEABLE = 2;
+    private static final int CURSOR_MODE_TARGET = 3;
 }

@@ -114,6 +114,9 @@ class BattlePreparationState
             case MODE_PLACE:
                 mGame.cursorSprite.playPlace();
                 break;
+            case MODE_REMOVE:
+                mGame.cursorSprite.playDelete();
+                break;
             case MODE_INVALID:
             case MODE_ENEMY_TERRITORY:
             case MODE_NO_MORE_UNITS:

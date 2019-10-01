@@ -13,7 +13,7 @@ import net.ccat.tazs.tools.MathTools;
  */
 class UnitsSystem
 {
-    public static final int UNITS_MAX = 16;
+    public static final int UNITS_MAX = 128;
     public static final int IDENTIFIER_NONE = -1;
     
     
@@ -159,5 +159,5 @@ class UnitsSystem
     
     private int mCount = 0;
     
-    private static final float FIND_DISTANCE_MAX = 4.f;
+    private static final float FIND_DISTANCE_MAX = 5.f;
 }

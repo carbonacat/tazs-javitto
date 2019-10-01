@@ -5,6 +5,7 @@ import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
+import net.ccat.tazs.resources.sprites.CursorSprite;
 
 
 /**
@@ -16,6 +17,7 @@ class TAZSGame
     {
         screen = new HiRes16Color(ModifiedNAJI16.palette(), TIC80.font());
         unitsSystem = new UnitsSystem();
+        cursorSprite = new CursorSprite();
     }
     
     
@@ -27,4 +29,9 @@ class TAZSGame
     /***** GAME *****/
     
     public UnitsSystem unitsSystem;
+    
+    
+    /***** COMMON RESOURCES *****/
+    
+    public CursorSprite cursorSprite;
 }

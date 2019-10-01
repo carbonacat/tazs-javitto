@@ -76,7 +76,14 @@ class BattlePreparationState
         int newCursorMode;
             
         if (mCursorX < 0)
-            newCursorMode = CURSOR_MODE_PLACEABLE;
+        {
+            if (Button.A.justPressed())
+                mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0, BrawlerIdleHandler.alliedInstance);
+            if (mGame.unitsSystem.freeUnits() > 0)
+                newCursorMode = CURSOR_MODE_PLACEABLE;
+            else
+                newCursorMode = CURSOR_MODE_INVALID;
+        }
         else
             newCursorMode = CURSOR_MODE_INVALID;
         if (newCursorMode != mCursorMode)

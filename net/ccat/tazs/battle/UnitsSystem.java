@@ -71,6 +71,14 @@ class UnitsSystem
         return unitIdentifier;
     }
     
+    /**
+     * @return The number of Units that can still be added.
+     */
+    public int freeUnits()
+    {
+        return UNITS_MAX - mCounts;
+    }
+    
     
     /***** LIFECYCLE *****/
     

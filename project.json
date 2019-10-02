@@ -323,6 +323,12 @@
 		},
 		"\\net\\ccat\\tazs\\ui\\PadMenuUI.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui/UITools.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui\\UITools.java": {
+			"sdcard": false
 		}
 	}
 }

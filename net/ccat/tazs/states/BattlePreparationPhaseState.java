@@ -11,6 +11,7 @@ import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.PadMenuUI;
 
 
 /**
@@ -43,6 +44,9 @@ public class BattlePreparationPhaseState
         mGame.cursorSprite.playInvalid();
         mGame.padMenuUI.setPosition(MENU_X, MENU_Y);
         mGame.padMenuUI.setShown(false);
+        mGame.padMenuUI.clearChoices();
+        mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.PREPARATION_MENU_LAUNCH);
+        mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.PREPARATION_MENU_EXIT);
     }
     
     public void update()
@@ -149,7 +153,6 @@ public class BattlePreparationPhaseState
         
         if (mMode == MODE_MENU)
         {
-            mGame.padMenuUI.draw(mGame.screen);
             screen.setTextColor(Colors.PREPARATION_HELP_ACTIVE);
             screen.print(Texts.BUTTON_PAD);
             screen.print(Texts.MISC_SEPARATOR);
@@ -162,7 +165,7 @@ public class BattlePreparationPhaseState
             screen.setTextColor(hasHoveredUnit ? Colors.PREPARATION_HELP_ACTIVE : Colors.PREPARATION_HELP_INACTIVE);
             screen.print(Texts.BUTTON_B);
             screen.print(Texts.MISC_SEPARATOR);
-            screen.print(Texts.HELP_COMMANDS_REMOVE_UNIT_X);
+            screen.print(Texts.PREPARATION_COMMANDS_REMOVE_UNIT_X);
             // TODO: Use the actual Unit's type's name.
             screen.print(hasHoveredUnit ? Texts.UNITS_BRAWLER_NAME : Texts.UNITS_UNKNOWN_NAME);
         }
@@ -171,10 +174,10 @@ public class BattlePreparationPhaseState
             screen.setTextColor((mMode == MODE_PLACE) ? Colors.PREPARATION_HELP_ACTIVE : Colors.PREPARATION_HELP_INACTIVE);
             screen.print(Texts.BUTTON_A);
             screen.print(Texts.MISC_SEPARATOR);
-            screen.print(Texts.HELP_COMMANDS_PLACE_UNIT_X);
+            screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_X);
             // TODO: Use the selected type's name.
             if (mMode == MODE_NO_MORE_UNITS)
-                screen.print(Texts.HELP_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS);
+                screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS);
             else
                 screen.print(Texts.UNITS_BRAWLER_NAME);
         }
@@ -182,10 +185,11 @@ public class BattlePreparationPhaseState
         {
             screen.setTextColor(Colors.PREPARATION_HELP_INACTIVE);
             if (mMode == MODE_ENEMY_TERRITORY)
-                screen.print(Texts.HELP_ENEMY_SIDE);
+                screen.print(Texts.PREPARATION_ENEMY_SIDE);
             else
                 screen.print(Texts.MISC_ERROR);
         }
+        mGame.padMenuUI.draw(mGame.screen);
     }
     
     private TAZSGame mGame;

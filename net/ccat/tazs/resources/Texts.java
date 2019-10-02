@@ -26,10 +26,12 @@ class Texts
 
     /***** PREPARATION *****/
     
-    public static final String HELP_COMMANDS_PLACE_UNIT_X = "Place ";
-    public static final String HELP_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS = "(Too many units)";
-    public static final String HELP_COMMANDS_REMOVE_UNIT_X = "Remove ";
-    public static final String HELP_ENEMY_SIDE = "Enemy Territory";
+    public static final String PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS = "(Too many units)";
+    public static final String PREPARATION_COMMANDS_PLACE_UNIT_X = "Place ";
+    public static final String PREPARATION_COMMANDS_REMOVE_UNIT_X = "Remove ";
+    public static final String PREPARATION_ENEMY_SIDE = "Enemy Territory";
+    public static final String PREPARATION_MENU_LAUNCH = "Battle!";
+    public static final String PREPARATION_MENU_EXIT = "Exit Game";
     
     
     /***** TITLE SCREEN *****/

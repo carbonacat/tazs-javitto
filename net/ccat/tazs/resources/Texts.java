@@ -21,7 +21,7 @@ class Texts
     
     /***** MENU *****/
     
-    public static final String MENU_COMMANDS_HELP = "Select Choice";
+    public static final String MENU_COMMANDS_HELP = "Keep Pressing to Select";
 
 
     /***** PREPARATION *****/

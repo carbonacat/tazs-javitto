@@ -13,6 +13,7 @@ import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.PadMenuUI;
+import net.ccat.tazs.ui.UITools;
 
 
 /**
@@ -159,6 +160,11 @@ public class BattlePreparationPhaseState
         if (mMode != MODE_MENU)
             mGame.cursorSprite.draw(screen, mCursorX - VideoConstants.CURSOR_ORIGIN_X, mCursorY - VideoConstants.CURSOR_ORIGIN_Y);
         
+        if (mGame.padMenuUI.isShown())
+            UITools.fillRectBlended(0, 0, screen.width(), HELP_BOX_MIN_Y - 1,
+                                    Colors.PADMENU_OVERLAY_COLOR, 0,
+                                    UITools.PATTERN_25_75_HEX,
+                                    screen);
         screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.PREPARATION_HELP_BG);
         screen.setTextPosition(HELP_X, HELP_Y);
         

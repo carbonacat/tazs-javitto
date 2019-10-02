@@ -10,6 +10,7 @@ class Colors
     
     static final int PADMENU_BACKGROUND = 5;
     static final int PADMENU_BORDER = 2;
+    static final int PADMENU_OVERLAY_COLOR = 5;
     
     
     /***** PREPARATION *****/

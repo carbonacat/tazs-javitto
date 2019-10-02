@@ -26,6 +26,94 @@ class UITools
     /***** RENDERING *****/
     
     /**
+     * 1000
+     * 0000
+     * 0000
+     * 0000
+     */
+    public static final int PATTERN_1_16 = 0x8000;
+    /**
+     * 1010
+     * 0101
+     * 1010
+     * 0101
+     */
+    public static final int PATTERN_50_50 = 0x5A5A;
+    /**
+     * 0101
+     * 1111
+     * 0101
+     * 1111
+     */
+    public static final int PATTERN_25_75_GRID = 0x5F5F;
+    /**
+     * 0111
+     * 1101
+     * 0111
+     * 1101
+     */
+    public static final int PATTERN_25_75_HEX = 0x7D7D;
+    
+    /**
+     * 1010
+     * 0000
+     * 1010
+     * 0000
+     */
+    public static final int PATTERN_75_25_GRID = 0xA0A0;
+    /**
+     * 1000
+     * 0010
+     * 1000
+     * 0010
+     */
+    public static final int PATTERN_75_25_HEX = 0x8282;
+    
+    /**
+     * Fills the given rect with a 50%-50% blend of the two colors.
+     * Any color that is 0 is going to be transparent instead.
+     * @param x The X coordinate of the top-left point.
+     * @param y The Y coordinate of the top-left point.
+     * @param width The rect's width.
+     * @param height The rect's height.
+     * @param offColor The color for a point that is OFF in the pattern.
+     * @param onColor The color for a point that is ON in the pattern.
+     * @param pattern4x4 The pattern for the blending. The 16 lowest bits are used as a 4x4 grid to determine which color to use.
+     * @param screen Where to fill the rect.
+     */
+    public static void fillRectBlended(int x, int y,
+                                       int width, int height,
+                                       int offColor, int onColor,
+                                       int pattern4x4,
+                                       HiRes16Color screen)
+    {
+        int xEnd = x + width;
+        int yEnd = y + height;
+        
+        // TODO: This is optimizable.
+        if (offColor != 0)
+            for (int pY = y; pY < yEnd; pY++)
+                for (int pX = x; pX < xEnd; pX++)
+                {
+                    int bitIndex = (pX & 0x3) + ((pY & 0x3) << 2);
+                    int bitMask = 1 << bitIndex;
+                    
+                    if ((pattern4x4 & bitMask) == 0)
+                        screen.setPixel(pX, pY, onColor);
+                }
+        if (onColor != 0)
+            for (int pY = y; pY < yEnd; pY++)
+                for (int pX = x; pX < xEnd; pX++)
+                {
+                    int bitIndex = (pX & 0x3) + ((pY & 0x3) << 2);
+                    int bitMask = 1 << bitIndex;
+                    
+                    if ((pattern4x4 & bitMask) == bitMask)
+                        screen.setPixel(pX, pY, offColor);
+                }
+    }
+    
+    /**
      * Draws a label for a text.
      * @param title The label's title.
      * @param borderColor The color for the border. 0 for transparent.

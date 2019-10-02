@@ -130,6 +130,10 @@ class PadMenuUI
     {
         if (mShown)
         {
+            UITools.fillRectBlended(0, 0, screen.width(), screen.height(),
+                                    Colors.PADMENU_OVERLAY_COLOR, 0,
+                                    UITools.PATTERN_25_75_HEX,
+                                    screen);
             mPadMenuSprite.draw(screen, mX - VideoConstants.PAD_MENU_ORIGIN_X, mY - VideoConstants.PAD_MENU_ORIGIN_X);
             if (mRightTitle != null)
                 drawChoice(CHOICE_RIGHT, mRightTitle, screen);

@@ -16,10 +16,10 @@ import net.ccat.tazs.tools.MathTools;
 /**
  * Handles the Battle Preparation Phase, where the Player sets up their armies.
  */
-class BattlePreparationState
+public class BattlePreparationPhaseState
     extends State
 {
-    public BattlePreparationState(TAZSGame game)
+    public BattlePreparationPhaseState(TAZSGame game)
     {
         mGame = game;
     }
@@ -41,6 +41,7 @@ class BattlePreparationState
         mCursorX = 0;
         mCursorY = 0;
         mGame.cursorSprite.playInvalid();
+        mGame.padMenuSprite.playDefault();
     }
     
     public void update()
@@ -48,7 +49,6 @@ class BattlePreparationState
         HiRes16Color screen = mGame.screen;
         
         updateCursor();
-        mGame.unitsSystem.onTick();
         
         screen.clear(Colors.SCENE_BG_COLOR);
         mGame.unitsSystem.draw(screen);
@@ -66,8 +66,6 @@ class BattlePreparationState
     
     private void updateCursor()
     {
-        HiRes16Color screen = mGame.screen;
-        
         // Moving the Cursor.
         if (Button.Up.isPressed())
             mCursorY = Math.max(mCursorY - CURSOR_PIXELS_PER_TICK, mGame.sceneYMin);
@@ -81,36 +79,40 @@ class BattlePreparationState
         // Updating the mode.
         int newMode = MODE_INVALID;
         
-        // Finding a Unit that is hovered.
-        int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
-        
-        if ((hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsHandlers[hoveredUnitIdentifier].isAllied()))
-        {
-            newMode = MODE_REMOVE;
-            if (Button.B.isPressed())
-            {
-                mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
-                mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
-            }
-            else
-                mHoveredUnitIdentifier = hoveredUnitIdentifier;
-        }
-        else if (mCursorX < 0)
-        {
-            if (Button.A.isPressed())
-            {
-                mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0, BrawlerIdleHandler.alliedInstance);
-                // Resets the animation.
-                mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
-            }
-            if (mGame.unitsSystem.freeUnits() > 0)
-                newMode = MODE_PLACE;
-            else
-                newMode = MODE_NO_MORE_UNITS;
-        }
+        if (Button.C.isPressed())
+            newMode = MODE_MENU;
         else
-            newMode = MODE_ENEMY_TERRITORY;
+        {
+            // Finding a Unit that is hovered.
+            int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
             
+            if ((hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsHandlers[hoveredUnitIdentifier].isAllied()))
+            {
+                newMode = MODE_REMOVE;
+                if (Button.B.isPressed())
+                {
+                    mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
+                    mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
+                }
+                else
+                    mHoveredUnitIdentifier = hoveredUnitIdentifier;
+            }
+            else if (mCursorX < 0)
+            {
+                if (Button.A.isPressed())
+                {
+                    mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0, BrawlerIdleHandler.alliedInstance);
+                    // Resets the animation.
+                    mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
+                }
+                if (mGame.unitsSystem.freeUnits() > 0)
+                    newMode = MODE_PLACE;
+                else
+                    newMode = MODE_NO_MORE_UNITS;
+            }
+            else
+                newMode = MODE_ENEMY_TERRITORY;
+        }
         // Changing the Cursor's animation.
         if (newMode != mMode)
         {
@@ -137,12 +139,21 @@ class BattlePreparationState
     {
         HiRes16Color screen = mGame.screen;
         
-        mGame.cursorSprite.draw(screen, mCursorX - VideoConstants.CURSOR_ORIGIN_X, mCursorY - VideoConstants.CURSOR_ORIGIN_Y);
+        if (mMode != MODE_MENU)
+            mGame.cursorSprite.draw(screen, mCursorX - VideoConstants.CURSOR_ORIGIN_X, mCursorY - VideoConstants.CURSOR_ORIGIN_Y);
         
         screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.PREPARATION_HELP_BG);
         screen.setTextPosition(HELP_X, HELP_Y);
         
-        if (mMode == MODE_REMOVE)
+        if (mMode == MODE_MENU)
+        {
+            mGame.padMenuSprite.draw(screen, MENU_X - VideoConstants.PAD_MENU_ORIGIN_X, MENU_Y - VideoConstants.PAD_MENU_ORIGIN_X);
+            screen.setTextColor(Colors.PREPARATION_HELP_ACTIVE);
+            screen.print(Texts.BUTTON_PAD);
+            screen.print(Texts.MISC_SEPARATOR);
+            screen.print(Texts.MENU_COMMANDS_HELP);
+        }
+        else if (mMode == MODE_REMOVE)
         {
             boolean hasHoveredUnit = (mHoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE);
             
@@ -189,8 +200,11 @@ class BattlePreparationState
     private static final int MODE_PLACE = 2;
     private static final int MODE_NO_MORE_UNITS = 3;
     private static final int MODE_REMOVE = 4;
+    private static final int MODE_MENU = 5;
     
     private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
     private static final int HELP_X = 2;
     private static final int HELP_Y = HELP_BOX_MIN_Y + 2;
+    private static final int MENU_X = 110;
+    private static final int MENU_Y = 88;
 }

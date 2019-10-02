@@ -65,17 +65,17 @@ public class BrawlerIdleHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         float handDistance = 3;
         
-        system.handSprite.setPosition(unitX + handDistance * Math.cos(unitAngle) - VideoConstants.HAND_SPRITE_ORIGIN_X,
-                                unitY - handDistance * Math.sin(unitAngle) - VideoConstants.HAND_SPRITE_ORIGIN_Y - VideoConstants.BRAWLER_BODY_SPRITE_WEAPON_ORIGIN_Y);
+        system.handSprite.setPosition(unitX + handDistance * Math.cos(unitAngle) - VideoConstants.HAND_ORIGIN_X,
+                                unitY - handDistance * Math.sin(unitAngle) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLER_BODY_WEAPON_ORIGIN_Y);
         // Is the hand above?
         if (unitAngle < Math.PI)
             system.handSprite.draw(screen);
-        system.brawlerBodySprite.setPosition(unitX - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_X, unitY - VideoConstants.BRAWLER_BODY_SPRITE_ORIGIN_Y);
+        system.brawlerBodySprite.setPosition(unitX - VideoConstants.BRAWLER_BODY_ORIGIN_X, unitY - VideoConstants.BRAWLER_BODY_ORIGIN_Y);
         system.brawlerBodySprite.setMirrored(unitAngle > MathTools.PI_1_2 && unitAngle < MathTools.PI_3_2);
         system.brawlerBodySprite.draw(screen);
         
-        int unitPixelX = (int)(unitX - VideoConstants.BRAWLER_BODY_SPRITE_SHIRT_X - screen.cameraX) + (system.brawlerBodySprite.isMirrored() ? 1 : 0);
-        int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SPRITE_SHIRT_Y - screen.cameraY);
+        int unitPixelX = (int)(unitX - VideoConstants.BRAWLER_BODY_SHIRT_X - screen.cameraX) + (system.brawlerBodySprite.isMirrored() ? 1 : 0);
+        int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SHIRT_Y - screen.cameraY);
         int primaryColor = mIsAllied ? Colors.UNITS_ALLIES_PRIMARY_COLOR : Colors.UNITS_ENEMIES_PRIMARY_COLOR;
         int secondaryColor = mIsAllied ? Colors.UNITS_ALLIES_SECONDARY_COLOR : Colors.UNITS_ENEMIES_SECONDARY_COLOR;
         

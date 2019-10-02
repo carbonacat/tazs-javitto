@@ -10,6 +10,7 @@ class Texts
     
     public static final String BUTTON_A = "(A)";
     public static final String BUTTON_B = "(B)";
+    public static final String BUTTON_PAD = "(PAD)";
     
     
     /***** MISC *****/
@@ -18,6 +19,11 @@ class Texts
     public static final String MISC_SEPARATOR = " - ";
     
     
+    /***** MENU *****/
+    
+    public static final String MENU_COMMANDS_HELP = "Select Choice";
+
+
     /***** PREPARATION *****/
     
     public static final String HELP_COMMANDS_PLACE_UNIT_X = "Place ";

@@ -1,0 +1,115 @@
+{ "frames": {
+   "PadMenuSprite 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 1.aseprite": {
+    "frame": { "x": 17, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 2.aseprite": {
+    "frame": { "x": 34, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 3.aseprite": {
+    "frame": { "x": 51, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 4.aseprite": {
+    "frame": { "x": 68, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 5.aseprite": {
+    "frame": { "x": 85, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 6.aseprite": {
+    "frame": { "x": 102, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 7.aseprite": {
+    "frame": { "x": 119, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 8.aseprite": {
+    "frame": { "x": 136, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 9.aseprite": {
+    "frame": { "x": 153, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 10.aseprite": {
+    "frame": { "x": 170, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   },
+   "PadMenuSprite 11.aseprite": {
+    "frame": { "x": 187, "y": 0, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 25
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.15-x64",
+  "image": "PadMenuSprite.png",
+  "format": "I8",
+  "size": { "w": 204, "h": 17 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "playDefault", "from": 0, "to": 11, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Main", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

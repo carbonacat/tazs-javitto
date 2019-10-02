@@ -287,6 +287,23 @@
 		"\\net\\ccat\\tazs\\resources\\sprites\\CursorSprite.png": {
 			"sdcard": false,
 			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\states/BattlePhaseState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states\\BattlePhaseState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\PadMenuSprite.json": {
+			"implements": "",
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states\\BattlePreparationPhaseState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\PadMenuSprite.png": {
+			"sdcard": false,
+			"implements": ""
 		}
 	}
 }

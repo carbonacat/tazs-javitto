@@ -36,7 +36,7 @@ class TitleState
         HiRes16Color screen = mGame.screen;
         
         if (Button.A.justPressed())
-            Game.changeState(new BattlePreparationState(mGame));
+            Game.changeState(new BattlePreparationPhaseState(mGame));
 
         // TODO: Proper title screen.
         screen.clear(Colors.TITLE_BG_COLOR);

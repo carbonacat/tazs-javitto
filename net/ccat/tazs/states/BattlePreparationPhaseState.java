@@ -57,7 +57,7 @@ public class BattlePreparationPhaseState
         
         updateInput();
         
-        screen.clear(Colors.SCENE_BG_COLOR);
+        screen.clear(Colors.SCENE_BG);
         mGame.unitsSystem.draw(screen);
         renderUI();
         screen.flush();
@@ -83,6 +83,7 @@ public class BattlePreparationPhaseState
             switch (mGame.padMenuUI.selectedChoice())
             {
             case PadMenuUI.CHOICE_UP:
+                Game.changeState(new BattlePhaseState(mGame));
                 break ;
             case PadMenuUI.CHOICE_DOWN:
                 Game.changeState(new TitleScreenState(mGame));
@@ -162,15 +163,15 @@ public class BattlePreparationPhaseState
         
         if (mGame.padMenuUI.isShown())
             UITools.fillRectBlended(0, 0, screen.width(), HELP_BOX_MIN_Y - 1,
-                                    Colors.PADMENU_OVERLAY_COLOR, 0,
+                                    Colors.PADMENU_OVERLAY, 0,
                                     UITools.PATTERN_25_75_HEX,
                                     screen);
-        screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.PREPARATION_HELP_BG);
+        screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
         screen.setTextPosition(HELP_X, HELP_Y);
         
         if (mMode == MODE_MENU)
         {
-            screen.setTextColor(Colors.PREPARATION_HELP_ACTIVE);
+            screen.setTextColor(Colors.HELP_ACTIVE);
             screen.print(Texts.BUTTON_PAD);
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU_COMMANDS_HELP);
@@ -179,7 +180,7 @@ public class BattlePreparationPhaseState
         {
             boolean hasHoveredUnit = (mHoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE);
             
-            screen.setTextColor(hasHoveredUnit ? Colors.PREPARATION_HELP_ACTIVE : Colors.PREPARATION_HELP_INACTIVE);
+            screen.setTextColor(hasHoveredUnit ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.print(Texts.BUTTON_B);
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_REMOVE_UNIT_X);
@@ -188,7 +189,7 @@ public class BattlePreparationPhaseState
         }
         else if ((mMode == MODE_PLACE) || (mMode == MODE_NO_MORE_UNITS))
         {
-            screen.setTextColor((mMode == MODE_PLACE) ? Colors.PREPARATION_HELP_ACTIVE : Colors.PREPARATION_HELP_INACTIVE);
+            screen.setTextColor((mMode == MODE_PLACE) ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.print(Texts.BUTTON_A);
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_X);
@@ -200,7 +201,7 @@ public class BattlePreparationPhaseState
         }
         else
         {
-            screen.setTextColor(Colors.PREPARATION_HELP_INACTIVE);
+            screen.setTextColor(Colors.HELP_INACTIVE);
             if (mMode == MODE_ENEMY_TERRITORY)
                 screen.print(Texts.PREPARATION_ENEMY_SIDE);
             else

@@ -39,14 +39,14 @@ class TitleScreenState
             Game.changeState(new BattlePreparationPhaseState(mGame));
 
         // TODO: Proper title screen.
-        screen.clear(Colors.TITLE_BG_COLOR);
+        screen.clear(Colors.TITLE_BG);
         
         screen.setTextPosition(0, TITLE_HEIGHT);
-        screen.setTextColor(Colors.TITLE_TEXT_COLOR);
+        screen.setTextColor(Colors.TITLE_TEXT);
         screen.print(Texts.TITLE);
         
         screen.setTextPosition(0 , COMMAND_HEIGHT);
-        screen.setTextColor(Colors.TITLE_COMMAND_COLOR);
+        screen.setTextColor(Colors.TITLE_COMMAND);
         screen.print(Texts.BUTTON_A);
         screen.print(Texts.MISC_SEPARATOR);
         screen.print(Texts.TITLE_COMMANDS_QUICK_BATTLE);

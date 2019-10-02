@@ -76,8 +76,8 @@ public class BrawlerIdleHandler
         
         int unitPixelX = (int)(unitX - VideoConstants.BRAWLER_BODY_SHIRT_X - screen.cameraX) + (system.brawlerBodySprite.isMirrored() ? 1 : 0);
         int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SHIRT_Y - screen.cameraY);
-        int primaryColor = mIsAllied ? Colors.UNITS_ALLIES_PRIMARY_COLOR : Colors.UNITS_ENEMIES_PRIMARY_COLOR;
-        int secondaryColor = mIsAllied ? Colors.UNITS_ALLIES_SECONDARY_COLOR : Colors.UNITS_ENEMIES_SECONDARY_COLOR;
+        int primaryColor = mIsAllied ? Colors.UNITS_ALLIES_PRIMARY : Colors.UNITS_ENEMIES_PRIMARY;
+        int secondaryColor = mIsAllied ? Colors.UNITS_ALLIES_SECONDARY : Colors.UNITS_ENEMIES_SECONDARY;
         
         screen.setPixel(unitPixelX, unitPixelY, primaryColor);
         screen.setPixel(unitPixelX + 1, unitPixelY, secondaryColor);

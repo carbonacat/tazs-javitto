@@ -35,7 +35,7 @@ public class BattlePhaseState
         
         mGame.unitsSystem.onTick();
         
-        screen.clear(Colors.SCENE_BG_COLOR);
+        screen.clear(Colors.SCENE_BG);
         mGame.unitsSystem.draw(screen);
         renderUI();
         screen.flush();
@@ -53,8 +53,8 @@ public class BattlePhaseState
     {
         HiRes16Color screen = mGame.screen;
         
-        screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.PREPARATION_HELP_BG);
-        screen.setTextColor(Colors.);
+        screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
+        screen.setTextColor(Colors.HELP_INACTIVE);
         screen.setTextPosition(HELP_X, HELP_Y);
         screen.print(Texts.MISC_ERROR);
     }

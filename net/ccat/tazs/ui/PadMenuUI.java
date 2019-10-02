@@ -85,15 +85,43 @@ class PadMenuUI
         {
         case CHOICE_RIGHT:
             mRightTitle = title;
+            mRightIsEnabled = true;
             break ;
         case CHOICE_DOWN:
             mDownTitle = title;
+            mDownIsEnabled = true;
             break ;
         case CHOICE_LEFT:
             mLeftTitle = title;
+            mLeftIsEnabled = true;
             break ;
         case CHOICE_UP:
             mUpTitle = title;
+            mUpIsEnabled = true;
+            break ;
+        }
+    }
+    
+    /**
+     * Enables or disables the target choice.
+     * @param choice The choice's identifier.
+     * @param enabled True to enable, false to disable.
+     */
+    public void setEnabledChoice(int choice, boolean enabled)
+    {
+        switch (choice)
+        {
+        case CHOICE_RIGHT:
+            mRightIsEnabled = enabled;
+            break ;
+        case CHOICE_DOWN:
+            mDownIsEnabled = enabled;
+            break ;
+        case CHOICE_LEFT:
+            mLeftIsEnabled = enabled;
+            break ;
+        case CHOICE_UP:
+            mUpIsEnabled = enabled;
             break ;
         }
     }
@@ -133,16 +161,16 @@ class PadMenuUI
             switch (mSelectedChoice)
             {
             case CHOICE_RIGHT:
-                checkPress(Button.Right);
+                checkPress(Button.Right, mRightIsEnabled);
                 break;
             case CHOICE_DOWN:
-                checkPress(Button.Down);
+                checkPress(Button.Down, mDownIsEnabled);
                 break;
             case CHOICE_LEFT:
-                checkPress(Button.Left);
+                checkPress(Button.Left, mLeftIsEnabled);
                 break;
             case CHOICE_UP:
-                checkPress(Button.Up);
+                checkPress(Button.Up, mUpIsEnabled);
                 break;
             default:
             case CHOICE_NONE:
@@ -174,20 +202,20 @@ class PadMenuUI
         {
             mPadMenuSprite.draw(screen, mX - VideoConstants.PAD_MENU_ORIGIN_X, mY - VideoConstants.PAD_MENU_ORIGIN_X);
             if (mRightTitle != null)
-                drawChoice(CHOICE_RIGHT, mRightTitle, screen);
+                drawChoice(CHOICE_RIGHT, mRightTitle, mRightIsEnabled, screen);
             if (mDownTitle != null)
-                drawChoice(CHOICE_DOWN, mDownTitle, screen);
+                drawChoice(CHOICE_DOWN, mDownTitle, mDownIsEnabled, screen);
             if (mLeftTitle != null)
-                drawChoice(CHOICE_LEFT, mLeftTitle, screen);
+                drawChoice(CHOICE_LEFT, mLeftTitle, mLeftIsEnabled, screen);
             if (mUpTitle != null)
-                drawChoice(CHOICE_UP, mUpTitle, screen);
+                drawChoice(CHOICE_UP, mUpTitle, mUpIsEnabled, screen);
         }
     }
     
     
     /***** PRIVATE *****/
     
-    private void drawChoice(int choice, String title, HiRes16Color screen)
+    private void drawChoice(int choice, String title, boolean enabled, HiRes16Color screen)
     {
         int horizontalAlignment = UITools.ALIGNMENT_CENTER;
         int verticalAlignment = UITools.ALIGNMENT_CENTER;
@@ -218,16 +246,17 @@ class PadMenuUI
             choiceY -= LABEL_FROM_CENTER;
             break ;
         }
+        screen.setTextColor(enabled ? Colors.PADMENU_TEXT : Colors.PADMENU_TEXT_DISABLED);
         UITools.drawLabel(title,
-                          borderColor, Colors.PADMENU_BACKGROUND,
+                          borderColor, enabled ? Colors.PADMENU_BACKGROUND : Colors.PADMENU_BACKGROUND_DISABLED,
                           LABEL_PADDING,
                           choiceX, choiceY, horizontalAlignment, verticalAlignment,
                           screen);
     }
     
-    private void checkPress(Button button)
+    private void checkPress(Button button, boolean enabled)
     {
-        if (button.isPressed())
+        if (enabled && button.isPressed())
             mRemainingSelectionTicks = Math.max(0, mRemainingSelectionTicks - 1);
         else
             mSelectedChoice = CHOICE_NONE;
@@ -239,9 +268,13 @@ class PadMenuUI
     private PadMenuSprite mPadMenuSprite;
     // I miss C++
     private String mRightTitle;
+    private boolean mRightIsEnabled;
     private String mDownTitle;
+    private boolean mDownIsEnabled;
     private String mLeftTitle;
+    private boolean mLeftIsEnabled;
     private String mUpTitle;
+    private boolean mUpIsEnabled;
 
     private int mSelectedChoice = CHOICE_NONE;
     private int mRemainingSelectionTicks;

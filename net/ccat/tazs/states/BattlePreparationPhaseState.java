@@ -76,6 +76,7 @@ public class BattlePreparationPhaseState
         // Updating the mode.
         int newMode = MODE_INVALID;
         
+        mGame.padMenuUI.setEnabledChoice(PadMenuUI.CHOICE_UP, (mAlliedUnitsCount > 0));
         mGame.padMenuUI.update();
         if (mGame.padMenuUI.isShown())
         {
@@ -111,6 +112,7 @@ public class BattlePreparationPhaseState
                 if (Button.B.isPressed())
                 {
                     mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
+                    mAlliedUnitsCount--;
                     mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
                 }
                 else
@@ -121,6 +123,7 @@ public class BattlePreparationPhaseState
                 if (Button.A.isPressed())
                 {
                     mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0, BrawlerIdleHandler.alliedInstance);
+                    mAlliedUnitsCount++;
                     // Resets the animation.
                     mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
                 }
@@ -216,6 +219,7 @@ public class BattlePreparationPhaseState
     private float mCursorY;
     private int mMode = MODE_INVALID;
     private int mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
+    private int mAlliedUnitsCount = 0;
     
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
     

@@ -42,6 +42,7 @@ public class BattlePreparationPhaseState
         mCursorY = 0;
         mGame.cursorSprite.playInvalid();
         mGame.padMenuUI.setPosition(MENU_X, MENU_Y);
+        mGame.padMenuUI.setShown(false);
     }
     
     public void update()
@@ -66,25 +67,24 @@ public class BattlePreparationPhaseState
     
     private void updateInput()
     {
-        // Moving the Cursor.
-        if (Button.Up.isPressed())
-            mCursorY = Math.max(mCursorY - CURSOR_PIXELS_PER_TICK, mGame.sceneYMin);
-        if (Button.Down.isPressed())
-            mCursorY = Math.min(mCursorY + CURSOR_PIXELS_PER_TICK, mGame.sceneYMax);
-        if (Button.Left.isPressed())
-            mCursorX = Math.max(mCursorX - CURSOR_PIXELS_PER_TICK, mGame.sceneXMin);
-        if (Button.Right.isPressed())
-            mCursorX = Math.min(mCursorX + CURSOR_PIXELS_PER_TICK, mGame.sceneXMax);
-            
         // Updating the mode.
         int newMode = MODE_INVALID;
         
-        if (Button.C.justPressed())
-            newMode = (mMode == MODE_MENU) ? MODE_INVALID : MODE_MENU;
-        else if (mMode == MODE_MENU)
+        mGame.padMenuUI.update();
+        if (mGame.padMenuUI.isShown())
             newMode = MODE_MENU;
-        if (newMode == MODE_INVALID)
+        else
         {
+            // Moving the Cursor.
+            if (Button.Up.isPressed())
+                mCursorY = Math.max(mCursorY - CURSOR_PIXELS_PER_TICK, mGame.sceneYMin);
+            if (Button.Down.isPressed())
+                mCursorY = Math.min(mCursorY + CURSOR_PIXELS_PER_TICK, mGame.sceneYMax);
+            if (Button.Left.isPressed())
+                mCursorX = Math.max(mCursorX - CURSOR_PIXELS_PER_TICK, mGame.sceneXMin);
+            if (Button.Right.isPressed())
+                mCursorX = Math.min(mCursorX + CURSOR_PIXELS_PER_TICK, mGame.sceneXMax);
+            
             // Finding a Unit that is hovered.
             int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
             

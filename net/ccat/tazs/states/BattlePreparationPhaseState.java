@@ -1,5 +1,6 @@
 package net.ccat.tazs.states;
 
+import femto.Game;
 import femto.input.Button;
 import femto.mode.HiRes16Color;
 import femto.State;
@@ -76,7 +77,17 @@ public class BattlePreparationPhaseState
         
         mGame.padMenuUI.update();
         if (mGame.padMenuUI.isShown())
+        {
             newMode = MODE_MENU;
+            switch (mGame.padMenuUI.selectedChoice())
+            {
+            case PadMenuUI.CHOICE_UP:
+                break ;
+            case PadMenuUI.CHOICE_DOWN:
+                Game.changeState(new TitleScreenState(mGame));
+                break ;
+            }
+        }
         else
         {
             // Moving the Cursor.

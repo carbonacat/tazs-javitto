@@ -108,6 +108,16 @@ class PadMenuUI
         setChoice(choice, null);
     }
     
+    /**
+     * @return the selected choice by the user, after they pressed the corresponding direction long enough.
+     */
+    public int selectedChoice()
+    {
+        if (mRemainingSelectionTicks == 0)
+            return mSelectedChoice;
+        return CHOICE_NONE;
+    }
+    
     
     /***** UPDATE *****/
     

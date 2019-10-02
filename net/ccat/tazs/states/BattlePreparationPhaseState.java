@@ -41,14 +41,14 @@ public class BattlePreparationPhaseState
         mCursorX = 0;
         mCursorY = 0;
         mGame.cursorSprite.playInvalid();
-        mGame.padMenuSprite.playDefault();
+        mGame.padMenuUI.setPosition(MENU_X, MENU_Y);
     }
     
     public void update()
     {
         HiRes16Color screen = mGame.screen;
         
-        updateCursor();
+        updateInput();
         
         screen.clear(Colors.SCENE_BG_COLOR);
         mGame.unitsSystem.draw(screen);
@@ -64,7 +64,7 @@ public class BattlePreparationPhaseState
  
     /***** PRIVATE *****/
     
-    private void updateCursor()
+    private void updateInput()
     {
         // Moving the Cursor.
         if (Button.Up.isPressed())
@@ -79,9 +79,11 @@ public class BattlePreparationPhaseState
         // Updating the mode.
         int newMode = MODE_INVALID;
         
-        if (Button.C.isPressed())
+        if (Button.C.justPressed())
+            newMode = (mMode == MODE_MENU) ? MODE_INVALID : MODE_MENU;
+        else if (mMode == MODE_MENU)
             newMode = MODE_MENU;
-        else
+        if (newMode == MODE_INVALID)
         {
             // Finding a Unit that is hovered.
             int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
@@ -147,7 +149,7 @@ public class BattlePreparationPhaseState
         
         if (mMode == MODE_MENU)
         {
-            mGame.padMenuSprite.draw(screen, MENU_X - VideoConstants.PAD_MENU_ORIGIN_X, MENU_Y - VideoConstants.PAD_MENU_ORIGIN_X);
+            mGame.padMenuUI.draw(mGame.screen);
             screen.setTextColor(Colors.PREPARATION_HELP_ACTIVE);
             screen.print(Texts.BUTTON_PAD);
             screen.print(Texts.MISC_SEPARATOR);

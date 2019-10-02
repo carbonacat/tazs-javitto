@@ -6,7 +6,7 @@ import femto.mode.HiRes16Color;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
 import net.ccat.tazs.resources.sprites.CursorSprite;
-import net.ccat.tazs.resources.sprites.PadMenuSprite;
+import net.ccat.tazs.ui.PadMenuUI;
 
 
 /**
@@ -19,8 +19,7 @@ class TAZSGame
         screen = new HiRes16Color(ModifiedNAJI16.palette(), TIC80.font());
         unitsSystem = new UnitsSystem();
         cursorSprite = new CursorSprite();
-        padMenuSprite = new PadMenuSprite();
-        padMenuSprite.setStatic(true);
+        padMenuUI = new PadMenuUI();
     }
     
     
@@ -38,8 +37,12 @@ class TAZSGame
     public UnitsSystem unitsSystem;
     
     
+    /***** UI *****/
+    
+    public PadMenuUI padMenuUI;
+    
+    
     /***** COMMON RESOURCES *****/
     
     public CursorSprite cursorSprite;
-    public PadMenuSprite padMenuSprite;
 }

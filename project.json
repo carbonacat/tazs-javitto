@@ -304,6 +304,25 @@
 		"\\net\\ccat\\tazs\\resources\\sprites\\PadMenuSprite.png": {
 			"sdcard": false,
 			"implements": ""
+		},
+		"\\net\\ccat\\tazs/ui": {},
+		"\\net\\ccat\\tazs\\ui": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/ui/MenuUI.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/ui\\MenuUI.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/ui\\PadMenuUI.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states\\TitleScreenState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui\\PadMenuUI.java": {
+			"sdcard": false
 		}
 	}
 }

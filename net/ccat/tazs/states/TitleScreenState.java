@@ -14,10 +14,10 @@ import femto.State;
  * - Initializes some stuff.
  * - Display the splashscreen.
  */
-class TitleState
+class TitleScreenState
     extends State
 {
-    public TitleState(TAZSGame game)
+    public TitleScreenState(TAZSGame game)
     {
         mGame = game;
     }

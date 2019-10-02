@@ -20,6 +20,7 @@ class PadMenuUI
     public static final int CHOICE_DOWN = 1;
     public static final int CHOICE_LEFT = 2;
     public static final int CHOICE_UP = 3;
+    public static final int CHOICE_NONE = -1;
     
     
     public PadMenuUI()
@@ -117,6 +118,37 @@ class PadMenuUI
     {
         if (Button.C.justPressed())
             mShown = !mShown;
+        if (mShown)
+        {
+            switch (mSelectedChoice)
+            {
+            case CHOICE_RIGHT:
+                checkPress(Button.Right);
+                break;
+            case CHOICE_DOWN:
+                checkPress(Button.Down);
+                break;
+            case CHOICE_LEFT:
+                checkPress(Button.Left);
+                break;
+            case CHOICE_UP:
+                checkPress(Button.Up);
+                break;
+            default:
+            case CHOICE_NONE:
+                mRemainingSelectionTicks = TICKS_UNTIL_SELECTED;
+                if (Button.Right.justPressed())
+                    mSelectedChoice = CHOICE_RIGHT;
+                else if (Button.Down.justPressed())
+                    mSelectedChoice = CHOICE_DOWN;
+                else if (Button.Left.justPressed())
+                    mSelectedChoice = CHOICE_LEFT;
+                else if (Button.Up.justPressed())
+                    mSelectedChoice = CHOICE_UP;
+            }
+        }
+        else
+            mSelectedChoice = CHOICE_NONE;
     }
     
     
@@ -155,31 +187,44 @@ class PadMenuUI
         int verticalAlignment = UITools.ALIGNMENT_CENTER;
         int choiceX = mX;
         int choiceY = mY;
+        int borderColor = Colors.PADMENU_BORDER;
         
+        if (mSelectedChoice == choice)
+        {
+            borderColor = (mRemainingSelectionTicks < TICKS_UNTIL_ALMOST_SELECTED) ? Colors.PADMENU_SELECTED_BORDER : Colors.PADMENU_SELECTING_BORDER;
+        }
         switch (choice)
         {
         case CHOICE_RIGHT:
             horizontalAlignment = UITools.ALIGNMENT_START;
-            choiceX += CHOICE_FROM_CENTER;
+            choiceX += LABEL_FROM_CENTER;
             break ;
         case CHOICE_DOWN:
             verticalAlignment = UITools.ALIGNMENT_START;
-            choiceY += CHOICE_FROM_CENTER;
+            choiceY += LABEL_FROM_CENTER;
             break ;
         case CHOICE_LEFT:
             horizontalAlignment = UITools.ALIGNMENT_END;
-            choiceX -= CHOICE_FROM_CENTER;
+            choiceX -= LABEL_FROM_CENTER;
             break ;
         case CHOICE_UP:
             verticalAlignment = UITools.ALIGNMENT_END;
-            choiceY -= CHOICE_FROM_CENTER;
+            choiceY -= LABEL_FROM_CENTER;
             break ;
         }
         UITools.drawLabel(title,
-                          Colors.PADMENU_BORDER, Colors.PADMENU_BACKGROUND,
-                          CHOICE_PADDING,
+                          borderColor, Colors.PADMENU_BACKGROUND,
+                          LABEL_PADDING,
                           choiceX, choiceY, horizontalAlignment, verticalAlignment,
                           screen);
+    }
+    
+    private void checkPress(Button button)
+    {
+        if (button.isPressed())
+            mRemainingSelectionTicks = Math.max(0, mRemainingSelectionTicks - 1);
+        else
+            mSelectedChoice = CHOICE_NONE;
     }
     
     private int mX;
@@ -191,9 +236,15 @@ class PadMenuUI
     private String mDownTitle;
     private String mLeftTitle;
     private String mUpTitle;
+
+    private int mSelectedChoice = CHOICE_NONE;
+    private int mRemainingSelectionTicks;
+
     
-    
-    private static final int CHOICE_PADDING = 1;
-    private static final int CHOICE_MARGIN = 1;
-    private static final int CHOICE_FROM_CENTER = 9 + CHOICE_MARGIN;
+    private static final int LABEL_PADDING = 1;
+    private static final int LABEL_MARGIN = 1;
+    private static final int LABEL_FROM_CENTER = 9 + LABEL_MARGIN;
+    // TODO: This is because the overlay is slow to do.
+    private static final int TICKS_UNTIL_SELECTED = 30;
+    private static final int TICKS_UNTIL_ALMOST_SELECTED = 15;
 }

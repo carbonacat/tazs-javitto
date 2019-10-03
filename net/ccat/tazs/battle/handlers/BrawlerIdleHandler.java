@@ -27,13 +27,13 @@ public class BrawlerIdleHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
         int targetIdentifier = system.unitsTargetIdentifiers[unitIdentifier];
         
         // Random walk
         unitTimer--;
         if (unitTimer <= 0)
         {
-            char unitTeam = system.unitsTeams[unitIdentifier];
         
             // TODO: Not the right way to find another team.
             targetIdentifier = system.findClosestUnit(unitX, unitY, 1 - unitTeam, SEEK_DISTANCE_MAX, true);

@@ -52,9 +52,13 @@ public class BrawlerPunchHandler
                     int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, HAND_RADIUS + UNIT_RADIUS, false);
                     
                     if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+                    {
                         system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
                                                                       HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
                                                                       HAND_POWER);
+                        // Interpolating to find the equivalent withdrawal position.
+                        unitTimer = MathTools.lerpi(unitTimer, 0, TIMER_PUNCH_MAX, TIMER_PUNCH_MAX, TIMER_PUNCH_REST);
+                    }
                 }
                 if (unitTimer == TIMER_PUNCH_REST)
                 {

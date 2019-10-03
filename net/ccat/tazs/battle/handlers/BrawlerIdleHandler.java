@@ -7,11 +7,22 @@ import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 
 
+/**
+ * Handles the Idle state of a Brawler.
+ * - Seeks the closest Enemy.
+ * - Switch to BrawlerPunch when close enough to punch them.
+ * TODO: Actually not being Idle, as it seeks Enemies.
+ */
 public class BrawlerIdleHandler
     extends BaseBrawlerHandler
 {
     static final BrawlerIdleHandler alliedInstance = new BrawlerIdleHandler(true);
-    static final BrawlerIdleHandler ennemyInstance = new BrawlerIdleHandler(false);
+    static final BrawlerIdleHandler enemyInstance = new BrawlerIdleHandler(false);
+    
+    static BrawlerIdleHandler instance(boolean isAllied)
+    {
+        return isAllied ? alliedInstance : enemyInstance;
+    }
     
     
     public BrawlerIdleHandler(boolean isAllied)
@@ -56,6 +67,12 @@ public class BrawlerIdleHandler
             {
                 unitX += Math.cos(unitAngle) * WALK_SPEED;
                 unitY += Math.sin(unitAngle) * WALK_SPEED;
+            }
+            else
+            {
+                 // Let's punch them!
+                unitTimer = 0;
+                system.unitsHandlers[unitIdentifier] = BrawlerPunchHandler.instance(mIsAllied);
             }
         }
 

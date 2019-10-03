@@ -40,6 +40,21 @@ public class MathTools
         return value;
     }
     
+    /**
+     * Interpolates linearly an integer between two integer values associated to two float values.
+     * @param x The value to interpolate.
+     * @param xA A's X coordinate.
+     * @param yA A's Y coordinate.
+     * @param xA A's X coordinate.
+     * @param yA A's Y coordinate.
+     * @param The resulting Y.
+     */
+    public static float lerp(int x, int xA, float yA, int xB, float yB)
+    {
+        return yA + ((yB - yA) * (float)(x - xA)) / (float)(xB - xA);
+    }
+    
+    // TODO: Until Math.abs behave properly.
     public static float abs(float value)
     {
         if (value < 0)

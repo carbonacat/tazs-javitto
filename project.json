@@ -339,6 +339,12 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\BaseBrawlerHandler.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/BrawlerPunchHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\BrawlerPunchHandler.java": {
+			"sdcard": false
 		}
 	}
 }

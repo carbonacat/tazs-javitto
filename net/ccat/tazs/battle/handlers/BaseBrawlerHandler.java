@@ -17,7 +17,7 @@ public class BaseBrawlerHandler
     public static final float SEEK_DISTANCE_MAX = 250.f;
     public static final float CLOSE_DISTANCE = 5.f;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
-    public static final float ANGLE_ROTATION_BY_TICK = 4.f / 256.f;
+    public static final float ANGLE_ROTATION_BY_TICK = 8.f / 256.f;
     public static final float HAND_IDLE_DISTANCE = 2.f;
     public static final float HAND_MAX_DISTANCE = 5.f;
     public static final float HAND_RADIUS = 1.f;
@@ -123,7 +123,7 @@ public class BaseBrawlerHandler
         bodySprite.setFlipped(false);
         
         int unitPixelX = (int)(unitX - VideoConstants.BRAWLER_BODY_SHIRT_X - screen.cameraX) + (bodySprite.isMirrored() ? 1 : 0);
-        int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SHIRT_Y - screen.cameraY) - 1;
+        int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SHIRT_Y - screen.cameraY) - 2;
         int primaryColor = mIsAllied ? Colors.UNITS_ALLIES_PRIMARY : Colors.UNITS_ENEMIES_PRIMARY;
         int secondaryColor = mIsAllied ? Colors.UNITS_ALLIES_SECONDARY : Colors.UNITS_ENEMIES_SECONDARY;
         

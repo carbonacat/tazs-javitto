@@ -148,15 +148,17 @@ class UnitsSystem
      * @param y the Y coordinate.
      * @param isAllied true if allied, false elsewhere.
      * @param maxDistance The max distance the closest unit can have.
+     * @param ignoreDead If true, the dead (health = 0) will be ignored.
      * @return the found Unit's identifier, or IDENTIFIER_NONE if none found.
      */
-    public int findClosestUnit(float x, float y, boolean isAllied, float maxDistance)
+    public int findClosestUnit(float x, float y, boolean isAllied, float maxDistance, boolean ignoreDead)
     {
         int closestUnitIdentifier = IDENTIFIER_NONE;
         float closestUnitDistanceSquared = maxDistance * maxDistance;
         
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
-            if (unitsHandlers[unitIdentifier].isAllied() == isAllied)
+            if ((!ignoreDead || (unitsHealths[unitIdentifier] > 0)) &&
+                (unitsHandlers[unitIdentifier].isAllied() == isAllied))
             {
                 float relativeX = x - unitsXs[unitIdentifier];
                 float relativeY = y - unitsYs[unitIdentifier];

@@ -37,7 +37,10 @@ public class BrawlerPunchHandler
         int targetIdentifier = system.unitsTargetIdentifiers[unitIdentifier];
         
         if (targetIdentifier == UnitsSystem.IDENTIFIER_NONE)
+        {
+            unitTimer = 0;
             system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance(mIsAllied);
+        }
         else
         {
             if (unitTimer == 0)
@@ -55,7 +58,7 @@ public class BrawlerPunchHandler
                     float unitAngle = system.unitsAngles[unitIdentifier];
                     float weaponX = handX(unitX, unitAngle, handDistance);
                     float weaponY = handY(unitY, unitAngle, handDistance);
-                    int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, !mIsAllied, HAND_RADIUS + UNIT_RADIUS);
+                    int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, !mIsAllied, HAND_RADIUS + UNIT_RADIUS, false);
                     
                     if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
                         system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
@@ -63,7 +66,10 @@ public class BrawlerPunchHandler
                                                                       HAND_POWER);
                 }
                 if (unitTimer == TIMER_PUNCH_REST)
+                {
+                    unitTimer = 0;
                     system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance(mIsAllied);
+                }
             }
         }
         // Updating the changed state.

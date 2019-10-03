@@ -45,7 +45,7 @@ public class BrawlerIdleHandler
         unitTimer--;
         if (unitTimer <= 0)
         {
-            targetIdentifier = system.findClosestUnit(unitX, unitY, !mIsAllied, SEEK_DISTANCE_MAX);
+            targetIdentifier = system.findClosestUnit(unitX, unitY, !mIsAllied, SEEK_DISTANCE_MAX, true);
             system.unitsTargetIdentifiers[unitIdentifier] = targetIdentifier;
             unitTimer = 128;
         }

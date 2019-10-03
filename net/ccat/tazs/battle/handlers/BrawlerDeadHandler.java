@@ -21,7 +21,17 @@ public class BrawlerDeadHandler
     
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
-        // Nothing.
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        
+        if (unitTimer == 0)
+            unitTimer = TICKS_TO_GROUND;
+        else if (unitTimer > 0)
+        {
+            unitTimer--;
+            if (unitTimer == 1)
+                unitTimer = -1;
+        }
+        system.unitsTimers[unitIdentifier] = unitTimer;
     }
     
     
@@ -33,7 +43,13 @@ public class BrawlerDeadHandler
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
         
-        drawDeadBrawler(unitX, unitY, unitAngle, system.brawlerBodySpriteByTeam[unitTeam], screen);
+        drawDeadBrawler(unitX, unitY, unitAngle, system.brawlerBodySpriteByTeam[unitTeam],
+                        unitTimer, TICKS_TO_GROUND,
+                        screen);
     }
+    
+    
+    private static final int TICKS_TO_GROUND = 64;
 }

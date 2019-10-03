@@ -36,7 +36,7 @@ public class BattlePreparationPhaseState
         mGame.unitsSystem.clear();
         
         // TODO: Eventually will be setup with a proper battle plan.
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 32; i++)
             mGame.unitsSystem.addUnit((Math.random() - 0.0f) * 100, (Math.random() - 0.5f) * 80,
                                       Math.PI,
                                       BrawlerIdleHandler.HEALTH_INITIAL,

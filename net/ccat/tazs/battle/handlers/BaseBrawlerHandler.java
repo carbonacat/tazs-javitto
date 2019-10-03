@@ -78,6 +78,7 @@ public class BaseBrawlerHandler
         // Is the hand above?
         if (unitAngle < 0)
             handSprite.draw(screen);
+        bodySprite.selectFrame(BrawlerBodySprite.FRAME_IDLE);
         bodySprite.setPosition(unitX - VideoConstants.BRAWLER_BODY_ORIGIN_X, unitY - VideoConstants.BRAWLER_BODY_ORIGIN_Y);
         bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
         bodySprite.draw(screen);
@@ -89,12 +90,15 @@ public class BaseBrawlerHandler
     
     protected void drawDeadBrawler(float unitX, float unitY, float unitAngle,
                                    BrawlerBodySprite bodySprite,
+                                   int ticks, int ticksMax,
                                    HiRes16Color screen)
     {
+        int rawFrame = MathTools.lerpi(ticks, 0, BrawlerBodySprite.FRAME_DEAD_LAST, ticksMax, BrawlerBodySprite.FRAME_DEAD_START);
+        int frame = MathTools.clampi(rawFrame, BrawlerBodySprite.FRAME_DEAD_START, BrawlerBodySprite.FRAME_DEAD_LAST);
+        
+        bodySprite.selectFrame(frame);
         bodySprite.setPosition(unitX - VideoConstants.BRAWLER_BODY_ORIGIN_X, unitY - VideoConstants.BRAWLER_BODY_ORIGIN_Y);
         bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
-        bodySprite.setFlipped(true);
         bodySprite.draw(screen);
-        bodySprite.setFlipped(false);
     }
 }

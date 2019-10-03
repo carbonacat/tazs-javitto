@@ -39,6 +39,14 @@ public class MathTools
             return max;
         return value;
     }
+    public static int clampi(int value, int min, int max)
+    {
+        if (value < min)
+            return min;
+        if (value > max)
+            return max;
+        return value;
+    }
     
     /**
      * Interpolates linearly an integer between two integer values associated to two float values.
@@ -52,6 +60,12 @@ public class MathTools
     public static float lerp(int x, int xA, float yA, int xB, float yB)
     {
         return yA + ((yB - yA) * (float)(x - xA)) / (float)(xB - xA);
+    }
+    public static int lerpi(int x, int xA, int yA, int xB, int yB)
+    {
+        int xRange = (xB - xA);
+        
+        return yA + ((yB - yA) * (x - xA) + xRange / 2) / xRange;
     }
     
     // TODO: Until Math.abs behave properly.

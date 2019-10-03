@@ -31,10 +31,15 @@ class UnitsSystem
      * Angles for all Units.
      */
     public float[] unitsAngles = new float[UNITS_MAX];
+    
     /**
      * Timers for all Units.
      */
     public short[] unitsTimers = new short[UNITS_MAX];
+    /**
+     * Targets for all Units.
+     */
+    public int[] unitsTargetIdentifiers = new int[UNITS_MAX];
     /**
      * Handlers for all Units.
      */
@@ -50,6 +55,8 @@ class UnitsSystem
     
     /**
      * Adds a Unit inside the system.
+     * Said unit's timer will be set to 0 and its targetIdentifier to IDENTIFIER_NONE.
+     * 
      * @param x The X coordinate.
      * @param y The Y coordinate.
      * @param angle Where the units is looking at, in Radiants.
@@ -68,6 +75,7 @@ class UnitsSystem
         unitsYs[unitIdentifier] = y;
         unitsAngles[unitIdentifier] = MathTools.wrapAngle(angle);
         unitsTimers[unitIdentifier] = 0;
+        unitsTargetIdentifiers[unitIdentifier] = IDENTIFIER_NONE;
         unitsHandlers[unitIdentifier] = handler;
         return unitIdentifier;
     }
@@ -94,6 +102,7 @@ class UnitsSystem
             unitsYs[unitIdentifier] = unitsYs[lastUnitIdentifier];
             unitsAngles[unitIdentifier] = unitsAngles[lastUnitIdentifier];
             unitsTimers[unitIdentifier] = unitsTimers[lastUnitIdentifier];
+            unitsTargetIdentifiers[unitIdentifier] = unitsTargetIdentifiers[lastUnitIdentifier];
             unitsHandlers[unitIdentifier] = unitsHandlers[lastUnitIdentifier];
         }
         return true;
@@ -124,6 +133,34 @@ class UnitsSystem
                 return unitIdentifier;
         }
         return IDENTIFIER_NONE;
+    }
+    
+    /**
+     * Finds the unit closest from the given point, of the given allegience.
+     * @param x The X coordinate.
+     * @param y the Y coordinate.
+     * @param isAllied true if allied, false elsewhere.
+     * @return the found Unit's identifier, or IDENTIFIER_NONE if none found.
+     */
+    public int findClosestUnit(float x, float y, boolean isAllied)
+    {
+        int closestUnitIdentifier = IDENTIFIER_NONE;
+        float closestUnitDistanceSquared = FAR_SQUARED;
+        
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
+            if (unitsHandlers[unitIdentifier].isAllied() == isAllied)
+            {
+                float relativeX = x - unitsXs[unitIdentifier];
+                float relativeY = y - unitsYs[unitIdentifier];
+                float distanceSquared = relativeX * relativeX + relativeY * relativeY;
+                
+                if (distanceSquared < closestUnitDistanceSquared)
+                {
+                    closestUnitDistanceSquared = distanceSquared;
+                    closestUnitIdentifier = unitIdentifier;
+                }
+            }
+        return closestUnitIdentifier;
     }
     
     
@@ -160,4 +197,6 @@ class UnitsSystem
     private int mCount = 0;
     
     private static final float FIND_DISTANCE_MAX = 5.f;
+    private static final float FAR = 999;
+    private static final float FAR_SQUARED = FAR * FAR;
 }

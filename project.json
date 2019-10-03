@@ -329,6 +329,10 @@
 		},
 		"\\net\\ccat\\tazs\\ui\\UITools.java": {
 			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.3.png": {
+			"sdcard": false,
+			"implements": ""
 		}
 	}
 }

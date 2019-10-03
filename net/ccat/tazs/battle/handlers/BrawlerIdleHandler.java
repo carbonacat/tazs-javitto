@@ -14,7 +14,6 @@ public class BrawlerIdleHandler
     static final BrawlerIdleHandler ennemyInstance = new BrawlerIdleHandler(false);
     
     
-    
     public BrawlerIdleHandler(boolean isAllied)
     {
         mIsAllied = isAllied;
@@ -37,16 +36,36 @@ public class BrawlerIdleHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
+        int targetIdentifier = system.unitsTargetIdentifiers[unitIdentifier];
         
         // Random walk
         unitTimer--;
         if (unitTimer <= 0)
         {
+            targetIdentifier = system.findClosestUnit(unitX, unitY, !mIsAllied);
+            system.unitsTargetIdentifiers[unitIdentifier] = targetIdentifier;
             unitTimer = 128;
-            unitAngle = MathTools.wrapAngle(unitAngle + Math.random() - 0.5f);
         }
-        unitX += Math.cos(unitAngle) * 0.125f;
-        unitY += -Math.sin(unitAngle) * 0.125f;
+        if (targetIdentifier != UnitsSystem.IDENTIFIER_NONE)
+        {
+            float relativeX = system.unitsXs[targetIdentifier] - unitX;
+            float relativeY = system.unitsYs[targetIdentifier] - unitY;
+            float squaredDistance = relativeX * relativeX + relativeY * relativeY;
+            
+            // Updating the angle
+            if (squaredDistance > 0)
+            {
+                float targetAngle = Math.atan2(relativeY, relativeX);
+                float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -ANGLE_ROTATION_BY_TICK, ANGLE_ROTATION_BY_TICK);
+                
+                unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
+            }
+            if (squaredDistance > CLOSE_DISTANCE_SQUARED)
+            {
+                unitX += Math.cos(unitAngle) * WALK_SPEED;
+                unitY += Math.sin(unitAngle) * WALK_SPEED;
+            }
+        }
 
         // Updating the changed state.
         system.unitsTimers[unitIdentifier] = unitTimer;
@@ -66,7 +85,7 @@ public class BrawlerIdleHandler
         float handDistance = 3;
         
         system.handSprite.setPosition(unitX + handDistance * Math.cos(unitAngle) - VideoConstants.HAND_ORIGIN_X,
-                                unitY - handDistance * Math.sin(unitAngle) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLER_BODY_WEAPON_ORIGIN_Y);
+                                unitY + handDistance * Math.sin(unitAngle) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLER_BODY_WEAPON_ORIGIN_Y);
         // Is the hand above?
         if (unitAngle < Math.PI)
             system.handSprite.draw(screen);
@@ -95,5 +114,12 @@ public class BrawlerIdleHandler
     }
     
     
+    /***** PRIVATE *****/
+    
     private boolean mIsAllied;
+    
+    private static final float WALK_SPEED = 0.125f;
+    private static final float CLOSE_DISTANCE = 10.f;
+    private static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
+    private static final float ANGLE_ROTATION_BY_TICK = 2.f / 256.f;
 }

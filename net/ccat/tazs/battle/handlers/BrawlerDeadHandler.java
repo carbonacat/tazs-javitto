@@ -14,19 +14,7 @@ import net.ccat.tazs.tools.MathTools;
 public class BrawlerDeadHandler
     extends BaseBrawlerHandler
 {
-    static final BrawlerDeadHandler alliedInstance = new BrawlerDeadHandler(true);
-    static final BrawlerDeadHandler enemyInstance = new BrawlerDeadHandler(false);
-    
-    static BrawlerDeadHandler instance(boolean isAllied)
-    {
-        return isAllied ? alliedInstance : enemyInstance;
-    }
-    
-    
-    public BrawlerDeadHandler(boolean isAllied)
-    {
-        super(isAllied);
-    }
+    static final BrawlerDeadHandler instance = new BrawlerDeadHandler();
     
     
     /***** LIFECYCLE *****/
@@ -44,7 +32,8 @@ public class BrawlerDeadHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
         
-        drawDeadBrawler(unitX, unitY, unitAngle, system.brawlerBodySprite, screen);
+        drawDeadBrawler(unitX, unitY, unitAngle, system.brawlerBodySpriteByTeam[unitTeam], screen);
     }
 }

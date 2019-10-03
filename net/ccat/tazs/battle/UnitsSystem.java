@@ -1,7 +1,10 @@
 package net.ccat.tazs.battle;
 
 import femto.mode.HiRes16Color;
+import femto.Sprite;
 
+import net.ccat.tazs.resources.sprites.BrawlerBodyASprite;
+import net.ccat.tazs.resources.sprites.BrawlerBodyBSprite;
 import net.ccat.tazs.resources.sprites.BrawlerBodySprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
 
@@ -15,6 +18,13 @@ class UnitsSystem
 {
     public static final int UNITS_MAX = 256;
     public static final int IDENTIFIER_NONE = -1;
+    
+    
+    public UnitsSystem()
+    {
+        brawlerBodySpriteByTeam[Teams.PLAYER] = new BrawlerBodyASprite();
+        brawlerBodySpriteByTeam[Teams.ENEMY] = new BrawlerBodyBSprite();
+    }
     
     
     /***** UNITS *****/
@@ -48,6 +58,10 @@ class UnitsSystem
      * Handlers for all Units.
      */
     public UnitHandler[] unitsHandlers = new UnitHandler[UNITS_MAX];
+    /**
+     * Allegiences for all Units.
+     */
+    public char[] unitsTeams = new char[UNITS_MAX];
     
     /**
      * Clears any stored Units.
@@ -64,11 +78,14 @@ class UnitsSystem
      * @param x The X coordinate.
      * @param y The Y coordinate.
      * @param angle Where the units is looking at, in Radiants.
+     * @param team The unit's team.
      * @param health The starting health for this unit.
      * @param handler The Handler for this unit.
      * @return the unit's identifier, or IDENTIFIER_NONE if a Unit couldn't be created.
      */
-    public int addUnit(float x, float y, float angle, short health, UnitHandler handler)
+    public int addUnit(float x, float y, float angle,
+                       short health,
+                       UnitHandler handler, char team)
     {
         if (mCount >= UNITS_MAX)
             return IDENTIFIER_NONE;
@@ -83,6 +100,7 @@ class UnitsSystem
         unitsTimers[unitIdentifier] = 0;
         unitsTargetIdentifiers[unitIdentifier] = IDENTIFIER_NONE;
         unitsHandlers[unitIdentifier] = handler;
+        unitsTeams[unitIdentifier] = team;
         return unitIdentifier;
     }
     
@@ -111,6 +129,7 @@ class UnitsSystem
             unitsTimers[unitIdentifier] = unitsTimers[lastUnitIdentifier];
             unitsTargetIdentifiers[unitIdentifier] = unitsTargetIdentifiers[lastUnitIdentifier];
             unitsHandlers[unitIdentifier] = unitsHandlers[lastUnitIdentifier];
+            unitsTeams[unitIdentifier] = unitsTeams[lastUnitIdentifier];
         }
         return true;
     }
@@ -146,19 +165,19 @@ class UnitsSystem
      * Finds the unit closest from the given point, of the given allegience.
      * @param x The X coordinate.
      * @param y the Y coordinate.
-     * @param isAllied true if allied, false elsewhere.
+     * @param team The team that must match.
      * @param maxDistance The max distance the closest unit can have.
      * @param ignoreDead If true, the dead (health = 0) will be ignored.
      * @return the found Unit's identifier, or IDENTIFIER_NONE if none found.
      */
-    public int findClosestUnit(float x, float y, boolean isAllied, float maxDistance, boolean ignoreDead)
+    public int findClosestUnit(float x, float y, char team, float maxDistance, boolean ignoreDead)
     {
         int closestUnitIdentifier = IDENTIFIER_NONE;
         float closestUnitDistanceSquared = maxDistance * maxDistance;
         
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
             if ((!ignoreDead || (unitsHealths[unitIdentifier] > 0)) &&
-                (unitsHandlers[unitIdentifier].isAllied() == isAllied))
+                (unitsTeams[unitIdentifier] == team))
             {
                 float relativeX = x - unitsXs[unitIdentifier];
                 float relativeY = y - unitsYs[unitIdentifier];
@@ -188,7 +207,7 @@ class UnitsSystem
     
     /***** RENDERING *****/
     
-    public final BrawlerBodySprite brawlerBodySprite = new BrawlerBodySprite();
+    public final BrawlerBodySprite[] brawlerBodySpriteByTeam = new BrawlerBodySprite[2];
     public final HandSprite handSprite = new HandSprite();
     
     /**

@@ -14,19 +14,7 @@ import net.ccat.tazs.tools.MathTools;
 public class BrawlerPunchHandler
     extends BaseBrawlerHandler
 {
-    static final BrawlerPunchHandler alliedInstance = new BrawlerPunchHandler(true);
-    static final BrawlerPunchHandler enemyInstance = new BrawlerPunchHandler(false);
-    
-    static BrawlerPunchHandler instance(boolean isAllied)
-    {
-        return isAllied ? alliedInstance : enemyInstance;
-    }
-    
-    
-    public BrawlerPunchHandler(boolean isAllied)
-    {
-        super(isAllied);
-    }
+    static final BrawlerPunchHandler instance = new BrawlerPunchHandler();
     
     
     /***** LIFECYCLE *****/
@@ -39,7 +27,7 @@ public class BrawlerPunchHandler
         if (targetIdentifier == UnitsSystem.IDENTIFIER_NONE)
         {
             unitTimer = 0;
-            system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance(mIsAllied);
+            system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance;
         }
         else
         {
@@ -56,9 +44,12 @@ public class BrawlerPunchHandler
                     float unitX = system.unitsXs[unitIdentifier];
                     float unitY = system.unitsYs[unitIdentifier];
                     float unitAngle = system.unitsAngles[unitIdentifier];
+                    char unitTeam = system.unitsTeams[unitIdentifier];
                     float weaponX = handX(unitX, unitAngle, handDistance);
                     float weaponY = handY(unitY, unitAngle, handDistance);
-                    int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, !mIsAllied, HAND_RADIUS + UNIT_RADIUS, false);
+                    
+                    // TODO: 1-team isn't really a good way to find the other team.
+                    int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, HAND_RADIUS + UNIT_RADIUS, false);
                     
                     if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
                         system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
@@ -68,7 +59,7 @@ public class BrawlerPunchHandler
                 if (unitTimer == TIMER_PUNCH_REST)
                 {
                     unitTimer = 0;
-                    system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance(mIsAllied);
+                    system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance;
                 }
             }
         }
@@ -84,6 +75,7 @@ public class BrawlerPunchHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
         float handDistance;
         
@@ -99,7 +91,7 @@ public class BrawlerPunchHandler
         else
             handDistance = HAND_IDLE_DISTANCE;
         
-        drawBrawler(unitX, unitY, unitAngle, handDistance, system.brawlerBodySprite, system.handSprite, screen);
+        drawBrawler(unitX, unitY, unitAngle, handDistance, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }
     
     

@@ -35,12 +35,4 @@ class Colors
     static final int TITLE_BG = 5;
     static final int TITLE_TEXT = 8;
     static final int TITLE_COMMAND = 15;
-    
-    
-    /***** UNITS *****/
-    
-    static final int UNITS_ALLIES_PRIMARY = 8;
-    static final int UNITS_ALLIES_SECONDARY = 3;
-    static final int UNITS_ENEMIES_PRIMARY = 10;
-    static final int UNITS_ENEMIES_SECONDARY = 5;
 }

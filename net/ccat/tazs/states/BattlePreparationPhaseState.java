@@ -6,6 +6,7 @@ import femto.mode.HiRes16Color;
 import femto.State;
 
 import net.ccat.tazs.battle.handlers.BrawlerIdleHandler;
+import net.ccat.tazs.battle.Teams;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.CursorSprite;
@@ -35,11 +36,12 @@ public class BattlePreparationPhaseState
         mGame.unitsSystem.clear();
         
         // TODO: Eventually will be setup with a proper battle plan.
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 1; i++)
             mGame.unitsSystem.addUnit((Math.random() - 0.0f) * 100, (Math.random() - 0.5f) * 80,
                                       Math.PI,
                                       BrawlerIdleHandler.HEALTH_INITIAL,
-                                      BrawlerIdleHandler.enemyInstance) != battle.UnitsSystem.IDENTIFIER_NONE;
+                                      BrawlerIdleHandler.instance,
+                                      Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
         mGame.screen.cameraX = -mGame.screen.width() * 0.5;
         mGame.screen.cameraY = -mGame.screen.height() * 0.5;
         mCursorX = 0;
@@ -107,7 +109,7 @@ public class BattlePreparationPhaseState
             // Finding a Unit that is hovered.
             int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
             
-            if ((hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsHandlers[hoveredUnitIdentifier].isAllied()))
+            if ((hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsTeams[hoveredUnitIdentifier] == Teams.PLAYER))
             {
                 newMode = MODE_REMOVE;
                 if (Button.B.isPressed())
@@ -123,8 +125,10 @@ public class BattlePreparationPhaseState
             {
                 if (Button.A.isPressed())
                 {
-                    mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0, BrawlerIdleHandler.HEALTH_INITIAL,
-                                              BrawlerIdleHandler.alliedInstance);
+                    mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0,
+                                              BrawlerIdleHandler.HEALTH_INITIAL,
+                                              BrawlerIdleHandler.instance,
+                                              Teams.PLAYER);
                     mAlliedUnitsCount++;
                     // Resets the animation.
                     mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;

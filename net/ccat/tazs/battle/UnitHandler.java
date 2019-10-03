@@ -10,14 +10,6 @@ import femto.mode.HiRes16Color;
  */
 public interface UnitHandler
 {
-    /***** INFORMATION *****/
-    
-    /**
-     * @Returns true if this Handler is for an Allied Unit.
-     */
-    public abstract boolean isAllied();
-    
-    
     /***** LIFECYCLE *****/
     
     /**

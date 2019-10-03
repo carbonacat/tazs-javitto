@@ -16,19 +16,7 @@ import net.ccat.tazs.tools.MathTools;
 public class BrawlerIdleHandler
     extends BaseBrawlerHandler
 {
-    static final BrawlerIdleHandler alliedInstance = new BrawlerIdleHandler(true);
-    static final BrawlerIdleHandler enemyInstance = new BrawlerIdleHandler(false);
-    
-    static BrawlerIdleHandler instance(boolean isAllied)
-    {
-        return isAllied ? alliedInstance : enemyInstance;
-    }
-    
-    
-    public BrawlerIdleHandler(boolean isAllied)
-    {
-        super(isAllied);
-    }
+    static final BrawlerIdleHandler instance = new BrawlerIdleHandler();
     
     
     /***** LIFECYCLE *****/
@@ -45,7 +33,10 @@ public class BrawlerIdleHandler
         unitTimer--;
         if (unitTimer <= 0)
         {
-            targetIdentifier = system.findClosestUnit(unitX, unitY, !mIsAllied, SEEK_DISTANCE_MAX, true);
+            char unitTeam = system.unitsTeams[unitIdentifier];
+        
+            // TODO: Not the right way to find another team.
+            targetIdentifier = system.findClosestUnit(unitX, unitY, 1 - unitTeam, SEEK_DISTANCE_MAX, true);
             system.unitsTargetIdentifiers[unitIdentifier] = targetIdentifier;
             unitTimer = 128;
         }
@@ -72,7 +63,7 @@ public class BrawlerIdleHandler
             {
                  // Let's punch them!
                 unitTimer = 0;
-                system.unitsHandlers[unitIdentifier] = BrawlerPunchHandler.instance(mIsAllied);
+                system.unitsHandlers[unitIdentifier] = BrawlerPunchHandler.instance;
             }
         }
 
@@ -91,7 +82,8 @@ public class BrawlerIdleHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
         
-        drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.brawlerBodySprite, system.handSprite, screen);
+        drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }
 }

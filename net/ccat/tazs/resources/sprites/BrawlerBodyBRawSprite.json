@@ -1,0 +1,76 @@
+{ "frames": {
+   "BrawlerBodyBSprite 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 5, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 1, "y": 0, "w": 5, "h": 11 },
+    "sourceSize": { "w": 7, "h": 11 },
+    "duration": 100
+   },
+   "BrawlerBodyBSprite 1.aseprite": {
+    "frame": { "x": 5, "y": 0, "w": 5, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 1, "y": 0, "w": 5, "h": 11 },
+    "sourceSize": { "w": 7, "h": 11 },
+    "duration": 50
+   },
+   "BrawlerBodyBSprite 2.aseprite": {
+    "frame": { "x": 10, "y": 0, "w": 6, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 1, "w": 6, "h": 10 },
+    "sourceSize": { "w": 7, "h": 11 },
+    "duration": 100
+   },
+   "BrawlerBodyBSprite 3.aseprite": {
+    "frame": { "x": 16, "y": 0, "w": 7, "h": 9 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 2, "w": 7, "h": 9 },
+    "sourceSize": { "w": 7, "h": 11 },
+    "duration": 100
+   },
+   "BrawlerBodyBSprite 4.aseprite": {
+    "frame": { "x": 23, "y": 0, "w": 7, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 4, "w": 7, "h": 7 },
+    "sourceSize": { "w": 7, "h": 11 },
+    "duration": 100
+   },
+   "BrawlerBodyBSprite 5.aseprite": {
+    "frame": { "x": 30, "y": 0, "w": 7, "h": 6 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 5, "w": 7, "h": 6 },
+    "sourceSize": { "w": 7, "h": 11 },
+    "duration": 100
+   },
+   "BrawlerBodyBSprite 6.aseprite": {
+    "frame": { "x": 37, "y": 0, "w": 7, "h": 5 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 6, "w": 7, "h": 5 },
+    "sourceSize": { "w": 7, "h": 11 },
+    "duration": 1000
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.15-x64",
+  "image": "BrawlerBodyBRawSprite.png",
+  "format": "I8",
+  "size": { "w": 49, "h": 11 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "playDefault", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "playDead", "from": 1, "to": 6, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Main", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

@@ -1,8 +1,11 @@
 package net.ccat.tazs.battle.handlers;
 
 import femto.mode.HiRes16Color;
+import femto.Sprite;
 
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.resources.sprites.BrawlerBodyASprite;
+import net.ccat.tazs.resources.sprites.BrawlerBodyBSprite;
 import net.ccat.tazs.resources.sprites.BrawlerBodySprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.VideoConstants;
@@ -24,20 +27,6 @@ public class BaseBrawlerHandler
     public static final float HAND_POWER = 5.f;
     public static final float UNIT_RADIUS = 4.f;
     public static final float POWER_HP_RATIO = 3.f;
-
-    
-    public BaseBrawlerHandler(boolean isAllied)
-    {
-        mIsAllied = isAllied;
-    }
-    
-    
-    /***** INFORMATION *****/
-    
-    public boolean isAllied()
-    {
-        return mIsAllied;
-    }
     
     
     /***** PARTS POSITIONS *****/
@@ -70,7 +59,7 @@ public class BaseBrawlerHandler
                 health -= (short)(int)lostHealth;
             else
             {
-                system.unitsHandlers[unitIdentifier] = BrawlerDeadHandler.instance(mIsAllied);
+                system.unitsHandlers[unitIdentifier] = BrawlerDeadHandler.instance;
                 health = 0;
             }
         }
@@ -92,21 +81,7 @@ public class BaseBrawlerHandler
         bodySprite.setPosition(unitX - VideoConstants.BRAWLER_BODY_ORIGIN_X, unitY - VideoConstants.BRAWLER_BODY_ORIGIN_Y);
         bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
         bodySprite.draw(screen);
-        
-        int unitPixelX = (int)(unitX - VideoConstants.BRAWLER_BODY_SHIRT_X - screen.cameraX) + (bodySprite.isMirrored() ? 1 : 0);
-        int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SHIRT_Y - screen.cameraY);
-        int primaryColor = mIsAllied ? Colors.UNITS_ALLIES_PRIMARY : Colors.UNITS_ENEMIES_PRIMARY;
-        int secondaryColor = mIsAllied ? Colors.UNITS_ALLIES_SECONDARY : Colors.UNITS_ENEMIES_SECONDARY;
-        
-        screen.setPixel(unitPixelX, unitPixelY, primaryColor);
-        screen.setPixel(unitPixelX + 1, unitPixelY, secondaryColor);
-        unitPixelY++;
-        screen.setPixel(unitPixelX, unitPixelY, secondaryColor);
-        screen.setPixel(unitPixelX + 1, unitPixelY, primaryColor);
-        unitPixelY++;
-        screen.setPixel(unitPixelX, unitPixelY, primaryColor);
-        screen.setPixel(unitPixelX + 1, unitPixelY, secondaryColor);
-        
+
         // Is the hand below?
         if (unitAngle >= 0)
             handSprite.draw(screen);
@@ -121,24 +96,5 @@ public class BaseBrawlerHandler
         bodySprite.setFlipped(true);
         bodySprite.draw(screen);
         bodySprite.setFlipped(false);
-        
-        int unitPixelX = (int)(unitX - VideoConstants.BRAWLER_BODY_SHIRT_X - screen.cameraX) + (bodySprite.isMirrored() ? 1 : 0);
-        int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SHIRT_Y - screen.cameraY) - 2;
-        int primaryColor = mIsAllied ? Colors.UNITS_ALLIES_PRIMARY : Colors.UNITS_ENEMIES_PRIMARY;
-        int secondaryColor = mIsAllied ? Colors.UNITS_ALLIES_SECONDARY : Colors.UNITS_ENEMIES_SECONDARY;
-        
-        screen.setPixel(unitPixelX, unitPixelY, primaryColor);
-        screen.setPixel(unitPixelX + 1, unitPixelY, secondaryColor);
-        unitPixelY++;
-        screen.setPixel(unitPixelX, unitPixelY, secondaryColor);
-        screen.setPixel(unitPixelX + 1, unitPixelY, primaryColor);
-        unitPixelY++;
-        screen.setPixel(unitPixelX, unitPixelY, primaryColor);
-        screen.setPixel(unitPixelX + 1, unitPixelY, secondaryColor);
     }
-    
-    
-    /***** PRIVATE *****/
-    
-    private boolean mIsAllied;
 }

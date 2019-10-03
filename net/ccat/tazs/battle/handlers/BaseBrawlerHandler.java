@@ -23,7 +23,8 @@ public class BaseBrawlerHandler
     public static final float HAND_RADIUS = 1.f;
     public static final float HAND_POWER = 5.f;
     public static final float UNIT_RADIUS = 4.f;
-    
+    public static final float POWER_HP_RATIO = 3.f;
+
     
     public BaseBrawlerHandler(boolean isAllied)
     {
@@ -54,11 +55,26 @@ public class BaseBrawlerHandler
     /***** EVENTS *****/
     
     public void onHit(UnitsSystem system, int unitIdentifier,
-                      float powerX, float powerY)
+                      float powerX, float powerY, float power)
     {
+        short health = system.unitsHealths[unitIdentifier];
+        
         // TODO: Do a proper pushback.
         system.unitsXs[unitIdentifier] += powerX;
         system.unitsYs[unitIdentifier] += powerY;
+        if (health > 0)
+        {
+            float lostHealth = power * POWER_HP_RATIO;
+            
+            if (health > lostHealth)
+                health -= (short)(int)lostHealth;
+            else
+            {
+                system.unitsHandlers[unitIdentifier] = BrawlerDeadHandler.instance(mIsAllied);
+                health = 0;
+            }
+        }
+        system.unitsHealths[unitIdentifier] = health;
     }
     
     
@@ -107,7 +123,7 @@ public class BaseBrawlerHandler
         bodySprite.setFlipped(false);
         
         int unitPixelX = (int)(unitX - VideoConstants.BRAWLER_BODY_SHIRT_X - screen.cameraX) + (bodySprite.isMirrored() ? 1 : 0);
-        int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SHIRT_Y - screen.cameraY);
+        int unitPixelY = (int)(unitY - VideoConstants.BRAWLER_BODY_SHIRT_Y - screen.cameraY) - 1;
         int primaryColor = mIsAllied ? Colors.UNITS_ALLIES_PRIMARY : Colors.UNITS_ENEMIES_PRIMARY;
         int secondaryColor = mIsAllied ? Colors.UNITS_ALLIES_SECONDARY : Colors.UNITS_ENEMIES_SECONDARY;
         

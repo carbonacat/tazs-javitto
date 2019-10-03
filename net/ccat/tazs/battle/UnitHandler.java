@@ -36,9 +36,10 @@ public interface UnitHandler
      * @param unitIdentifier Identifies the Unit inside the system.
      * @param powerX the X component of the power.
      * @param powerY the Y component of the power.
+     * @param power the power.
      */
     public abstract void onHit(UnitsSystem system, int unitIdentifier,
-                               float powerX, float powerY);
+                               float powerX, float powerY, float power);
     
     
     /***** RENDERING *****/

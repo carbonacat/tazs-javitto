@@ -59,7 +59,8 @@ public class BrawlerPunchHandler
                     
                     if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
                         system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
-                                                                      HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle));
+                                                                      HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
+                                                                      HAND_POWER);
                 }
                 if (unitTimer == TIMER_PUNCH_REST)
                     system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance(mIsAllied);

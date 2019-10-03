@@ -119,7 +119,7 @@ public class BrawlerIdleHandler
     private boolean mIsAllied;
     
     private static final float WALK_SPEED = 0.125f;
-    private static final float CLOSE_DISTANCE = 10.f;
+    private static final float CLOSE_DISTANCE = 5.f;
     private static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
-    private static final float ANGLE_ROTATION_BY_TICK = 2.f / 256.f;
+    private static final float ANGLE_ROTATION_BY_TICK = 4.f / 256.f;
 }

@@ -38,6 +38,7 @@ public class BattlePreparationPhaseState
         for (int i = 0; i < 10; i++)
             mGame.unitsSystem.addUnit((Math.random() - 0.0f) * 100, (Math.random() - 0.5f) * 80,
                                       Math.PI,
+                                      BrawlerIdleHandler.HEALTH_INITIAL,
                                       BrawlerIdleHandler.enemyInstance) != battle.UnitsSystem.IDENTIFIER_NONE;
         mGame.screen.cameraX = -mGame.screen.width() * 0.5;
         mGame.screen.cameraY = -mGame.screen.height() * 0.5;
@@ -122,7 +123,8 @@ public class BattlePreparationPhaseState
             {
                 if (Button.A.isPressed())
                 {
-                    mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0, BrawlerIdleHandler.alliedInstance);
+                    mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0, BrawlerIdleHandler.HEALTH_INITIAL,
+                                              BrawlerIdleHandler.alliedInstance);
                     mAlliedUnitsCount++;
                     // Resets the animation.
                     mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;

@@ -28,6 +28,19 @@ public interface UnitHandler
     public abstract void onTick(UnitsSystem system, int unitIdentifier);
     
     
+    /***** EVENTS *****/
+    
+    /**
+     * Called when this Unit was hit by some power.
+     * @param system The system the Unit belongs to.
+     * @param unitIdentifier Identifies the Unit inside the system.
+     * @param powerX the X component of the power.
+     * @param powerY the Y component of the power.
+     */
+    public abstract void onHit(UnitsSystem system, int unitIdentifier,
+                               float powerX, float powerY);
+    
+    
     /***** RENDERING *****/
     
     /**

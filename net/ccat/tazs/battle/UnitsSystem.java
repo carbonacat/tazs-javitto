@@ -37,6 +37,10 @@ class UnitsSystem
      */
     public short[] unitsTimers = new short[UNITS_MAX];
     /**
+     * Health for all Units.
+     */
+    public short[] unitsHealths = new short[UNITS_MAX];
+    /**
      * Targets for all Units.
      */
     public int[] unitsTargetIdentifiers = new int[UNITS_MAX];
@@ -60,10 +64,11 @@ class UnitsSystem
      * @param x The X coordinate.
      * @param y The Y coordinate.
      * @param angle Where the units is looking at, in Radiants.
+     * @param health The starting health for this unit.
      * @param handler The Handler for this unit.
      * @return the unit's identifier, or IDENTIFIER_NONE if a Unit couldn't be created.
      */
-    public int addUnit(float x, float y, float angle, UnitHandler handler)
+    public int addUnit(float x, float y, float angle, short health, UnitHandler handler)
     {
         if (mCount >= UNITS_MAX)
             return IDENTIFIER_NONE;
@@ -74,6 +79,7 @@ class UnitsSystem
         unitsXs[unitIdentifier] = x;
         unitsYs[unitIdentifier] = y;
         unitsAngles[unitIdentifier] = MathTools.wrapAngle(angle);
+        unitsHealths[unitIdentifier] = health;
         unitsTimers[unitIdentifier] = 0;
         unitsTargetIdentifiers[unitIdentifier] = IDENTIFIER_NONE;
         unitsHandlers[unitIdentifier] = handler;
@@ -101,6 +107,7 @@ class UnitsSystem
             unitsXs[unitIdentifier] = unitsXs[lastUnitIdentifier];
             unitsYs[unitIdentifier] = unitsYs[lastUnitIdentifier];
             unitsAngles[unitIdentifier] = unitsAngles[lastUnitIdentifier];
+            unitsHealths[unitIdentifier] = unitsHealths[lastUnitIdentifier];
             unitsTimers[unitIdentifier] = unitsTimers[lastUnitIdentifier];
             unitsTargetIdentifiers[unitIdentifier] = unitsTargetIdentifiers[lastUnitIdentifier];
             unitsHandlers[unitIdentifier] = unitsHandlers[lastUnitIdentifier];

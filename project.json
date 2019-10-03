@@ -333,6 +333,12 @@
 		"\\bin\\tazs-javitto.bin.3.png": {
 			"sdcard": false,
 			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/BaseBrawlerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\BaseBrawlerHandler.java": {
+			"sdcard": false
 		}
 	}
 }

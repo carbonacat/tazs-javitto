@@ -13,11 +13,14 @@ public class BaseBrawlerHandler
     implements UnitHandler
 {
     public static final float WALK_SPEED = 0.125f;
+    public static final float SEEK_DISTANCE_MAX = 250.f;
     public static final float CLOSE_DISTANCE = 5.f;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     public static final float ANGLE_ROTATION_BY_TICK = 4.f / 256.f;
     public static final float HAND_IDLE_DISTANCE = 2.f;
     public static final float HAND_MAX_DISTANCE = 5.f;
+    public static final float HAND_RADIUS = 1.f;
+    public static final float UNIT_RADIUS = 4.f;
     
     
     public BaseBrawlerHandler(boolean isAllied)
@@ -34,14 +37,26 @@ public class BaseBrawlerHandler
     }
     
     
+    /***** PARTS POSITIONS *****/
+    
+    protected float handX(float unitX, float unitAngle, float handDistance)
+    {
+        return unitX + handDistance * Math.cos(unitAngle);
+    }
+    protected float handY(float unitY, float unitAngle, float handDistance)
+    {
+        return unitY + handDistance * Math.sin(unitAngle);
+    }
+    
+    
     /***** RENDERING *****/
     
     protected void drawBrawler(float unitX, float unitY, float unitAngle, float handDistance,
                                BrawlerBodySprite bodySprite, HandSprite handSprite,
                                HiRes16Color screen)
     {
-        handSprite.setPosition(unitX + handDistance * Math.cos(unitAngle) - VideoConstants.HAND_ORIGIN_X,
-                                unitY + handDistance * Math.sin(unitAngle) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLER_BODY_WEAPON_ORIGIN_Y);
+        handSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_X,
+                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLER_BODY_WEAPON_ORIGIN_Y);
         // Is the hand above?
         if (unitAngle < 0)
             handSprite.draw(screen);

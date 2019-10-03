@@ -45,6 +45,25 @@ public class BrawlerPunchHandler
             else
             {
                 unitTimer++;
+                if (unitTimer < TIMER_PUNCH_MAX)
+                {
+                    float handDistance = MathTools.lerp(unitTimer,
+                                                        TIMER_INIT, HAND_IDLE_DISTANCE,
+                                                        TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
+                    float unitX = system.unitsXs[unitIdentifier];
+                    float unitY = system.unitsYs[unitIdentifier];
+                    float unitAngle = system.unitsAngles[unitIdentifier];
+                    float weaponX = handX(unitX, unitAngle, handDistance);
+                    float weaponY = handY(unitY, unitAngle, handDistance);
+                    int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, !mIsAllied, HAND_RADIUS + UNIT_RADIUS);
+                    
+                    if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+                    {
+                        // TODO: Do a proper pushback.
+                        system.unitsXs[hitUnitIdentifier] += 5.f * Math.cos(unitAngle);
+                        system.unitsYs[hitUnitIdentifier] += 5.f * Math.sin(unitAngle);
+                    }
+                }
                 if (unitTimer == TIMER_PUNCH_REST)
                     system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance(mIsAllied);
             }

@@ -140,12 +140,13 @@ class UnitsSystem
      * @param x The X coordinate.
      * @param y the Y coordinate.
      * @param isAllied true if allied, false elsewhere.
+     * @param maxDistance The max distance the closest unit can have.
      * @return the found Unit's identifier, or IDENTIFIER_NONE if none found.
      */
-    public int findClosestUnit(float x, float y, boolean isAllied)
+    public int findClosestUnit(float x, float y, boolean isAllied, float maxDistance)
     {
         int closestUnitIdentifier = IDENTIFIER_NONE;
-        float closestUnitDistanceSquared = FAR_SQUARED;
+        float closestUnitDistanceSquared = maxDistance * maxDistance;
         
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
             if (unitsHandlers[unitIdentifier].isAllied() == isAllied)

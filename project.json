@@ -296,6 +296,9 @@
 		},
 		"\\.git": {
 			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.2.gif": {
+			"sdcard": false
 		}
 	}
 }

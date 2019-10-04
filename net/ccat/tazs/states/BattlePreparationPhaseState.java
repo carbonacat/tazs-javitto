@@ -236,9 +236,11 @@ public class BattlePreparationPhaseState
     private static final int MODE_REMOVE = 4;
     private static final int MODE_MENU = 5;
     
+    // TODO: This is common to a lot of things.
     private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
     private static final int HELP_X = 2;
     private static final int HELP_Y = HELP_BOX_MIN_Y + 2;
+    
     private static final int MENU_X = 110;
     private static final int MENU_Y = 88;
 }

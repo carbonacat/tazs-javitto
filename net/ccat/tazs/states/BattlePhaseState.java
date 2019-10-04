@@ -68,6 +68,7 @@ public class BattlePhaseState
     
     private TAZSGame mGame;
     
+    // TODO: This is common to a lot of things.
     private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
     private static final int HELP_X = 2;
     private static final int HELP_Y = HELP_BOX_MIN_Y + 2;

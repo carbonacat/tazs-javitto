@@ -192,6 +192,34 @@ class UnitsSystem
         return closestUnitIdentifier;
     }
     
+    /**
+     * @return A team from Teams.
+     */
+    public int winnerTeam()
+    {
+        int playerAliveUnitsCount = 0;
+        int enemyAliveUnitsCount = 0;
+        
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
+            if (unitsHealths[unitIdentifier] > 0)
+                switch (unitsTeams[unitIdentifier])
+                {
+                case Teams.PLAYER:
+                    playerAliveUnitsCount++;
+                    break;
+                case Teams.ENEMY:
+                    enemyAliveUnitsCount++;
+                    break;
+                }
+        if ((playerAliveUnitsCount > 0) && (enemyAliveUnitsCount > 0))
+            return Teams.TO_BE_DETERMINED;
+        if (playerAliveUnitsCount > 0)
+            return Teams.PLAYER;
+        if (enemyAliveUnitsCount > 0)
+            return Teams.ENEMY;
+        return Teams.NONE;
+    }
+    
     
     /***** LIFECYCLE *****/
     

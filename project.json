@@ -303,6 +303,10 @@
 		},
 		"\\bin\\tazs-javitto.bin.2.gif": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\DefeatSprite.json": {
+			"sdcard": false,
+			"implements": ""
 		}
 	}
 }

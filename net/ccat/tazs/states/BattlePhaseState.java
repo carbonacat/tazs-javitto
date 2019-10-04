@@ -4,6 +4,7 @@ import femto.input.Button;
 import femto.mode.HiRes16Color;
 import femto.State;
 
+import net.ccat.tazs.battle.Teams;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
@@ -35,9 +36,24 @@ public class BattlePhaseState
         
         mGame.unitsSystem.onTick();
         
+        int winnerTeam = mGame.unitsSystem.winnerTeam();
+        
         screen.clear(Colors.SCENE_BG);
         mGame.unitsSystem.draw(screen);
         renderUI();
+        
+        // TODO: Temporary
+        if (winnerTeam != Teams.TO_BE_DETERMINED)
+        {
+            screen.setTextPosition(0, 0);
+            if (winnerTeam == Teams.PLAYER)
+                screen.print("Player won!");
+            else if (winnerTeam == Teams.ENEMY)
+                screen.print("Enemy won!");
+            else 
+                screen.print("Draw!");
+        }
+        
         screen.flush();
     }
     

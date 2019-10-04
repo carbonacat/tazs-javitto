@@ -82,6 +82,33 @@ public class BattleResultPhaseState
         
         screen.drawRect(STATS_X, mStatsY, STATS_WIDTH, STATS_HEIGHT, Colors.WINDOW_BORDER);
         screen.fillRect(STATS_X + 1, mStatsY + 1, STATS_WIDTH - 1, STATS_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
+        screen.setTextColor(Colors.WINDOW_TEXT);
+        screen.setTextPosition(STATS_TEAMS_FIRST_X, mStatsY + STATS_TEAMNAME_Y_OFFSET);
+        screen.print(Texts.TEAMS_PLAYER);
+        screen.setTextPosition(STATS_TEAMS_SECOND_X, mStatsY + STATS_TEAMNAME_Y_OFFSET);
+        screen.print(Texts.TEAMS_ENEMY);
+        
+        screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_COST_Y_OFFSET);
+        screen.print(Texts.RESULT_COST_);
+        screen.setTextPosition(STATS_TEAMS_FIRST_X, mStatsY + STATS_COST_Y_OFFSET);
+        screen.print(Texts.MISC_UNKNOWN);
+        screen.setTextPosition(STATS_TEAMS_SECOND_X, mStatsY + STATS_COST_Y_OFFSET);
+        screen.print(Texts.MISC_UNKNOWN);
+        
+        screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
+        screen.print(Texts.RESULT_DESTRUCTIONS_);
+        screen.setTextPosition(STATS_TEAMS_FIRST_X, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
+        screen.print(Texts.MISC_UNKNOWN);
+        screen.setTextPosition(STATS_TEAMS_SECOND_X, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
+        screen.print(Texts.MISC_UNKNOWN);
+        
+        screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_LOSSES_Y_OFFSET);
+        screen.print(Texts.RESULT_LOSSES_);
+        screen.setTextPosition(STATS_TEAMS_FIRST_X, mStatsY + STATS_LOSSES_Y_OFFSET);
+        screen.print(Texts.MISC_UNKNOWN);
+        screen.setTextPosition(STATS_TEAMS_SECOND_X, mStatsY + STATS_LOSSES_Y_OFFSET);
+        screen.print(Texts.MISC_UNKNOWN);
+        
         
         screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
         screen.setTextColor(Colors.HELP_ACTIVE);
@@ -114,9 +141,16 @@ public class BattleResultPhaseState
     private static final int LOGO_X = 83;
     
     private static final int STATS_WIDTH = 216;
-    private static final int STATS_HEIGHT = 47;
+    private static final int STATS_HEIGHT = 32;
     private static final int STATS_Y_HIDDEN = 176;
     private static final int STATS_Y_VISIBLE = 47;
     private static final int STATS_Y_SPEED = 4;
     private static final int STATS_X = 2;
+    private static final int STATS_LABEL_X = 5;
+    private static final int STATS_TEAMNAME_Y_OFFSET = 3;
+    private static final int STATS_TEAMS_FIRST_X = 84;
+    private static final int STATS_TEAMS_SECOND_X = 151;
+    private static final int STATS_COST_Y_OFFSET = 10;
+    private static final int STATS_DESTRUCTIONS_Y_OFFSET = 17;
+    private static final int STATS_LOSSES_Y_OFFSET = 24;
 }

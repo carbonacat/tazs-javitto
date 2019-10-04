@@ -194,7 +194,7 @@ public class BattlePreparationPhaseState
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_REMOVE_UNIT_X);
             // TODO: Use the actual Unit's type's name.
-            screen.print(hasHoveredUnit ? Texts.UNITS_BRAWLER_NAME : Texts.UNITS_UNKNOWN_NAME);
+            screen.print(hasHoveredUnit ? Texts.UNITS_BRAWLER_NAME : Texts.MISC_UNKNOWN);
         }
         else if ((mMode == MODE_PLACE) || (mMode == MODE_NO_MORE_UNITS))
         {

@@ -15,9 +15,10 @@ class Texts
     
     /***** MISC *****/
     
+    public static final String MISC_BIG_SEPARATOR = " | ";
     public static final String MISC_ERROR = "<error>";
     public static final String MISC_SEPARATOR = " - ";
-    public static final String MISC_BIG_SEPARATOR = " | ";
+    public static final String MISC_UNKNOWN = "???";
     
     
     /***** MENU *****/
@@ -37,8 +38,17 @@ class Texts
     
     /***** RESULTS *****/
     
+    public static final String RESULT_COST_ = "Cost:";
+    public static final String RESULT_DESTRUCTIONS_ = "Destructions:";
+    public static final String RESULT_LOSSES_ = "Losses:";
     public static final String RESULT_EXIT = "Exit";
     public static final String RESULT_STATS = "Stats";
+    
+    
+    /***** TEAMS *****/
+    
+    public static final String TEAMS_ENEMY = "Enemy";
+    public static final String TEAMS_PLAYER = "Player";
     
     
     /***** TITLE SCREEN *****/
@@ -50,7 +60,6 @@ class Texts
     /***** UNITS *****/
     
     public static final String UNITS_BRAWLER_NAME = "Brawler";
-    public static final String UNITS_UNKNOWN_NAME = "???";
     
     
 }

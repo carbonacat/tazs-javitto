@@ -41,4 +41,5 @@ class Colors
     
     static final int WINDOW_BACKGROUND = 5;
     static final int WINDOW_BORDER = 15;
+    static final int WINDOW_TEXT = 15;
 }

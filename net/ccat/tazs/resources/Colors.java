@@ -35,4 +35,10 @@ class Colors
     static final int TITLE_BG = 5;
     static final int TITLE_TEXT = 8;
     static final int TITLE_COMMAND = 15;
+    
+    
+    /***** WINDOW *****/
+    
+    static final int WINDOW_BACKGROUND = 5;
+    static final int WINDOW_BORDER = 15;
 }

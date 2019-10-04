@@ -147,12 +147,23 @@
 	},
 	"meta": {
 		"": {},
-		"\\bin": {},
-		"\\net": {},
 		"\\Main.java": {
 			"sdcard": false
 		},
+		"\\bin": {},
+		"\\net": {},
 		"\\project.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\bin\\tazs-javitto.bin": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.1.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\bin\\tazs-javitto.bin.2.png": {
 			"sdcard": false,
 			"implements": ""
 		},
@@ -160,59 +171,64 @@
 			"sdcard": false
 		},
 		"\\net\\ccat": {},
-		"\\bin\\tazs-javitto.bin.1.png": {
-			"sdcard": false,
-			"implements": ""
-		},
-		"\\bin\\tazs-javitto.bin": {
-			"sdcard": false
-		},
 		"\\net\\ccat\\tazs": {},
-		"\\net\\ccat\\tazs\\resources": {},
 		"\\net\\ccat\\tazs\\battle": {},
+		"\\net\\ccat\\tazs\\resources": {},
+		"\\net\\ccat\\tazs\\tools": {},
+		"\\net\\ccat\\tazs\\states": {},
 		"\\net\\ccat\\tazs\\TAZSGame.java": {
 			"sdcard": false
 		},
-		"\\net\\ccat\\tazs\\states": {},
-		"\\net\\ccat\\tazs\\tools": {},
 		"\\net\\ccat\\tazs\\ui": {},
-		"\\net\\ccat\\tazs\\resources\\Colors.java": {
+		"\\net\\ccat\\tazs\\battle\\Teams.java": {
 			"sdcard": false
 		},
-		"\\net\\ccat\\tazs\\resources\\palettes": {},
-		"\\net\\ccat\\tazs\\resources\\sprites": {},
-		"\\net\\ccat\\tazs\\resources\\Texts.java": {
-			"sdcard": false
-		},
-		"\\net\\ccat\\tazs\\resources\\VideoConstants.java": {
+		"\\net\\ccat\\tazs\\battle\\UnitsSystem.java": {
 			"sdcard": false
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers": {},
 		"\\net\\ccat\\tazs\\battle\\UnitHandler.java": {
 			"sdcard": false
 		},
-		"\\net\\ccat\\tazs\\battle\\UnitsSystem.java": {
+		"\\net\\ccat\\tazs\\resources\\Colors.java": {
 			"sdcard": false
 		},
-		"\\net\\ccat\\tazs\\states\\BattlePhaseState.java": {
-			"sdcard": false
-		},
-		"\\net\\ccat\\tazs\\states\\BattlePreparationPhaseState.java": {
-			"sdcard": false
-		},
-		"\\net\\ccat\\tazs\\states\\TitleScreenState.java": {
+		"\\net\\ccat\\tazs\\resources\\sprites": {},
+		"\\net\\ccat\\tazs\\resources\\palettes": {},
+		"\\net\\ccat\\tazs\\resources\\Texts.java": {
 			"sdcard": false
 		},
 		"\\net\\ccat\\tazs\\tools\\MathTools.java": {
 			"sdcard": false
 		},
-		"\\net\\ccat\\tazs\\ui\\PadMenuUI.java": {
+		"\\net\\ccat\\tazs\\states\\BattlePhaseState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\VideoConstants.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states\\BattlePreparationPhaseState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states\\BattleResultPhaseState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states\\TitleScreenState.java": {
 			"sdcard": false
 		},
 		"\\net\\ccat\\tazs\\ui\\UITools.java": {
 			"sdcard": false
 		},
-		"\\net\\ccat\\tazs\\resources\\palettes\\ModifiedNAJI16.pal": {
+		"\\net\\ccat\\tazs\\ui\\PadMenuUI.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\BaseBrawlerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\BrawlerDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\BrawlerIdleHandler.java": {
 			"sdcard": false
 		},
 		"\\net\\ccat\\tazs\\resources\\sprites\\BrawlerBodyARawSprite.json": {
@@ -223,12 +239,15 @@
 			"sdcard": false,
 			"implements": ""
 		},
-		"\\net\\ccat\\tazs\\resources\\sprites\\BrawlerBodyBRawSprite.json": {
-			"sdcard": false,
-			"implements": ""
+		"\\net\\ccat\\tazs\\battle\\handlers\\BrawlerPunchHandler.java": {
+			"sdcard": false
 		},
 		"\\net\\ccat\\tazs\\resources\\sprites\\BrawlerBodyASprite.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\BrawlerBodyBRawSprite.json": {
+			"sdcard": false,
+			"implements": ""
 		},
 		"\\net\\ccat\\tazs\\resources\\sprites\\BrawlerBodyBRawSprite.png": {
 			"sdcard": false,
@@ -256,57 +275,27 @@
 			"sdcard": false,
 			"implements": ""
 		},
-		"\\net\\ccat\\tazs\\resources\\sprites\\PadMenuSprite.png": {
-			"sdcard": false,
-			"implements": ""
-		},
 		"\\net\\ccat\\tazs\\resources\\sprites\\PadMenuSprite.json": {
 			"sdcard": false,
 			"implements": ""
 		},
-		"\\net\\ccat\\tazs\\battle\\handlers\\BrawlerDeadHandler.java": {
-			"sdcard": false
+		"\\net\\ccat\\tazs\\resources\\sprites\\PadMenuSprite.png": {
+			"sdcard": false,
+			"implements": ""
 		},
-		"\\net\\ccat\\tazs\\battle\\handlers\\BaseBrawlerHandler.java": {
-			"sdcard": false
+		"\\net\\ccat\\tazs\\resources\\sprites\\ResultSummarySprite.json": {
+			"sdcard": false,
+			"implements": ""
 		},
-		"\\net\\ccat\\tazs\\battle\\handlers\\BrawlerPunchHandler.java": {
-			"sdcard": false
+		"\\net\\ccat\\tazs\\resources\\sprites\\ResultSummarySprite.png": {
+			"sdcard": false,
+			"implements": ""
 		},
-		"\\net\\ccat\\tazs\\battle\\handlers\\BrawlerIdleHandler.java": {
-			"sdcard": false
-		},
-		"\\net\\ccat\\tazs\\resources\\sprites\\BrawlerBodyASpriteA.java": {
-			"sdcard": false
-		},
-		"\\net\\ccat\\tazs\\resources\\sprites\\BrawlerBodyBSpriteA.java": {
-			"sdcard": false
-		},
-		"\\net\\ccat\\tazs\\battle/Teams.java": {
-			"sdcard": false
-		},
-		"\\net\\ccat\\tazs\\battle\\Teams.java": {
+		"\\net\\ccat\\tazs\\resources\\palettes\\ModifiedNAJI16.pal": {
 			"sdcard": false
 		},
 		"\\.git": {
 			"sdcard": false
-		},
-		"\\bin\\tazs-javitto.bin.1.gif": {
-			"sdcard": false
-		},
-		"\\bin\\tazs-javitto.bin.2.png": {
-			"sdcard": false,
-			"implements": ""
-		},
-		"\\bin\\tazs-javitto.bin.3.gif": {
-			"sdcard": false
-		},
-		"\\bin\\tazs-javitto.bin.2.gif": {
-			"sdcard": false
-		},
-		"\\net\\ccat\\tazs\\resources\\sprites\\DefeatSprite.json": {
-			"sdcard": false,
-			"implements": ""
 		}
 	}
 }

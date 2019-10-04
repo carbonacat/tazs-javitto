@@ -1,5 +1,6 @@
 package net.ccat.tazs.states;
 
+import femto.Game;
 import femto.input.Button;
 import femto.mode.HiRes16Color;
 import femto.State;
@@ -44,8 +45,12 @@ public class BattleResultPhaseState
         HiRes16Color screen = mGame.screen;
         
         mGame.unitsSystem.onTick();
-        mLogoY = Math.min(mLogoY + 1, LOGO_Y_FINAL);
         
+        if (Button.A.justPressed())
+            Game.changeState(new TitleScreenState(mGame));
+        
+        mLogoY = Math.min(mLogoY + 1, LOGO_Y_FINAL);
+
         screen.clear(Colors.SCENE_BG);
         mGame.unitsSystem.draw(screen);
         renderUI();

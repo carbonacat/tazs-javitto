@@ -36,12 +36,18 @@ public class BattlePreparationPhaseState
         mGame.unitsSystem.clear();
         
         // TODO: Eventually will be setup with a proper battle plan.
-        for (int i = 0; i < 2; i++)
-            mGame.unitsSystem.addUnit((Math.random() - 0.0f) * 100, (Math.random() - 0.5f) * 80,
-                                      Math.PI,
-                                      BrawlerIdleHandler.HEALTH_INITIAL,
-                                      BrawlerIdleHandler.instance,
-                                      Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+        for (int remainingCluster = Math.random(1, 16); remainingCluster > 0 ; remainingCluster--)
+        {
+            float clusterX = (Math.random() - 0.0f) * 80;
+            float clusterY = (Math.random() - 0.5f) * 60;
+            
+            for (int remainingUnit = Math.random(1, 8); remainingUnit > 0 ; remainingUnit--)
+                mGame.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
+                                          Math.PI,
+                                          BrawlerIdleHandler.HEALTH_INITIAL,
+                                          BrawlerIdleHandler.instance,
+                                          Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+        }
         mGame.screen.cameraX = -mGame.screen.width() * 0.5;
         mGame.screen.cameraY = -mGame.screen.height() * 0.5;
         mCursorX = 0;

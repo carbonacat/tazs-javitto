@@ -192,6 +192,9 @@ class UnitsSystem
         return closestUnitIdentifier;
     }
     
+    
+    /***** STATS *****/
+    
     /**
      * @return A team from Teams.
      */
@@ -218,6 +221,26 @@ class UnitsSystem
         if (enemyAliveUnitsCount > 0)
             return Teams.ENEMY;
         return Teams.NONE;
+    }
+    
+    /**
+     * @param team The team to count units from.
+     * @param onlyDead If true, will only count the dead units. 
+     * @return The corresponding number of units.
+     */
+    public int unitsCount(int team, boolean onlyDead)
+    {
+        int count = 0;
+        
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
+            if ((!onlyDead) || (unitsHealths[unitIdentifier] <= 0))
+            {
+                int unitTeam = unitsTeams[unitIdentifier];
+                
+                if (unitTeam == team)
+                    count++;
+            }
+        return count;
     }
     
     

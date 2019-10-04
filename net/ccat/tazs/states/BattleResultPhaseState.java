@@ -24,10 +24,10 @@ public class BattleResultPhaseState
         mGame = game;
         mWinnerTeam = winnerTeam;
         mSummarySprite.setStatic(true);
-        mPlayerLosses = 0;
-        mPlayerUnitsCount = 10;
-        mEnemyLosses = 20;
-        mEnemyUnitsCount = 20;
+        mPlayerLosses = game.unitsSystem.unitsCount(Teams.PLAYER, true);
+        mPlayerUnitsCount = game.unitsSystem.unitsCount(Teams.PLAYER, false);
+        mEnemyLosses = game.unitsSystem.unitsCount(Teams.ENEMY, true);
+        mEnemyUnitsCount = game.unitsSystem.unitsCount(Teams.ENEMY, false);
     }
     
     
@@ -96,9 +96,15 @@ public class BattleResultPhaseState
         screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_COST_Y_OFFSET);
         screen.print(Texts.RESULT_COST_);
         screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_COST_Y_OFFSET);
-        screen.print(Texts.MISC_UNKNOWN);
+        renderStatBar(mPlayerUnitsCount, mPlayerUnitsCount + mEnemyUnitsCount,
+                      STATS_TEAMS_FIRST_X_START, STATS_TEAMS_FIRST_X_LAST, mStatsY + STATS_COST_Y_OFFSET,
+                        Colors.TEAM_PLAYER_STAT_COLOR, screen);
+        screen.print(mPlayerUnitsCount);
         screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_COST_Y_OFFSET);
-        screen.print(Texts.MISC_UNKNOWN);
+        renderStatBar(mEnemyUnitsCount, mPlayerUnitsCount + mEnemyUnitsCount,
+                      STATS_TEAMS_SECOND_X_START, STATS_TEAMS_SECOND_X_LAST, mStatsY + STATS_COST_Y_OFFSET,
+                        Colors.TEAM_ENEMY_STAT_COLOR, screen);
+        screen.print(mEnemyUnitsCount);
         
         screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.RESULT_DESTRUCTIONS_);
@@ -141,7 +147,7 @@ public class BattleResultPhaseState
     {
         int barXMax = MathTools.lerpi(value, 0, xMin, valueMax, xMax);
         
-        screen.fillRect(xMin, y+4, barXMax - xMin + 2, 2, color);
+        screen.fillRect(xMin, y + STATS_BAR_Y_OFFSET, barXMax - xMin + 2, STATS_BAR_THICKNESS, color);
     }
     
     
@@ -182,4 +188,6 @@ public class BattleResultPhaseState
     private static final int STATS_COST_Y_OFFSET = 10;
     private static final int STATS_DESTRUCTIONS_Y_OFFSET = 17;
     private static final int STATS_LOSSES_Y_OFFSET = 24;
+    private static final int STATS_BAR_THICKNESS = 1;
+    private static final int STATS_BAR_Y_OFFSET = 2;
 }

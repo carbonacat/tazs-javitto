@@ -41,13 +41,14 @@ class TitleScreenState
         // TODO: Proper title screen.
         screen.clear(Colors.TITLE_BG);
         
-        screen.setTextPosition(0, TITLE_HEIGHT);
+        screen.setTextPosition((screen.width() - screen.textWidth(Texts.TITLE)) / 2, TITLE_Y);
         screen.setTextColor(Colors.TITLE_TEXT);
         screen.print(Texts.TITLE);
-        screen.setTextPosition(0, VERSION_HEIGHT);
+        screen.setTextPosition(VERSION_X, VERSION_Y);
+        screen.setTextColor(Colors.TITLE_VERSION);
         screen.print(Texts.TITLE_VERSION);
         
-        screen.setTextPosition(0 , COMMAND_HEIGHT);
+        screen.setTextPosition(COMMAND_X, COMMAND_Y);
         screen.setTextColor(Colors.TITLE_COMMAND);
         screen.print(Texts.BUTTON_A);
         screen.print(Texts.MISC_SEPARATOR);
@@ -66,7 +67,9 @@ class TitleScreenState
     
     private TAZSGame mGame;
     
-    private static final float TITLE_HEIGHT = 32;
-    private static final float VERSION_HEIGHT = TITLE_HEIGHT + 7;
-    private static final float COMMAND_HEIGHT = 64;
+    private static final float TITLE_Y = 32;
+    private static final float VERSION_X = 1;
+    private static final float VERSION_Y = 176 - 6;
+    private static final float COMMAND_X = 32;
+    private static final float COMMAND_Y = 64;
 }

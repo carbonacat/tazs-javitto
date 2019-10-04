@@ -44,6 +44,8 @@ class TitleScreenState
         screen.setTextPosition(0, TITLE_HEIGHT);
         screen.setTextColor(Colors.TITLE_TEXT);
         screen.print(Texts.TITLE);
+        screen.setTextPosition(0, VERSION_HEIGHT);
+        screen.print(Texts.TITLE_VERSION);
         
         screen.setTextPosition(0 , COMMAND_HEIGHT);
         screen.setTextColor(Colors.TITLE_COMMAND);
@@ -65,5 +67,6 @@ class TitleScreenState
     private TAZSGame mGame;
     
     private static final float TITLE_HEIGHT = 32;
+    private static final float VERSION_HEIGHT = TITLE_HEIGHT + 7;
     private static final float COMMAND_HEIGHT = 64;
 }

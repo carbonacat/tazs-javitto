@@ -10,6 +10,7 @@ import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.resources.sprites.ResultSummarySprite;
+import net.ccat.tazs.tools.MathTools;
 
 
 /**
@@ -23,6 +24,10 @@ public class BattleResultPhaseState
         mGame = game;
         mWinnerTeam = winnerTeam;
         mSummarySprite.setStatic(true);
+        mPlayerLosses = 0;
+        mPlayerUnitsCount = 10;
+        mEnemyLosses = 20;
+        mEnemyUnitsCount = 20;
     }
     
     
@@ -83,31 +88,37 @@ public class BattleResultPhaseState
         screen.drawRect(STATS_X, mStatsY, STATS_WIDTH, STATS_HEIGHT, Colors.WINDOW_BORDER);
         screen.fillRect(STATS_X + 1, mStatsY + 1, STATS_WIDTH - 1, STATS_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
         screen.setTextColor(Colors.WINDOW_TEXT);
-        screen.setTextPosition(STATS_TEAMS_FIRST_X, mStatsY + STATS_TEAMNAME_Y_OFFSET);
+        screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_TEAMNAME_Y_OFFSET);
         screen.print(Texts.TEAMS_PLAYER);
-        screen.setTextPosition(STATS_TEAMS_SECOND_X, mStatsY + STATS_TEAMNAME_Y_OFFSET);
+        screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_TEAMNAME_Y_OFFSET);
         screen.print(Texts.TEAMS_ENEMY);
         
         screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_COST_Y_OFFSET);
         screen.print(Texts.RESULT_COST_);
-        screen.setTextPosition(STATS_TEAMS_FIRST_X, mStatsY + STATS_COST_Y_OFFSET);
+        screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_COST_Y_OFFSET);
         screen.print(Texts.MISC_UNKNOWN);
-        screen.setTextPosition(STATS_TEAMS_SECOND_X, mStatsY + STATS_COST_Y_OFFSET);
+        screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_COST_Y_OFFSET);
         screen.print(Texts.MISC_UNKNOWN);
         
         screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.RESULT_DESTRUCTIONS_);
-        screen.setTextPosition(STATS_TEAMS_FIRST_X, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
+        screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.MISC_UNKNOWN);
-        screen.setTextPosition(STATS_TEAMS_SECOND_X, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
+        screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.MISC_UNKNOWN);
         
         screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_LOSSES_Y_OFFSET);
         screen.print(Texts.RESULT_LOSSES_);
-        screen.setTextPosition(STATS_TEAMS_FIRST_X, mStatsY + STATS_LOSSES_Y_OFFSET);
-        screen.print(Texts.MISC_UNKNOWN);
-        screen.setTextPosition(STATS_TEAMS_SECOND_X, mStatsY + STATS_LOSSES_Y_OFFSET);
-        screen.print(Texts.MISC_UNKNOWN);
+        screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_LOSSES_Y_OFFSET);
+        renderStatBar(mPlayerLosses, mPlayerLosses + mEnemyLosses,
+                      STATS_TEAMS_FIRST_X_START, STATS_TEAMS_FIRST_X_LAST, mStatsY + STATS_LOSSES_Y_OFFSET,
+                        Colors.TEAM_PLAYER_STAT_COLOR, screen);
+        screen.print(mPlayerLosses);
+        renderStatBar(mEnemyLosses, mPlayerLosses + mEnemyLosses,
+                      STATS_TEAMS_SECOND_X_START, STATS_TEAMS_SECOND_X_LAST, mStatsY + STATS_LOSSES_Y_OFFSET,
+                        Colors.TEAM_ENEMY_STAT_COLOR, screen);
+        screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_LOSSES_Y_OFFSET);
+        screen.print(mEnemyLosses);
         
         
         screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
@@ -122,8 +133,24 @@ public class BattleResultPhaseState
         screen.print(Texts.RESULT_STATS);
     }
     
+    
+    private void renderStatBar(int value, int valueMax,
+                               int xMin, int xMax, int y,
+                               int color,
+                               HiRes16Color screen)
+    {
+        int barXMax = MathTools.lerpi(value, 0, xMin, valueMax, xMax);
+        
+        screen.fillRect(xMin, y+4, barXMax - xMin + 2, 2, color);
+    }
+    
+    
     private TAZSGame mGame;
     private int mWinnerTeam;
+    private int mPlayerLosses;
+    private int mPlayerUnitsCount;
+    private int mEnemyLosses;
+    private int mEnemyUnitsCount;
     private int mLogoY = LOGO_Y_INITIAL;
     private int mStatsY = STATS_Y_HIDDEN;
     private ResultSummarySprite mSummarySprite = new ResultSummarySprite();
@@ -148,8 +175,10 @@ public class BattleResultPhaseState
     private static final int STATS_X = 2;
     private static final int STATS_LABEL_X = 5;
     private static final int STATS_TEAMNAME_Y_OFFSET = 3;
-    private static final int STATS_TEAMS_FIRST_X = 84;
-    private static final int STATS_TEAMS_SECOND_X = 151;
+    private static final int STATS_TEAMS_FIRST_X_START = 85;
+    private static final int STATS_TEAMS_FIRST_X_LAST = 147;
+    private static final int STATS_TEAMS_SECOND_X_START = 151;
+    private static final int STATS_TEAMS_SECOND_X_LAST = 214;
     private static final int STATS_COST_Y_OFFSET = 10;
     private static final int STATS_DESTRUCTIONS_Y_OFFSET = 17;
     private static final int STATS_LOSSES_Y_OFFSET = 24;

@@ -30,6 +30,12 @@ class Colors
     static final int SCENE_BG = 10;
     
     
+    /***** TEAM *****/
+    
+    static final int TEAM_PLAYER_STAT_COLOR = 8;
+    static final int TEAM_ENEMY_STAT_COLOR = 10;
+    
+    
     /***** TITLE SCREEN *****/
     
     static final int TITLE_BG = 5;

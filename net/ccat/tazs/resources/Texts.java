@@ -17,6 +17,7 @@ class Texts
     
     public static final String MISC_ERROR = "<error>";
     public static final String MISC_SEPARATOR = " - ";
+    public static final String MISC_BIG_SEPARATOR = " | ";
     
     
     /***** MENU *****/
@@ -32,6 +33,12 @@ class Texts
     public static final String PREPARATION_ENEMY_SIDE = "Enemy Territory";
     public static final String PREPARATION_MENU_LAUNCH = "Battle!";
     public static final String PREPARATION_MENU_EXIT = "Exit Game";
+    
+    
+    /***** RESULTS *****/
+    
+    public static final String RESULT_EXIT = "Exit";
+    public static final String RESULT_STATS = "Stats";
     
     
     /***** TITLE SCREEN *****/

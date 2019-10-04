@@ -69,9 +69,15 @@ public class BattleResultPhaseState
         mSummarySprite.draw(screen, LOGO_X + 2, mLogoY + 2);
         
         screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
-        screen.setTextColor(Colors.HELP_INACTIVE);
+        screen.setTextColor(Colors.HELP_ACTIVE);
         screen.setTextPosition(HELP_X, HELP_Y);
-        screen.print(Texts.MISC_ERROR);
+        screen.print(Texts.BUTTON_A);
+        screen.print(Texts.MISC_SEPARATOR);
+        screen.print(Texts.RESULT_EXIT);
+        screen.print(Texts.MISC_BIG_SEPARATOR);
+        screen.print(Texts.BUTTON_B);
+        screen.print(Texts.MISC_SEPARATOR);
+        screen.print(Texts.RESULT_STATS);
     }
     
     private TAZSGame mGame;

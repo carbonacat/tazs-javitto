@@ -23,9 +23,16 @@ import net.ccat.tazs.ui.UITools;
 public class BattlePreparationPhaseState
     extends State
 {
-    public BattlePreparationPhaseState(TAZSGame game)
+    // Launches a random, quick battle.
+    public static final int GAMEMODE_QUICKBATTLE = 0;
+    // Opens an empty battlefield, allowing the Player to add and remove Units on/from every side.
+    public static final int GAMEMODE_SANDBOX = 1;
+    
+    
+    public BattlePreparationPhaseState(TAZSGame game, int gameMode)
     {
         mGame = game;
+        mGameMode = gameMode;
     }
     
     
@@ -34,19 +41,24 @@ public class BattlePreparationPhaseState
     public void init()
     {
         mGame.unitsSystem.clear();
-        
-        // TODO: Eventually will be setup with a proper battle plan. [014]
-        for (int remainingCluster = Math.random(1, 16); remainingCluster > 0 ; remainingCluster--)
+        if (mGameMode == GAMEMODE_QUICKBATTLE)
         {
-            float clusterX = 60 + (Math.random() - 0.5f) * 80;
-            float clusterY = (Math.random() - 0.5f) * 80;
-            
-            for (int remainingUnit = Math.random(1, 8); remainingUnit > 0 ; remainingUnit--)
-                mGame.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
-                                          Math.PI,
-                                          BrawlerIdleHandler.HEALTH_INITIAL,
-                                          BrawlerIdleHandler.instance,
-                                          Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+            // TODO: Eventually will be setup with a proper battle plan. [014]
+            for (int remainingCluster = Math.random(1, 16); remainingCluster > 0 ; remainingCluster--)
+            {
+                float clusterX = 60 + (Math.random() - 0.5f) * 80;
+                float clusterY = (Math.random() - 0.5f) * 80;
+                
+                for (int remainingUnit = Math.random(1, 8); remainingUnit > 0 ; remainingUnit--)
+                {
+                    mGame.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
+                                              Math.PI,
+                                              BrawlerIdleHandler.HEALTH_INITIAL,
+                                              BrawlerIdleHandler.instance,
+                                              Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+                    mEnemyUnitsCount++;
+                }
+            }
         }
         mGame.screen.cameraX = -mGame.screen.width() * 0.5;
         mGame.screen.cameraY = -mGame.screen.height() * 0.5;
@@ -85,7 +97,7 @@ public class BattlePreparationPhaseState
         // Updating the mode.
         int newMode = MODE_INVALID;
         
-        mGame.padMenuUI.setEnabledChoice(PadMenuUI.CHOICE_UP, (mAlliedUnitsCount > 0));
+        mGame.padMenuUI.setEnabledChoice(PadMenuUI.CHOICE_UP, (mAlliedUnitsCount > 0) && (mEnemyUnitsCount > 0));
         mGame.padMenuUI.update();
         if (mGame.padMenuUI.isShown())
         {
@@ -226,12 +238,14 @@ public class BattlePreparationPhaseState
     }
     
     private TAZSGame mGame;
+    private int mGameMode = GAMEMODE_QUICKBATTLE;
     
     private float mCursorX;
     private float mCursorY;
     private int mMode = MODE_INVALID;
     private int mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
     private int mAlliedUnitsCount = 0;
+    private int mEnemyUnitsCount = 0;
     
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
     

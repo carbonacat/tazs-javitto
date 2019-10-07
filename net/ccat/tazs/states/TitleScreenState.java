@@ -39,7 +39,12 @@ class TitleScreenState
         HiRes16Color screen = mGame.screen;
         
         if (Button.A.justPressed())
-            Game.changeState(new BattlePreparationPhaseState(mGame));
+        {
+            if (mCurrentMenuIdentifier == MENU_ENTRIES_QUICKBATTLE_IDENTIFIER)
+                Game.changeState(new BattlePreparationPhaseState(mGame, BattlePreparationPhaseState.GAMEMODE_QUICKBATTLE));
+            else if (mCurrentMenuIdentifier == MENU_ENTRIES_SANDBOX_IDENTIFIER)
+                Game.changeState(new BattlePreparationPhaseState(mGame, BattlePreparationPhaseState.GAMEMODE_SANDBOX));
+        }
         if (Button.Up.justPressed())
             mCurrentMenuIdentifier--;
         if (Button.Down.justPressed())
@@ -69,7 +74,7 @@ class TitleScreenState
         screen.setTextColor(Colors.TITLE_VERSION);
         screen.print(Texts.TITLE_VERSION);
 
-        drawMenuChoice(MENU_ENTRIES_QUICK_BATTLE_IDENTIFIER, Texts.TITLE_MENU_QUICK_BATTLE, screen);
+        drawMenuChoice(MENU_ENTRIES_QUICKBATTLE_IDENTIFIER, Texts.TITLE_MENU_QUICKBATTLE, screen);
         drawMenuChoice(MENU_ENTRIES_SANDBOX_IDENTIFIER, Texts.TITLE_MENU_SANDBOX, screen);
         
         screen.flush();
@@ -98,7 +103,7 @@ class TitleScreenState
     }
     
     private TAZSGame mGame;
-    private int mCurrentMenuIdentifier = MENU_ENTRIES_QUICK_BATTLE_IDENTIFIER;
+    private int mCurrentMenuIdentifier = MENU_ENTRIES_QUICKBATTLE_IDENTIFIER;
     
     private static final int TITLE_Y = 32;
     private static final int VERSION_X = 1;
@@ -109,7 +114,7 @@ class TitleScreenState
     private static final int MENU_ENTRY_HEIGHT = 8;
     private static final int CURSOR_Y_SPEED = 2;
 
-    private static final int MENU_ENTRIES_QUICK_BATTLE_IDENTIFIER = 0;
-    private static final int MENU_ENTRIES_SANDBOX_IDENTIFIER = MENU_ENTRIES_QUICK_BATTLE_IDENTIFIER + 1;
+    private static final int MENU_ENTRIES_QUICKBATTLE_IDENTIFIER = 0;
+    private static final int MENU_ENTRIES_SANDBOX_IDENTIFIER = MENU_ENTRIES_QUICKBATTLE_IDENTIFIER + 1;
     private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_SANDBOX_IDENTIFIER + 1;
 }

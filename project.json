@@ -299,6 +299,14 @@
 		},
 		"\\bin\\tazs-javitto.bin.2.gif": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\MenuCursorSprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\MenuCursorSprite.png": {
+			"sdcard": false,
+			"implements": ""
 		}
 	}
 }

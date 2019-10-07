@@ -1,7 +1,9 @@
 package net.ccat.tazs.states;
 
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.VideoConstants;
 
 import femto.Game;
 import femto.input.Button;
@@ -29,6 +31,7 @@ class TitleScreenState
     {
         if (mGame == null)
             mGame = new TAZSGame();
+        mGame.menuCursorSprite.setPosition(MENU_ENTRY_CURSOR_X, MENU_ENTRY_Y_START - VideoConstants.MENU_CURSOR_ORIGIN_Y);
     }
     
     public void update()
@@ -37,24 +40,13 @@ class TitleScreenState
         
         if (Button.A.justPressed())
             Game.changeState(new BattlePreparationPhaseState(mGame));
-
-        // TODO: Proper title screen.
-        screen.clear(Colors.TITLE_BG);
+        if (Button.Up.justPressed())
+            mCurrentMenuIdentifier--;
+        if (Button.Down.justPressed())
+            mCurrentMenuIdentifier++;
+        mCurrentMenuIdentifier = (mCurrentMenuIdentifier + MENU_ENTRIES_COUNT) % MENU_ENTRIES_COUNT;
         
-        screen.setTextPosition((screen.width() - screen.textWidth(Texts.TITLE)) / 2, TITLE_Y);
-        screen.setTextColor(Colors.TITLE_TEXT);
-        screen.print(Texts.TITLE);
-        screen.setTextPosition(VERSION_X, VERSION_Y);
-        screen.setTextColor(Colors.TITLE_VERSION);
-        screen.print(Texts.TITLE_VERSION);
-        
-        screen.setTextPosition(COMMAND_X, COMMAND_Y);
-        screen.setTextColor(Colors.TITLE_COMMAND);
-        screen.print(Texts.BUTTON_A);
-        screen.print(Texts.MISC_SEPARATOR);
-        screen.print(Texts.TITLE_COMMANDS_QUICK_BATTLE);
-        
-        screen.flush();
+        draw(screen);
     }
     
     public void shutdown()
@@ -65,11 +57,59 @@ class TitleScreenState
     
     /***** PRIVATE STUFF *****/
     
-    private TAZSGame mGame;
+    private void draw(HiRes16Color screen)
+    {
+        // TODO: Proper title screen. [015]
+        screen.clear(Colors.TITLE_BG);
+        
+        screen.setTextPosition((screen.width() - screen.textWidth(Texts.TITLE)) / 2, TITLE_Y);
+        screen.setTextColor(Colors.TITLE_TEXT);
+        screen.print(Texts.TITLE);
+        screen.setTextPosition(VERSION_X, VERSION_Y);
+        screen.setTextColor(Colors.TITLE_VERSION);
+        screen.print(Texts.TITLE_VERSION);
+
+        drawMenuChoice(MENU_ENTRIES_QUICK_BATTLE_IDENTIFIER, Texts.TITLE_MENU_QUICK_BATTLE, screen);
+        drawMenuChoice(MENU_ENTRIES_SANDBOX_IDENTIFIER, Texts.TITLE_MENU_SANDBOX, screen);
+        
+        screen.flush();
+    }
     
-    private static final float TITLE_Y = 32;
-    private static final float VERSION_X = 1;
-    private static final float VERSION_Y = 176 - 6;
-    private static final float COMMAND_X = 32;
-    private static final float COMMAND_Y = 64;
+    
+    private void drawMenuChoice(int menuIdentifier, String title, HiRes16Color screen)
+    {
+        int y = MENU_ENTRY_Y_START + menuIdentifier * MENU_ENTRY_HEIGHT;
+        boolean menuIsCurrent = (menuIdentifier == mCurrentMenuIdentifier);
+        
+        if (menuIsCurrent)
+        {
+            MenuCursorSprite cursorSprite = mGame.menuCursorSprite;
+            int targetCursorY = y - VideoConstants.MENU_CURSOR_ORIGIN_Y;
+            
+            if (cursorSprite.y < targetCursorY)
+                cursorSprite.y = Math.min(cursorSprite.y + CURSOR_Y_SPEED, targetCursorY);
+            if (cursorSprite.y > targetCursorY)
+                cursorSprite.y = Math.max(cursorSprite.y - CURSOR_Y_SPEED, targetCursorY);
+            mGame.menuCursorSprite.draw(screen);
+        }
+        screen.setTextPosition(MENU_ENTRY_X, y);
+        screen.setTextColor(menuIsCurrent ? Colors.TITLE_MENU_ENTRY_SELECTED : Colors.TITLE_MENU_ENTRY);
+        screen.print(title);
+    }
+    
+    private TAZSGame mGame;
+    private int mCurrentMenuIdentifier = MENU_ENTRIES_QUICK_BATTLE_IDENTIFIER;
+    
+    private static final int TITLE_Y = 32;
+    private static final int VERSION_X = 1;
+    private static final int VERSION_Y = 176 - 6;
+    private static final int MENU_ENTRY_X = 32;
+    private static final int MENU_ENTRY_CURSOR_X = MENU_ENTRY_X - VideoConstants.MENU_CURSOR_ORIGIN_X;
+    private static final int MENU_ENTRY_Y_START = 64;
+    private static final int MENU_ENTRY_HEIGHT = 8;
+    private static final int CURSOR_Y_SPEED = 2;
+
+    private static final int MENU_ENTRIES_QUICK_BATTLE_IDENTIFIER = 0;
+    private static final int MENU_ENTRIES_SANDBOX_IDENTIFIER = MENU_ENTRIES_QUICK_BATTLE_IDENTIFIER + 1;
+    private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_SANDBOX_IDENTIFIER + 1;
 }

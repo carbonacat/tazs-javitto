@@ -54,8 +54,8 @@ class Texts
     
     /***** TITLE SCREEN *****/
     
-    public static final String TITLE = "<Totally Accurate Zombie Simulator but as a fancy logo>";
-    public static final String TITLE_VERSION = "0.1.1.dev - 2019-10-xx";
+    public static final String TITLE = "<Totally Accurate Zombie Simulator>";
+    public static final String TITLE_VERSION = "<0.1.1.dev - 2019-10-xx";
     public static final String TITLE_MENU_QUICKBATTLE = "Quick Battle";
     public static final String TITLE_MENU_SANDBOX = "Sandbox";
     

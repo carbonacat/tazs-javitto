@@ -85,6 +85,7 @@ class TitleScreenState
     {
         int y = MENU_ENTRY_Y_START + menuIdentifier * MENU_ENTRY_HEIGHT;
         boolean menuIsCurrent = (menuIdentifier == mCurrentMenuIdentifier);
+        int entryColor = Colors.TITLE_MENU_ENTRY;
         
         if (menuIsCurrent)
         {
@@ -96,9 +97,11 @@ class TitleScreenState
             if (cursorSprite.y > targetCursorY)
                 cursorSprite.y = Math.max(cursorSprite.y - CURSOR_Y_SPEED, targetCursorY);
             mGame.menuCursorSprite.draw(screen);
+            if ((System.currentTimeMillis() & BLINK_MASK) == BLINK_MASK)
+                entryColor = Colors.TITLE_MENU_ENTRY_SELECTED;
         }
         screen.setTextPosition(MENU_ENTRY_X, y);
-        screen.setTextColor(menuIsCurrent ? Colors.TITLE_MENU_ENTRY_SELECTED : Colors.TITLE_MENU_ENTRY);
+        screen.setTextColor(entryColor);
         screen.print(title);
     }
     
@@ -113,6 +116,7 @@ class TitleScreenState
     private static final int MENU_ENTRY_Y_START = 64;
     private static final int MENU_ENTRY_HEIGHT = 8;
     private static final int CURSOR_Y_SPEED = 2;
+    private static final int BLINK_MASK = 0x80;
 
     private static final int MENU_ENTRIES_QUICKBATTLE_IDENTIFIER = 0;
     private static final int MENU_ENTRIES_SANDBOX_IDENTIFIER = MENU_ENTRIES_QUICKBATTLE_IDENTIFIER + 1;

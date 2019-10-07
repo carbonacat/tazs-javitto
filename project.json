@@ -307,6 +307,13 @@
 		"\\net\\ccat\\tazs\\resources\\sprites\\MenuCursorSprite.png": {
 			"sdcard": false,
 			"implements": ""
+		},
+		"\\bin\\tazs-javitto.bin.1.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.3.png": {
+			"sdcard": false,
+			"implements": ""
 		}
 	}
 }

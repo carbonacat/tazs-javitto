@@ -42,7 +42,7 @@ class Colors
     static final int TITLE_TEXT = 8;
     static final int TITLE_VERSION = 3;
     static final int TITLE_MENU_ENTRY = 15;
-    static final int TITLE_MENU_ENTRY_SELECTED = 14;
+    static final int TITLE_MENU_ENTRY_SELECTED = 11;
     
     
     /***** WINDOW *****/

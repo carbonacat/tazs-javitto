@@ -283,7 +283,6 @@ class PadMenuUI
     private static final int LABEL_PADDING = 1;
     private static final int LABEL_MARGIN = 1;
     private static final int LABEL_FROM_CENTER = 9 + LABEL_MARGIN;
-    // TODO: This is because the overlay is slow to do.
-    private static final int TICKS_UNTIL_SELECTED = 30;
-    private static final int TICKS_UNTIL_ALMOST_SELECTED = 15;
+    private static final int TICKS_UNTIL_SELECTED = 10;
+    private static final int TICKS_UNTIL_ALMOST_SELECTED = 5;
 }

@@ -68,7 +68,7 @@ public class MathTools
         return yA + ((yB - yA) * (x - xA) + xRange / 2) / xRange;
     }
     
-    // TODO: Until Math.abs behave properly.
+    // TODO: Until Math.abs behave properly. [016]
     public static float abs(float value)
     {
         if (value < 0)

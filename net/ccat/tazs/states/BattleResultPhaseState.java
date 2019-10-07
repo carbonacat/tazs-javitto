@@ -161,7 +161,7 @@ public class BattleResultPhaseState
     private int mStatsY = STATS_Y_HIDDEN;
     private ResultSummarySprite mSummarySprite = new ResultSummarySprite();
     
-    // TODO: This is common to a lot of things.
+    // TODO: This is common to a lot of things. [012]
     private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
     private static final int HELP_X = 2;
     private static final int HELP_Y = HELP_BOX_MIN_Y + 2;

@@ -35,7 +35,7 @@ public class BattlePreparationPhaseState
     {
         mGame.unitsSystem.clear();
         
-        // TODO: Eventually will be setup with a proper battle plan.
+        // TODO: Eventually will be setup with a proper battle plan. [014]
         for (int remainingCluster = Math.random(1, 16); remainingCluster > 0 ; remainingCluster--)
         {
             float clusterX = 60 + (Math.random() - 0.5f) * 80;
@@ -199,7 +199,7 @@ public class BattlePreparationPhaseState
             screen.print(Texts.BUTTON_B);
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_REMOVE_UNIT_X);
-            // TODO: Use the actual Unit's type's name.
+            // TODO: Use the actual Unit's type's name. [013]
             screen.print(hasHoveredUnit ? Texts.UNITS_BRAWLER_NAME : Texts.MISC_UNKNOWN);
         }
         else if ((mMode == MODE_PLACE) || (mMode == MODE_NO_MORE_UNITS))
@@ -208,7 +208,7 @@ public class BattlePreparationPhaseState
             screen.print(Texts.BUTTON_A);
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_X);
-            // TODO: Use the selected type's name.
+            // TODO: Use the selected type's name. [013]
             if (mMode == MODE_NO_MORE_UNITS)
                 screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS);
             else
@@ -242,7 +242,7 @@ public class BattlePreparationPhaseState
     private static final int MODE_REMOVE = 4;
     private static final int MODE_MENU = 5;
     
-    // TODO: This is common to a lot of things.
+    // TODO: This is common to a lot of things. [012]
     private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
     private static final int HELP_X = 2;
     private static final int HELP_Y = HELP_BOX_MIN_Y + 2;

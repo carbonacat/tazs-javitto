@@ -40,15 +40,22 @@ class TitleScreenState
         
         if (Button.A.justPressed())
         {
+            mGame.cursorSelectSound.play();
             if (mCurrentMenuIdentifier == MENU_ENTRIES_QUICKBATTLE_IDENTIFIER)
                 Game.changeState(new BattlePreparationPhaseState(mGame, BattlePreparationPhaseState.GAMEMODE_QUICKBATTLE));
             else if (mCurrentMenuIdentifier == MENU_ENTRIES_SANDBOX_IDENTIFIER)
                 Game.changeState(new BattlePreparationPhaseState(mGame, BattlePreparationPhaseState.GAMEMODE_SANDBOX));
         }
         if (Button.Up.justPressed())
+        {
             mCurrentMenuIdentifier--;
+            mGame.cursorMoveSound.play();
+        }
         if (Button.Down.justPressed())
+        {
             mCurrentMenuIdentifier++;
+            mGame.cursorMoveSound.play();
+        }
         mCurrentMenuIdentifier = (mCurrentMenuIdentifier + MENU_ENTRIES_COUNT) % MENU_ENTRIES_COUNT;
         
         draw(screen);

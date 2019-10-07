@@ -2,9 +2,12 @@ package net.ccat.tazs;
 
 import femto.font.TIC80;
 import femto.mode.HiRes16Color;
+import femto.sound.Mixer;
 
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
+import net.ccat.tazs.resources.sounds.CursorSelectSound;
+import net.ccat.tazs.resources.sounds.CursorMoveSound;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.ui.PadMenuUI;
@@ -24,6 +27,10 @@ class TAZSGame
         menuCursorSprite.playDefault();
         menuCursorSprite.setStatic(true);
         padMenuUI = new PadMenuUI();
+        cursorMoveSound = new CursorMoveSound();
+        cursorSelectSound = new CursorSelectSound();
+        
+        Mixer.init(8000);
     }
     
     
@@ -49,5 +56,7 @@ class TAZSGame
     /***** COMMON RESOURCES *****/
     
     public CursorSprite cursorSprite;
-    private MenuCursorSprite menuCursorSprite;
+    public MenuCursorSprite menuCursorSprite;
+    public CursorMoveSound cursorMoveSound;
+    public CursorSelectSound cursorSelectSound;
 }

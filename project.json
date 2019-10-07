@@ -314,6 +314,16 @@
 		"\\bin\\tazs-javitto.bin.3.png": {
 			"sdcard": false,
 			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sounds": {},
+		"\\net\\ccat\\tazs\\resources\\sounds\\SelectSound.wav": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sounds\\CursorMoveSound.wav": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sounds\\CursorSelectSound.wav": {
+			"sdcard": false
 		}
 	}
 }

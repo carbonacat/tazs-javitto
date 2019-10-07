@@ -124,40 +124,10 @@ public class BattlePreparationPhaseState
             if (Button.Right.isPressed())
                 mCursorX = Math.min(mCursorX + CURSOR_PIXELS_PER_TICK, mGame.sceneXMax);
             
-            // Finding a Unit that is hovered.
-            int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
-            
-            if ((hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsTeams[hoveredUnitIdentifier] == Teams.PLAYER))
-            {
-                newMode = MODE_REMOVE;
-                if (Button.B.isPressed())
-                {
-                    mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
-                    mAlliedUnitsCount--;
-                    mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
-                }
-                else
-                    mHoveredUnitIdentifier = hoveredUnitIdentifier;
-            }
-            else if (mCursorX < 0)
-            {
-                if (Button.A.isPressed())
-                {
-                    mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0,
-                                              BrawlerIdleHandler.HEALTH_INITIAL,
-                                              BrawlerIdleHandler.instance,
-                                              Teams.PLAYER);
-                    mAlliedUnitsCount++;
-                    // Resets the animation.
-                    mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
-                }
-                if (mGame.unitsSystem.freeUnits() > 0)
-                    newMode = MODE_PLACE;
-                else
-                    newMode = MODE_NO_MORE_UNITS;
-            }
-            else
-                newMode = MODE_ENEMY_TERRITORY;
+            if (mGameMode == GAMEMODE_QUICKBATTLE)
+                newMode = updateModeForQuickBattle();
+            else if (mGameMode == GAMEMODE_SANDBOX)
+                newMode = updateModeForSandbox();
         }
         // Changing the Cursor's animation.
         if (newMode != mMode)
@@ -179,6 +149,92 @@ public class BattlePreparationPhaseState
                 break;
             }
         }
+    }
+    
+    private int updateModeForQuickBattle()
+    {
+        // Finding a Unit that is hovered.
+        int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
+        
+        if ((hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsTeams[hoveredUnitIdentifier] == Teams.PLAYER))
+        {
+            if (Button.B.isPressed())
+            {
+                mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
+                mAlliedUnitsCount--;
+                mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
+            }
+            else
+                mHoveredUnitIdentifier = hoveredUnitIdentifier;
+            return MODE_REMOVE;
+        }
+        else if (mCursorX < -NOMANSLAND_RADIUS)
+        {
+            if (Button.A.isPressed())
+            {
+                mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0,
+                                          BrawlerIdleHandler.HEALTH_INITIAL,
+                                          BrawlerIdleHandler.instance,
+                                          Teams.PLAYER);
+                mAlliedUnitsCount++;
+                // Resets the animation.
+                mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
+            }
+            if (mGame.unitsSystem.freeUnits() > 0)
+                return MODE_PLACE;
+            return MODE_NO_MORE_UNITS;
+        }
+        else if (mCursorX > NOMANSLAND_RADIUS)
+            return MODE_ENEMY_TERRITORY;
+        return MODE_NOMANSLAND;
+    }
+    
+    private int updateModeForSandbox()
+    {
+        // Finding a Unit that is hovered.
+        int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
+        
+        if (hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+        {
+            if (Button.B.isPressed())
+            {
+                int team =  mGame.unitsSystem.unitsTeams[hoveredUnitIdentifier];
+                
+                mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
+                if (team == Teams.PLAYER)
+                    mAlliedUnitsCount--;
+                else if (team == Teams.ENEMY)
+                    mEnemyUnitsCount--;
+                mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
+            }
+            else
+                mHoveredUnitIdentifier = hoveredUnitIdentifier;
+            return MODE_REMOVE;
+        }
+        else if ((mCursorX < -NOMANSLAND_RADIUS) || (mCursorX > NOMANSLAND_RADIUS))
+        {
+            if (Button.A.isPressed())
+            {
+                boolean onPlayerTeam = (mCursorX < 0);
+                int team = onPlayerTeam ? Teams.PLAYER : Teams.ENEMY;
+                float angle = onPlayerTeam ? 0 : Math.PI;
+                
+                mGame.unitsSystem.addUnit(mCursorX, mCursorY, angle,
+                                          BrawlerIdleHandler.HEALTH_INITIAL,
+                                          BrawlerIdleHandler.instance,
+                                          team);
+                if (onPlayerTeam)
+                    mAlliedUnitsCount++;
+                else
+                    mEnemyUnitsCount++;
+                // Resets the animation.
+                mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
+            }
+            if (mGame.unitsSystem.freeUnits() > 0)
+                return MODE_PLACE;
+            return MODE_NO_MORE_UNITS;
+        }
+        return MODE_NOMANSLAND;
     }
     
     private void renderUI()
@@ -229,7 +285,9 @@ public class BattlePreparationPhaseState
         else
         {
             screen.setTextColor(Colors.HELP_INACTIVE);
-            if (mMode == MODE_ENEMY_TERRITORY)
+            if (mMode == MODE_NOMANSLAND)
+                screen.print(Texts.PREPARATION_NO_MANS_LAND);
+            else if (mMode == MODE_ENEMY_TERRITORY)
                 screen.print(Texts.PREPARATION_ENEMY_SIDE);
             else
                 screen.print(Texts.MISC_ERROR);
@@ -249,12 +307,15 @@ public class BattlePreparationPhaseState
     
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
     
+    private static final float NOMANSLAND_RADIUS = 5;
+    
     private static final int MODE_INVALID = 0;
     private static final int MODE_ENEMY_TERRITORY = 1;
     private static final int MODE_PLACE = 2;
     private static final int MODE_NO_MORE_UNITS = 3;
     private static final int MODE_REMOVE = 4;
     private static final int MODE_MENU = 5;
+    private static final int MODE_NOMANSLAND = 6;
     
     // TODO: This is common to a lot of things. [012]
     private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;

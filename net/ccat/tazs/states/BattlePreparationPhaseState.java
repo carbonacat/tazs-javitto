@@ -5,7 +5,7 @@ import femto.input.Button;
 import femto.mode.HiRes16Color;
 import femto.State;
 
-import net.ccat.tazs.battle.handlers.BrawlerIdleHandler;
+import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
 import net.ccat.tazs.battle.Teams;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.resources.Colors;
@@ -49,7 +49,17 @@ public class BattlePreparationPhaseState
                 float clusterX = 60 + (Math.random() - 0.5f) * 80;
                 float clusterY = (Math.random() - 0.5f) * 80;
                 
-                for (int remainingUnit = Math.random(1, 8); remainingUnit > 0 ; remainingUnit--)
+                for (int remainingUnit = Math.random(1, 4); remainingUnit > 0 ; remainingUnit--)
+                {
+                    mGame.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
+                                              Math.PI,
+                                              BrawlerIdleHandler.HEALTH_INITIAL,
+                                              BrawlerIdleHandler.instance,
+                                              Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+                    mEnemyUnitsCount++;
+                }
+                // TODO: For the Slappers.
+                for (int remainingUnit = Math.random(0, 4); remainingUnit > 0 ; remainingUnit--)
                 {
                     mGame.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
                                               Math.PI,

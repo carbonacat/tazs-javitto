@@ -1,4 +1,4 @@
-package net.ccat.tazs.battle.handlers;
+package net.ccat.tazs.battle.handlers.brawler;
 
 import femto.mode.HiRes16Color;
 

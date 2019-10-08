@@ -373,6 +373,24 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\UnitTypes.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/UnitCosts.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\UnitCosts.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui/TopBar.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui\\TopBar.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources/UIDimensions.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\UIDimensions.java": {
+			"sdcard": false
 		}
 	}
 }

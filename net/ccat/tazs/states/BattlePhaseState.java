@@ -64,6 +64,8 @@ public class BattlePhaseState
         screen.setTextColor(Colors.HELP_INACTIVE);
         screen.setTextPosition(HELP_X, HELP_Y);
         screen.print(Texts.MISC_ERROR);
+        
+        mGame.topBarUI.draw(screen);
     }
     
     private TAZSGame mGame;

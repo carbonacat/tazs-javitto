@@ -60,6 +60,8 @@ public class BattlePreparationPhaseState
                                               BrawlerIdleHandler.instance,
                                               Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
                     mEnemyUnitsCount++;
+                    // TODO: Use the actual cost.
+                    mEnemyUnitsCost += 10;
                 }
                 for (int remainingUnit = Math.random(0, 4); remainingUnit > 0 ; remainingUnit--)
                 {
@@ -69,6 +71,8 @@ public class BattlePreparationPhaseState
                                               SlapperIdleHandler.instance,
                                               Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
                     mEnemyUnitsCount++;
+                    // TODO: Use the actual cost.
+                    mEnemyUnitsCost += 10;
                 }
             }
         }
@@ -82,6 +86,7 @@ public class BattlePreparationPhaseState
         mGame.padMenuUI.clearChoices();
         mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.PREPARATION_MENU_LAUNCH);
         mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.PREPARATION_MENU_EXIT);
+        refreshTopBar();
     }
     
     public void update()
@@ -174,6 +179,9 @@ public class BattlePreparationPhaseState
             {
                 mGame.unitsSystem.removeUnit(mHoveredUnitIdentifier);
                 mAlliedUnitsCount--;
+                // TODO: Use the actual cost.
+                mAlliedUnitsCost -= 10;
+                refreshTopBar();
                 mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
             }
             return MODE_REMOVE;
@@ -186,7 +194,12 @@ public class BattlePreparationPhaseState
                                           BrawlerIdleHandler.HEALTH_INITIAL,
                                           BrawlerIdleHandler.instance,
                                           Teams.PLAYER);
+                                      
                 mAlliedUnitsCount++;
+                // TODO: Use the actual cost.
+                mAlliedUnitsCost += 10;
+                refreshTopBar();
+                
                 // Resets the animation.
                 mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
             }
@@ -212,9 +225,18 @@ public class BattlePreparationPhaseState
                 
                 mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
                 if (team == Teams.PLAYER)
+                {
                     mAlliedUnitsCount--;
+                    // TODO: Use the actual cost.
+                    mAlliedUnitsCost -= 10;
+                }
                 else if (team == Teams.ENEMY)
+                {
                     mEnemyUnitsCount--;
+                    // TODO: Use the actual cost.
+                    mEnemyUnitsCost -= 10;
+                }
+                refreshTopBar();
                 mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
             }
             else
@@ -246,9 +268,18 @@ public class BattlePreparationPhaseState
                                           initialHandler,
                                           team);
                 if (onPlayerTeam)
+                {
                     mAlliedUnitsCount++;
+                    // TODO: Update the actual cost.
+                    mAlliedUnitsCost += 10;
+                }
                 else
+                {
                     mEnemyUnitsCount++;
+                    // TODO: Use the actual cost.
+                    mEnemyUnitsCost += 10;
+                }
+                refreshTopBar();
                 // Resets the animation.
                 mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
             }
@@ -295,7 +326,7 @@ public class BattlePreparationPhaseState
             screen.setTextColor(hasHoveredUnit ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.print(Texts.BUTTON_B);
             screen.print(Texts.MISC_SEPARATOR);
-            screen.print(Texts.PREPARATION_COMMANDS_REMOVE_UNIT_X);
+            screen.print(Texts.PREPARATION_COMMANDS_REMOVE_UNIT_K);
             screen.print(unitName);
         }
         else if ((mMode == MODE_PLACE) || (mMode == MODE_NO_MORE_UNITS))
@@ -303,7 +334,7 @@ public class BattlePreparationPhaseState
             screen.setTextColor((mMode == MODE_PLACE) ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.print(Texts.BUTTON_A);
             screen.print(Texts.MISC_SEPARATOR);
-            screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_X);
+            screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_K);
             if (mMode == MODE_NO_MORE_UNITS)
                 screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS);
             else
@@ -328,7 +359,27 @@ public class BattlePreparationPhaseState
             else
                 screen.print(Texts.MISC_ERROR);
         }
-        mGame.padMenuUI.draw(mGame.screen);
+        mGame.topBarUI.draw(screen);
+        mGame.padMenuUI.draw(screen);
+    }
+    
+    private void refreshTopBar()
+    {
+        if (mGameMode == GAMEMODE_SANDBOX)
+        {
+            mGame.topBarUI.setLeftCountAndCost(Texts.TEAMS_LEFT, mAlliedUnitsCount, mAlliedUnitsCost);
+            mGame.topBarUI.setRightCountAndCost(Texts.TEAMS_RIGHT, mEnemyUnitsCount, mEnemyUnitsCost);
+        }
+        else if (mGameMode == GAMEMODE_QUICKBATTLE)
+        {
+            mGame.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER, mAlliedUnitsCount, mAlliedUnitsCost);
+            mGame.topBarUI.setRightCountAndCost(Texts.TEAMS_ENEMY, mEnemyUnitsCount, mEnemyUnitsCost);
+        }
+        else
+        {
+            mGame.topBarUI.setLeftCountAndCost(Texts.MISC_UNKNOWN, 0, 0);
+            mGame.topBarUI.setRightCountAndCost(Texts.MISC_UNKNOWN, 0, 0);
+        }
     }
     
     private TAZSGame mGame;
@@ -339,7 +390,9 @@ public class BattlePreparationPhaseState
     private int mMode = MODE_INVALID;
     private int mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
     private int mAlliedUnitsCount = 0;
+    private int mAlliedUnitsCost = 0;
     private int mEnemyUnitsCount = 0;
+    private int mEnemyUnitsCost = 0;
     
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
     

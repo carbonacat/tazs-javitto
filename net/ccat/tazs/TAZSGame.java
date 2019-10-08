@@ -11,6 +11,7 @@ import net.ccat.tazs.resources.sounds.CursorMoveSound;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.ui.PadMenuUI;
+import net.ccat.tazs.ui.TopBarUI;
 
 
 /**
@@ -27,6 +28,7 @@ class TAZSGame
         menuCursorSprite.playDefault();
         menuCursorSprite.setStatic(true);
         padMenuUI = new PadMenuUI();
+        topBarUI = new TopBarUI();
         cursorMoveSound = new CursorMoveSound();
         cursorSelectSound = new CursorSelectSound();
         
@@ -51,6 +53,7 @@ class TAZSGame
     /***** UI *****/
     
     public PadMenuUI padMenuUI;
+    public TopBarUI topBarUI;
     
     
     /***** COMMON RESOURCES *****/

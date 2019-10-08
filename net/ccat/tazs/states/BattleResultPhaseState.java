@@ -83,6 +83,8 @@ public class BattleResultPhaseState
         screen.fillRect(LOGO_X + 1, mLogoY + 1, LOGO_WIDTH - 1, LOGO_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
         mSummarySprite.draw(screen, LOGO_X + 2, mLogoY + 2);
         
+        mGame.topBarUI.draw(screen);
+        
         // Stats screen.
         
         screen.drawRect(STATS_X, mStatsY, STATS_WIDTH, STATS_HEIGHT, Colors.WINDOW_BORDER);

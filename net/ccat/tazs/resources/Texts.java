@@ -19,6 +19,7 @@ class Texts
     public static final String MISC_ERROR = "<error>";
     public static final String MISC_SEPARATOR = " - ";
     public static final String MISC_UNKNOWN = "???";
+    public static final String MISC_DOLLAR = "$";
     
     
     /***** MENU *****/
@@ -29,8 +30,8 @@ class Texts
     /***** PREPARATION *****/
     
     public static final String PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS = "(Too many units)";
-    public static final String PREPARATION_COMMANDS_PLACE_UNIT_X = "Place ";
-    public static final String PREPARATION_COMMANDS_REMOVE_UNIT_X = "Remove ";
+    public static final String PREPARATION_COMMANDS_PLACE_UNIT_K = "Place ";
+    public static final String PREPARATION_COMMANDS_REMOVE_UNIT_K = "Remove ";
     public static final String PREPARATION_ENEMY_SIDE = "Enemy Territory";
     public static final String PREPARATION_MENU_LAUNCH = "Battle!";
     public static final String PREPARATION_MENU_EXIT = "Exit Game";
@@ -49,7 +50,9 @@ class Texts
     /***** TEAMS *****/
     
     public static final String TEAMS_ENEMY = "Enemy";
+    public static final String TEAMS_LEFT = "Left";
     public static final String TEAMS_PLAYER = "Player";
+    public static final String TEAMS_RIGHT = "Right";
     
     
     /***** TITLE SCREEN *****/
@@ -62,6 +65,8 @@ class Texts
     
     /***** UNIT *****/
     
+    public static final String UNIT_K_UNIT = " unit";
+    public static final String UNIT_K_UNITS = " units";
     public static final String UNIT_BRAWLER = "Brawler";
     public static final String UNIT_SLAPPER = "Slapper";
 }

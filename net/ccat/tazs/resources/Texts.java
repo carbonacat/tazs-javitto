@@ -60,9 +60,8 @@ class Texts
     public static final String TITLE_MENU_SANDBOX = "Sandbox";
     
     
-    /***** UNITS *****/
+    /***** UNIT *****/
     
-    public static final String UNITS_BRAWLER_NAME = "Brawler";
-    
-    
+    public static final String UNIT_BRAWLER = "Brawler";
+    public static final String UNIT_SLAPPER = "Slapper";
 }

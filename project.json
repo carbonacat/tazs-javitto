@@ -345,6 +345,34 @@
 		},
 		"\\.git": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\slapper\\SlapperBodyARawSprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\slapper\\SlapperBodyARawSprite.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\slapper\\SlapperBodyBRawSprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\slapper\\SlapperBodyBRawSprite.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\bin\\tazs-javitto.bin.2.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.3.gif": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/UnitTypes.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\UnitTypes.java": {
+			"sdcard": false
 		}
 	}
 }

@@ -10,6 +10,15 @@ import femto.mode.HiRes16Color;
  */
 public interface UnitHandler
 {
+    /***** INFORMATION *****/
+    
+    /**
+     * @return the UnitType of this Unit.
+     * @see net.ccat.tazs.battle.UnitTypes.
+     */
+    public abstract int unitType();
+    
+    
     /***** LIFECYCLE *****/
     
     /**

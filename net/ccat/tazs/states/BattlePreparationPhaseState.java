@@ -6,8 +6,11 @@ import femto.mode.HiRes16Color;
 import femto.State;
 
 import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
+import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.battle.Teams;
+import net.ccat.tazs.battle.UnitHandler;
 import net.ccat.tazs.battle.UnitsSystem;
+import net.ccat.tazs.battle.UnitTypes;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.Texts;
@@ -58,13 +61,12 @@ public class BattlePreparationPhaseState
                                               Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
                     mEnemyUnitsCount++;
                 }
-                // TODO: For the Slappers.
                 for (int remainingUnit = Math.random(0, 4); remainingUnit > 0 ; remainingUnit--)
                 {
                     mGame.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
                                               Math.PI,
-                                              BrawlerIdleHandler.HEALTH_INITIAL,
-                                              BrawlerIdleHandler.instance,
+                                              SlapperIdleHandler.HEALTH_INITIAL,
+                                              SlapperIdleHandler.instance,
                                               Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
                     mEnemyUnitsCount++;
                 }
@@ -164,18 +166,16 @@ public class BattlePreparationPhaseState
     private int updateModeForQuickBattle()
     {
         // Finding a Unit that is hovered.
-        int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
+        mHoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
         
-        if ((hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsTeams[hoveredUnitIdentifier] == Teams.PLAYER))
+        if ((mHoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (mGame.unitsSystem.unitsTeams[mHoveredUnitIdentifier] == Teams.PLAYER))
         {
             if (Button.B.isPressed())
             {
-                mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
+                mGame.unitsSystem.removeUnit(mHoveredUnitIdentifier);
                 mAlliedUnitsCount--;
                 mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
             }
-            else
-                mHoveredUnitIdentifier = hoveredUnitIdentifier;
             return MODE_REMOVE;
         }
         else if (mCursorX < -NOMANSLAND_RADIUS)
@@ -228,10 +228,22 @@ public class BattlePreparationPhaseState
                 boolean onPlayerTeam = (mCursorX < 0);
                 int team = onPlayerTeam ? Teams.PLAYER : Teams.ENEMY;
                 float angle = onPlayerTeam ? 0 : Math.PI;
+                int initialHealth;
+                UnitHandler initialHandler;
                 
+                if (onPlayerTeam)
+                {
+                    initialHealth = BrawlerIdleHandler.HEALTH_INITIAL;
+                    initialHandler = BrawlerIdleHandler.instance;
+                }
+                else
+                {
+                    initialHealth = SlapperIdleHandler.HEALTH_INITIAL;
+                    initialHandler = SlapperIdleHandler.instance;
+                }
                 mGame.unitsSystem.addUnit(mCursorX, mCursorY, angle,
-                                          BrawlerIdleHandler.HEALTH_INITIAL,
-                                          BrawlerIdleHandler.instance,
+                                          initialHealth,
+                                          initialHandler,
                                           team);
                 if (onPlayerTeam)
                     mAlliedUnitsCount++;
@@ -250,6 +262,15 @@ public class BattlePreparationPhaseState
     private void renderUI()
     {
         HiRes16Color screen = mGame.screen;
+        boolean hasHoveredUnit = (mHoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE);
+        String unitName = Texts.MISC_UNKNOWN;
+        
+        if (hasHoveredUnit)
+        {
+            int unitType = mGame.unitsSystem.unitsHandlers[mHoveredUnitIdentifier].unitType();
+            
+            unitName = UnitTypes.nameForType(unitType);
+        }
         
         if (mMode != MODE_MENU)
             mGame.cursorSprite.draw(screen, mCursorX - VideoConstants.CURSOR_ORIGIN_X, mCursorY - VideoConstants.CURSOR_ORIGIN_Y);
@@ -271,14 +292,11 @@ public class BattlePreparationPhaseState
         }
         else if (mMode == MODE_REMOVE)
         {
-            boolean hasHoveredUnit = (mHoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE);
-            
             screen.setTextColor(hasHoveredUnit ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.print(Texts.BUTTON_B);
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_REMOVE_UNIT_X);
-            // TODO: Use the actual Unit's type's name. [013]
-            screen.print(hasHoveredUnit ? Texts.UNITS_BRAWLER_NAME : Texts.MISC_UNKNOWN);
+            screen.print(unitName);
         }
         else if ((mMode == MODE_PLACE) || (mMode == MODE_NO_MORE_UNITS))
         {
@@ -286,11 +304,10 @@ public class BattlePreparationPhaseState
             screen.print(Texts.BUTTON_A);
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_X);
-            // TODO: Use the selected type's name. [013]
             if (mMode == MODE_NO_MORE_UNITS)
                 screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS);
             else
-                screen.print(Texts.UNITS_BRAWLER_NAME);
+                screen.print(Texts.UNIT_BRAWLER);
         }
         else
         {
@@ -298,7 +315,16 @@ public class BattlePreparationPhaseState
             if (mMode == MODE_NOMANSLAND)
                 screen.print(Texts.PREPARATION_NO_MANS_LAND);
             else if (mMode == MODE_ENEMY_TERRITORY)
-                screen.print(Texts.PREPARATION_ENEMY_SIDE);
+            {
+                if (hasHoveredUnit)
+                {
+                    screen.print(Texts.TEAMS_ENEMY);
+                    screen.print(Texts.MISC_SEPARATOR);
+                    screen.print(unitName);
+                }
+                else
+                    screen.print(Texts.PREPARATION_ENEMY_SIDE);
+            }
             else
                 screen.print(Texts.MISC_ERROR);
         }

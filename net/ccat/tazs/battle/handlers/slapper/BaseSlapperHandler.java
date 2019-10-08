@@ -1,16 +1,19 @@
-package net.ccat.tazs.battle.handlers.brawler;
+package net.ccat.tazs.battle.handlers.slapper;
 
 import femto.mode.HiRes16Color;
 import femto.Sprite;
 
 import net.ccat.tazs.resources.Colors;
-import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
+import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 
 
-public class BaseBrawlerHandler
+/**
+ * Base Handler for all Handlers related to the Slapper.
+ */
+public class BaseSlapperHandler
     implements UnitHandler
 {
     public static final short HEALTH_INITIAL = 100;
@@ -31,7 +34,7 @@ public class BaseBrawlerHandler
     
     public int unitType()
     {
-        return UnitTypes.BRAWLER;
+        return UnitTypes.SLAPPER;
     }
     
     
@@ -65,7 +68,7 @@ public class BaseBrawlerHandler
                 health -= (short)(int)lostHealth;
             else
             {
-                system.unitsHandlers[unitIdentifier] = BrawlerDeadHandler.instance;
+                system.unitsHandlers[unitIdentifier] = SlapperDeadHandler.instance;
                 system.unitsTimers[unitIdentifier] = 0;
                 health = 0;
             }
@@ -76,17 +79,17 @@ public class BaseBrawlerHandler
     
     /***** RENDERING *****/
     
-    protected void drawBrawler(float unitX, float unitY, float unitAngle, float handDistance,
+    protected void drawSlapper(float unitX, float unitY, float unitAngle, float handDistance,
                                NonAnimatedSprite bodySprite, HandSprite handSprite,
                                HiRes16Color screen)
     {
         handSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_X,
-                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y);
+                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.SLAPPERBODY_WEAPON_ORIGIN_Y);
         // Is the hand above?
         if (unitAngle < 0)
             handSprite.draw(screen);
-        bodySprite.selectFrame(VideoConstants.BRAWLERBODY_FRAME_IDLE);
-        bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
+        bodySprite.selectFrame(VideoConstants.SLAPPERBODY_FRAME_IDLE);
+        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
         bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
         bodySprite.draw(screen);
 
@@ -95,16 +98,16 @@ public class BaseBrawlerHandler
             handSprite.draw(screen);
     }
     
-    protected void drawDeadBrawler(float unitX, float unitY, float unitAngle,
+    protected void drawDeadSlapper(float unitX, float unitY, float unitAngle,
                                    NonAnimatedSprite bodySprite,
                                    int ticks, int ticksMax,
                                    HiRes16Color screen)
     {
-        int rawFrame = MathTools.lerpi(ticks, 0, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST, ticksMax, VideoConstants.BRAWLERBODY_FRAME_DEAD_START);
-        int frame = MathTools.clampi(rawFrame, VideoConstants.BRAWLERBODY_FRAME_DEAD_START, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST);
+        int rawFrame = MathTools.lerpi(ticks, 0, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST, ticksMax, VideoConstants.SLAPPERBODY_FRAME_DEAD_START);
+        int frame = MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_FRAME_DEAD_START, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST);
         
         bodySprite.selectFrame(frame);
-        bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
+        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
         bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
         bodySprite.draw(screen);
     }

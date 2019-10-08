@@ -7,6 +7,8 @@ import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyASprite;
 import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyBSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
+import net.ccat.tazs.resources.sprites.slapper.SlapperBodyASprite;
+import net.ccat.tazs.resources.sprites.slapper.SlapperBodyBSprite;
 
 import net.ccat.tazs.tools.MathTools;
 
@@ -24,6 +26,8 @@ class UnitsSystem
     {
         brawlerBodySpriteByTeam[Teams.PLAYER] = new BrawlerBodyASprite();
         brawlerBodySpriteByTeam[Teams.ENEMY] = new BrawlerBodyBSprite();
+        slapperBodySpriteByTeam[Teams.PLAYER] = new SlapperBodyASprite();
+        slapperBodySpriteByTeam[Teams.ENEMY] = new SlapperBodyBSprite();
     }
     
     
@@ -259,6 +263,7 @@ class UnitsSystem
     /***** RENDERING *****/
     
     public final NonAnimatedSprite[] brawlerBodySpriteByTeam = new NonAnimatedSprite[2];
+    public final NonAnimatedSprite[] slapperBodySpriteByTeam = new NonAnimatedSprite[2];
     public final HandSprite handSprite = new HandSprite();
     
     /**

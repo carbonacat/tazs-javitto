@@ -4,14 +4,10 @@ import femto.mode.HiRes16Color;
 
 
 /**
- * Provides the base methods for manipulating a BrawlerBody Sprite.
+ * Provides the base methods for manipulating a Sprite frame by frame.
  */
-interface BrawlerBodySprite
+interface NonAnimatedSprite
 {
-    static final int FRAME_IDLE = 0;
-    static final int FRAME_DEAD_START = 1;
-    static final int FRAME_DEAD_LAST = 6;
-    
     /***** SPRITE *****/
     
     void setPosition(float x, float y);

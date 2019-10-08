@@ -3,9 +3,9 @@ package net.ccat.tazs.battle;
 import femto.mode.HiRes16Color;
 import femto.Sprite;
 
-import net.ccat.tazs.resources.sprites.BrawlerBodyASprite;
-import net.ccat.tazs.resources.sprites.BrawlerBodyBSprite;
-import net.ccat.tazs.resources.sprites.BrawlerBodySprite;
+import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyASprite;
+import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyBSprite;
+import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
 
 import net.ccat.tazs.tools.MathTools;
@@ -258,7 +258,7 @@ class UnitsSystem
     
     /***** RENDERING *****/
     
-    public final BrawlerBodySprite[] brawlerBodySpriteByTeam = new BrawlerBodySprite[2];
+    public final NonAnimatedSprite[] brawlerBodySpriteByTeam = new NonAnimatedSprite[2];
     public final HandSprite handSprite = new HandSprite();
     
     /**

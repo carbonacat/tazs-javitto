@@ -1,10 +1,12 @@
-package net.ccat.tazs.resources.sprites;
+package net.ccat.tazs.resources.sprites.brawler;
 
 
 class BrawlerBodyASprite
     extends BrawlerBodyARawSprite
-    implements BrawlerBodySprite
+    implements NonAnimatedSprite
 {
+    /***** SPRITE *****/
+    
     void updateAnimation()
     {
         // Nothing to do.

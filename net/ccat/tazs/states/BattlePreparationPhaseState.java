@@ -219,16 +219,17 @@ public class BattlePreparationPhaseState
     private int updateModeForSandbox()
     {
         // Finding a Unit that is hovered.
-        int hoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
+        mHoveredUnitIdentifier = mGame.unitsSystem.findUnit(mCursorX, mCursorY);
         
-        if (hoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+        if (mHoveredUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
         {
             if (Button.B.isPressed())
             {
-                int team =  mGame.unitsSystem.unitsTeams[hoveredUnitIdentifier];
+                int team =  mGame.unitsSystem.unitsTeams[mHoveredUnitIdentifier];
                 UnitHandler unitHandler = mGame.unitsSystem.unitsHandlers[mHoveredUnitIdentifier];
                 
-                mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
+                //System.out.println("Removing unit #" + mHoveredUnitIdentifier);
+                mGame.unitsSystem.removeUnit(mHoveredUnitIdentifier);
                 if (team == Teams.PLAYER)
                 {
                     mAlliedUnitsCount--;
@@ -242,8 +243,6 @@ public class BattlePreparationPhaseState
                 refreshTopBar();
                 mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
             }
-            else
-                mHoveredUnitIdentifier = hoveredUnitIdentifier;
             return MODE_REMOVE;
         }
         else if ((mCursorX < -NOMANSLAND_RADIUS) || (mCursorX > NOMANSLAND_RADIUS))

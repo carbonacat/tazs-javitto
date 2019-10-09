@@ -26,8 +26,10 @@ public class BattleResultPhaseState
         mSummarySprite.setStatic(true);
         mPlayerLosses = game.unitsSystem.unitsCount(Teams.PLAYER, true);
         mPlayerUnitsCount = game.unitsSystem.unitsCount(Teams.PLAYER, false);
+        mPlayerUnitsCost = game.unitsSystem.unitsCost(Teams.PLAYER, false);
         mEnemyLosses = game.unitsSystem.unitsCount(Teams.ENEMY, true);
         mEnemyUnitsCount = game.unitsSystem.unitsCount(Teams.ENEMY, false);
+        mEnemyUnitsCost = game.unitsSystem.unitsCost(Teams.ENEMY, false);
     }
     
     
@@ -98,15 +100,17 @@ public class BattleResultPhaseState
         screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_COST_Y_OFFSET);
         screen.print(Texts.RESULT_COST_);
         screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_COST_Y_OFFSET);
-        renderStatBar(mPlayerUnitsCount, mPlayerUnitsCount + mEnemyUnitsCount,
+        renderStatBar(mPlayerUnitsCost, mPlayerUnitsCost + mEnemyUnitsCost,
                       STATS_TEAMS_FIRST_X_START, STATS_TEAMS_FIRST_X_LAST, mStatsY + STATS_COST_Y_OFFSET,
                         Colors.TEAM_PLAYER_STAT_COLOR, screen);
-        screen.print(mPlayerUnitsCount);
+        screen.print(mPlayerUnitsCost);
+        screen.print(Texts.MISC_DOLLAR);
         screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_COST_Y_OFFSET);
-        renderStatBar(mEnemyUnitsCount, mPlayerUnitsCount + mEnemyUnitsCount,
+        renderStatBar(mEnemyUnitsCost, mPlayerUnitsCost + mEnemyUnitsCost,
                       STATS_TEAMS_SECOND_X_START, STATS_TEAMS_SECOND_X_LAST, mStatsY + STATS_COST_Y_OFFSET,
                         Colors.TEAM_ENEMY_STAT_COLOR, screen);
-        screen.print(mEnemyUnitsCount);
+        screen.print(mEnemyUnitsCost);
+        screen.print(Texts.MISC_DOLLAR);
         
         screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.RESULT_DESTRUCTIONS_);
@@ -157,8 +161,10 @@ public class BattleResultPhaseState
     private int mWinnerTeam;
     private int mPlayerLosses;
     private int mPlayerUnitsCount;
+    private int mPlayerUnitsCost;
     private int mEnemyLosses;
     private int mEnemyUnitsCount;
+    private int mEnemyUnitsCost;
     private int mLogoY = LOGO_Y_INITIAL;
     private int mStatsY = STATS_Y_HIDDEN;
     private ResultSummarySprite mSummarySprite = new ResultSummarySprite();

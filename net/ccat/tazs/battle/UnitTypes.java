@@ -1,6 +1,8 @@
 package net.ccat.tazs.battle;
 
 import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
+import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 
 
 /**
@@ -29,6 +31,19 @@ public class UnitTypes
             return Texts.UNIT_BRAWLER;
         if (unitType == SLAPPER)
             return Texts.UNIT_SLAPPER;
+        // Not supposed to happen.
+        while (true);
         return Texts.MISC_UNKNOWN;
+    }
+    
+    static UnitHandler idleHandlerForType(int unitType)
+    {
+        if (unitType == BRAWLER)
+            return BrawlerIdleHandler.instance;
+        if (unitType == SLAPPER)
+            return SlapperIdleHandler.instance;
+        // Not supposed to happen.
+        while (true);
+        return BrawlerIdleHandler.instance;
     }
 }

@@ -51,4 +51,17 @@ public interface UnitHandler
      * @param unitIdentifier Identifies the Unit inside the system.
      */
     public abstract void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen);
+    
+    /**
+     * Renders the given Unit inside the UnitsSystem.
+     * @param system The system the Unit belongs to.
+     * @param x
+     * @param y
+     * @param angle
+     * @param team The team.
+     * @param unitIdentifier Identifies the Unit inside the system.
+     */
+    public abstract void drawAsUI(UnitsSystem system,
+                                  float x, float y, float angle, int team,
+                                  HiRes16Color screen);
 }

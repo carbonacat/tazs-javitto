@@ -359,6 +359,18 @@ public class BattlePreparationPhaseState
             else
                 screen.print(Texts.MISC_ERROR);
         }
+        
+        // Renders the Unit Box.
+        UITools.drawWindow(UNITBOX_X, UNITBOX_Y, UNITBOX_WIDTH, UNITBOX_HEIGHT, screen);
+        screen.setTextColor(Colors.WINDOW_TEXT);
+        screen.setTextPosition(UNITBOX_X + 2, UNITBOX_Y + 2);
+        // TODO: Temp.
+        screen.print("9999");
+        screen.print(Texts.MISC_DOLLAR);
+        UnitTypes.idleHandlerForType(mCurrentUnitType).drawAsUI(mGame.unitsSystem,
+                                                                screen.cameraX + UNITBOX_UNIT_X, screen.cameraY + UNITBOX_UNIT_Y, Math.PI, Teams.PLAYER,
+                                                                screen);
+        
         mGame.topBarUI.draw(screen);
         mGame.padMenuUI.draw(screen);
     }
@@ -385,6 +397,8 @@ public class BattlePreparationPhaseState
     private TAZSGame mGame;
     private int mGameMode = GAMEMODE_QUICKBATTLE;
     
+    private int mCurrentUnitType = UnitTypes.SLAPPER;
+    
     private float mCursorX;
     private float mCursorY;
     private int mMode = MODE_INVALID;
@@ -410,7 +424,14 @@ public class BattlePreparationPhaseState
     private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
     private static final int HELP_X = 2;
     private static final int HELP_Y = HELP_BOX_MIN_Y + 2;
-    
+    private static final int UNITBOX_WIDTH = 50;
+    private static final int UNITBOX_HEIGHT = 10;
+    // TODO: Use Screen's constants.
+    private static final int UNITBOX_X = 220 - UNITBOX_WIDTH;
+    private static final int UNITBOX_Y = 176 - UNITBOX_HEIGHT;
+    private static final int UNITBOX_UNIT_X = 220 - 8;
+    private static final int UNITBOX_UNIT_Y = 176 - 5;
+
     private static final int MENU_X = 110;
     private static final int MENU_Y = 88;
 }

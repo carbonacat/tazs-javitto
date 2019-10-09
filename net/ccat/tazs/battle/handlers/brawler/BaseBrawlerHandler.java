@@ -76,6 +76,15 @@ public class BaseBrawlerHandler
     
     /***** RENDERING *****/
     
+    public void drawAsUI(UnitsSystem system,
+                         float unitX, float unitY, float unitAngle, int unitTeam,
+                         HiRes16Color screen)
+    {
+        drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
+                    system.brawlerBodySpriteByTeam[unitTeam], system.handSprite,
+                    screen);
+    }
+    
     protected void drawBrawler(float unitX, float unitY, float unitAngle, float handDistance,
                                NonAnimatedSprite bodySprite, HandSprite handSprite,
                                HiRes16Color screen)

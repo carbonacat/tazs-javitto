@@ -14,6 +14,7 @@ interface NonAnimatedSprite
     void setFlipped(boolean flipped);
     void setMirrored(boolean mirrored);
     void draw(HiRes16Color screen);
+    void setStatic(boolean staticState);
     
     
     /***** FRAME MANIPULATION *****/

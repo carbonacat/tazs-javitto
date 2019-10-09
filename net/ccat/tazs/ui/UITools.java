@@ -180,4 +180,19 @@ class UITools
         screen.setTextPosition(fillX + padding, fillY + padding);
         screen.print(title);
     }
+    
+    /**
+     * Renders a simple window.
+     * @param x 
+     * @param y
+     * @param width 
+     * @param height
+     * @param screen The target screen.
+     */
+    public static void drawWindow(int x, int y, int width, int height,
+                                  HiRes16Color screen)
+    {
+        screen.drawRect(x, y, width - 1, height - 1, Colors.WINDOW_BORDER);
+        screen.fillRect(x + 1, y + 1, width - 2, height - 2, Colors.WINDOW_BACKGROUND);
+    }
 }

@@ -391,6 +391,22 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\UIDimensions.java": {
 			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.2.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\Dimensions.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui\\TopBarUI.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui/HelpBarUI.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui\\HelpBarUI.java": {
+			"sdcard": false
 		}
 	}
 }

@@ -37,8 +37,7 @@ public class TopBarUI
         int height = Dimensions.TOPBAR_HEIGHT;
         
         // Background and border.
-        screen.drawRect(x, y, width - 1, height - 1, Colors.WINDOW_BORDER);
-        screen.fillRect(x + 1, y + 1, width - 2, height - 2, Colors.WINDOW_BACKGROUND);
+        UITools.drawWindow(x, y, width, height, screen);
         
         // Texts.
         screen.setTextPosition(x + 2, y + 2);

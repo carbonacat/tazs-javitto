@@ -79,6 +79,15 @@ public class BaseSlapperHandler
     
     /***** RENDERING *****/
     
+    public void drawAsUI(UnitsSystem system,
+                         float unitX, float unitY, float unitAngle, int unitTeam,
+                         HiRes16Color screen)
+    {
+        drawSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
+                    system.slapperBodySpriteByTeam[unitTeam], system.handSprite,
+                    screen);
+    }
+    
     protected void drawSlapper(float unitX, float unitY, float unitAngle, float handDistance,
                                NonAnimatedSprite bodySprite, HandSprite handSprite,
                                HiRes16Color screen)

@@ -41,7 +41,7 @@ public class BaseSlapperHandler
     
     public String name()
     {
-        return Texts.UNIT_BRAWLER;
+        return Texts.UNIT_SLAPPER;
     }
     
     public int startingHealth()

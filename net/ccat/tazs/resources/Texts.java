@@ -33,8 +33,8 @@ class Texts
     public static final String PREPARATION_COMMANDS_PLACE_UNIT_K = "Place ";
     public static final String PREPARATION_COMMANDS_REMOVE_UNIT_K = "Remove ";
     public static final String PREPARATION_ENEMY_SIDE = "Enemy Territory";
-    public static final String PREPARATION_MENU_LAUNCH = "Battle!";
     public static final String PREPARATION_MENU_EXIT = "Exit Game";
+    public static final String PREPARATION_MENU_LAUNCH = "Battle!";
     public static final String PREPARATION_NO_MANS_LAND = "No Man's Land";
     
     

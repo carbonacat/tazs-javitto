@@ -362,13 +362,18 @@ public class BattlePreparationPhaseState
         }
         
         // Renders the Unit Box.
+        int unitTeam = Teams.PLAYER;
+        
+        if ((mGameMode == GAMEMODE_SANDBOX) && (mCursorX > 0))
+            unitTeam = Teams.ENEMY;
+        
         UITools.drawWindow(UNITBOX_X, UNITBOX_Y, UNITBOX_WIDTH, UNITBOX_HEIGHT, screen);
         screen.setTextColor(Colors.WINDOW_TEXT);
         screen.setTextPosition(UNITBOX_X + 2, UNITBOX_Y + 2);
         screen.print(UnitCosts.costForType(mCurrentUnitType));
         screen.print(Texts.MISC_DOLLAR);
         UnitTypes.idleHandlerForType(mCurrentUnitType).drawAsUI(mGame.unitsSystem,
-                                                                screen.cameraX + UNITBOX_UNIT_X, screen.cameraY + UNITBOX_UNIT_Y, Math.PI, Teams.PLAYER,
+                                                                screen.cameraX + UNITBOX_UNIT_X, screen.cameraY + UNITBOX_UNIT_Y, Math.PI, unitTeam,
                                                                 screen);
         
         mGame.topBarUI.draw(screen);

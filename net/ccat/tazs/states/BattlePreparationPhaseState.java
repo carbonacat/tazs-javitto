@@ -82,6 +82,7 @@ public class BattlePreparationPhaseState
         mGame.padMenuUI.clearChoices();
         mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.PREPARATION_MENU_LAUNCH);
         mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.PREPARATION_MENU_EXIT);
+        updatePadMenuUnitChoices();
         refreshTopBar();
     }
     
@@ -122,6 +123,12 @@ public class BattlePreparationPhaseState
                 break ;
             case PadMenuUI.CHOICE_DOWN:
                 Game.changeState(new TitleScreenState(mGame));
+                break ;
+            case PadMenuUI.CHOICE_RIGHT:
+                changeCurrentUnit(1);
+                break ;
+            case PadMenuUI.CHOICE_LEFT:
+                changeCurrentUnit(-1);
                 break ;
             }
         }
@@ -278,12 +285,8 @@ public class BattlePreparationPhaseState
         String unitName = Texts.MISC_UNKNOWN;
         
         if (hasHoveredUnit)
-        {
-            int unitType = mGame.unitsSystem.unitsHandlers[mHoveredUnitIdentifier].unitType();
-            
-            unitName = UnitTypes.nameForType(unitType);
-        }
-        
+            unitName =  mGame.unitsSystem.unitsHandlers[mHoveredUnitIdentifier].name();
+
         if (mMode != MODE_MENU)
             mGame.cursorSprite.draw(screen, mCursorX - VideoConstants.CURSOR_ORIGIN_X, mCursorY - VideoConstants.CURSOR_ORIGIN_Y);
         
@@ -380,6 +383,22 @@ public class BattlePreparationPhaseState
             mGame.topBarUI.setRightCountAndCost(Texts.MISC_UNKNOWN, 0, 0);
         }
     }
+    
+    private void changeCurrentUnit(int delta)
+    {
+        mCurrentUnitType = (mCurrentUnitType + delta + UnitTypes.END) % UnitTypes.END;
+        updatePadMenuUnitChoices();
+    }
+    
+    private void updatePadMenuUnitChoices()
+    {
+        int previousUnitType = (mCurrentUnitType - 1 + UnitTypes.END) % UnitTypes.END;
+        int nextUnitType = (mCurrentUnitType + 1 + UnitTypes.END) % UnitTypes.END;
+        
+        mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, UnitTypes.idleHandlerForType(nextUnitType).name());
+        mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_LEFT, UnitTypes.idleHandlerForType(previousUnitType).name());
+    }
+    
     
     private TAZSGame mGame;
     private int mGameMode = GAMEMODE_QUICKBATTLE;

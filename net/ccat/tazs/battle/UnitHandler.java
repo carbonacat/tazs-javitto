@@ -19,6 +19,11 @@ public interface UnitHandler
     public abstract int unitType();
     
     /**
+     * @return the usual name.
+     */
+    public abstract String name();
+    
+    /**
      * @return How many health a Unit of this type should have.
      */
     public abstract int startingHealth();

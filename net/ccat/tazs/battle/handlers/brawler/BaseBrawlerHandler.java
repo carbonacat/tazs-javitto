@@ -6,6 +6,7 @@ import femto.Sprite;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
+import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 
@@ -33,6 +34,11 @@ public class BaseBrawlerHandler
     public int unitType()
     {
         return UnitTypes.BRAWLER;
+    }
+    
+    public String name()
+    {
+        return Texts.UNIT_BRAWLER;
     }
     
     public int startingHealth()

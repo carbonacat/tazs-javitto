@@ -1,5 +1,6 @@
 package net.ccat.tazs.ui;
 
+import femto.input.Button;
 import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.Colors;
@@ -194,5 +195,16 @@ class UITools
     {
         screen.drawRect(x, y, width - 1, height - 1, Colors.WINDOW_BORDER);
         screen.fillRect(x + 1, y + 1, width - 2, height - 2, Colors.WINDOW_BACKGROUND);
+    }
+    
+    public static void resetJustPressed()
+    {
+        Button.A.justPressed();
+        Button.B.justPressed();
+        Button.C.justPressed();
+        Button.Right.justPressed();
+        Button.Down.justPressed();
+        Button.Left.justPressed();
+        Button.Up.justPressed();
     }
 }

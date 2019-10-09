@@ -169,6 +169,7 @@ public class BattlePreparationPhaseState
                 break;
             }
         }
+        UITools.resetJustPressed();
     }
     
     private int updateModeForQuickBattle()
@@ -403,7 +404,7 @@ public class BattlePreparationPhaseState
     private TAZSGame mGame;
     private int mGameMode = GAMEMODE_QUICKBATTLE;
     
-    private int mCurrentUnitType = UnitTypes.SLAPPER;
+    private int mCurrentUnitType = UnitTypes.BRAWLER;
     
     private float mCursorX;
     private float mCursorY;

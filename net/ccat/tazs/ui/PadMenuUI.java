@@ -141,9 +141,9 @@ class PadMenuUI
      */
     public int selectedChoice()
     {
-        if (mRemainingSelectionTicks == 0)
-            return mSelectedChoice;
-        return CHOICE_NONE;
+        if (mRemainingSelectionTicks > 0)
+            return CHOICE_NONE;
+        return mSelectedChoice;
     }
     
     
@@ -154,36 +154,28 @@ class PadMenuUI
      */
     public void update()
     {
-        if (Button.C.justPressed())
-            mShown = !mShown;
+        mShown = Button.C.isPressed();
         if (mShown)
         {
-            switch (mSelectedChoice)
+            if (mRemainingSelectionTicks == 0)
             {
-            case CHOICE_RIGHT:
-                checkPress(Button.Right, mRightIsEnabled);
-                break;
-            case CHOICE_DOWN:
-                checkPress(Button.Down, mDownIsEnabled);
-                break;
-            case CHOICE_LEFT:
-                checkPress(Button.Left, mLeftIsEnabled);
-                break;
-            case CHOICE_UP:
-                checkPress(Button.Up, mUpIsEnabled);
-                break;
-            default:
-            case CHOICE_NONE:
                 mRemainingSelectionTicks = TICKS_UNTIL_SELECTED;
                 if (Button.Right.justPressed())
-                    mSelectedChoice = CHOICE_RIGHT;
+                    mSelectedChoice = mRightIsEnabled ? CHOICE_RIGHT : CHOICE_NONE;
                 else if (Button.Down.justPressed())
-                    mSelectedChoice = CHOICE_DOWN;
+                    mSelectedChoice = mDownIsEnabled ? CHOICE_DOWN : CHOICE_NONE;
                 else if (Button.Left.justPressed())
-                    mSelectedChoice = CHOICE_LEFT;
+                    mSelectedChoice = mLeftIsEnabled ? CHOICE_LEFT : CHOICE_NONE;
                 else if (Button.Up.justPressed())
-                    mSelectedChoice = CHOICE_UP;
+                    mSelectedChoice = mUpIsEnabled ? CHOICE_UP : CHOICE_NONE;
+                else
+                {
+                    mRemainingSelectionTicks = 0;
+                    mSelectedChoice = CHOICE_NONE;
+                }
             }
+            else
+                mRemainingSelectionTicks--;
         }
         else
             mSelectedChoice = CHOICE_NONE;
@@ -224,9 +216,7 @@ class PadMenuUI
         int borderColor = Colors.PADMENU_BORDER;
         
         if (mSelectedChoice == choice)
-        {
-            borderColor = (mRemainingSelectionTicks < TICKS_UNTIL_ALMOST_SELECTED) ? Colors.PADMENU_SELECTED_BORDER : Colors.PADMENU_SELECTING_BORDER;
-        }
+            borderColor = Colors.PADMENU_SELECTED_BORDER;
         switch (choice)
         {
         case CHOICE_RIGHT:
@@ -254,13 +244,6 @@ class PadMenuUI
                           screen);
     }
     
-    private void checkPress(Button button, boolean enabled)
-    {
-        if (enabled && button.isPressed())
-            mRemainingSelectionTicks = Math.max(0, mRemainingSelectionTicks - 1);
-        else
-            mSelectedChoice = CHOICE_NONE;
-    }
     
     private int mX;
     private int mY;
@@ -277,12 +260,11 @@ class PadMenuUI
     private boolean mUpIsEnabled;
 
     private int mSelectedChoice = CHOICE_NONE;
-    private int mRemainingSelectionTicks;
+    private int mRemainingSelectionTicks = 0;
 
     
     private static final int LABEL_PADDING = 1;
     private static final int LABEL_MARGIN = 1;
     private static final int LABEL_FROM_CENTER = 9 + LABEL_MARGIN;
-    private static final int TICKS_UNTIL_SELECTED = 10;
-    private static final int TICKS_UNTIL_ALMOST_SELECTED = 5;
+    private static final int TICKS_UNTIL_SELECTED = 1;
 }

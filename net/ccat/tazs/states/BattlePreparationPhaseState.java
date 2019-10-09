@@ -197,15 +197,17 @@ public class BattlePreparationPhaseState
             {
                 UnitHandler unitHandler = UnitTypes.idleHandlerForType(mCurrentUnitType);
                 
-                mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0,
-                                          unitHandler,
-                                          Teams.PLAYER);
-                mAlliedUnitsCount++;
-                mAlliedUnitsCost += unitHandler.cost();
-                refreshTopBar();
-                
-                // Resets the animation.
-                mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
+                if (mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0,
+                                              unitHandler,
+                                              Teams.PLAYER) != UnitsSystem.IDENTIFIER_NONE)
+                {
+                    mAlliedUnitsCount++;
+                    mAlliedUnitsCost += unitHandler.cost();
+                    refreshTopBar();
+                    
+                    // Resets the animation.
+                    mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
+                }
             }
             if (mGame.unitsSystem.freeUnits() > 0)
                 return MODE_PLACE;
@@ -254,22 +256,24 @@ public class BattlePreparationPhaseState
                 float angle = onPlayerTeam ? 0 : Math.PI;
                 UnitHandler initialHandler = UnitTypes.idleHandlerForType(mCurrentUnitType);
                 
-                mGame.unitsSystem.addUnit(mCursorX, mCursorY, angle,
-                                          initialHandler,
-                                          team);
-                if (onPlayerTeam)
+                if (mGame.unitsSystem.addUnit(mCursorX, mCursorY, angle,
+                                              initialHandler,
+                                              team) != UnitsSystem.IDENTIFIER_NONE)
                 {
-                    mAlliedUnitsCount++;
-                    mAlliedUnitsCost += initialHandler.cost();
+                    if (onPlayerTeam)
+                    {
+                        mAlliedUnitsCount++;
+                        mAlliedUnitsCost += initialHandler.cost();
+                    }
+                    else
+                    {
+                        mEnemyUnitsCount++;
+                        mEnemyUnitsCost += initialHandler.cost();
+                    }
+                    refreshTopBar();
+                    // Resets the animation.
+                    mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
                 }
-                else
-                {
-                    mEnemyUnitsCount++;
-                    mEnemyUnitsCost += initialHandler.cost();
-                }
-                refreshTopBar();
-                // Resets the animation.
-                mGame.cursorSprite.currentFrame = mGame.cursorSprite.startFrame;
             }
             if (mGame.unitsSystem.freeUnits() > 0)
                 return MODE_PLACE;

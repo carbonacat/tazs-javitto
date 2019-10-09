@@ -8,6 +8,7 @@ import femto.State;
 import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
 import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.battle.Teams;
+import net.ccat.tazs.battle.UnitCosts;
 import net.ccat.tazs.battle.UnitHandler;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.battle.UnitTypes;
@@ -364,8 +365,7 @@ public class BattlePreparationPhaseState
         UITools.drawWindow(UNITBOX_X, UNITBOX_Y, UNITBOX_WIDTH, UNITBOX_HEIGHT, screen);
         screen.setTextColor(Colors.WINDOW_TEXT);
         screen.setTextPosition(UNITBOX_X + 2, UNITBOX_Y + 2);
-        // TODO: Temp.
-        screen.print("9999");
+        screen.print(UnitCosts.costForType(mCurrentUnitType));
         screen.print(Texts.MISC_DOLLAR);
         UnitTypes.idleHandlerForType(mCurrentUnitType).drawAsUI(mGame.unitsSystem,
                                                                 screen.cameraX + UNITBOX_UNIT_X, screen.cameraY + UNITBOX_UNIT_Y, Math.PI, Teams.PLAYER,

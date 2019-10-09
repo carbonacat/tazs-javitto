@@ -8,7 +8,6 @@ import femto.State;
 import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
 import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.battle.Teams;
-import net.ccat.tazs.battle.UnitCosts;
 import net.ccat.tazs.battle.UnitHandler;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.battle.UnitTypes;
@@ -57,23 +56,19 @@ public class BattlePreparationPhaseState
                 {
                     mGame.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
                                               Math.PI,
-                                              BrawlerIdleHandler.HEALTH_INITIAL,
                                               BrawlerIdleHandler.instance,
                                               Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
                     mEnemyUnitsCount++;
-                    // TODO: Use the actual cost.
-                    mEnemyUnitsCost += 10;
+                    mEnemyUnitsCost += BrawlerIdleHandler.instance.cost();
                 }
                 for (int remainingUnit = Math.random(0, 4); remainingUnit > 0 ; remainingUnit--)
                 {
                     mGame.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
                                               Math.PI,
-                                              SlapperIdleHandler.HEALTH_INITIAL,
                                               SlapperIdleHandler.instance,
                                               Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
                     mEnemyUnitsCount++;
-                    // TODO: Use the actual cost.
-                    mEnemyUnitsCost += 10;
+                    mEnemyUnitsCost += SlapperIdleHandler.instance.cost();
                 }
             }
         }
@@ -178,10 +173,11 @@ public class BattlePreparationPhaseState
         {
             if (Button.B.isPressed())
             {
+                UnitHandler unitHandler = mGame.unitsSystem.unitsHandlers[mHoveredUnitIdentifier];
+                
                 mGame.unitsSystem.removeUnit(mHoveredUnitIdentifier);
                 mAlliedUnitsCount--;
-                // TODO: Use the actual cost.
-                mAlliedUnitsCost -= 10;
+                mAlliedUnitsCost -= unitHandler.cost();
                 refreshTopBar();
                 mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
             }
@@ -191,14 +187,13 @@ public class BattlePreparationPhaseState
         {
             if (Button.A.isPressed())
             {
+                UnitHandler unitHandler = UnitTypes.idleHandlerForType(mCurrentUnitType);
+                
                 mGame.unitsSystem.addUnit(mCursorX, mCursorY, 0,
-                                          BrawlerIdleHandler.HEALTH_INITIAL,
-                                          BrawlerIdleHandler.instance,
+                                          unitHandler,
                                           Teams.PLAYER);
-                                      
                 mAlliedUnitsCount++;
-                // TODO: Use the actual cost.
-                mAlliedUnitsCost += 10;
+                mAlliedUnitsCost += unitHandler.cost();
                 refreshTopBar();
                 
                 // Resets the animation.
@@ -223,19 +218,18 @@ public class BattlePreparationPhaseState
             if (Button.B.isPressed())
             {
                 int team =  mGame.unitsSystem.unitsTeams[hoveredUnitIdentifier];
+                UnitHandler unitHandler = mGame.unitsSystem.unitsHandlers[mHoveredUnitIdentifier];
                 
                 mGame.unitsSystem.removeUnit(hoveredUnitIdentifier);
                 if (team == Teams.PLAYER)
                 {
                     mAlliedUnitsCount--;
-                    // TODO: Use the actual cost.
-                    mAlliedUnitsCost -= 10;
+                    mAlliedUnitsCost -= unitHandler.cost();
                 }
                 else if (team == Teams.ENEMY)
                 {
                     mEnemyUnitsCount--;
-                    // TODO: Use the actual cost.
-                    mEnemyUnitsCost -= 10;
+                    mEnemyUnitsCost -= unitHandler.cost();
                 }
                 refreshTopBar();
                 mHoveredUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
@@ -251,34 +245,20 @@ public class BattlePreparationPhaseState
                 boolean onPlayerTeam = (mCursorX < 0);
                 int team = onPlayerTeam ? Teams.PLAYER : Teams.ENEMY;
                 float angle = onPlayerTeam ? 0 : Math.PI;
-                int initialHealth;
-                UnitHandler initialHandler;
+                UnitHandler initialHandler = UnitTypes.idleHandlerForType(mCurrentUnitType);
                 
-                if (onPlayerTeam)
-                {
-                    initialHealth = BrawlerIdleHandler.HEALTH_INITIAL;
-                    initialHandler = BrawlerIdleHandler.instance;
-                }
-                else
-                {
-                    initialHealth = SlapperIdleHandler.HEALTH_INITIAL;
-                    initialHandler = SlapperIdleHandler.instance;
-                }
                 mGame.unitsSystem.addUnit(mCursorX, mCursorY, angle,
-                                          initialHealth,
                                           initialHandler,
                                           team);
                 if (onPlayerTeam)
                 {
                     mAlliedUnitsCount++;
-                    // TODO: Update the actual cost.
-                    mAlliedUnitsCost += 10;
+                    mAlliedUnitsCost += initialHandler.cost();
                 }
                 else
                 {
                     mEnemyUnitsCount++;
-                    // TODO: Use the actual cost.
-                    mEnemyUnitsCost += 10;
+                    mEnemyUnitsCost += initialHandler.cost();
                 }
                 refreshTopBar();
                 // Resets the animation.
@@ -367,10 +347,12 @@ public class BattlePreparationPhaseState
         if ((mGameMode == GAMEMODE_SANDBOX) && (mCursorX > 0))
             unitTeam = Teams.ENEMY;
         
+        UnitHandler unitHandler = UnitTypes.idleHandlerForType(mCurrentUnitType);
+        
         UITools.drawWindow(UNITBOX_X, UNITBOX_Y, UNITBOX_WIDTH, UNITBOX_HEIGHT, screen);
         screen.setTextColor(Colors.WINDOW_TEXT);
         screen.setTextPosition(UNITBOX_X + 2, UNITBOX_Y + 2);
-        screen.print(UnitCosts.costForType(mCurrentUnitType));
+        screen.print(unitHandler.cost());
         screen.print(Texts.MISC_DOLLAR);
         UnitTypes.idleHandlerForType(mCurrentUnitType).drawAsUI(mGame.unitsSystem,
                                                                 screen.cameraX + UNITBOX_UNIT_X, screen.cameraY + UNITBOX_UNIT_Y, Math.PI, unitTeam,

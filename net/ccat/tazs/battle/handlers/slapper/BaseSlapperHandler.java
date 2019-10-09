@@ -28,6 +28,7 @@ public class BaseSlapperHandler
     public static final float HAND_POWER = 5.f;
     public static final float UNIT_RADIUS = 4.f;
     public static final float POWER_HP_RATIO = 3.f;
+    public static final int COST = 25;
     
     
     /***** INFORMATION *****/
@@ -35,6 +36,16 @@ public class BaseSlapperHandler
     public int unitType()
     {
         return UnitTypes.SLAPPER;
+    }
+    
+    public int startingHealth()
+    {
+        return HEALTH_INITIAL;
+    }
+    
+    public int cost()
+    {
+        return COST;
     }
     
     

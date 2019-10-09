@@ -25,6 +25,7 @@ public class BaseBrawlerHandler
     public static final float HAND_POWER = 5.f;
     public static final float UNIT_RADIUS = 4.f;
     public static final float POWER_HP_RATIO = 3.f;
+    public static final int COST = 20;
     
     
     /***** INFORMATION *****/
@@ -32,6 +33,16 @@ public class BaseBrawlerHandler
     public int unitType()
     {
         return UnitTypes.BRAWLER;
+    }
+    
+    public int startingHealth()
+    {
+        return HEALTH_INITIAL;
+    }
+    
+    public int cost()
+    {
+        return COST;
     }
     
     

@@ -13,10 +13,20 @@ public interface UnitHandler
     /***** INFORMATION *****/
     
     /**
-     * @return the UnitType of this Unit.
+     * @return The UnitType of this Unit.
      * @see net.ccat.tazs.battle.UnitTypes.
      */
     public abstract int unitType();
+    
+    /**
+     * @return How many health a Unit of this type should have.
+     */
+    public abstract int startingHealth();
+    
+    /**
+     * @return How many does a Unit of this type costs.
+     */
+    public abstract int cost();
     
     
     /***** LIFECYCLE *****/

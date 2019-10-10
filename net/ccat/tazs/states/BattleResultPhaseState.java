@@ -24,12 +24,12 @@ public class BattleResultPhaseState
         mGame = game;
         mWinnerTeam = winnerTeam;
         mSummarySprite.setStatic(true);
-        mPlayerLosses = game.unitsSystem.unitsCount(Teams.PLAYER, true);
-        mPlayerUnitsCount = game.unitsSystem.unitsCount(Teams.PLAYER, false);
-        mPlayerUnitsCost = game.unitsSystem.unitsCost(Teams.PLAYER, false);
-        mEnemyLosses = game.unitsSystem.unitsCount(Teams.ENEMY, true);
-        mEnemyUnitsCount = game.unitsSystem.unitsCount(Teams.ENEMY, false);
-        mEnemyUnitsCost = game.unitsSystem.unitsCost(Teams.ENEMY, false);
+        mPlayerLosses = game.unitsSystem.countDeadUnits(Teams.PLAYER);
+        mPlayerUnitsCount = game.unitsSystem.unitsCount(Teams.PLAYER);
+        mPlayerUnitsCost = game.unitsSystem.unitsCost(Teams.PLAYER);
+        mEnemyLosses = game.unitsSystem.countDeadUnits(Teams.ENEMY);
+        mEnemyUnitsCount = game.unitsSystem.unitsCount(Teams.ENEMY);
+        mEnemyUnitsCost = game.unitsSystem.unitsCost(Teams.ENEMY);
     }
     
     

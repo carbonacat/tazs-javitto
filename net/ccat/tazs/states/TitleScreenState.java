@@ -1,5 +1,7 @@
 package net.ccat.tazs.states;
 
+import net.ccat.tazs.battle.modes.RandomBattleMode;
+import net.ccat.tazs.battle.modes.SandboxBattleMode;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
@@ -42,9 +44,15 @@ class TitleScreenState
         {
             mGame.cursorSelectSound.play();
             if (mCurrentMenuIdentifier == MENU_ENTRIES_QUICKBATTLE_IDENTIFIER)
-                Game.changeState(new BattlePreparationPhaseState(mGame, BattlePreparationPhaseState.GAMEMODE_QUICKBATTLE));
+            {
+                mGame.battleMode = new RandomBattleMode();
+                Game.changeState(new BattlePreparationPhaseState(mGame));
+            }
             else if (mCurrentMenuIdentifier == MENU_ENTRIES_SANDBOX_IDENTIFIER)
-                Game.changeState(new BattlePreparationPhaseState(mGame, BattlePreparationPhaseState.GAMEMODE_SANDBOX));
+            {
+                mGame.battleMode = new SandboxBattleMode();
+                Game.changeState(new BattlePreparationPhaseState(mGame));
+            }
         }
         if (Button.Up.justPressed())
         {

@@ -407,6 +407,56 @@
 		},
 		"\\net\\ccat\\tazs\\ui\\HelpBarUI.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/game": {},
+		"\\net\\ccat\\tazs\\game": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/game/GameMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/game\\GameMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/modes": {},
+		"\\net\\ccat\\tazs\\battle\\modes": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/modes/SandboxBattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/modes\\SandboxBattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/modes/RandomBattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/modes\\RandomBattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\SandboxBattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\RandomBattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle/UIModes.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\UIModes.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui/UIModes.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui\\UIModes.java": {
+			"sdcard": false
 		}
 	}
 }

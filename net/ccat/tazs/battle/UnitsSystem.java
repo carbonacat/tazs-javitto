@@ -73,6 +73,8 @@ class UnitsSystem
     public void clear()
     {
         mCount = 0;
+        for (int i = 0; i < STATS_MAX; i++)
+            mStats[i] = 0;
     }
     
     /**
@@ -103,6 +105,9 @@ class UnitsSystem
         unitsTargetIdentifiers[unitIdentifier] = IDENTIFIER_NONE;
         unitsHandlers[unitIdentifier] = handler;
         unitsTeams[unitIdentifier] = team;
+        
+        mStats[STATS_COUNT_OFFSET + team]++;
+        mStats[STATS_COST_OFFSET + team] += handler.cost();
         return unitIdentifier;
     }
     
@@ -117,6 +122,16 @@ class UnitsSystem
     {
         if ((unitIdentifier < 0) || (unitIdentifier >= mCount))
             return false;
+            
+        // Updating stats.
+        {
+            int unitTeam = unitsTeams[unitIdentifier];
+            UnitHandler unitHandler = unitsHandlers[unitIdentifier];
+            
+            mStats[STATS_COUNT_OFFSET + unitTeam]--;
+            mStats[STATS_COST_OFFSET + unitTeam] -= unitHandler.cost();
+        }
+        
         mCount--;
         
         int lastUnitIdentifier = mCount;
@@ -225,17 +240,25 @@ class UnitsSystem
         return Teams.NONE;
     }
     
+    public int unitsCount(int team)
+    {
+        return mStats[STATS_COUNT_OFFSET + team];
+    }
+    public int unitsCost(int team)
+    {
+        return mStats[STATS_COST_OFFSET + team];
+    }
+    
     /**
      * @param team The team to count units from.
-     * @param onlyDead If true, will only count the dead units. 
      * @return The corresponding number of units.
      */
-    public int unitsCount(int team, boolean onlyDead)
+    public int countDeadUnits(int team)
     {
         int count = 0;
         
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
-            if ((!onlyDead) || (unitsHealths[unitIdentifier] <= 0))
+            if (unitsHealths[unitIdentifier] <= 0)
             {
                 int unitTeam = unitsTeams[unitIdentifier];
                 
@@ -243,26 +266,6 @@ class UnitsSystem
                     count++;
             }
         return count;
-    }
-    
-    /**
-     * @param team The team to count units' cost from.
-     * @param onlyDead If true, will only count the dead units. 
-     * @return The corresponding number of units.
-     */
-    public int unitsCost(int team, boolean onlyDead)
-    {
-        int cost = 0;
-        
-        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
-            if ((!onlyDead) || (unitsHealths[unitIdentifier] <= 0))
-            {
-                int unitTeam = unitsTeams[unitIdentifier];
-                
-                if (unitTeam == team)
-                    cost += unitsHandlers[unitIdentifier].cost();
-            }
-        return cost;
     }
     
     
@@ -280,8 +283,8 @@ class UnitsSystem
     
     /***** RENDERING *****/
     
-    public final NonAnimatedSprite[] brawlerBodySpriteByTeam = new NonAnimatedSprite[2];
-    public final NonAnimatedSprite[] slapperBodySpriteByTeam = new NonAnimatedSprite[2];
+    public final NonAnimatedSprite[] brawlerBodySpriteByTeam = new NonAnimatedSprite[TEAM_MAX];
+    public final NonAnimatedSprite[] slapperBodySpriteByTeam = new NonAnimatedSprite[TEAM_MAX];
     public final HandSprite handSprite = new HandSprite();
     
     /**
@@ -298,8 +301,14 @@ class UnitsSystem
     /***** PRIVATE *****/
     
     private int mCount = 0;
-    
+    private int[] mStats = new int[STATS_MAX];
+
     private static final float FIND_DISTANCE_MAX = 5.f;
     private static final float FAR = 999;
     private static final float FAR_SQUARED = FAR * FAR;
+    
+    private static final int TEAM_MAX = 2;
+    private static final int STATS_COUNT_OFFSET = 0;
+    private static final int STATS_COST_OFFSET = TEAM_MAX;
+    private static final int STATS_MAX = STATS_COST_OFFSET + TEAM_MAX;
 }

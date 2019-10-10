@@ -214,12 +214,17 @@ public class BattlePreparationPhaseState
                 screen.print(Texts.MISC_ERROR);
         }
         
-        int unitTeam = game.battleMode.teamForUnitBox(mGame);
+        int unitTeam = game.battleMode.teamForUnitBox(game);
         
         UnitHandler unitHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
         
         UITools.drawWindow(UNITBOX_X, UNITBOX_Y, UNITBOX_WIDTH, UNITBOX_HEIGHT, screen);
-        screen.setTextColor(Colors.WINDOW_TEXT);
+        if (game.uiMode == UIModes.TOO_EXPENSIVE)
+            screen.setTextColor(Colors.WINDOW_TEXT_ERROR);
+        else if (game.uiMode == UIModes.PLACE)
+            screen.setTextColor(Colors.WINDOW_TEXT);
+        else
+            screen.setTextColor(Colors.WINDOW_TEXT_DISABLED);
         screen.setTextPosition(UNITBOX_X + 2, UNITBOX_Y + 2);
         screen.print(unitHandler.cost());
         screen.print(Texts.MISC_DOLLAR);

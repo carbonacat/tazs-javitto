@@ -8,8 +8,9 @@ import net.ccat.tazs.battle.BattleMode;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.battle.UnitTypes;
 import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
-import net.ccat.tazs.resources.sounds.CursorSelectSound;
+import net.ccat.tazs.resources.sounds.CursorCancelSound;
 import net.ccat.tazs.resources.sounds.CursorMoveSound;
+import net.ccat.tazs.resources.sounds.CursorSelectSound;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.ui.PadMenuUI;
@@ -34,6 +35,7 @@ class TAZSGame
         topBarUI = new TopBarUI();
         cursorMoveSound = new CursorMoveSound();
         cursorSelectSound = new CursorSelectSound();
+        cursorCancelSound = new CursorCancelSound();
         
         Mixer.init(8000);
     }
@@ -75,4 +77,5 @@ class TAZSGame
     public MenuCursorSprite menuCursorSprite;
     public CursorMoveSound cursorMoveSound;
     public CursorSelectSound cursorSelectSound;
+    public CursorCancelSound cursorCancelSound;
 }

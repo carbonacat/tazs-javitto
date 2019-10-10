@@ -479,6 +479,9 @@
 		},
 		"\\net\\ccat\\tazs\\states\\ChallengesListState.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sounds\\CursorCancelSound.wav": {
+			"sdcard": false
 		}
 	}
 }

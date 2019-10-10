@@ -14,7 +14,7 @@ import net.ccat.tazs.ui.UIModes;
  * The Player can place whatever units they want on their side.
  */
 public class RandomBattleMode
-    extends BattleMode
+    extends ChallengeBattleMode
 {
     /***** PREPARATION *****/
     
@@ -40,52 +40,20 @@ public class RandomBattleMode
         updateTopBarUI(game);
     }
     
-    public void onPreparationCursorUpdate(TAZSGame game)
+    
+    /***** INFORMATION *****/
+    
+    public String name()
     {
-        // Finding a Unit that is hovered.
-        game.focusedUnitIdentifier = game.unitsSystem.findUnit(game.cursorX, game.cursorY);
-        
-        if ((game.focusedUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (game.unitsSystem.unitsTeams[game.focusedUnitIdentifier] == Teams.PLAYER))
-        {
-            if (Button.B.isPressed())
-            {
-                UnitHandler unitHandler = game.unitsSystem.unitsHandlers[game.focusedUnitIdentifier];
-                
-                game.unitsSystem.removeUnit(game.focusedUnitIdentifier);
-                updateTopBarUI(game);
-                game.focusedUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
-            }
-            game.uiMode = UIModes.REMOVE;
-        }
-        else if (game.cursorX < -game.noMansLandRadius)
-        {
-            if (Button.A.isPressed())
-            {
-                UnitHandler unitHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
-                
-                if (game.unitsSystem.addUnit(game.cursorX, game.cursorY, 0,
-                                             unitHandler, Teams.PLAYER) != UnitsSystem.IDENTIFIER_NONE)
-                {
-                    updateTopBarUI(game);
-                    // Resets the animation.
-                    game.cursorSprite.currentFrame = game.cursorSprite.startFrame;
-                }
-            }
-            if (game.unitsSystem.freeUnits() > 0)
-                game.uiMode = UIModes.PLACE;
-            else
-                game.uiMode = UIModes.NO_MORE_UNITS;
-        }
-        else if (game.cursorX > game.noMansLandRadius)
-            game.uiMode = UIModes.ENEMY_TERRITORY;
-        else
-            game.uiMode = UIModes.NOMANSLAND;
+        return "";
     }
     
+    public String summary()
+    {
+        return "";
+    }
     
-    /***** PRIVATE *****/
-    
-    private void updateTopBarUI(TAZSGame game)
+    public void updateTopBarUI(TAZSGame game)
     {
         game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER, game.unitsSystem.unitsCount(Teams.PLAYER), game.unitsSystem.unitsCost(Teams.PLAYER));
         game.topBarUI.setRightCountAndCost(Texts.TEAMS_ENEMY, game.unitsSystem.unitsCount(Teams.ENEMY), game.unitsSystem.unitsCost(Teams.ENEMY));

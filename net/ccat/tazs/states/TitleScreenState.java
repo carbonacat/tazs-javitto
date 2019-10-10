@@ -1,5 +1,6 @@
 package net.ccat.tazs.states;
 
+import net.ccat.tazs.battle.modes.challenges.Challenge01BattleMode;
 import net.ccat.tazs.battle.modes.RandomBattleMode;
 import net.ccat.tazs.battle.modes.SandboxBattleMode;
 import net.ccat.tazs.resources.Colors;
@@ -43,14 +44,19 @@ class TitleScreenState
         if (Button.A.justPressed())
         {
             mGame.cursorSelectSound.play();
-            if (mCurrentMenuIdentifier == MENU_ENTRIES_QUICKBATTLE_IDENTIFIER)
+            if (mCurrentMenuIdentifier == MENU_ENTRIES_QUICKBATTLE)
             {
                 mGame.battleMode = new RandomBattleMode();
                 Game.changeState(new BattlePreparationPhaseState(mGame));
             }
-            else if (mCurrentMenuIdentifier == MENU_ENTRIES_SANDBOX_IDENTIFIER)
+            else if (mCurrentMenuIdentifier == MENU_ENTRIES_SANDBOX)
             {
                 mGame.battleMode = new SandboxBattleMode();
+                Game.changeState(new BattlePreparationPhaseState(mGame));
+            }
+            else if (mCurrentMenuIdentifier == MENU_ENTRIES_CHALLENGES)
+            {
+                mGame.battleMode = new Challenge01BattleMode();
                 Game.changeState(new BattlePreparationPhaseState(mGame));
             }
         }
@@ -89,8 +95,9 @@ class TitleScreenState
         screen.setTextColor(Colors.TITLE_VERSION);
         screen.print(Texts.TITLE_VERSION);
 
-        drawMenuChoice(MENU_ENTRIES_QUICKBATTLE_IDENTIFIER, Texts.TITLE_MENU_QUICKBATTLE, screen);
-        drawMenuChoice(MENU_ENTRIES_SANDBOX_IDENTIFIER, Texts.TITLE_MENU_SANDBOX, screen);
+        drawMenuChoice(MENU_ENTRIES_QUICKBATTLE, Texts.TITLE_MENU_QUICKBATTLE, screen);
+        drawMenuChoice(MENU_ENTRIES_SANDBOX, Texts.TITLE_MENU_SANDBOX, screen);
+        drawMenuChoice(MENU_ENTRIES_CHALLENGES, Texts.TITLE_MENU_CHALLENGES, screen);
         
         screen.flush();
     }
@@ -121,7 +128,7 @@ class TitleScreenState
     }
     
     private TAZSGame mGame;
-    private int mCurrentMenuIdentifier = MENU_ENTRIES_QUICKBATTLE_IDENTIFIER;
+    private int mCurrentMenuIdentifier = MENU_ENTRIES_QUICKBATTLE;
     
     private static final int TITLE_Y = 32;
     private static final int VERSION_X = 1;
@@ -133,7 +140,8 @@ class TitleScreenState
     private static final int CURSOR_Y_SPEED = 2;
     private static final int BLINK_MASK = 0x80;
 
-    private static final int MENU_ENTRIES_QUICKBATTLE_IDENTIFIER = 0;
-    private static final int MENU_ENTRIES_SANDBOX_IDENTIFIER = MENU_ENTRIES_QUICKBATTLE_IDENTIFIER + 1;
-    private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_SANDBOX_IDENTIFIER + 1;
+    private static final int MENU_ENTRIES_QUICKBATTLE = 0;
+    private static final int MENU_ENTRIES_SANDBOX = MENU_ENTRIES_QUICKBATTLE + 1;
+    private static final int MENU_ENTRIES_CHALLENGES = MENU_ENTRIES_SANDBOX + 1;
+    private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_CHALLENGES + 1;
 }

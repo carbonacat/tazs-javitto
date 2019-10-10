@@ -13,6 +13,17 @@ class Texts
     public static final String BUTTON_PAD = "(PAD)";
     
     
+    /***** CHALLENGES *****/
+    
+    public static final String CHALLENGES_01_NAME = "A Bunch of Guys";
+    public static final String CHALLENGES_01_SUMMARY = "Best be careful.";
+    
+    
+    /***** MENU *****/
+    
+    public static final String MENU_COMMANDS_HELP = "Select Choice";
+    
+    
     /***** MISC *****/
     
     public static final String MISC_BIG_SEPARATOR = " | ";
@@ -20,11 +31,6 @@ class Texts
     public static final String MISC_SEPARATOR = " - ";
     public static final String MISC_UNKNOWN = "???";
     public static final String MISC_DOLLAR = "$";
-    
-    
-    /***** MENU *****/
-    
-    public static final String MENU_COMMANDS_HELP = "Select Choice";
 
 
     /***** PREPARATION *****/
@@ -61,6 +67,7 @@ class Texts
     public static final String TITLE_VERSION = "<0.1.1.dev - 2019-10-xx";
     public static final String TITLE_MENU_QUICKBATTLE = "Quick Battle";
     public static final String TITLE_MENU_SANDBOX = "Sandbox";
+    public static final String TITLE_MENU_CHALLENGES = "Challenges";
     
     
     /***** UNIT *****/

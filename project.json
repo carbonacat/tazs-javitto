@@ -457,6 +457,22 @@
 		},
 		"\\net\\ccat\\tazs\\ui\\UIModes.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes/ChallengeBattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\ChallengeBattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes/challenges": {},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges/Challenge01BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\Challenge01BattleMode.java": {
+			"sdcard": false
 		}
 	}
 }

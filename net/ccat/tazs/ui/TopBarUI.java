@@ -14,16 +14,39 @@ public class TopBarUI
 {
     /***** CONFIGURATION *****/
     
+    /**
+     * Sets the Left Team's name and its Unit count and full cost.
+     * @param teamName
+     * @param count
+     * @param cost
+     */
     public void setLeftCountAndCost(String teamName, int count, int cost)
     {
         mLeftTopString = teamName + Texts.MISC_SEPARATOR + count + (count == 1 ? Texts.UNIT_K_UNIT : Texts.UNIT_K_UNITS);
         mLeftBottomString = "" + cost + Texts.MISC_DOLLAR;
     }
     
+    /**
+     * Sets the Right Team's name and its Unit count and full cost.
+     * @param teamName
+     * @param count
+     * @param cost
+     */
     public void setRightCountAndCost(String teamName, int count, int cost)
     {
         mRightTopString = teamName + Texts.MISC_SEPARATOR + count + (count == 1 ? Texts.UNIT_K_UNIT : Texts.UNIT_K_UNITS);
         mRightBottomString = "" + cost + Texts.MISC_DOLLAR;
+    }
+    
+    /**
+     * Sets the Right Team's name and summary.
+     * @param teamName
+     * @param summary
+     */
+    public void setRightNameAndSummary(String teamName, String summary)
+    {
+        mRightTopString = teamName;
+        mRightBottomString = summary;
     }
     
     

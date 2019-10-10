@@ -52,10 +52,11 @@ public class BattleResultPhaseState
         HiRes16Color screen = mGame.screen;
         
         mGame.unitsSystem.onTick();
-        
         if (Button.A.justPressed())
+        {
+            mGame.cursorSelectSound.play();
             Game.changeState(new TitleScreenState(mGame));
-        
+        }
         mLogoY = Math.min(mLogoY + LOGO_Y_SPEED, LOGO_Y_FINAL);
         if (Button.B.isPressed())
             mStatsY = Math.max(mStatsY - STATS_Y_SPEED, STATS_Y_VISIBLE);

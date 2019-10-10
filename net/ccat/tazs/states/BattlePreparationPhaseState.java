@@ -90,9 +90,11 @@ public class BattlePreparationPhaseState
             switch (game.padMenuUI.selectedChoice())
             {
             case PadMenuUI.CHOICE_UP:
+                game.cursorSelectSound.play();
                 Game.changeState(new BattlePhaseState(game));
                 break ;
             case PadMenuUI.CHOICE_DOWN:
+                game.cursorCancelSound.play();
                 Game.changeState(new TitleScreenState(game));
                 break ;
             case PadMenuUI.CHOICE_RIGHT:

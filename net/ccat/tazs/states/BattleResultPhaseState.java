@@ -55,7 +55,7 @@ public class BattleResultPhaseState
         if (Button.A.justPressed())
         {
             mGame.cursorSelectSound.play();
-            Game.changeState(new TitleScreenState(mGame));
+            mGame.battleMode.onResultExit(mGame);
         }
         mLogoY = Math.min(mLogoY + LOGO_Y_SPEED, LOGO_Y_FINAL);
         if (Button.B.isPressed())

@@ -77,6 +77,14 @@ public abstract class ChallengeBattleMode
     }
     
     
+    /***** RESULT *****/
+    
+    public void onResultExit(TAZSGame game)
+    {
+        Game.changeState(new ChallengesListState(game));
+    }
+    
+    
     /***** INFORMATION *****/
     
     /**

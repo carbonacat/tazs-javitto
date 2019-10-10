@@ -58,6 +58,21 @@ public class BattleMode
         Game.changeState(new TitleScreenState(game));
     }
     
+    
+    /***** RESULT *****/
+    
+    /**
+     * Called when the Player wants to exit the Result Screen.
+     * 
+     * Default implementation switches to the TitleScreenState.
+     * 
+     * @param game The Game.
+     */
+    public void onResultExit(TAZSGame game)
+    {
+        Game.changeState(new TitleScreenState(game));
+    }
+    
     /**
      * Called when going to render the UnitBox's previewed Unit.
      * 

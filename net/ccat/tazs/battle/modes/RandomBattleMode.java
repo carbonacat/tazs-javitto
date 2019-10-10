@@ -1,11 +1,13 @@
 package net.ccat.tazs.battle.modes;
 
+import femto.Game;
 import femto.input.Button;
 
 import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
 import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.states.BattlePreparationPhaseState;
+import net.ccat.tazs.states.TitleScreenState;
 import net.ccat.tazs.ui.UIModes;
 
 
@@ -38,6 +40,19 @@ public class RandomBattleMode
                                           Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
         }
         updateTopBarUI(game);
+    }
+    
+    public void onPreparationExit(TAZSGame game)
+    {
+        Game.changeState(new TitleScreenState(game));
+    }
+    
+    
+    /***** RESULT *****/
+    
+    public void onResultExit(TAZSGame game)
+    {
+        Game.changeState(new TitleScreenState(game));
     }
     
     

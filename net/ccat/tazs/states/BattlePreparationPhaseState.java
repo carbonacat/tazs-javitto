@@ -95,7 +95,7 @@ public class BattlePreparationPhaseState
                 break ;
             case PadMenuUI.CHOICE_DOWN:
                 game.cursorCancelSound.play();
-                Game.changeState(new TitleScreenState(game));
+                game.battleMode.onPreparationExit(game);
                 break ;
             case PadMenuUI.CHOICE_RIGHT:
                 changeCurrentUnit(1);

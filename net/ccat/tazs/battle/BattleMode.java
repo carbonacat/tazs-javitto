@@ -1,6 +1,8 @@
 package net.ccat.tazs.battle;
 
-import net.ccat.tazs.states.BattlePreparationPhaseState;
+import femto.Game;
+
+import net.ccat.tazs.states.TitleScreenState;
 
 
 /**
@@ -42,6 +44,18 @@ public class BattleMode
      */
     public void onPreparationCursorUpdate(TAZSGame game)
     {
+    }
+    
+    /**
+     * Called when the Player wants to exit the Preparation without battling.
+     * 
+     * Default implementation switches to the TitleScreenState.
+     * 
+     * @param game The Game.
+     */
+    public void onPreparationExit(TAZSGame game)
+    {
+        Game.changeState(new TitleScreenState(game));
     }
     
     /**

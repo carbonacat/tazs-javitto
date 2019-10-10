@@ -1,11 +1,13 @@
 package net.ccat.tazs.battle.modes;
 
+import femto.Game;
 import femto.input.Button;
 
 import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
 import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.states.BattlePreparationPhaseState;
+import net.ccat.tazs.states.ChallengesListState;
 import net.ccat.tazs.ui.UIModes;
 
 
@@ -67,6 +69,11 @@ public abstract class ChallengeBattleMode
             game.uiMode = UIModes.ENEMY_TERRITORY;
         else
             game.uiMode = UIModes.NOMANSLAND;
+    }
+    
+    public void onPreparationExit(TAZSGame game)
+    {
+        Game.changeState(new ChallengesListState(game));
     }
     
     

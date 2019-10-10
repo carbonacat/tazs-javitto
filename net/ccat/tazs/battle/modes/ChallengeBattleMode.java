@@ -42,9 +42,11 @@ public abstract class ChallengeBattleMode
         }
         else if (game.cursorX < -game.noMansLandRadius)
         {
-            if (Button.A.isPressed())
+            UnitHandler unitHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
+            boolean tooExpensive = isTooExpensive(game, unitHandler);
+
+            if (!tooExpensive && Button.A.isPressed())
             {
-                UnitHandler unitHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
                 
                 if (game.unitsSystem.addUnit(game.cursorX, game.cursorY, 0,
                                              unitHandler, Teams.PLAYER) != UnitsSystem.IDENTIFIER_NONE)
@@ -54,10 +56,12 @@ public abstract class ChallengeBattleMode
                     game.cursorSprite.currentFrame = game.cursorSprite.startFrame;
                 }
             }
-            if (game.unitsSystem.freeUnits() > 0)
-                game.uiMode = UIModes.PLACE;
-            else
+            if (tooExpensive)
+                game.uiMode = UIModes.TOO_EXPENSIVE;
+            else if (game.unitsSystem.freeUnits() == 0)
                 game.uiMode = UIModes.NO_MORE_UNITS;
+            else
+                game.uiMode = UIModes.PLACE;
         }
         else if (game.cursorX > game.noMansLandRadius)
             game.uiMode = UIModes.ENEMY_TERRITORY;
@@ -77,9 +81,23 @@ public abstract class ChallengeBattleMode
      */
     public abstract String summary();
     
+    /**
+     * @return the maximal cost.
+     */
+    public abstract int allowedCost();
+    
+    /**
+     * @return true if the given unit would be considered too expensive.
+     */
+    public boolean isTooExpensive(TAZSGame game, UnitHandler unitHandler)
+    {
+        return (allowedCost() < game.unitsSystem.unitsCost(Teams.PLAYER) + unitHandler.cost());
+    }
+    
+    
     public void updateTopBarUI(TAZSGame game)
     {
-        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER, game.unitsSystem.unitsCount(Teams.PLAYER), game.unitsSystem.unitsCost(Teams.PLAYER));
+        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER, game.unitsSystem.unitsCount(Teams.PLAYER), allowedCost() - game.unitsSystem.unitsCost(Teams.PLAYER));
         game.topBarUI.setRightNameAndSummary(name(), summary());
     }
 }

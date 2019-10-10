@@ -53,6 +53,16 @@ public class RandomBattleMode
         return "";
     }
     
+    public int allowedCost()
+    {
+        return 0;
+    }
+    
+    public boolean isTooExpensive(TAZSGame game, UnitHandler unitHandler)
+    {
+        return false;
+    }
+    
     public void updateTopBarUI(TAZSGame game)
     {
         game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER, game.unitsSystem.unitsCount(Teams.PLAYER), game.unitsSystem.unitsCost(Teams.PLAYER));

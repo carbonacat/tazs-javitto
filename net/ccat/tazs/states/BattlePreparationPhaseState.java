@@ -181,7 +181,7 @@ public class BattlePreparationPhaseState
             screen.print(Texts.PREPARATION_COMMANDS_REMOVE_UNIT_K);
             screen.print(unitName);
         }
-        else if ((game.uiMode == UIModes.PLACE) || (game.uiMode == UIModes.NO_MORE_UNITS))
+        else if ((game.uiMode == UIModes.PLACE) || (game.uiMode == UIModes.NO_MORE_UNITS) || (game.uiMode == UIModes.TOO_EXPENSIVE))
         {
             screen.setTextColor((game.uiMode == UIModes.PLACE) ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.print(Texts.BUTTON_A);
@@ -189,6 +189,8 @@ public class BattlePreparationPhaseState
             screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_K);
             if (game.uiMode == UIModes.NO_MORE_UNITS)
                 screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS);
+            else if (game.uiMode == UIModes.TOO_EXPENSIVE)
+                screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_TOO_EXPENSIVE);
             else
                 screen.print(Texts.UNIT_BRAWLER);
         }

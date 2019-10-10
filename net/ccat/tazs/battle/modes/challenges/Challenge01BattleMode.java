@@ -31,6 +31,7 @@ public class Challenge01BattleMode
                                  Math.PI,
                                  BrawlerIdleHandler.instance,
                                  Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+        super.onPreparationInit(game);
     }
     
     
@@ -44,5 +45,10 @@ public class Challenge01BattleMode
     public String summary()
     {
         return Texts.CHALLENGES_01_SUMMARY;
+    }
+    
+    public int allowedCost()
+    {
+        return 100;
     }
 }

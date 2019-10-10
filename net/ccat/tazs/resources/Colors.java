@@ -38,6 +38,7 @@ class Colors
     /***** TITLE SCREEN *****/
     
     static final int TITLE_BG = 5;
+    static final int TITLE_SUBTEXT = 9;
     static final int TITLE_TEXT = 8;
     static final int TITLE_VERSION = 3;
     static final int TITLE_MENU_ENTRY = 15;

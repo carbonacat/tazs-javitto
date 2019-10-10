@@ -473,6 +473,12 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\Challenge01BattleMode.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states/ChallengesListState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states\\ChallengesListState.java": {
+			"sdcard": false
 		}
 	}
 }

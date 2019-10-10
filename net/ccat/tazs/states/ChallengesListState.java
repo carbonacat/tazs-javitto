@@ -2,6 +2,9 @@ package net.ccat.tazs.states;
 
 import net.ccat.tazs.battle.modes.ChallengeBattleMode;
 import net.ccat.tazs.battle.modes.challenges.Challenge01BattleMode;
+import net.ccat.tazs.battle.modes.challenges.Challenge02BattleMode;
+import net.ccat.tazs.battle.modes.challenges.Challenge03BattleMode;
+import net.ccat.tazs.battle.modes.challenges.Challenge04BattleMode;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
@@ -24,12 +27,10 @@ class ChallengesListState
         mGame = game;
         mChallenges = new ChallengeBattleMode[]
         {
-            // TODO: Have actual different challenges.
             new Challenge01BattleMode(),
-            new Challenge01BattleMode(),
-            new Challenge01BattleMode(),
-            new Challenge01BattleMode(),
-            new Challenge01BattleMode()
+            new Challenge02BattleMode(),
+            new Challenge03BattleMode(),
+            new Challenge04BattleMode()
         };
     }
     

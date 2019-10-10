@@ -482,6 +482,24 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\sounds\\CursorCancelSound.wav": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges/Challenge02BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\Challenge02BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges/Challenge03BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\Challenge03BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges/Challenge04BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\Challenge04BattleMode.java": {
+			"sdcard": false
 		}
 	}
 }

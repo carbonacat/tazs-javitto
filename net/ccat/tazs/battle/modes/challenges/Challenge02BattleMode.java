@@ -6,28 +6,28 @@ import net.ccat.tazs.resources.Texts;
 
 
 /**
- * A Simple Challenge where the Player has to defeat an army with 
+ * A Simple Challenge where the Player has to defeat a few guys with the same amount of money.
  */
-public class Challenge01BattleMode
+public class Challenge02BattleMode
     extends ChallengeBattleMode
 {
     /***** PREPARATION *****/
     
     public void onPreparationInit(TAZSGame game)
     {
-        game.unitsSystem.addUnit(40, -10,
+        game.unitsSystem.addUnit(40, -20,
                                  Math.PI,
                                  BrawlerIdleHandler.instance,
                                  Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(40, 10,
+        game.unitsSystem.addUnit(40, 20,
                                  Math.PI,
                                  BrawlerIdleHandler.instance,
                                  Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(60, -10,
+        game.unitsSystem.addUnit(80, -20,
                                  Math.PI,
                                  BrawlerIdleHandler.instance,
                                  Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(60, 10,
+        game.unitsSystem.addUnit(80, 20,
                                  Math.PI,
                                  BrawlerIdleHandler.instance,
                                  Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
@@ -39,16 +39,16 @@ public class Challenge01BattleMode
     
     public String name()
     {
-        return Texts.CHALLENGES_01_NAME;
+        return Texts.CHALLENGES_02_NAME;
     }
     
     public String summary()
     {
-        return Texts.CHALLENGES_01_SUMMARY;
+        return Texts.CHALLENGES_02_SUMMARY;
     }
     
     public int allowedCost()
     {
-        return 160;
+        return 120;
     }
 }

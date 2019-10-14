@@ -2,6 +2,7 @@ package net.ccat.tazs.battle;
 
 import femto.Game;
 
+import net.ccat.tazs.states.BattlePreparationPhaseState;
 import net.ccat.tazs.states.TitleScreenState;
 
 
@@ -71,6 +72,18 @@ public class BattleMode
     public void onResultExit(TAZSGame game)
     {
         Game.changeState(new TitleScreenState(game));
+    }
+    
+    /**
+     * Called when the Player wants to retry the same battle.
+     * 
+     * Default implementation switches to the BattlePreparationPhaseState in retry mode.
+     * 
+     * @param game The Game.
+     */
+    public void onResultRetry(TAZSGame game)
+    {
+        Game.changeState(new BattlePreparationPhaseState(game));
     }
     
     /**

@@ -57,6 +57,11 @@ public class BattleResultPhaseState
             mGame.cursorSelectSound.play();
             mGame.battleMode.onResultExit(mGame);
         }
+        else if (Button.C.justPressed())
+        {
+            mGame.cursorSelectSound.play();
+            mGame.battleMode.onResultRetry(mGame);
+        }
         mLogoY = Math.min(mLogoY + LOGO_Y_SPEED, LOGO_Y_FINAL);
         if (Button.B.isPressed())
             mStatsY = Math.max(mStatsY - STATS_Y_SPEED, STATS_Y_VISIBLE);
@@ -144,6 +149,10 @@ public class BattleResultPhaseState
         screen.print(Texts.BUTTON_B);
         screen.print(Texts.MISC_SEPARATOR);
         screen.print(Texts.RESULT_STATS);
+        screen.print(Texts.MISC_BIG_SEPARATOR);
+        screen.print(Texts.BUTTON_C);
+        screen.print(Texts.MISC_SEPARATOR);
+        screen.print(Texts.RESULT_RETRY);
     }
     
     

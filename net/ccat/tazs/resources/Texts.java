@@ -10,6 +10,7 @@ class Texts
     
     public static final String BUTTON_A = "(A)";
     public static final String BUTTON_B = "(B)";
+    public static final String BUTTON_C = "(C)";
     public static final String BUTTON_PAD = "(PAD)";
     
     
@@ -56,8 +57,9 @@ class Texts
     
     public static final String RESULT_COST_ = "Cost:";
     public static final String RESULT_DESTRUCTIONS_ = "Destructions:";
-    public static final String RESULT_LOSSES_ = "Losses:";
     public static final String RESULT_EXIT = "Exit";
+    public static final String RESULT_LOSSES_ = "Losses:";
+    public static final String RESULT_RETRY = "Retry";
     public static final String RESULT_STATS = "Stats";
     
     

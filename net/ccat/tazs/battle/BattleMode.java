@@ -2,6 +2,7 @@ package net.ccat.tazs.battle;
 
 import femto.Game;
 
+import net.ccat.tazs.states.BattlePhaseState;
 import net.ccat.tazs.states.BattlePreparationPhaseState;
 import net.ccat.tazs.states.TitleScreenState;
 
@@ -11,6 +12,22 @@ import net.ccat.tazs.states.TitleScreenState;
  */
 public class BattleMode
 {
+    /***** LAUNCH *****/
+    
+    
+    /**
+     * Called when the BattleMode is launched.
+     * 
+     * Default implementation will switch to the BattlePreparationPhaseState.
+     * 
+     * @param game The Game.
+     */
+    public void onLaunch(TAZSGame game)
+    {
+        Game.changeState(new BattlePreparationPhaseState(game, false));
+    }
+    
+    
     /***** PREPARATION *****/
     
     /**
@@ -22,6 +39,17 @@ public class BattleMode
      * @param game The Game.
      */
     public void onPreparationInit(TAZSGame game)
+    {
+    }
+    
+    /**
+     * Called when the BattlePreparationPhase is initialized, but from a Retry.
+     * 
+     * Default implementation will restore units.
+     * 
+     * @param game The Game.
+     */
+    public void onPreparationRetry(TAZSGame game)
     {
     }
     
@@ -45,6 +73,18 @@ public class BattleMode
      */
     public void onPreparationCursorUpdate(TAZSGame game)
     {
+    }
+    
+    /**
+     * Called when the Player wants to launch the battle.
+     * 
+     * Default implementation switches to the BattlePhaseState.
+     * 
+     * @param game The Game.
+     */
+    public void onPreparationFinished(TAZSGame game)
+    {
+        Game.changeState(new BattlePhaseState(game));
     }
     
     /**
@@ -83,7 +123,7 @@ public class BattleMode
      */
     public void onResultRetry(TAZSGame game)
     {
-        Game.changeState(new BattlePreparationPhaseState(game));
+        Game.changeState(new BattlePreparationPhaseState(game, true));
     }
     
     /**

@@ -302,6 +302,8 @@ class UnitsSystem
     
     private int mCount = 0;
     private int[] mStats = new int[STATS_MAX];
+    
+    private byte[] mSave = new byte[UNITS_MAX * SAVE_UNIT_SIZE];
 
     private static final float FIND_DISTANCE_MAX = 5.f;
     private static final float FAR = 999;
@@ -311,4 +313,13 @@ class UnitsSystem
     private static final int STATS_COUNT_OFFSET = 0;
     private static final int STATS_COST_OFFSET = TEAM_MAX;
     private static final int STATS_MAX = STATS_COST_OFFSET + TEAM_MAX;
+    
+    private static final int SAVE_UNIT_SIZE = 3;
+    private static final int SAVE_UNIT_X_OFFSET = 0;
+    private static final int SAVE_UNIT_Y_OFFSET = 1;
+    private static final int SAVE_UNIT_INFO_OFFSET = 2;
+    private static final int SAVE_UNIT_INFO_TYPE_MASK = 0xF;
+    private static final int SAVE_UNIT_INFO_TYPE_SHIFT = 0;
+    private static final int SAVE_UNIT_INFO_TEAM_MASK = 0xC0;
+    private static final int SAVE_UNIT_INFO_TEAM_SHIFT = 6;
 }

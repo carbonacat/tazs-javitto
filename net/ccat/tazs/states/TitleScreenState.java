@@ -46,12 +46,12 @@ class TitleScreenState
             if (mCurrentMenuIdentifier == MENU_ENTRIES_QUICKBATTLE)
             {
                 mGame.battleMode = new RandomBattleMode();
-                Game.changeState(new BattlePreparationPhaseState(mGame));
+                mGame.battleMode.onLaunch(mGame);
             }
             else if (mCurrentMenuIdentifier == MENU_ENTRIES_SANDBOX)
             {
                 mGame.battleMode = new SandboxBattleMode();
-                Game.changeState(new BattlePreparationPhaseState(mGame));
+                mGame.battleMode.onLaunch(mGame);
             }
             else if (mCurrentMenuIdentifier == MENU_ENTRIES_CHALLENGES)
                 Game.changeState(new ChallengesListState(mGame));

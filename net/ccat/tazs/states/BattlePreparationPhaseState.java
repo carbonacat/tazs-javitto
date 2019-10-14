@@ -26,9 +26,10 @@ import net.ccat.tazs.ui.UITools;
 public class BattlePreparationPhaseState
     extends State
 {
-    public BattlePreparationPhaseState(TAZSGame game)
+    public BattlePreparationPhaseState(TAZSGame game, boolean fromRetry)
     {
         mGame = game;
+        mFromRetry = fromRetry;
     }
     
     
@@ -50,7 +51,10 @@ public class BattlePreparationPhaseState
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.PREPARATION_MENU_LAUNCH);
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.PREPARATION_MENU_EXIT);
         
-        game.battleMode.onPreparationInit(game);
+        if (mFromRetry)
+            game.battleMode.onPreparationRetry(game);
+        else
+            game.battleMode.onPreparationInit(game);
         updatePadMenuUnitChoices();
     }
     
@@ -86,24 +90,23 @@ public class BattlePreparationPhaseState
         game.padMenuUI.update();
         if (game.padMenuUI.isShown())
         {
+            int selectedChoice = game.padMenuUI.selectedChoice();
+            
             game.uiMode = UIModes.MENU;
-            switch (game.padMenuUI.selectedChoice())
+            if (selectedChoice == PadMenuUI.CHOICE_UP)
             {
-            case PadMenuUI.CHOICE_UP:
                 game.cursorSelectSound.play();
-                Game.changeState(new BattlePhaseState(game));
-                break ;
-            case PadMenuUI.CHOICE_DOWN:
+                game.battleMode.onPreparationFinished(game);
+            }
+            else if (selectedChoice == PadMenuUI.CHOICE_DOWN)
+            {
                 game.cursorCancelSound.play();
                 game.battleMode.onPreparationExit(game);
-                break ;
-            case PadMenuUI.CHOICE_RIGHT:
-                changeCurrentUnit(1);
-                break ;
-            case PadMenuUI.CHOICE_LEFT:
-                changeCurrentUnit(-1);
-                break ;
             }
+            else if (selectedChoice == PadMenuUI.CHOICE_RIGHT)
+                changeCurrentUnit(1);
+            else if (selectedChoice == PadMenuUI.CHOICE_LEFT)
+                changeCurrentUnit(-1);
             game.battleMode.onPreparationMenuUpdate(game);
         }
         else
@@ -128,21 +131,12 @@ public class BattlePreparationPhaseState
         // Changing the Cursor's animation.
         if (game.uiMode != oldUIMode)
         {
-            switch (game.uiMode)
-            {
-            case UIModes.PLACE:
+            if (game.uiMode == UIModes.PLACE)
                 game.cursorSprite.playPlace();
-                break;
-            case UIModes.REMOVE:
+            else if (game.uiMode == UIModes.REMOVE)
                 game.cursorSprite.playDelete();
-                break;
-            case UIModes.INVALID:
-            case UIModes.ENEMY_TERRITORY:
-            case UIModes.NO_MORE_UNITS:
-            default:
+            else
                 game.cursorSprite.playInvalid();
-                break;
-            }
         }
         UITools.resetJustPressed();
     }
@@ -255,6 +249,7 @@ public class BattlePreparationPhaseState
     
     
     private TAZSGame mGame;
+    boolean mFromRetry;
 
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
     

@@ -51,7 +51,7 @@ class ChallengesListState
             mGame.cursorSelectSound.play();
             
             mGame.battleMode = mChallenges[mCurrentMenuIdentifier];
-            Game.changeState(new BattlePreparationPhaseState(mGame));
+            mGame.battleMode.onLaunch(mGame);
         }
         else if (Button.B.justPressed())
         {

@@ -210,6 +210,45 @@ class UnitsSystem
     }
     
     
+    /***** SAVING/RESTORE *****/
+    
+    public void save()
+    {
+        int saveIndex = 0;
+        
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
+        {
+            int info = (unitsTeams[unitIdentifier] << SAVE_UNIT_INFO_TEAM_SHIFT) | (unitsHandlers[unitIdentifier].unitType() << SAVE_UNIT_INFO_TYPE_SHIFT);
+            
+            mSave[saveIndex + SAVE_UNIT_INFO_OFFSET] = info;
+            mSave[saveIndex + SAVE_UNIT_X_OFFSET] = (int)unitsXs[unitIdentifier];
+            mSave[saveIndex + SAVE_UNIT_Y_OFFSET] = (int)unitsYs[unitIdentifier];
+            saveIndex += SAVE_UNIT_SIZE;
+        }
+        mSaveCount = mCount;
+    }
+    
+    public void restore()
+    {
+        int saveIndex = 0;
+        
+        clear();
+        for (int unitIdentifier = 0; unitIdentifier < mSaveCount; unitIdentifier++)
+        {
+            int info = mSave[saveIndex + SAVE_UNIT_INFO_OFFSET];
+            int unitTeam = ((info & SAVE_UNIT_INFO_TEAM_MASK) >> SAVE_UNIT_INFO_TEAM_SHIFT);
+            int unitType = ((info & SAVE_UNIT_INFO_TYPE_MASK) >> SAVE_UNIT_INFO_TYPE_SHIFT);
+            float unitX = mSave[saveIndex + SAVE_UNIT_X_OFFSET];
+            float unitY = mSave[saveIndex + SAVE_UNIT_Y_OFFSET];
+            float unitAngle = (unitTeam == Teams.ENEMY) ? Math.PI : 0;
+            
+            addUnit(unitX, unitY, unitAngle, UnitTypes.idleHandlerForType(unitType), unitTeam);
+            saveIndex += SAVE_UNIT_SIZE;
+        }
+    }
+    
+    
+    
     /***** STATS *****/
     
     /**
@@ -304,6 +343,7 @@ class UnitsSystem
     private int[] mStats = new int[STATS_MAX];
     
     private byte[] mSave = new byte[UNITS_MAX * SAVE_UNIT_SIZE];
+    private int mSaveCount = 0;
 
     private static final float FIND_DISTANCE_MAX = 5.f;
     private static final float FAR = 999;
@@ -315,11 +355,11 @@ class UnitsSystem
     private static final int STATS_MAX = STATS_COST_OFFSET + TEAM_MAX;
     
     private static final int SAVE_UNIT_SIZE = 3;
-    private static final int SAVE_UNIT_X_OFFSET = 0;
-    private static final int SAVE_UNIT_Y_OFFSET = 1;
-    private static final int SAVE_UNIT_INFO_OFFSET = 2;
+    private static final int SAVE_UNIT_INFO_OFFSET = 0;
     private static final int SAVE_UNIT_INFO_TYPE_MASK = 0xF;
     private static final int SAVE_UNIT_INFO_TYPE_SHIFT = 0;
     private static final int SAVE_UNIT_INFO_TEAM_MASK = 0xC0;
     private static final int SAVE_UNIT_INFO_TEAM_SHIFT = 6;
+    private static final int SAVE_UNIT_X_OFFSET = 1;
+    private static final int SAVE_UNIT_Y_OFFSET = 2;
 }

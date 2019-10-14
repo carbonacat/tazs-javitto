@@ -51,6 +51,7 @@ public class BattleMode
      */
     public void onPreparationRetry(TAZSGame game)
     {
+        game.unitsSystem.restore();
     }
     
     /**
@@ -78,12 +79,13 @@ public class BattleMode
     /**
      * Called when the Player wants to launch the battle.
      * 
-     * Default implementation switches to the BattlePhaseState.
+     * Default implementation saves the battle scene and switches to the BattlePhaseState.
      * 
      * @param game The Game.
      */
     public void onPreparationFinished(TAZSGame game)
     {
+        game.unitsSystem.save();
         Game.changeState(new BattlePhaseState(game));
     }
     

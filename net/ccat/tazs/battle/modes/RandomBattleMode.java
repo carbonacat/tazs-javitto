@@ -25,16 +25,16 @@ public class RandomBattleMode
         // TODO: Eventually will be setup with a proper battle plan. [014]
         for (int remainingCluster = Math.random(1, 16); remainingCluster > 0 ; remainingCluster--)
         {
-            float clusterX = 60 + (Math.random() - 0.5f) * 80;
-            float clusterY = (Math.random() - 0.5f) * 80;
+            float clusterX = 60 + Math.random(-40, 40);
+            float clusterY = Math.random(-40, 40);
             
             for (int remainingUnit = Math.random(1, 4); remainingUnit > 0 ; remainingUnit--)
-                game.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
+                game.unitsSystem.addUnit(clusterX + Math.random(-10, 10), clusterY + Math.random(-10, 10),
                                           Math.PI,
                                           BrawlerIdleHandler.instance,
                                           Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
             for (int remainingUnit = Math.random(0, 4); remainingUnit > 0 ; remainingUnit--)
-                game.unitsSystem.addUnit(clusterX + (Math.random() - 0.5f) * 20, clusterY + (Math.random() - 0.5f) * 20,
+                game.unitsSystem.addUnit(clusterX + Math.random(-10, 10), clusterY + Math.random(-10, 10),
                                           Math.PI,
                                           SlapperIdleHandler.instance,
                                           Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;

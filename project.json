@@ -500,6 +500,29 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\Challenge04BattleMode.java": {
 			"sdcard": false
+		},
+		"/MyFabulousEnum.java": {
+			"sdcard": false
+		},
+		"\\MyFabulousEnum.java": {
+			"sdcard": false
+		},
+		"\\net/MyOtherEnum.java": {
+			"sdcard": false
+		},
+		"\\net\\MyOtherEnum.java": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.3.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\bin\\tazs-javitto.bin.4.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.5.png": {
+			"sdcard": false,
+			"implements": ""
 		}
 	}
 }

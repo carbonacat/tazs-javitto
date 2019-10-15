@@ -7,6 +7,7 @@ import femto.State;
 
 import net.ccat.tazs.battle.Teams;
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.ui.PadMenuUI;
@@ -69,8 +70,7 @@ public class BattlePhaseState
     {
         TAZSGame game = mGame;
         
-        game.padMenuUI.update();
-        if (game.padMenuUI.isShown())
+        if (game.padMenuUI.update())
         {
             int selectedChoice = game.padMenuUI.selectedChoice();
             
@@ -78,11 +78,13 @@ public class BattlePhaseState
             {
                 game.cursorCancelSound.play();
                 game.battleMode.onBattleRetry(game);
+                game.padMenuUI.hideUntilNextPress();
             }
             else if (selectedChoice == PadMenuUI.CHOICE_DOWN)
             {
                 game.cursorCancelSound.play();
                 game.battleMode.onBattleExit(game);
+                game.padMenuUI.hideUntilNextPress();
             }
             game.battleMode.onPreparationMenuUpdate(game);
         }
@@ -94,25 +96,14 @@ public class BattlePhaseState
         TAZSGame game = mGame;
         HiRes16Color screen = game.screen;
         
-        screen.fillRect(0, HELP_BOX_MIN_Y, game.screen.width(), game.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
+        screen.fillRect(0, Dimensions.HELPBAR_BOX_MIN_Y, Dimensions.SCREEN_WIDTH, Dimensions.SCREEN_HEIGHT - Dimensions.HELPBAR_BOX_MIN_Y, Colors.HELP_BG);
         screen.setTextColor(Colors.HELP_INACTIVE);
-        screen.setTextPosition(HELP_X, HELP_Y);
+        screen.setTextPosition(Dimensions.HELPBAR_X, Dimensions.HELPBAR_Y);
         screen.print(Texts.MISC_ERROR);
-        
-        if (game.padMenuUI.isShown())
-            UITools.fillRectBlended(0, 0, screen.width(), HELP_BOX_MIN_Y - 1,
-                                    Colors.PADMENU_OVERLAY, 0,
-                                    UITools.PATTERN_25_75_HEX,
-                                    screen);
 
-        game.topBarUI.draw(screen);
         game.padMenuUI.draw(screen);
+        game.topBarUI.draw(screen);
     }
     
     private TAZSGame mGame;
-    
-    // TODO: This is common to a lot of things. [012]
-    private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
-    private static final int HELP_X = 2;
-    private static final int HELP_Y = HELP_BOX_MIN_Y + 2;
 }

@@ -4,6 +4,7 @@ import femto.input.Button;
 import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.PadMenuSprite;
 import net.ccat.tazs.resources.VideoConstants;
 
@@ -45,19 +46,19 @@ class PadMenuUI
     }
     
     /**
-     * @param shown The new show state.
-     */
-    public void setShown(boolean shown)
-    {
-        mShown = shown;
-    }
-    
-    /**
      * @return True if visible, false elsewhere.
      */
     public boolean isShown()
     {
-        return mShown;
+        return mFocused && !mHideUntilNextPress;
+    }
+    
+    /**
+     * Hides this PadMenu until the User presses again the C button.
+     */
+    public void hideUntilNextPress()
+    {
+        mHideUntilNextPress = true;
     }
     
     
@@ -141,7 +142,7 @@ class PadMenuUI
      */
     public int selectedChoice()
     {
-        if (mRemainingSelectionTicks > 0)
+        if ((mHideUntilNextPress) || (mRemainingSelectionTicks > 0))
             return CHOICE_NONE;
         return mSelectedChoice;
     }
@@ -151,34 +152,48 @@ class PadMenuUI
     
     /**
      * Updates this UI.
+     * @return True if the focus is on this UI, false elsewhere.
      */
-    public void update()
+    public boolean update()
     {
-        mShown = Button.C.isPressed();
-        if (mShown)
+        if (mHideUntilNextPress)
         {
-            if (mRemainingSelectionTicks == 0)
+            if (!Button.C.isPressed())
             {
-                mRemainingSelectionTicks = TICKS_UNTIL_SELECTED;
-                if (Button.Right.justPressed())
-                    mSelectedChoice = mRightIsEnabled ? CHOICE_RIGHT : CHOICE_NONE;
-                else if (Button.Down.justPressed())
-                    mSelectedChoice = mDownIsEnabled ? CHOICE_DOWN : CHOICE_NONE;
-                else if (Button.Left.justPressed())
-                    mSelectedChoice = mLeftIsEnabled ? CHOICE_LEFT : CHOICE_NONE;
-                else if (Button.Up.justPressed())
-                    mSelectedChoice = mUpIsEnabled ? CHOICE_UP : CHOICE_NONE;
-                else
-                {
-                    mRemainingSelectionTicks = 0;
-                    mSelectedChoice = CHOICE_NONE;
-                }
+                mHideUntilNextPress = false;
+                mFocused = false;
             }
-            else
-                mRemainingSelectionTicks--;
+            mSelectedChoice = CHOICE_NONE;
         }
         else
-            mSelectedChoice = CHOICE_NONE;
+        {
+            mFocused = Button.C.isPressed();
+            if (mFocused)
+            {
+                if (mRemainingSelectionTicks == 0)
+                {
+                    mRemainingSelectionTicks = TICKS_UNTIL_SELECTED;
+                    if (Button.Right.justPressed())
+                        mSelectedChoice = mRightIsEnabled ? CHOICE_RIGHT : CHOICE_NONE;
+                    else if (Button.Down.justPressed())
+                        mSelectedChoice = mDownIsEnabled ? CHOICE_DOWN : CHOICE_NONE;
+                    else if (Button.Left.justPressed())
+                        mSelectedChoice = mLeftIsEnabled ? CHOICE_LEFT : CHOICE_NONE;
+                    else if (Button.Up.justPressed())
+                        mSelectedChoice = mUpIsEnabled ? CHOICE_UP : CHOICE_NONE;
+                    else
+                    {
+                        mRemainingSelectionTicks = 0;
+                        mSelectedChoice = CHOICE_NONE;
+                    }
+                }
+                else
+                    mRemainingSelectionTicks--;
+            }
+            else
+                mSelectedChoice = CHOICE_NONE;
+        }
+        return mFocused;
     }
     
     
@@ -190,8 +205,12 @@ class PadMenuUI
      */
     public void draw(HiRes16Color screen)
     {
-        if (mShown)
+        if (mFocused && !mHideUntilNextPress)
         {
+            UITools.fillRectBlended(0, 0, Dimensions.SCREEN_WIDTH, Dimensions.HELPBAR_BOX_MIN_Y - 1,
+                                    Colors.PADMENU_OVERLAY, 0,
+                                    UITools.PATTERN_25_75_HEX,
+                                    screen);
             mPadMenuSprite.draw(screen, mX - VideoConstants.PAD_MENU_ORIGIN_X, mY - VideoConstants.PAD_MENU_ORIGIN_X);
             if (mRightTitle != null)
                 drawChoice(CHOICE_RIGHT, mRightTitle, mRightIsEnabled, screen);
@@ -247,7 +266,8 @@ class PadMenuUI
     
     private int mX;
     private int mY;
-    private boolean mShown;
+    private boolean mFocused;
+    private boolean mHideUntilNextPress;
     private PadMenuSprite mPadMenuSprite;
     // I miss C++
     private String mRightTitle;

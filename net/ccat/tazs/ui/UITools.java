@@ -207,4 +207,18 @@ class UITools
         Button.Left.justPressed();
         Button.Up.justPressed();
     }
+    
+    /**
+     * @return true or false depending on the blinking value.
+     */
+    public static boolean blinkingValue()
+    {
+        return (System.currentTimeMillis() & BLINK_MASK) == BLINK_MASK;
+    }
+    
+    
+    /***** PRIVATE *****/
+    
+    
+    private static final int BLINK_MASK = 0x80;
 }

@@ -7,6 +7,7 @@ import femto.State;
 
 import net.ccat.tazs.battle.Teams;
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.resources.sprites.ResultSummarySprite;
@@ -79,8 +80,7 @@ public class BattleResultPhaseState
     {
         TAZSGame game = mGame;
         
-        game.padMenuUI.update();
-        if (game.padMenuUI.isShown())
+        if (game.padMenuUI.update())
         {
             int selectedChoice = game.padMenuUI.selectedChoice();
             
@@ -88,19 +88,21 @@ public class BattleResultPhaseState
             {
                 game.cursorSelectSound.play();
                 game.battleMode.onResultRetry(game);
+                game.padMenuUI.hideUntilNextPress();
             }
             else if (selectedChoice == PadMenuUI.CHOICE_DOWN)
             {
                 game.cursorSelectSound.play();
                 game.battleMode.onResultExit(game);
+                game.padMenuUI.hideUntilNextPress();
             }
             game.battleMode.onPreparationMenuUpdate(game);
         }
-        mLogoY = Math.min(mLogoY + LOGO_Y_SPEED, LOGO_Y_FINAL);
+        mLogoY = Math.min(mLogoY + Dimensions.RESULT_LOGO_Y_SPEED, Dimensions.RESULT_LOGO_Y_FINAL);
         if (Button.B.isPressed())
-            mStatsY = Math.max(mStatsY - STATS_Y_SPEED, STATS_Y_VISIBLE);
+            mStatsY = Math.max(mStatsY - Dimensions.RESULT_STATS_Y_SPEED, Dimensions.RESULT_STATS_Y_VISIBLE);
         else
-            mStatsY = Math.min(mStatsY + STATS_Y_SPEED, STATS_Y_HIDDEN);
+            mStatsY = Math.min(mStatsY + Dimensions.RESULT_STATS_Y_SPEED, Dimensions.RESULT_STATS_Y_HIDDEN);
         UITools.resetJustPressed();
     }
     
@@ -110,66 +112,62 @@ public class BattleResultPhaseState
         TAZSGame game = mGame;
 
         // Summary logo
-        screen.drawRect(LOGO_X, mLogoY, LOGO_WIDTH, LOGO_HEIGHT, Colors.WINDOW_BORDER);
-        screen.fillRect(LOGO_X + 1, mLogoY + 1, LOGO_WIDTH - 1, LOGO_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
-        mSummarySprite.draw(screen, LOGO_X + 2, mLogoY + 2);
+        screen.drawRect(Dimensions.RESULT_LOGO_X, mLogoY, Dimensions.RESULT_LOGO_WIDTH, Dimensions.RESULT_LOGO_HEIGHT, Colors.WINDOW_BORDER);
+        screen.fillRect(Dimensions.RESULT_LOGO_X + 1, mLogoY + 1, Dimensions.RESULT_LOGO_WIDTH - 1, Dimensions.RESULT_LOGO_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
+        mSummarySprite.draw(screen, Dimensions.RESULT_LOGO_X + 2, mLogoY + 2);
         
         game.topBarUI.draw(screen);
         
         // Stats screen.
         
-        screen.drawRect(STATS_X, mStatsY, STATS_WIDTH, STATS_HEIGHT, Colors.WINDOW_BORDER);
-        screen.fillRect(STATS_X + 1, mStatsY + 1, STATS_WIDTH - 1, STATS_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
+        screen.drawRect(Dimensions.RESULT_STATS_X, mStatsY, Dimensions.RESULT_STATS_WIDTH, Dimensions.RESULT_STATS_HEIGHT, Colors.WINDOW_BORDER);
+        screen.fillRect(Dimensions.RESULT_STATS_X + 1, mStatsY + 1, Dimensions.RESULT_STATS_WIDTH - 1, Dimensions.RESULT_STATS_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
         screen.setTextColor(Colors.WINDOW_TEXT);
-        screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_TEAMNAME_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_TEAMNAME_Y_OFFSET);
         screen.print(Texts.TEAMS_PLAYER);
-        screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_TEAMNAME_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_TEAMNAME_Y_OFFSET);
         screen.print(Texts.TEAMS_ENEMY);
         
-        screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_COST_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
         screen.print(Texts.RESULT_COST_);
-        screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_COST_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
         renderStatBar(mPlayerUnitsCost, mPlayerUnitsCost + mEnemyUnitsCost,
-                      STATS_TEAMS_FIRST_X_START, STATS_TEAMS_FIRST_X_LAST, mStatsY + STATS_COST_Y_OFFSET,
+                      Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, Dimensions.RESULT_STATS_TEAMS_FIRST_X_LAST, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET,
                         Colors.TEAM_PLAYER_STAT_COLOR, screen);
         screen.print(mPlayerUnitsCost);
         screen.print(Texts.MISC_DOLLAR);
-        screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_COST_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
         renderStatBar(mEnemyUnitsCost, mPlayerUnitsCost + mEnemyUnitsCost,
-                      STATS_TEAMS_SECOND_X_START, STATS_TEAMS_SECOND_X_LAST, mStatsY + STATS_COST_Y_OFFSET,
+                      Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, Dimensions.RESULT_STATS_TEAMS_SECOND_X_LAST, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET,
                         Colors.TEAM_ENEMY_STAT_COLOR, screen);
         screen.print(mEnemyUnitsCost);
         screen.print(Texts.MISC_DOLLAR);
         
-        screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.RESULT_DESTRUCTIONS_);
-        screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.MISC_UNKNOWN);
-        screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_DESTRUCTIONS_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.MISC_UNKNOWN);
         
-        screen.setTextPosition(STATS_LABEL_X, mStatsY + STATS_LOSSES_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET);
         screen.print(Texts.RESULT_LOSSES_);
-        screen.setTextPosition(STATS_TEAMS_FIRST_X_START, mStatsY + STATS_LOSSES_Y_OFFSET);
+        screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET);
         renderStatBar(mPlayerLosses, mPlayerLosses + mEnemyLosses,
-                      STATS_TEAMS_FIRST_X_START, STATS_TEAMS_FIRST_X_LAST, mStatsY + STATS_LOSSES_Y_OFFSET,
-                        Colors.TEAM_PLAYER_STAT_COLOR, screen);
+                      Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, Dimensions.RESULT_STATS_TEAMS_FIRST_X_LAST, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET,
+                      Colors.TEAM_PLAYER_STAT_COLOR, screen);
         screen.print(mPlayerLosses);
         renderStatBar(mEnemyLosses, mPlayerLosses + mEnemyLosses,
-                      STATS_TEAMS_SECOND_X_START, STATS_TEAMS_SECOND_X_LAST, mStatsY + STATS_LOSSES_Y_OFFSET,
-                        Colors.TEAM_ENEMY_STAT_COLOR, screen);
-        screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_LOSSES_Y_OFFSET);
+                      Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, Dimensions.RESULT_STATS_TEAMS_SECOND_X_LAST, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET,
+                      Colors.TEAM_ENEMY_STAT_COLOR, screen);
+        screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET);
         screen.print(mEnemyLosses);
         
-        screen.fillRect(0, HELP_BOX_MIN_Y, game.screen.width(), game.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
+        screen.fillRect(0, Dimensions.HELPBAR_BOX_MIN_Y, game.screen.width(), game.screen.height() - Dimensions.HELPBAR_BOX_MIN_Y, Colors.HELP_BG);
         
-        screen.setTextPosition(HELP_X, HELP_Y);
+        screen.setTextPosition(Dimensions.HELPBAR_X, Dimensions.HELPBAR_Y);
         if (game.padMenuUI.isShown())
         {
-            UITools.fillRectBlended(0, 0, screen.width(), HELP_BOX_MIN_Y - 1,
-                                    Colors.PADMENU_OVERLAY, 0,
-                                    UITools.PATTERN_25_75_HEX,
-                                    screen);
             screen.setTextColor(Colors.HELP_ACTIVE);
             screen.print(Texts.BUTTON_PAD);
             screen.print(Texts.MISC_SEPARATOR);
@@ -198,7 +196,7 @@ public class BattleResultPhaseState
     {
         int barXMax = MathTools.lerpi(value, 0, xMin, valueMax, xMax);
         
-        screen.fillRect(xMin, y + STATS_BAR_Y_OFFSET, barXMax - xMin + 2, STATS_BAR_THICKNESS, color);
+        screen.fillRect(xMin, y + Dimensions.RESULT_STATS_BAR_Y_OFFSET, barXMax - xMin + 2, Dimensions.RESULT_STATS_BAR_THICKNESS, color);
     }
     
     
@@ -210,37 +208,7 @@ public class BattleResultPhaseState
     private int mEnemyLosses;
     private int mEnemyUnitsCount;
     private int mEnemyUnitsCost;
-    private int mLogoY = LOGO_Y_INITIAL;
-    private int mStatsY = STATS_Y_HIDDEN;
+    private int mLogoY = Dimensions.RESULT_LOGO_Y_INITIAL;
+    private int mStatsY = Dimensions.RESULT_STATS_Y_HIDDEN;
     private ResultSummarySprite mSummarySprite = new ResultSummarySprite();
-    
-    // TODO: This is common to a lot of things. [012]
-    private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
-    private static final int HELP_X = 2;
-    private static final int HELP_Y = HELP_BOX_MIN_Y + 2;
-    
-    private static final int LOGO_WIDTH = 54;
-    private static final int LOGO_HEIGHT = 17;
-    private static final int LOGO_Y_INITIAL = -LOGO_HEIGHT;
-    private static final int LOGO_Y_FINAL = 27;
-    private static final int LOGO_Y_SPEED = 2;
-    private static final int LOGO_X = 83;
-    
-    private static final int STATS_WIDTH = 216;
-    private static final int STATS_HEIGHT = 32;
-    private static final int STATS_Y_HIDDEN = 176;
-    private static final int STATS_Y_VISIBLE = 47;
-    private static final int STATS_Y_SPEED = 4;
-    private static final int STATS_X = 2;
-    private static final int STATS_LABEL_X = 5;
-    private static final int STATS_TEAMNAME_Y_OFFSET = 3;
-    private static final int STATS_TEAMS_FIRST_X_START = 85;
-    private static final int STATS_TEAMS_FIRST_X_LAST = 147;
-    private static final int STATS_TEAMS_SECOND_X_START = 151;
-    private static final int STATS_TEAMS_SECOND_X_LAST = 214;
-    private static final int STATS_COST_Y_OFFSET = 10;
-    private static final int STATS_DESTRUCTIONS_Y_OFFSET = 17;
-    private static final int STATS_LOSSES_Y_OFFSET = 24;
-    private static final int STATS_BAR_THICKNESS = 1;
-    private static final int STATS_BAR_Y_OFFSET = 2;
 }

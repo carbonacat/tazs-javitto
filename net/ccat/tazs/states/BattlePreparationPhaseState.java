@@ -11,6 +11,7 @@ import net.ccat.tazs.battle.UnitHandler;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.battle.UnitTypes;
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
@@ -45,8 +46,7 @@ public class BattlePreparationPhaseState
         game.cursorX = 0;
         game.cursorY = 0;
         game.cursorSprite.playInvalid();
-        game.padMenuUI.setPosition(MENU_X, MENU_Y);
-        game.padMenuUI.setShown(false);
+        game.padMenuUI.setPosition(Dimensions.PADMENU_X, Dimensions.PADMENU_Y);
         game.padMenuUI.clearChoices();
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.PREPARATION_MENU_LAUNCH);
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.PREPARATION_MENU_EXIT);
@@ -87,8 +87,7 @@ public class BattlePreparationPhaseState
         game.uiMode = UIModes.INVALID;
         
         game.padMenuUI.setEnabledChoice(PadMenuUI.CHOICE_UP, (game.unitsSystem.unitsCount(Teams.PLAYER) > 0) && (game.unitsSystem.unitsCount(Teams.ENEMY) > 0));
-        game.padMenuUI.update();
-        if (game.padMenuUI.isShown())
+        if (game.padMenuUI.update())
         {
             int selectedChoice = game.padMenuUI.selectedChoice();
             
@@ -97,16 +96,24 @@ public class BattlePreparationPhaseState
             {
                 game.cursorSelectSound.play();
                 game.battleMode.onPreparationFinished(game);
+                game.padMenuUI.hideUntilNextPress();
             }
             else if (selectedChoice == PadMenuUI.CHOICE_DOWN)
             {
                 game.cursorCancelSound.play();
                 game.battleMode.onPreparationExit(game);
+                game.padMenuUI.hideUntilNextPress();
             }
             else if (selectedChoice == PadMenuUI.CHOICE_RIGHT)
+            {
+                game.cursorMoveSound.play();
                 changeCurrentUnit(1);
+            }
             else if (selectedChoice == PadMenuUI.CHOICE_LEFT)
+            {
+                game.cursorMoveSound.play();
                 changeCurrentUnit(-1);
+            }
             game.battleMode.onPreparationMenuUpdate(game);
         }
         else
@@ -154,13 +161,8 @@ public class BattlePreparationPhaseState
         if (game.uiMode != UIModes.MENU)
             game.cursorSprite.draw(screen, game.cursorX - VideoConstants.CURSOR_ORIGIN_X, game.cursorY - VideoConstants.CURSOR_ORIGIN_Y);
         
-        if (game.padMenuUI.isShown())
-            UITools.fillRectBlended(0, 0, screen.width(), HELP_BOX_MIN_Y - 1,
-                                    Colors.PADMENU_OVERLAY, 0,
-                                    UITools.PATTERN_25_75_HEX,
-                                    screen);
-        screen.fillRect(0, HELP_BOX_MIN_Y, game.screen.width(), game.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
-        screen.setTextPosition(HELP_X, HELP_Y);
+        screen.fillRect(0, Dimensions.HELPBAR_BOX_MIN_Y, Dimensions.SCREEN_WIDTH, Dimensions.SCREEN_HEIGHT - Dimensions.HELPBAR_BOX_MIN_Y, Colors.HELP_BG);
+        screen.setTextPosition(Dimensions.HELPBAR_X, Dimensions.HELPBAR_Y);
         
         if (game.uiMode == UIModes.MENU)
         {
@@ -214,18 +216,18 @@ public class BattlePreparationPhaseState
         
         UnitHandler unitHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
         
-        UITools.drawWindow(UNITBOX_X, UNITBOX_Y, UNITBOX_WIDTH, UNITBOX_HEIGHT, screen);
+        UITools.drawWindow(Dimensions.UNITBOX_X, Dimensions.UNITBOX_Y, Dimensions.UNITBOX_WIDTH, Dimensions.UNITBOX_HEIGHT, screen);
         if (game.uiMode == UIModes.TOO_EXPENSIVE)
             screen.setTextColor(Colors.WINDOW_TEXT_ERROR);
         else if (game.uiMode == UIModes.PLACE)
             screen.setTextColor(Colors.WINDOW_TEXT);
         else
             screen.setTextColor(Colors.WINDOW_TEXT_DISABLED);
-        screen.setTextPosition(UNITBOX_X + 2, UNITBOX_Y + 2);
+        screen.setTextPosition(Dimensions.UNITBOX_X + 2, Dimensions.UNITBOX_Y + 2);
         screen.print(unitHandler.cost());
         screen.print(Texts.MISC_DOLLAR);
         unitHandler.drawAsUI(game.unitsSystem,
-                             screen.cameraX + UNITBOX_UNIT_X, screen.cameraY + UNITBOX_UNIT_Y, Math.PI, unitTeam,
+                             screen.cameraX + Dimensions.UNITBOX_UNIT_X, screen.cameraY + Dimensions.UNITBOX_UNIT_Y, Math.PI, unitTeam,
                              screen);
         
         game.topBarUI.draw(screen);
@@ -252,19 +254,4 @@ public class BattlePreparationPhaseState
     boolean mFromRetry;
 
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
-    
-    // TODO: This is common to a lot of things. [012]
-    private static final int HELP_BOX_MIN_Y = 176 - 2 - 6 - 2;
-    private static final int HELP_X = 2;
-    private static final int HELP_Y = HELP_BOX_MIN_Y + 2;
-    private static final int UNITBOX_WIDTH = 50;
-    private static final int UNITBOX_HEIGHT = 10;
-    // TODO: Use Screen's constants.
-    private static final int UNITBOX_X = 220 - UNITBOX_WIDTH;
-    private static final int UNITBOX_Y = 176 - UNITBOX_HEIGHT;
-    private static final int UNITBOX_UNIT_X = 220 - 8;
-    private static final int UNITBOX_UNIT_Y = 176 - 5;
-
-    private static final int MENU_X = 110;
-    private static final int MENU_Y = 88;
 }

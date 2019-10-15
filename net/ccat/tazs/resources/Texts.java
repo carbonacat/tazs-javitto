@@ -35,6 +35,7 @@ class Texts
     
     /***** MENU *****/
     
+    public static final String MENU = "Menu";
     public static final String MENU_COMMANDS_HELP = "Select Choice";
     
     

@@ -182,7 +182,7 @@ public class BattleResultPhaseState
             screen.print(Texts.MISC_BIG_SEPARATOR);
             screen.print(Texts.BUTTON_C);
             screen.print(Texts.MISC_SEPARATOR);
-            screen.print(Texts.RESULT_RETRY);
+            screen.print(Texts.MENU);
         }
         
         game.padMenuUI.draw(screen);

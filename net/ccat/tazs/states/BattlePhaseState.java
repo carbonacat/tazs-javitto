@@ -97,9 +97,20 @@ public class BattlePhaseState
         HiRes16Color screen = game.screen;
         
         screen.fillRect(0, Dimensions.HELPBAR_BOX_MIN_Y, Dimensions.SCREEN_WIDTH, Dimensions.SCREEN_HEIGHT - Dimensions.HELPBAR_BOX_MIN_Y, Colors.HELP_BG);
-        screen.setTextColor(Colors.HELP_INACTIVE);
+        screen.setTextColor(Colors.HELP_ACTIVE);
         screen.setTextPosition(Dimensions.HELPBAR_X, Dimensions.HELPBAR_Y);
-        screen.print(Texts.MISC_ERROR);
+        if (game.padMenuUI.isShown())
+        {
+            screen.print(Texts.BUTTON_PAD);
+            screen.print(Texts.MISC_SEPARATOR);
+            screen.print(Texts.MENU_COMMANDS_HELP);
+        }
+        else
+        {
+            screen.print(Texts.BUTTON_C);
+            screen.print(Texts.MISC_SEPARATOR);
+            screen.print(Texts.MENU);
+        }
 
         game.padMenuUI.draw(screen);
         game.topBarUI.draw(screen);

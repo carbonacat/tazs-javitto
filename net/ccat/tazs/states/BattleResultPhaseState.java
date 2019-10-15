@@ -133,13 +133,13 @@ public class BattleResultPhaseState
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
         renderStatBar(mPlayerUnitsCost, mPlayerUnitsCost + mEnemyUnitsCost,
                       Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, Dimensions.RESULT_STATS_TEAMS_FIRST_X_LAST, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET,
-                        Colors.TEAM_PLAYER_STAT_COLOR, screen);
+                        Colors.TEAM_PLAYER_STAT, screen);
         screen.print(mPlayerUnitsCost);
         screen.print(Texts.MISC_DOLLAR);
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
         renderStatBar(mEnemyUnitsCost, mPlayerUnitsCost + mEnemyUnitsCost,
                       Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, Dimensions.RESULT_STATS_TEAMS_SECOND_X_LAST, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET,
-                        Colors.TEAM_ENEMY_STAT_COLOR, screen);
+                        Colors.TEAM_ENEMY_STAT, screen);
         screen.print(mEnemyUnitsCost);
         screen.print(Texts.MISC_DOLLAR);
         
@@ -155,11 +155,11 @@ public class BattleResultPhaseState
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET);
         renderStatBar(mPlayerLosses, mPlayerLosses + mEnemyLosses,
                       Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, Dimensions.RESULT_STATS_TEAMS_FIRST_X_LAST, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET,
-                      Colors.TEAM_PLAYER_STAT_COLOR, screen);
+                      Colors.TEAM_PLAYER_STAT, screen);
         screen.print(mPlayerLosses);
         renderStatBar(mEnemyLosses, mPlayerLosses + mEnemyLosses,
                       Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, Dimensions.RESULT_STATS_TEAMS_SECOND_X_LAST, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET,
-                      Colors.TEAM_ENEMY_STAT_COLOR, screen);
+                      Colors.TEAM_ENEMY_STAT, screen);
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET);
         screen.print(mEnemyLosses);
         

@@ -65,6 +65,8 @@ public class BattlePreparationPhaseState
         updateInput();
         
         screen.clear(Colors.SCENE_BG);
+        renderArea(Teams.PLAYER, Colors.TEAM_PLAYER_AREA_BORDER, Colors.TEAM_PLAYER_AREA_INSIDE);
+        renderArea(Teams.ENEMY, Colors.TEAM_ENEMY_AREA_BORDER, Colors.TEAM_ENEMY_AREA_INSIDE);
         mGame.unitsSystem.draw(screen);
         renderUI();
         screen.flush();
@@ -146,6 +148,43 @@ public class BattlePreparationPhaseState
                 game.cursorSprite.playInvalid();
         }
         UITools.resetJustPressed();
+    }
+    
+    private void renderArea(int team, int borderColor, int insideColor)
+    {
+        TAZSGame game = mGame;
+        HiRes16Color screen = game.screen;
+        int minX = game.areaMinX(team) + 1;
+        int minY = game.areaMinY(team) + 1;
+        int maxX = game.areaMaxX(team) - 1;
+        int maxY = game.areaMaxY(team) - 1;
+        
+        
+        // Let's render a nice area for both team.
+        
+        int areaOffset = (System.currentTimeMillis() >> AREA_OFFSET_SHIFT) % Dimensions.PREPARATION_AREA_LINE_SPACE;
+        int x1 = minX - 1;
+        int x0 = x1 + areaOffset;
+        int y0 = minY - 1;
+        int y1 = y0 + areaOffset;
+        
+        while ((x0 < maxX) || (y0 < maxY))
+        {
+            screen.drawLine(x0, y0, x1, y1, insideColor, false);
+            x0 += Dimensions.PREPARATION_AREA_LINE_SPACE;
+            if (x0 >= maxX)
+            {
+                y0 += x0 - maxX;
+                x0 = maxX;
+            }
+            y1 += Dimensions.PREPARATION_AREA_LINE_SPACE;
+            if (y1 >= maxY)
+            {
+                x1 += y1 - maxY;
+                y1 = maxY;
+            }
+        }
+        game.screen.drawRect(minX - 1, minY - 1, maxX - minX + 2, maxY - minY + 2, borderColor, false);
     }
     
     private void renderUI()
@@ -251,7 +290,8 @@ public class BattlePreparationPhaseState
     
     
     private TAZSGame mGame;
-    boolean mFromRetry;
+    private boolean mFromRetry;
 
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
+    private static final int AREA_OFFSET_SHIFT = 7;
 }

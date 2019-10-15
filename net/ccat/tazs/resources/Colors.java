@@ -26,13 +26,17 @@ class Colors
 
     /***** SCENE *****/
     
-    public static final int SCENE_BG = 10;
+    public static final int SCENE_BG = 7;
     
     
     /***** TEAM *****/
     
-    public static final int TEAM_PLAYER_STAT_COLOR = 8;
-    public static final int TEAM_ENEMY_STAT_COLOR = 10;
+    public static final int TEAM_PLAYER_STAT = 8;
+    public static final int TEAM_PLAYER_AREA_BORDER = 8;
+    public static final int TEAM_PLAYER_AREA_INSIDE = 3;
+    public static final int TEAM_ENEMY_STAT = 10;
+    public static final int TEAM_ENEMY_AREA_BORDER = 10;
+    public static final int TEAM_ENEMY_AREA_INSIDE = 5;
     
     
     /***** TITLE SCREEN *****/

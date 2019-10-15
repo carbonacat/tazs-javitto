@@ -19,10 +19,14 @@ public class Dimensions
     public static final int PADMENU_Y = SCREEN_HEIGHT / 2;
     
     
+    /***** PREPARATION *****/
+    
     public static final int PREPARATION_CURSOR_MIN_X = -105;
     public static final int PREPARATION_CURSOR_MIN_Y = -75;
     public static final int PREPARATION_CURSOR_MAX_X = 105;
     public static final int PREPARATION_CURSOR_MAX_Y = 75;
+    public static final int PREPARATION_AREA_LINE_SPACE = 16;
+    
     
     /***** RESULT PHASE *****/
 

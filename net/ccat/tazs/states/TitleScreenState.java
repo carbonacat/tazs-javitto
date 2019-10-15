@@ -86,7 +86,7 @@ class TitleScreenState
         // TODO: Proper title screen. [015]
         screen.clear(Colors.TITLE_BG);
         
-        screen.setTextPosition((screen.width() - screen.textWidth(Texts.TITLE)) / 2, Dimensions.TITLE_TITLE_Y);
+        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.textWidth(Texts.TITLE)) / 2, Dimensions.TITLE_TITLE_Y);
         screen.setTextColor(Colors.TITLE_TEXT);
         screen.print(Texts.TITLE);
         screen.setTextPosition(Dimensions.TITLE_VERSION_X, Dimensions.TITLE_VERSION_Y);

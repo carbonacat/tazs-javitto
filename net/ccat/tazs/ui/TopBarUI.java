@@ -56,7 +56,7 @@ public class TopBarUI
     {
         int x = 0;
         int y = 0;
-        int width = screen.width();
+        int width = Dimensions.SCREEN_WIDTH;
         int height = Dimensions.TOPBAR_HEIGHT;
         
         // Background and border.

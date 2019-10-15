@@ -32,8 +32,8 @@ public class BattlePhaseState
     {
         TAZSGame game = mGame;
         
-        game.screen.cameraX = -game.screen.width() * 0.5;
-        game.screen.cameraY = -game.screen.height() * 0.5;
+        game.screen.cameraX = -Dimensions.SCREEN_WIDTH * 0.5;
+        game.screen.cameraY = -Dimensions.SCREEN_HEIGHT * 0.5;
         game.padMenuUI.clearChoices();
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.BATTLE_RETRY);
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.BATTLE_EXIT);

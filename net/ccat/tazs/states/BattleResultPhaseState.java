@@ -42,8 +42,8 @@ public class BattleResultPhaseState
     {
         TAZSGame game = mGame;
         
-        game.screen.cameraX = -mGame.screen.width() * 0.5;
-        game.screen.cameraY = -mGame.screen.height() * 0.5;
+        game.screen.cameraX = -Dimensions.SCREEN_WIDTH * 0.5;
+        game.screen.cameraY = -Dimensions.SCREEN_HEIGHT * 0.5;
         if (mWinnerTeam == Teams.PLAYER)
             mSummarySprite.playVictory();
         else if (mWinnerTeam == Teams.ENEMY)
@@ -163,7 +163,7 @@ public class BattleResultPhaseState
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET);
         screen.print(mEnemyLosses);
         
-        screen.fillRect(0, Dimensions.HELPBAR_BOX_MIN_Y, game.screen.width(), game.screen.height() - Dimensions.HELPBAR_BOX_MIN_Y, Colors.HELP_BG);
+        screen.fillRect(0, Dimensions.HELPBAR_BOX_MIN_Y, Dimensions.SCREEN_WIDTH, Dimensions.SCREEN_HEIGHT - Dimensions.HELPBAR_BOX_MIN_Y, Colors.HELP_BG);
         
         screen.setTextPosition(Dimensions.HELPBAR_X, Dimensions.HELPBAR_Y);
         if (game.padMenuUI.isShown())

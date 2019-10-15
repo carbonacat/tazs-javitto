@@ -6,6 +6,12 @@ package net.ccat.tazs.resources;
  */
 class Texts
 {
+    /***** BATTLE *****/
+    
+    public static final String BATTLE_EXIT = "Exit";
+    public static final String BATTLE_RETRY = "Retry";
+    
+    
     /***** BUTTONS *****/
     
     public static final String BUTTON_A = "(A)";

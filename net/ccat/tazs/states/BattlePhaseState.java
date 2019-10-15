@@ -9,6 +9,7 @@ import net.ccat.tazs.battle.Teams;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
+import net.ccat.tazs.ui.UITools;
 
 
 /**
@@ -41,6 +42,8 @@ public class BattlePhaseState
         
         if (winnerTeam != Teams.TO_BE_DETERMINED)
             Game.changeState(new BattleResultPhaseState(mGame, winnerTeam));
+        
+        updateUI();
             
         screen.clear(Colors.SCENE_BG);
         mGame.unitsSystem.draw(screen);
@@ -55,6 +58,11 @@ public class BattlePhaseState
  
  
     /***** PRIVATE *****/
+    
+    private void updateUI()
+    {
+        UITools.resetJustPressed();
+    }
     
     private void renderUI()
     {

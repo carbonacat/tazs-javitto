@@ -11,6 +11,8 @@ import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.resources.sprites.ResultSummarySprite;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.PadMenuUI;
+import net.ccat.tazs.ui.UITools;
 
 
 /**
@@ -37,14 +39,19 @@ public class BattleResultPhaseState
     
     public void init()
     {
-        mGame.screen.cameraX = -mGame.screen.width() * 0.5;
-        mGame.screen.cameraY = -mGame.screen.height() * 0.5;
+        TAZSGame game = mGame;
+        
+        game.screen.cameraX = -mGame.screen.width() * 0.5;
+        game.screen.cameraY = -mGame.screen.height() * 0.5;
         if (mWinnerTeam == Teams.PLAYER)
             mSummarySprite.playVictory();
         else if (mWinnerTeam == Teams.ENEMY)
             mSummarySprite.playDefeat();
         else
             mSummarySprite.playDraw();
+        game.padMenuUI.clearChoices();
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.RESULT_RETRY);
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.RESULT_EXIT);
     }
     
     public void update()
@@ -52,21 +59,7 @@ public class BattleResultPhaseState
         HiRes16Color screen = mGame.screen;
         
         mGame.unitsSystem.onTick();
-        if (Button.A.justPressed())
-        {
-            mGame.cursorSelectSound.play();
-            mGame.battleMode.onResultExit(mGame);
-        }
-        else if (Button.C.justPressed())
-        {
-            mGame.cursorSelectSound.play();
-            mGame.battleMode.onResultRetry(mGame);
-        }
-        mLogoY = Math.min(mLogoY + LOGO_Y_SPEED, LOGO_Y_FINAL);
-        if (Button.B.isPressed())
-            mStatsY = Math.max(mStatsY - STATS_Y_SPEED, STATS_Y_VISIBLE);
-        else
-            mStatsY = Math.min(mStatsY + STATS_Y_SPEED, STATS_Y_HIDDEN);
+        updateUI();
 
         screen.clear(Colors.SCENE_BG);
         mGame.unitsSystem.draw(screen);
@@ -82,16 +75,46 @@ public class BattleResultPhaseState
  
     /***** PRIVATE *****/
     
+    private void updateUI()
+    {
+        TAZSGame game = mGame;
+        
+        game.padMenuUI.update();
+        if (game.padMenuUI.isShown())
+        {
+            int selectedChoice = game.padMenuUI.selectedChoice();
+            
+            if (selectedChoice == PadMenuUI.CHOICE_UP)
+            {
+                game.cursorSelectSound.play();
+                game.battleMode.onResultRetry(game);
+            }
+            else if (selectedChoice == PadMenuUI.CHOICE_DOWN)
+            {
+                game.cursorSelectSound.play();
+                game.battleMode.onResultExit(game);
+            }
+            game.battleMode.onPreparationMenuUpdate(game);
+        }
+        mLogoY = Math.min(mLogoY + LOGO_Y_SPEED, LOGO_Y_FINAL);
+        if (Button.B.isPressed())
+            mStatsY = Math.max(mStatsY - STATS_Y_SPEED, STATS_Y_VISIBLE);
+        else
+            mStatsY = Math.min(mStatsY + STATS_Y_SPEED, STATS_Y_HIDDEN);
+        UITools.resetJustPressed();
+    }
+    
     private void renderUI()
     {
         HiRes16Color screen = mGame.screen;
+        TAZSGame game = mGame;
 
         // Summary logo
         screen.drawRect(LOGO_X, mLogoY, LOGO_WIDTH, LOGO_HEIGHT, Colors.WINDOW_BORDER);
         screen.fillRect(LOGO_X + 1, mLogoY + 1, LOGO_WIDTH - 1, LOGO_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
         mSummarySprite.draw(screen, LOGO_X + 2, mLogoY + 2);
         
-        mGame.topBarUI.draw(screen);
+        game.topBarUI.draw(screen);
         
         // Stats screen.
         
@@ -138,21 +161,33 @@ public class BattleResultPhaseState
         screen.setTextPosition(STATS_TEAMS_SECOND_X_START, mStatsY + STATS_LOSSES_Y_OFFSET);
         screen.print(mEnemyLosses);
         
+        screen.fillRect(0, HELP_BOX_MIN_Y, game.screen.width(), game.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
         
-        screen.fillRect(0, HELP_BOX_MIN_Y, mGame.screen.width(), mGame.screen.height() - HELP_BOX_MIN_Y, Colors.HELP_BG);
-        screen.setTextColor(Colors.HELP_ACTIVE);
         screen.setTextPosition(HELP_X, HELP_Y);
-        screen.print(Texts.BUTTON_A);
-        screen.print(Texts.MISC_SEPARATOR);
-        screen.print(Texts.RESULT_EXIT);
-        screen.print(Texts.MISC_BIG_SEPARATOR);
-        screen.print(Texts.BUTTON_B);
-        screen.print(Texts.MISC_SEPARATOR);
-        screen.print(Texts.RESULT_STATS);
-        screen.print(Texts.MISC_BIG_SEPARATOR);
-        screen.print(Texts.BUTTON_C);
-        screen.print(Texts.MISC_SEPARATOR);
-        screen.print(Texts.RESULT_RETRY);
+        if (game.padMenuUI.isShown())
+        {
+            UITools.fillRectBlended(0, 0, screen.width(), HELP_BOX_MIN_Y - 1,
+                                    Colors.PADMENU_OVERLAY, 0,
+                                    UITools.PATTERN_25_75_HEX,
+                                    screen);
+            screen.setTextColor(Colors.HELP_ACTIVE);
+            screen.print(Texts.BUTTON_PAD);
+            screen.print(Texts.MISC_SEPARATOR);
+            screen.print(Texts.MENU_COMMANDS_HELP);
+        }
+        else
+        {
+            screen.setTextColor(Colors.HELP_ACTIVE);
+            screen.print(Texts.BUTTON_B);
+            screen.print(Texts.MISC_SEPARATOR);
+            screen.print(Texts.RESULT_STATS);
+            screen.print(Texts.MISC_BIG_SEPARATOR);
+            screen.print(Texts.BUTTON_C);
+            screen.print(Texts.MISC_SEPARATOR);
+            screen.print(Texts.RESULT_RETRY);
+        }
+        
+        game.padMenuUI.draw(screen);
     }
     
     

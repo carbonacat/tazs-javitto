@@ -86,13 +86,13 @@ public class BattleResultPhaseState
             
             if (selectedChoice == PadMenuUI.CHOICE_UP)
             {
-                game.cursorSelectSound.play();
+                game.cursorCancelSound.play();
                 game.battleMode.onResultRetry(game);
                 game.padMenuUI.hideUntilNextPress();
             }
             else if (selectedChoice == PadMenuUI.CHOICE_DOWN)
             {
-                game.cursorSelectSound.play();
+                game.cursorCancelSound.play();
                 game.battleMode.onResultExit(game);
                 game.padMenuUI.hideUntilNextPress();
             }

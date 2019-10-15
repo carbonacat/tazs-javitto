@@ -123,13 +123,13 @@ public class BattlePreparationPhaseState
             
             // Moving the Cursor.
             if (Button.Up.isPressed())
-                cursorY = Math.max(cursorY - CURSOR_PIXELS_PER_TICK, game.sceneYMin);
+                cursorY = Math.max(cursorY - CURSOR_PIXELS_PER_TICK, Dimensions.PREPARATION_CURSOR_MIN_Y);
             if (Button.Down.isPressed())
-                cursorY = Math.min(cursorY + CURSOR_PIXELS_PER_TICK, game.sceneYMax);
+                cursorY = Math.min(cursorY + CURSOR_PIXELS_PER_TICK, Dimensions.PREPARATION_CURSOR_MAX_Y);
             if (Button.Left.isPressed())
-                cursorX = Math.max(cursorX - CURSOR_PIXELS_PER_TICK, game.sceneXMin);
+                cursorX = Math.max(cursorX - CURSOR_PIXELS_PER_TICK, Dimensions.PREPARATION_CURSOR_MIN_X);
             if (Button.Right.isPressed())
-                cursorX = Math.min(cursorX + CURSOR_PIXELS_PER_TICK, game.sceneXMax);
+                cursorX = Math.min(cursorX + CURSOR_PIXELS_PER_TICK, Dimensions.PREPARATION_CURSOR_MAX_X);
             
             game.cursorX = cursorX;
             game.cursorY = cursorY;

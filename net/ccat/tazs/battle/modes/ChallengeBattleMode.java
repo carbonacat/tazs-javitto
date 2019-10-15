@@ -42,33 +42,38 @@ public abstract class ChallengeBattleMode
             }
             game.uiMode = UIModes.REMOVE;
         }
-        else if (game.cursorX < -game.noMansLandRadius)
-        {
-            UnitHandler unitHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
-            boolean tooExpensive = isTooExpensive(game, unitHandler);
-
-            if (!tooExpensive && Button.A.isPressed())
-            {
-                
-                if (game.unitsSystem.addUnit(game.cursorX, game.cursorY, 0,
-                                             unitHandler, Teams.PLAYER) != UnitsSystem.IDENTIFIER_NONE)
-                {
-                    updateTopBarUI(game);
-                    // Resets the animation.
-                    game.cursorSprite.currentFrame = game.cursorSprite.startFrame;
-                }
-            }
-            if (tooExpensive)
-                game.uiMode = UIModes.TOO_EXPENSIVE;
-            else if (game.unitsSystem.freeUnits() == 0)
-                game.uiMode = UIModes.NO_MORE_UNITS;
-            else
-                game.uiMode = UIModes.PLACE;
-        }
-        else if (game.cursorX > game.noMansLandRadius)
-            game.uiMode = UIModes.ENEMY_TERRITORY;
         else
-            game.uiMode = UIModes.NOMANSLAND;
+        {
+            int teamUnderCursor = game.areaTeamAtPosition((int)game.cursorX, (int)game.cursorY);
+            
+            if (teamUnderCursor == Teams.PLAYER)
+            {
+                UnitHandler unitHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
+                boolean tooExpensive = isTooExpensive(game, unitHandler);
+    
+                if (!tooExpensive && Button.A.isPressed())
+                {
+                    
+                    if (game.unitsSystem.addUnit(game.cursorX, game.cursorY, 0,
+                                                 unitHandler, Teams.PLAYER) != UnitsSystem.IDENTIFIER_NONE)
+                    {
+                        updateTopBarUI(game);
+                        // Resets the animation.
+                        game.cursorSprite.currentFrame = game.cursorSprite.startFrame;
+                    }
+                }
+                if (tooExpensive)
+                    game.uiMode = UIModes.TOO_EXPENSIVE;
+                else if (game.unitsSystem.freeUnits() == 0)
+                    game.uiMode = UIModes.NO_MORE_UNITS;
+                else
+                    game.uiMode = UIModes.PLACE;
+            }
+            else if (teamUnderCursor == Teams.ENEMY)
+                game.uiMode = UIModes.ENEMY_TERRITORY;
+            else
+                game.uiMode = UIModes.NOMANSLAND;
+        }
     }
     
     public void onPreparationExit(TAZSGame game)

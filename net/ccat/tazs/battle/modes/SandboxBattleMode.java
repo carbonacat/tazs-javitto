@@ -37,31 +37,35 @@ public class SandboxBattleMode
             }
             game.uiMode = UIModes.REMOVE;
         }
-        else if ((game.cursorX < -game.noMansLandRadius) || (game.cursorX > game.noMansLandRadius))
-        {
-            if (Button.A.isPressed())
-            {
-                boolean onPlayerTeam = (game.cursorX < 0);
-                int team = onPlayerTeam ? Teams.PLAYER : Teams.ENEMY;
-                float angle = onPlayerTeam ? 0 : Math.PI;
-                UnitHandler initialHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
-                
-                if (game.unitsSystem.addUnit(game.cursorX, game.cursorY, angle,
-                                              initialHandler,
-                                              team) != UnitsSystem.IDENTIFIER_NONE)
-                {
-                    updateTopBarUI(game);
-                    // Resets the animation.
-                    game.cursorSprite.currentFrame = game.cursorSprite.startFrame;
-                }
-            }
-            if (game.unitsSystem.freeUnits() > 0)
-                game.uiMode = UIModes.PLACE;
-            else
-                game.uiMode = UIModes.NO_MORE_UNITS;
-        }
         else
-            game.uiMode = UIModes.NOMANSLAND;
+        {
+            int teamUnderCursor = game.areaTeamAtPosition((int)game.cursorX, (int)game.cursorY);
+            
+            if (teamUnderCursor != Teams.NONE)
+            {
+                if (Button.A.isPressed())
+                {
+                    // That'll be good until we have to move the area someplace else.
+                    float angle = (teamUnderCursor == Teams.PLAYER) ? 0 : Math.PI;
+                    UnitHandler initialHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
+                    
+                    if (game.unitsSystem.addUnit(game.cursorX, game.cursorY, angle,
+                                                 initialHandler,
+                                                 teamUnderCursor) != UnitsSystem.IDENTIFIER_NONE)
+                    {
+                        updateTopBarUI(game);
+                        // Resets the animation.
+                        game.cursorSprite.currentFrame = game.cursorSprite.startFrame;
+                    }
+                }
+                if (game.unitsSystem.freeUnits() > 0)
+                    game.uiMode = UIModes.PLACE;
+                else
+                    game.uiMode = UIModes.NO_MORE_UNITS;
+            }
+            else
+                game.uiMode = UIModes.NOMANSLAND;
+        }
     }
     
     public int teamForUnitBox(TAZSGame game)

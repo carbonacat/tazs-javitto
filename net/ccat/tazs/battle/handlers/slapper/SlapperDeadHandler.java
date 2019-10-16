@@ -19,7 +19,7 @@ public class SlapperDeadHandler
     
     /***** EVENTS *****/
     
-    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier)
+    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier, boolean control)
     {
         return false;
     }

@@ -29,7 +29,7 @@ public class ChallengeZ01BattleMode
         for (int unitIdentifier = 0; unitIdentifier < game.unitsSystem.mCount; unitIdentifier++)
             if (game.unitsSystem.unitsTeams[unitIdentifier] == Teams.PLAYER)
             {
-                game.unitsSystem.unitsHandlers[unitIdentifier].onPlayerControl(game.unitsSystem, unitIdentifier);
+                game.unitsSystem.unitsHandlers[unitIdentifier].onPlayerControl(game.unitsSystem, unitIdentifier, true);
                 break ;
             }
     }

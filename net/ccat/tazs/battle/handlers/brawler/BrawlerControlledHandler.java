@@ -26,6 +26,14 @@ public class BrawlerControlledHandler
         return true;
     }
     
+    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier, boolean control)
+    {
+        if (control)
+            return false;
+        system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance;
+        return true;
+    }
+    
     
     /***** LIFECYCLE *****/
     

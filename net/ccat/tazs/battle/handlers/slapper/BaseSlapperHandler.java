@@ -74,10 +74,14 @@ public class BaseSlapperHandler
     
     /***** EVENTS *****/
     
-    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier)
+    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier, boolean control)
     {
-        system.unitsHandlers[unitIdentifier] = SlapperControlledHandler.instance;
-        return true;
+        if (control)
+        {
+            system.unitsHandlers[unitIdentifier] = SlapperControlledHandler.instance;
+            return true;
+        }
+        return false;
     }
     
     public void onHit(UnitsSystem system, int unitIdentifier,

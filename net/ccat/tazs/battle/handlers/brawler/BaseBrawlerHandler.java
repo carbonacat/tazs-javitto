@@ -71,10 +71,14 @@ public class BaseBrawlerHandler
     
     /***** EVENTS *****/
     
-    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier)
+    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier, boolean control)
     {
-        system.unitsHandlers[unitIdentifier] = BrawlerControlledHandler.instance;
-        return true;
+        if (control)
+        {
+            system.unitsHandlers[unitIdentifier] = BrawlerControlledHandler.instance;
+            return true;
+        }
+        return false;
     }
     
     public void onHit(UnitsSystem system, int unitIdentifier,

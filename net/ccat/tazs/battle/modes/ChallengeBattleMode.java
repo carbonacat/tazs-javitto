@@ -40,6 +40,18 @@ public abstract class ChallengeBattleMode
                 updateTopBarUI(game);
                 game.focusedUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
             }
+            else if (Button.A.justPressed())
+            {
+                UnitHandler unitHandler = game.unitsSystem.unitsHandlers[game.focusedUnitIdentifier];
+                
+                if (unitHandler.isControlled())
+                    unitHandler.onPlayerControl(game.unitsSystem, game.focusedUnitIdentifier, false);
+                else
+                {
+                    // TODO: Remove all other Controlled Units.
+                    unitHandler.onPlayerControl(game.unitsSystem, game.focusedUnitIdentifier, true);
+                }
+            }
             game.uiMode = UIModes.REMOVE;
         }
         else

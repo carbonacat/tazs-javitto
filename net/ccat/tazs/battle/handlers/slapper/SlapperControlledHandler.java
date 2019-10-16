@@ -26,6 +26,14 @@ public class SlapperControlledHandler
         return true;
     }
     
+    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier, boolean control)
+    {
+        if (control)
+            return false;
+        system.unitsHandlers[unitIdentifier] = SlapperIdleHandler.instance;
+        return true;
+    }
+    
     
     /***** LIFECYCLE *****/
     

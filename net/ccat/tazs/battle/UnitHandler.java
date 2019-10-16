@@ -53,9 +53,10 @@ public interface UnitHandler
     
     /**
      * Called when the Player attempts to control the given Unit.
+     * @param control If true, requesting to control this unit. If false, leaving its control.
      * @return true if the Unit will be controlled, false elsewhere.
      */
-    public abstract boolean onPlayerControl(UnitsSystem system, int unitIdentifier);
+    public abstract boolean onPlayerControl(UnitsSystem system, int unitIdentifier, boolean control);
     
     /**
      * Called when this Unit was hit by some power.

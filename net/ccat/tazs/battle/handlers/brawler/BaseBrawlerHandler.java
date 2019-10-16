@@ -51,6 +51,11 @@ public class BaseBrawlerHandler
         return COST;
     }
     
+    public boolean isControlled()
+    {
+        return false;
+    }
+    
     
     /***** PARTS POSITIONS *****/
     
@@ -65,6 +70,12 @@ public class BaseBrawlerHandler
     
     
     /***** EVENTS *****/
+    
+    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier)
+    {
+        system.unitsHandlers[unitIdentifier] = BrawlerControlledHandler.instance;
+        return true;
+    }
     
     public void onHit(UnitsSystem system, int unitIdentifier,
                       float powerX, float powerY, float power)

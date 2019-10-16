@@ -5,6 +5,7 @@ import net.ccat.tazs.battle.modes.challenges.Challenge01BattleMode;
 import net.ccat.tazs.battle.modes.challenges.Challenge02BattleMode;
 import net.ccat.tazs.battle.modes.challenges.Challenge03BattleMode;
 import net.ccat.tazs.battle.modes.challenges.Challenge04BattleMode;
+import net.ccat.tazs.battle.modes.challenges.ChallengeZ01BattleMode;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
@@ -32,7 +33,8 @@ class ChallengesListState
             new Challenge01BattleMode(),
             new Challenge02BattleMode(),
             new Challenge03BattleMode(),
-            new Challenge04BattleMode()
+            new Challenge04BattleMode(),
+            new ChallengeZ01BattleMode()
         };
     }
     

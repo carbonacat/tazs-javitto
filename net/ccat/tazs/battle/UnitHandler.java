@@ -33,6 +33,11 @@ public interface UnitHandler
      */
     public abstract int cost();
     
+    /**
+     * @return true if this Unit is controlled, false elsewhere.
+     */
+    public abstract boolean isControlled();
+    
     
     /***** LIFECYCLE *****/
     
@@ -45,6 +50,12 @@ public interface UnitHandler
     
     
     /***** EVENTS *****/
+    
+    /**
+     * Called when the Player attempts to control the given Unit.
+     * @return true if the Unit will be controlled, false elsewhere.
+     */
+    public abstract boolean onPlayerControl(UnitsSystem system, int unitIdentifier);
     
     /**
      * Called when this Unit was hit by some power.

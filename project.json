@@ -526,6 +526,18 @@
 		},
 		"\\bin\\2019-10-15 - Areas, Menu In Battle, Retry.gif": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\brawler/BrawlerControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\brawler\\BrawlerControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges/ChallengeZ01BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\ChallengeZ01BattleMode.java": {
+			"sdcard": false
 		}
 	}
 }

@@ -17,6 +17,14 @@ public class SlapperDeadHandler
     static final SlapperDeadHandler instance = new SlapperDeadHandler();
     
     
+    /***** EVENTS *****/
+    
+    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier)
+    {
+        return false;
+    }
+    
+    
     /***** LIFECYCLE *****/
     
     public void onTick(UnitsSystem system, int unitIdentifier) 

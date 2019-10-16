@@ -17,6 +17,14 @@ public class BrawlerDeadHandler
     static final BrawlerDeadHandler instance = new BrawlerDeadHandler();
     
     
+    /***** EVENTS *****/
+    
+    public boolean onPlayerControl(UnitsSystem system, int unitIdentifier)
+    {
+        return false;
+    }
+    
+    
     /***** LIFECYCLE *****/
     
     public void onTick(UnitsSystem system, int unitIdentifier) 

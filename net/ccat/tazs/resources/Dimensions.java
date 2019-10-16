@@ -75,6 +75,11 @@ public class Dimensions
     public static final int TITLE_VERSION_Y = SCREEN_HEIGHT - 6;
     
     
+    /***** UNITS *****/
+    
+    public static final int UNIT_CONTROL_RADIUS = 5;
+    
+    
     /***** TOP BAR *****/
     
     public static final int TOPBAR_HEIGHT = 17;

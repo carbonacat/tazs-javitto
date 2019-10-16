@@ -1,6 +1,8 @@
 package net.ccat.tazs.battle;
 
 
+import net.ccat.tazs.resources.Colors;
+
 /**
  * Gathers all the supported Teams.
  */
@@ -22,4 +24,23 @@ class Teams
      * Enemy's team.
      */
     public static final char ENEMY = 1;
+    
+    
+    /***** TOOLS *****/
+    
+    /**
+     * @param team The Team's identifier.
+     * @return the usual color for the Team.
+     */
+    public static final int colorForTeam(int team)
+    {
+        switch (team)
+        {
+            default:
+            case TO_BE_DETERMINED: return Colors.TEAM_UNKNOWN;
+            case NONE: return Colors.TEAM_UNKNOWN;
+            case PLAYER: return Colors.TEAM_PLAYER;
+            case ENEMY: return Colors.TEAM_ENEMY;
+        }
+    }
 }

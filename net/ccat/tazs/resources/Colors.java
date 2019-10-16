@@ -31,13 +31,16 @@ class Colors
     
     /***** TEAM *****/
     
+    public static final int TEAM_ENEMY = 10;
     public static final int TEAM_ENEMY_AREA_BORDER = 10;
     public static final int TEAM_ENEMY_AREA_INSIDE = 5;
     public static final int TEAM_ENEMY_STAT = 10;
+    public static final int TEAM_PLAYER = 8;
     public static final int TEAM_PLAYER_AREA_BORDER = 8;
     public static final int TEAM_PLAYER_AREA_INSIDE = 3;
     public static final int TEAM_PLAYER_STAT = 8;
     public static final int TEAM_STAT_BACKGROUND = 0;
+    public static final int TEAM_UNKNOWN = 0;
     
     
     /***** TITLE SCREEN *****/

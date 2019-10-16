@@ -6,7 +6,7 @@ package net.ccat.tazs.resources;
  */
 class VideoConstants
 {
-    public static final float BRAWLERBODY_ORIGIN_X = 2;
+    public static final float BRAWLERBODY_ORIGIN_X = 3;
     public static final float BRAWLERBODY_ORIGIN_Y = 9;
     public static final float BRAWLERBODY_WEAPON_ORIGIN_Y = 5;
     public static final int BRAWLERBODY_FRAME_IDLE = 0;

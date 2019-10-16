@@ -3,6 +3,7 @@ package net.ccat.tazs.battle.handlers.brawler;
 import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 
@@ -43,6 +44,7 @@ public class BrawlerControlledHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         
+        screen.drawCircle(unitX, unitY, Dimensions.UNIT_CONTROL_RADIUS, Teams.colorForTeam(unitTeam), false);
         drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }
 }

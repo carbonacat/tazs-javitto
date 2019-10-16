@@ -36,11 +36,11 @@ public class SlapperSlapHandler
             else
             {
                 unitTimer++;
-                if (unitTimer < TIMER_PUNCH_MAX)
+                if (unitTimer < TIMER_SLAP_MAX)
                 {
                     float handDistance = MathTools.lerp(unitTimer,
                                                         TIMER_INIT, HAND_IDLE_DISTANCE,
-                                                        TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
+                                                        TIMER_SLAP_MAX, HAND_MAX_DISTANCE);
                     float unitX = system.unitsXs[unitIdentifier];
                     float unitY = system.unitsYs[unitIdentifier];
                     float unitAngle = system.unitsAngles[unitIdentifier];
@@ -57,10 +57,10 @@ public class SlapperSlapHandler
                                                                       HAND_POWER * Math.sin(unitAngle), HAND_POWER * -Math.cos(unitAngle),
                                                                       HAND_POWER);
                         // Interpolating to find the equivalent withdrawal position.
-                        unitTimer = MathTools.lerpi(unitTimer, 0, TIMER_PUNCH_MAX, TIMER_PUNCH_MAX, TIMER_PUNCH_REST);
+                        unitTimer = MathTools.lerpi(unitTimer, 0, TIMER_SLAP_MAX, TIMER_SLAP_MAX, TIMER_SLAP_REST);
                     }
                 }
-                if (unitTimer == TIMER_PUNCH_REST)
+                if (unitTimer == TIMER_SLAP_REST)
                 {
                     unitTimer = 0;
                     system.unitsHandlers[unitIdentifier] = SlapperIdleHandler.instance;
@@ -81,27 +81,34 @@ public class SlapperSlapHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
-        float handDistance;
-        
-        // Calculating the distance.
-        if (unitTimer < TIMER_PUNCH_MAX)
-            handDistance = MathTools.lerp(unitTimer,
-                                          TIMER_INIT, HAND_IDLE_DISTANCE,
-                                          TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
-        else if (unitTimer < TIMER_PUNCH_REST)
-            handDistance = MathTools.lerp(unitTimer,
-                                          TIMER_PUNCH_MAX, HAND_MAX_DISTANCE,
-                                          TIMER_PUNCH_REST, HAND_IDLE_DISTANCE);
-        else
-            handDistance = HAND_IDLE_DISTANCE;
+        float handDistance = handDistanceForSlapTimer(unitTimer);
         
         drawSlapper(unitX, unitY, unitAngle, handDistance, system.slapperBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }
     
     
+    /***** TOOLS *****/
+
+    /**
+     * @param unitTimer The Unit's timer value.
+     * @return The distance for the hand.
+     */
+    public static float handDistanceForSlapTimer(int unitTimer)
+    {
+        if (unitTimer < TIMER_SLAP_MAX)
+            return MathTools.lerp(unitTimer,
+                                  TIMER_INIT, HAND_IDLE_DISTANCE,
+                                  TIMER_SLAP_MAX, HAND_MAX_DISTANCE);
+        else if (unitTimer < TIMER_SLAP_REST)
+            return MathTools.lerp(unitTimer,
+                                  TIMER_SLAP_MAX, HAND_MAX_DISTANCE,
+                                  TIMER_SLAP_REST, HAND_IDLE_DISTANCE);
+        return HAND_IDLE_DISTANCE;
+    }
+    
     /***** PRIVATE *****/
     
     public static final int TIMER_INIT = 0;
-    public static final int TIMER_PUNCH_MAX = 8;
-    public static final int TIMER_PUNCH_REST = 32;
+    public static final int TIMER_SLAP_MAX = 8;
+    public static final int TIMER_SLAP_REST = 32;
 }

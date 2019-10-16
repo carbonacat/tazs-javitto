@@ -76,7 +76,8 @@ public class BaseSlapperHandler
     
     public boolean onPlayerControl(UnitsSystem system, int unitIdentifier)
     {
-        return false;
+        system.unitsHandlers[unitIdentifier] = SlapperControlledHandler.instance;
+        return true;
     }
     
     public void onHit(UnitsSystem system, int unitIdentifier,

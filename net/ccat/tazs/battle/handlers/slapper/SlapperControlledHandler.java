@@ -1,4 +1,4 @@
-package net.ccat.tazs.battle.handlers.brawler;
+package net.ccat.tazs.battle.handlers.slapper;
 
 import femto.mode.HiRes16Color;
 
@@ -9,14 +9,14 @@ import net.ccat.tazs.tools.MathTools;
 
 
 /**
- * Handles the Controlled state of a Brawler.
+ * Handles the Controlled state of a Slapper.
  * - Reads the PAD
- * - Switch to BrawlerDead when dead
+ * - Switch to SlapperDead when dead
  */
-public class BrawlerControlledHandler
-    extends BrawlerPunchHandler
+public class SlapperControlledHandler
+    extends SlapperSlapHandler
 {
-    static final BrawlerControlledHandler instance = new BrawlerControlledHandler();
+    static final SlapperControlledHandler instance = new SlapperControlledHandler();
     
     
     /***** INFORMATION *****/
@@ -53,7 +53,7 @@ public class BrawlerControlledHandler
             }
         }
         
-        // TODO: Extremely similar to BrawlerPunchHandler.
+        // TODO: Extremely similar to SlapperPunchHandler.
         if (unitTimer == 0)
         {
             if (system.playerAction)
@@ -62,11 +62,11 @@ public class BrawlerControlledHandler
         else
         {
             unitTimer++;
-            if (unitTimer < TIMER_PUNCH_MAX)
+            if (unitTimer < TIMER_SLAP_MAX)
             {
                 float handDistance = MathTools.lerp(unitTimer,
                                                     TIMER_INIT, HAND_IDLE_DISTANCE,
-                                                    TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
+                                                    TIMER_SLAP_MAX, HAND_MAX_DISTANCE);
                 char unitTeam = system.unitsTeams[unitIdentifier];
                 float weaponX = handX(unitX, unitAngle, handDistance);
                 float weaponY = handY(unitY, unitAngle, handDistance);
@@ -77,13 +77,13 @@ public class BrawlerControlledHandler
                 if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
                 {
                     system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
-                                                                  HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
+                                                                  HAND_POWER * Math.sin(unitAngle), HAND_POWER * -Math.cos(unitAngle),
                                                                   HAND_POWER);
                     // Interpolating to find the equivalent withdrawal position.
-                    unitTimer = MathTools.lerpi(unitTimer, 0, TIMER_PUNCH_MAX, TIMER_PUNCH_MAX, TIMER_PUNCH_REST);
+                    unitTimer = MathTools.lerpi(unitTimer, 0, TIMER_SLAP_MAX, TIMER_SLAP_MAX, TIMER_SLAP_REST);
                 }
             }
-            if (unitTimer == TIMER_PUNCH_REST)
+            if (unitTimer == TIMER_SLAP_REST)
                 unitTimer = 0;
         }
         system.unitsTimers[unitIdentifier] = unitTimer;
@@ -99,10 +99,10 @@ public class BrawlerControlledHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
-        float handDistance = handDistanceForPunchTimer(unitTimer);
+        float handDistance = handDistanceForSlapTimer(unitTimer);
         
         // TODO: Standard stuff?
         screen.drawCircle(unitX, unitY, Dimensions.UNIT_CONTROL_RADIUS, Teams.colorForTeam(unitTeam), false);
-        drawBrawler(unitX, unitY, unitAngle, handDistance, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
+        drawSlapper(unitX, unitY, unitAngle, handDistance, system.slapperBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }
 }

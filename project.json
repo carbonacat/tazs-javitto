@@ -538,6 +538,12 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\ChallengeZ01BattleMode.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\slapper/SlapperControllerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\slapper\\SlapperControllerHandler.java": {
+			"sdcard": false
 		}
 	}
 }

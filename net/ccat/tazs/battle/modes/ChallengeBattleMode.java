@@ -48,7 +48,8 @@ public abstract class ChallengeBattleMode
                     unitHandler.onPlayerControl(game.unitsSystem, game.focusedUnitIdentifier, false);
                 else
                 {
-                    // TODO: Remove all other Controlled Units.
+                    for (int unitIdentifier = 0; unitIdentifier < game.unitsSystem.mCount; unitIdentifier++)
+                        game.unitsSystem.unitsHandlers[unitIdentifier].onPlayerControl(game.unitsSystem, unitIdentifier, false);
                     unitHandler.onPlayerControl(game.unitsSystem, game.focusedUnitIdentifier, true);
                 }
             }

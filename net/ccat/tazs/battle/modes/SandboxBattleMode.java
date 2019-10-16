@@ -35,6 +35,19 @@ public class SandboxBattleMode
                 updateTopBarUI(game);
                 game.focusedUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
             }
+            else if (Button.A.justPressed())
+            {
+                UnitHandler unitHandler = game.unitsSystem.unitsHandlers[game.focusedUnitIdentifier];
+                
+                if (unitHandler.isControlled())
+                    unitHandler.onPlayerControl(game.unitsSystem, game.focusedUnitIdentifier, false);
+                else
+                {
+                    for (int unitIdentifier = 0; unitIdentifier < game.unitsSystem.mCount; unitIdentifier++)
+                        game.unitsSystem.unitsHandlers[unitIdentifier].onPlayerControl(game.unitsSystem, unitIdentifier, false);
+                    unitHandler.onPlayerControl(game.unitsSystem, game.focusedUnitIdentifier, true);
+                }
+            }
             game.uiMode = UIModes.REMOVE;
         }
         else

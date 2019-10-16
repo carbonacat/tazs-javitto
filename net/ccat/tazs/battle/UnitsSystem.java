@@ -311,6 +311,19 @@ class UnitsSystem
     }
     
     
+    /***** CONTROL *****/
+    
+    // TODO: I put those here by convenience, until I find somewhere fitter.
+    /**
+     * The last angle of the pad. 
+     */
+    public float padAngle;
+    /**
+     * The length of the pad. Varies from 0 to 1.
+     */
+    public float padLength;
+    
+    
     /***** LIFECYCLE *****/
     
     /**

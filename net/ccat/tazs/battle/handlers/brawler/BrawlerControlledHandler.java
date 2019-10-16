@@ -12,7 +12,6 @@ import net.ccat.tazs.tools.MathTools;
  * Handles the Controlled state of a Brawler.
  * - Reads the PAD
  * - Switch to BrawlerDead when dead
- * TODO: Actually not being Idle, as it seeks Enemies.
  */
 public class BrawlerControlledHandler
     extends BaseBrawlerHandler
@@ -32,6 +31,16 @@ public class BrawlerControlledHandler
     
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
+        float unitAngle = system.unitsAngles[unitIdentifier];
+
+        {
+            float targetAngle = system.padAngle;
+            float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -ANGLE_ROTATION_BY_TICK, ANGLE_ROTATION_BY_TICK);
+            
+            unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
+        }
+        
+        system.unitsAngles[unitIdentifier] = unitAngle;
     }
     
     
@@ -44,6 +53,7 @@ public class BrawlerControlledHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         
+        // TODO: Standard stuff?
         screen.drawCircle(unitX, unitY, Dimensions.UNIT_CONTROL_RADIUS, Teams.colorForTeam(unitTeam), false);
         drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }

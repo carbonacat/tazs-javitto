@@ -10,6 +10,7 @@ import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
+import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.UITools;
 
@@ -43,6 +44,8 @@ public class BattlePhaseState
     {
         HiRes16Color screen = mGame.screen;
         
+        updatePlayerControl();
+        
         mGame.unitsSystem.onTick();
         
         int winnerTeam = mGame.unitsSystem.winnerTeam();
@@ -66,6 +69,39 @@ public class BattlePhaseState
  
  
     /***** PRIVATE *****/
+    
+    private void updatePlayerControl()
+    {
+        TAZSGame game = mGame;
+        
+        if (!game.padMenuUI.isShown())
+        {
+            int x = 0;
+            int y = 0;
+            float padLength = 0;
+            float padAngle = game.unitsSystem.padAngle;
+            
+            if (Button.Up.isPressed())
+                y--;
+            if (Button.Down.isPressed())
+                y++;
+            if (Button.Left.isPressed())
+                x--;
+            if (Button.Right.isPressed())
+                x++;
+            if ((x != 0) || (y != 0))
+            {
+                padAngle = angleFromPad(x, y);
+                padLength = 1;
+            }
+            game.unitsSystem.padLength = padLength;
+            game.unitsSystem.padAngle = padAngle;
+        }
+        else
+        {
+            game.unitsSystem.padLength = 0;
+        }
+    }
     
     private void updateUI()
     {
@@ -115,6 +151,37 @@ public class BattlePhaseState
 
         game.padMenuUI.draw(screen);
         game.topBarUI.draw(screen);
+    }
+    
+    private float angleFromPad(int x, int y)
+    {
+        if (x > 0)
+        {
+            if (y > 0)
+                return MathTools.PI_1_4;
+            else if (y < 0)
+                return -MathTools.PI_1_4;
+            else // y == 0
+                return 0;
+        }
+        else if (x < 0)
+        {
+            if (y > 0)
+                return MathTools.PI_3_4;
+            else if (y < 0)
+                return -MathTools.PI_3_4;
+            else // y == 0
+                return Math.PI;
+        }
+        else // x == 0
+        {
+            if (y > 0)
+                return MathTools.PI_1_2;
+            else if (y < 0)
+                return -MathTools.PI_1_2;
+            else // y == 0
+                return 0;
+        }
     }
     
     private TAZSGame mGame;

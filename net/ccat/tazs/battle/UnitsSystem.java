@@ -222,8 +222,11 @@ class UnitsSystem
         
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
         {
-            int info = (unitsTeams[unitIdentifier] << SAVE_UNIT_INFO_TEAM_SHIFT) | (unitsHandlers[unitIdentifier].unitType() << SAVE_UNIT_INFO_TYPE_SHIFT);
+            UnitHandler unitHandler = unitsHandlers[unitIdentifier];
+            int info = (unitsTeams[unitIdentifier] << SAVE_UNIT_INFO_TEAM_SHIFT) | (unitHandler.unitType() << SAVE_UNIT_INFO_TYPE_SHIFT);
             
+            if (unitHandler.isControlled())
+                info |= SAVE_UNIT_INFO_CONTROLLED_MASK;
             mSave[saveIndex + SAVE_UNIT_INFO_OFFSET] = info;
             mSave[saveIndex + SAVE_UNIT_X_OFFSET] = (int)unitsXs[unitIdentifier];
             mSave[saveIndex + SAVE_UNIT_Y_OFFSET] = (int)unitsYs[unitIdentifier];
@@ -245,8 +248,12 @@ class UnitsSystem
             float unitX = mSave[saveIndex + SAVE_UNIT_X_OFFSET];
             float unitY = mSave[saveIndex + SAVE_UNIT_Y_OFFSET];
             float unitAngle = (unitTeam == Teams.ENEMY) ? Math.PI : 0;
+            UnitHandler unitHandler = UnitTypes.idleHandlerForType(unitType);
             
-            addUnit(unitX, unitY, unitAngle, UnitTypes.idleHandlerForType(unitType), unitTeam);
+            int actualUnitIdentifier = addUnit(unitX, unitY, unitAngle, unitHandler, unitTeam);
+            
+            if ((info & SAVE_UNIT_INFO_CONTROLLED_MASK) == SAVE_UNIT_INFO_CONTROLLED_MASK)
+                unitHandler.onPlayerControl(this, actualUnitIdentifier, true);
             saveIndex += SAVE_UNIT_SIZE;
         }
     }
@@ -392,6 +399,7 @@ class UnitsSystem
     private static final int SAVE_UNIT_INFO_TYPE_SHIFT = 0;
     private static final int SAVE_UNIT_INFO_TEAM_MASK = 0xC0;
     private static final int SAVE_UNIT_INFO_TEAM_SHIFT = 6;
+    private static final int SAVE_UNIT_INFO_CONTROLLED_MASK = 0x20;
     private static final int SAVE_UNIT_X_OFFSET = 1;
     private static final int SAVE_UNIT_Y_OFFSET = 2;
 }

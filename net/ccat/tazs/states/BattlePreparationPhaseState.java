@@ -215,8 +215,11 @@ public class BattlePreparationPhaseState
             screen.setTextColor(hasHoveredUnit ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.print(Texts.BUTTON_B);
             screen.print(Texts.MISC_SEPARATOR);
-            screen.print(Texts.PREPARATION_COMMANDS_REMOVE_UNIT_K);
-            screen.print(unitName);
+            screen.print(Texts.PREPARATION_COMMANDS_REMOVE);
+            screen.print(Texts.MISC_BIG_SEPARATOR);
+            screen.print(Texts.BUTTON_A);
+            screen.print(Texts.MISC_SEPARATOR);
+            screen.print(Texts.PREPARATION_COMMANDS_CONTROL);
         }
         else if ((game.uiMode == UIModes.PLACE) || (game.uiMode == UIModes.NO_MORE_UNITS) || (game.uiMode == UIModes.TOO_EXPENSIVE))
         {

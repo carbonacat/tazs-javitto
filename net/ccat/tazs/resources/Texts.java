@@ -50,10 +50,11 @@ class Texts
 
     /***** PREPARATION *****/
     
+    public static final String PREPARATION_COMMANDS_CONTROL = "Control";
     public static final String PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS = "(Too many units)";
     public static final String PREPARATION_COMMANDS_PLACE_INVALID_TOO_EXPENSIVE = "(Too expensive)";
     public static final String PREPARATION_COMMANDS_PLACE_UNIT_K = "Place ";
-    public static final String PREPARATION_COMMANDS_REMOVE_UNIT_K = "Remove ";
+    public static final String PREPARATION_COMMANDS_REMOVE = "Remove";
     public static final String PREPARATION_ENEMY_SIDE = "Enemy Territory";
     public static final String PREPARATION_MENU_EXIT = "Exit Game";
     public static final String PREPARATION_MENU_LAUNCH = "Battle!";

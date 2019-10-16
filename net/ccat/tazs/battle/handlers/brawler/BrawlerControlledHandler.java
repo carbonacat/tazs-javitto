@@ -31,6 +31,8 @@ public class BrawlerControlledHandler
     
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
 
         {
@@ -38,8 +40,15 @@ public class BrawlerControlledHandler
             float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -ANGLE_ROTATION_BY_TICK, ANGLE_ROTATION_BY_TICK);
             
             unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
+            if (system.padLength > 0)
+            {
+                unitX += Math.cos(unitAngle) * WALK_SPEED * system.padLength;
+                unitY += Math.sin(unitAngle) * WALK_SPEED * system.padLength;
+            }
         }
         
+        system.unitsXs[unitIdentifier] = unitX;
+        system.unitsYs[unitIdentifier] = unitY;
         system.unitsAngles[unitIdentifier] = unitAngle;
     }
     

@@ -51,6 +51,7 @@ public class BattlePhaseState
             Game.changeState(new BattleResultPhaseState(mGame, winnerTeam));
         
         updateUI();
+        mGame.battleMode.onBattleUpdateUI(mGame);
             
         screen.clear(Colors.SCENE_BG);
         mGame.unitsSystem.draw(screen);

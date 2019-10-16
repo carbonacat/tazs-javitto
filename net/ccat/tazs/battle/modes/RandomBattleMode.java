@@ -80,7 +80,10 @@ public class RandomBattleMode
     
     public void updateTopBarUI(TAZSGame game)
     {
-        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER, game.unitsSystem.unitsCount(Teams.PLAYER), game.unitsSystem.unitsCost(Teams.PLAYER));
-        game.topBarUI.setRightCountAndCost(Texts.TEAMS_ENEMY, game.unitsSystem.unitsCount(Teams.ENEMY), game.unitsSystem.unitsCost(Teams.ENEMY));
+        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER,
+                                          game.unitsSystem.unitsCount(Teams.PLAYER), game.unitsSystem.unitsCost(Teams.PLAYER));
+        game.topBarUI.setRightCountAndCost(Texts.TEAMS_ENEMY,
+                                           game.unitsSystem.unitsCount(Teams.ENEMY), game.unitsSystem.unitsCost(Teams.ENEMY));
+        updateTopBarsWithHealth(game);
     }
 }

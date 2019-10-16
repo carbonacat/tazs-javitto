@@ -5,6 +5,7 @@ import femto.mode.HiRes16Color;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.tools.MathTools;
 
 
 /**
@@ -25,6 +26,15 @@ public class TopBarUI
         mLeftTopString = teamName + Texts.MISC_SEPARATOR + count + (count == 1 ? Texts.UNIT_K_UNIT : Texts.UNIT_K_UNITS);
         mLeftBottomString = "" + cost + Texts.MISC_DOLLAR;
     }
+    /**
+     * Sets the Left Team's bar.
+     * @param barValue
+     * @param barMax
+     */
+    public void setLeftBar(int bar, int barMax)
+    {
+        mLeftBarLength = barFromRatio(bar, barMax);
+    }
     
     /**
      * Sets the Right Team's name and its Unit count and full cost.
@@ -39,8 +49,18 @@ public class TopBarUI
     }
     
     /**
+     * Sets the Right Team's bar.
+     * @param barValue
+     * @param barMax
+     */
+    public void setRightBar(int bar, int barMax)
+    {
+        mRightBarLength = barFromRatio(bar, barMax);
+    }
+    
+    /**
      * Sets the Right Team's name and summary.
-     * @param teamName
+    //  * @param teamName
      * @param summary
      */
     public void setRightNameAndSummary(String teamName, String summary)
@@ -56,23 +76,30 @@ public class TopBarUI
     {
         int x = 0;
         int y = 0;
-        int width = Dimensions.SCREEN_WIDTH;
-        int height = Dimensions.TOPBAR_HEIGHT;
         
         // Background and border.
-        UITools.drawWindow(x, y, width, height, screen);
+        UITools.drawWindow(x, y, Dimensions.SCREEN_WIDTH, Dimensions.TOPBAR_HEIGHT, screen);
+        
+        int leftX = x + Dimensions.TOPBAR_MARGIN;
+        int rightX = x + Dimensions.SCREEN_WIDTH - Dimensions.TOPBAR_MARGIN;
+        
+        // Bars
+        screen.drawHLine(leftX, y + Dimensions.TOPBAR_BAR_Y_OFFSET, Dimensions.TOPBAR_BAR_LENGTH_MAX, Colors.TEAM_STAT_BACKGROUND);
+        screen.drawHLine(leftX, y + Dimensions.TOPBAR_BAR_Y_OFFSET, mLeftBarLength, Colors.TEAM_PLAYER_STAT);
+        screen.drawHLine(rightX, y + Dimensions.TOPBAR_BAR_Y_OFFSET, -Dimensions.TOPBAR_BAR_LENGTH_MAX, Colors.TEAM_STAT_BACKGROUND);
+        screen.drawHLine(rightX, y + Dimensions.TOPBAR_BAR_Y_OFFSET, -mRightBarLength, Colors.TEAM_ENEMY_STAT);
         
         // Texts.
-        screen.setTextPosition(x + 2, y + 2);
+        screen.setTextPosition(leftX, y + Dimensions.TOPBAR_PRIMARYLINE_Y_OFFSET);
         screen.setTextColor(Colors.WINDOW_TEXT);
         screen.print(mLeftTopString);
-        screen.setTextPosition(x + 2, y + 9);
+        screen.setTextPosition(leftX, y + Dimensions.TOPBAR_SECONDARYLINE_Y_OFFSET);
         screen.print(mLeftBottomString);
         
-        screen.setTextPosition(x + width - 2 - screen.textWidth(mRightTopString), y + 2);
+        screen.setTextPosition(rightX - screen.textWidth(mRightTopString), y + Dimensions.TOPBAR_PRIMARYLINE_Y_OFFSET);
         screen.setTextColor(Colors.WINDOW_TEXT);
         screen.print(mRightTopString);
-        screen.setTextPosition(x + width - 2 - screen.textWidth(mRightBottomString), y + 9);
+        screen.setTextPosition(rightX - screen.textWidth(mRightBottomString), y + Dimensions.TOPBAR_SECONDARYLINE_Y_OFFSET);
         screen.print(mRightBottomString);
     }
     
@@ -80,10 +107,17 @@ public class TopBarUI
     
     /***** PRIVATE *****/
     
+    private int barFromRatio(int value, int max)
+    {
+        if (max == 0)
+            return 0;
+        return MathTools.clampi(MathTools.lerpi(value, 0, 0, max, Dimensions.TOPBAR_BAR_LENGTH_MAX), 0, Dimensions.TOPBAR_BAR_LENGTH_MAX);
+    }
+    
     private String mLeftTopString = "";
+    private int mLeftBarLength = 0;
     private String mLeftBottomString = "";
-    private int mLeftBarMin = 1;
-    private int mLeftBarMax = 1;
+    private int mRightBarLength = 0;
     private String mRightTopString = "";
     private String mRightBottomString = "";
 }

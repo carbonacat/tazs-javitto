@@ -77,7 +77,12 @@ public class Dimensions
     
     /***** TOP BAR *****/
     
-    public static final int TOPBAR_HEIGHT = 16;
+    public static final int TOPBAR_HEIGHT = 17;
+    public static final int TOPBAR_MARGIN = 2;
+    public static final int TOPBAR_PRIMARYLINE_Y_OFFSET = 2;
+    public static final int TOPBAR_BAR_Y_OFFSET = 8;
+    public static final int TOPBAR_SECONDARYLINE_Y_OFFSET = 10;
+    public static final int TOPBAR_BAR_LENGTH_MAX = 107;
     
     
     /***** UNIT BOX *****/

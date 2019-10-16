@@ -2,6 +2,7 @@ package net.ccat.tazs.battle;
 
 import femto.Game;
 
+import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.states.BattlePhaseState;
 import net.ccat.tazs.states.BattlePreparationPhaseState;
 import net.ccat.tazs.states.TitleScreenState;
@@ -52,6 +53,7 @@ public class BattleMode
     public void onPreparationRetry(TAZSGame game)
     {
         game.unitsSystem.restore();
+        updateTopBarsWithHealth(game);
     }
     
     /**
@@ -68,7 +70,7 @@ public class BattleMode
     /**
      * Called when the BattlePreparationPhase is updating its input, within the Cursor.
      * 
-     * Default implementation does nothing.
+     * Default implementation will do nothing.
      * 
      * @param game The Game.
      */
@@ -114,6 +116,18 @@ public class BattleMode
     public void onBattleExit(TAZSGame game)
     {
         Game.changeState(new TitleScreenState(game));
+    }
+    
+    /**
+     * Called after updating the UI in the Battle Phase.
+     * 
+     * Default implementation updates the Top Bars.
+     * 
+     * @param game The Game.
+     */
+    public void onBattleUpdateUI(TAZSGame game)
+    {
+        updateTopBarsWithHealth(game);
     }
     
     /**
@@ -166,5 +180,18 @@ public class BattleMode
     public int teamForUnitBox(TAZSGame game)
     {
         return Teams.PLAYER;
+    }
+    
+    
+    /***** TOOLS *****/
+    
+    /**
+     * Updates the Top Bars using sides' Healths.
+     * @param game The Game.
+     */
+    public void updateTopBarsWithHealth(TAZSGame game)
+    {
+        game.topBarUI.setLeftBar(game.unitsSystem.unitsHP(Teams.PLAYER), game.unitsSystem.unitsHPMax(Teams.PLAYER));
+        game.topBarUI.setRightBar(game.unitsSystem.unitsHP(Teams.ENEMY), game.unitsSystem.unitsHPMax(Teams.ENEMY));
     }
 }

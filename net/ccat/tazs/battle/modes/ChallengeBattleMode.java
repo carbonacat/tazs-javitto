@@ -115,9 +115,15 @@ public abstract class ChallengeBattleMode
     }
     
     
-    public void updateTopBarUI(TAZSGame game)
+    /***** PRIVATE *****/
+    
+    private void updateTopBarUI(TAZSGame game)
     {
-        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER, game.unitsSystem.unitsCount(Teams.PLAYER), allowedCost() - game.unitsSystem.unitsCost(Teams.PLAYER));
+        int playerCost = game.unitsSystem.unitsCost(Teams.PLAYER);
+        int enemyCost = game.unitsSystem.unitsCost(Teams.ENEMY);
+        
+        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER, game.unitsSystem.unitsCount(Teams.PLAYER), allowedCost() - playerCost);
         game.topBarUI.setRightNameAndSummary(name(), summary());
+        updateTopBarsWithHealth(game);
     }
 }

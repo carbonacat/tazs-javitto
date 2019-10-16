@@ -108,6 +108,8 @@ class UnitsSystem
         
         mStats[STATS_COUNT_OFFSET + team]++;
         mStats[STATS_COST_OFFSET + team] += handler.cost();
+        mStats[STATS_HP_CURRENT_OFFSET + team] += handler.startingHealth();
+        mStats[STATS_HP_MAX_OFFSET + team] += handler.startingHealth();
         return unitIdentifier;
     }
     
@@ -130,6 +132,8 @@ class UnitsSystem
             
             mStats[STATS_COUNT_OFFSET + unitTeam]--;
             mStats[STATS_COST_OFFSET + unitTeam] -= unitHandler.cost();
+            mStats[STATS_HP_CURRENT_OFFSET + unitTeam] -= unitsHealths[unitIdentifier];
+            mStats[STATS_HP_MAX_OFFSET + unitTeam] -= unitHandler.startingHealth();
         }
         
         mCount--;
@@ -256,25 +260,16 @@ class UnitsSystem
      */
     public int winnerTeam()
     {
-        int playerAliveUnitsCount = 0;
-        int enemyAliveUnitsCount = 0;
+        int playerCurrentHP = unitsHP(Teams.PLAYER);
+        int enemyCurrentHP = unitsHP(Teams.ENEMY);
         
-        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
-            if (unitsHealths[unitIdentifier] > 0)
-                switch (unitsTeams[unitIdentifier])
-                {
-                case Teams.PLAYER:
-                    playerAliveUnitsCount++;
-                    break;
-                case Teams.ENEMY:
-                    enemyAliveUnitsCount++;
-                    break;
-                }
-        if ((playerAliveUnitsCount > 0) && (enemyAliveUnitsCount > 0))
-            return Teams.TO_BE_DETERMINED;
-        if (playerAliveUnitsCount > 0)
+        if (playerCurrentHP > 0)
+        {
+            if (enemyCurrentHP > 0)
+                return Teams.TO_BE_DETERMINED;
             return Teams.PLAYER;
-        if (enemyAliveUnitsCount > 0)
+        }
+        if (enemyCurrentHP > 0)
             return Teams.ENEMY;
         return Teams.NONE;
     }
@@ -286,6 +281,14 @@ class UnitsSystem
     public int unitsCost(int team)
     {
         return mStats[STATS_COST_OFFSET + team];
+    }
+    public int unitsHP(int team)
+    {
+        return mStats[STATS_HP_CURRENT_OFFSET + team];
+    }
+    public int unitsHPMax(int team)
+    {
+        return mStats[STATS_HP_MAX_OFFSET + team];
     }
     
     /**
@@ -317,6 +320,15 @@ class UnitsSystem
     {
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
             unitsHandlers[unitIdentifier].onTick(this, unitIdentifier);
+        // Updating some stats.
+        for (int team = 0; team < TEAM_MAX; team++)
+            mStats[STATS_HP_CURRENT_OFFSET + team] = 0;
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
+        {
+            int teamHPIndex = STATS_HP_CURRENT_OFFSET + unitsTeams[unitIdentifier];
+            
+            mStats[teamHPIndex] = mStats[teamHPIndex] + unitsHealths[unitIdentifier];
+        }
     }
     
     
@@ -352,7 +364,9 @@ class UnitsSystem
     private static final int TEAM_MAX = 2;
     private static final int STATS_COUNT_OFFSET = 0;
     private static final int STATS_COST_OFFSET = TEAM_MAX;
-    private static final int STATS_MAX = STATS_COST_OFFSET + TEAM_MAX;
+    private static final int STATS_HP_MAX_OFFSET = STATS_COST_OFFSET + TEAM_MAX;
+    private static final int STATS_HP_CURRENT_OFFSET = STATS_HP_MAX_OFFSET + TEAM_MAX;
+    private static final int STATS_MAX = STATS_HP_CURRENT_OFFSET + TEAM_MAX;
     
     private static final int SAVE_UNIT_SIZE = 3;
     private static final int SAVE_UNIT_INFO_OFFSET = 0;

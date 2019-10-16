@@ -54,6 +54,14 @@ class PadMenuUI
     }
     
     /**
+     * @return True if focused.
+     */
+    public boolean isFocused()
+    {
+        return mFocused;
+    }
+    
+    /**
      * Hides this PadMenu until the User presses again the C button.
      */
     public void hideUntilNextPress()

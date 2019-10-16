@@ -14,7 +14,7 @@ import net.ccat.tazs.tools.MathTools;
  * - Switch to BrawlerDead when dead
  */
 public class BrawlerControlledHandler
-    extends BaseBrawlerHandler
+    extends BrawlerPunchHandler
 {
     static final BrawlerControlledHandler instance = new BrawlerControlledHandler();
     
@@ -34,22 +34,59 @@ public class BrawlerControlledHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
 
         {
-            float targetAngle = system.padAngle;
+            float targetAngle = system.playerPadAngle;
             float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -ANGLE_ROTATION_BY_TICK, ANGLE_ROTATION_BY_TICK);
             
             unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
-            if (system.padLength > 0)
+            system.unitsAngles[unitIdentifier] = unitAngle;
+            if (system.playerPadLength > 0)
             {
-                unitX += Math.cos(unitAngle) * WALK_SPEED * system.padLength;
-                unitY += Math.sin(unitAngle) * WALK_SPEED * system.padLength;
+                float unitSpeed = WALK_SPEED * system.playerPadLength;
+                
+                unitX += Math.cos(unitAngle) * unitSpeed;
+                unitY += Math.sin(unitAngle) * unitSpeed;
+                system.unitsXs[unitIdentifier] = unitX;
+                system.unitsYs[unitIdentifier] = unitY;
             }
         }
         
-        system.unitsXs[unitIdentifier] = unitX;
-        system.unitsYs[unitIdentifier] = unitY;
-        system.unitsAngles[unitIdentifier] = unitAngle;
+        // TODO: Extremely similar to BrawlerPunchHandler.
+        if (unitTimer == 0)
+        {
+            if (system.playerAction)
+                unitTimer = 1;
+        }
+        else
+        {
+            unitTimer++;
+            if (unitTimer < TIMER_PUNCH_MAX)
+            {
+                float handDistance = MathTools.lerp(unitTimer,
+                                                    TIMER_INIT, HAND_IDLE_DISTANCE,
+                                                    TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
+                char unitTeam = system.unitsTeams[unitIdentifier];
+                float weaponX = handX(unitX, unitAngle, handDistance);
+                float weaponY = handY(unitY, unitAngle, handDistance);
+                
+                // TODO: 1-team isn't really a good way to find the other team.
+                int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, HAND_RADIUS + UNIT_RADIUS, false);
+                
+                if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+                {
+                    system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
+                                                                  HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
+                                                                  HAND_POWER);
+                    // Interpolating to find the equivalent withdrawal position.
+                    unitTimer = MathTools.lerpi(unitTimer, 0, TIMER_PUNCH_MAX, TIMER_PUNCH_MAX, TIMER_PUNCH_REST);
+                }
+            }
+            if (unitTimer == TIMER_PUNCH_REST)
+                unitTimer = 0;
+        }
+        system.unitsTimers[unitIdentifier] = unitTimer;
     }
     
     
@@ -61,9 +98,11 @@ public class BrawlerControlledHandler
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        float handDistance = handDistanceForPunchTimer(unitTimer);
         
         // TODO: Standard stuff?
         screen.drawCircle(unitX, unitY, Dimensions.UNIT_CONTROL_RADIUS, Teams.colorForTeam(unitTeam), false);
-        drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
+        drawBrawler(unitX, unitY, unitAngle, handDistance, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }
 }

@@ -81,21 +81,29 @@ public class BrawlerPunchHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
-        float handDistance;
-        
-        // Calculating the distance.
-        if (unitTimer < TIMER_PUNCH_MAX)
-            handDistance = MathTools.lerp(unitTimer,
-                                          TIMER_INIT, HAND_IDLE_DISTANCE,
-                                          TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
-        else if (unitTimer < TIMER_PUNCH_REST)
-            handDistance = MathTools.lerp(unitTimer,
-                                          TIMER_PUNCH_MAX, HAND_MAX_DISTANCE,
-                                          TIMER_PUNCH_REST, HAND_IDLE_DISTANCE);
-        else
-            handDistance = HAND_IDLE_DISTANCE;
+        float handDistance = handDistanceForPunchTimer(unitTimer);
         
         drawBrawler(unitX, unitY, unitAngle, handDistance, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
+    }
+    
+    
+    /***** TOOLS *****/
+
+    /**
+     * @param unitTimer The Unit's timer value.
+     * @return The distance for the hand.
+     */
+    public static float handDistanceForPunchTimer(int unitTimer)
+    {
+        if (unitTimer < TIMER_PUNCH_MAX)
+            return MathTools.lerp(unitTimer,
+                                  TIMER_INIT, HAND_IDLE_DISTANCE,
+                                  TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
+        else if (unitTimer < TIMER_PUNCH_REST)
+            return MathTools.lerp(unitTimer,
+                                  TIMER_PUNCH_MAX, HAND_MAX_DISTANCE,
+                                  TIMER_PUNCH_REST, HAND_IDLE_DISTANCE);
+        return HAND_IDLE_DISTANCE;
     }
     
     

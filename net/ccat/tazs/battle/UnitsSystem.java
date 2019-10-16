@@ -317,11 +317,16 @@ class UnitsSystem
     /**
      * The last angle of the pad. 
      */
-    public float padAngle;
+    public float playerPadAngle;
     /**
      * The length of the pad. Varies from 0 to 1.
      */
-    public float padLength;
+    public float playerPadLength;
+    
+    /**
+     * True if the Player's action control is pressed, false elsewhere.
+     */
+    public boolean playerAction;
     
     
     /***** LIFECYCLE *****/

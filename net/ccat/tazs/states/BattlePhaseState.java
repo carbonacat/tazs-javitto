@@ -38,23 +38,31 @@ public class BattlePhaseState
         game.padMenuUI.clearChoices();
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.BATTLE_RETRY);
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.BATTLE_EXIT);
+        game.unitsSystem.playerPadAngle = 0;
+        game.unitsSystem.playerPadLength = 0;
+        game.unitsSystem.playerAction = false;
     }
     
     public void update()
     {
         HiRes16Color screen = mGame.screen;
+        TAZSGame game = mGame;
         
         updatePlayerControl();
         
-        mGame.unitsSystem.onTick();
+        game.unitsSystem.onTick();
         
-        int winnerTeam = mGame.unitsSystem.winnerTeam();
+        int winnerTeam = game.unitsSystem.winnerTeam();
         
         if (winnerTeam != Teams.TO_BE_DETERMINED)
-            Game.changeState(new BattleResultPhaseState(mGame, winnerTeam));
+        {
+            game.unitsSystem.playerPadLength = 0;
+            game.unitsSystem.playerAction = false;
+            Game.changeState(new BattleResultPhaseState(game, winnerTeam));
+        }
         
         updateUI();
-        mGame.battleMode.onBattleUpdateUI(mGame);
+        mGame.battleMode.onBattleUpdateUI(game);
             
         screen.clear(Colors.SCENE_BG);
         mGame.unitsSystem.draw(screen);
@@ -74,12 +82,12 @@ public class BattlePhaseState
     {
         TAZSGame game = mGame;
         
-        if (!game.padMenuUI.isShown())
+        if (!game.padMenuUI.isFocused())
         {
             int x = 0;
             int y = 0;
             float padLength = 0;
-            float padAngle = game.unitsSystem.padAngle;
+            float padAngle = game.unitsSystem.playerPadAngle;
             
             if (Button.Up.isPressed())
                 y--;
@@ -94,12 +102,14 @@ public class BattlePhaseState
                 padAngle = angleFromPad(x, y);
                 padLength = 1;
             }
-            game.unitsSystem.padLength = padLength;
-            game.unitsSystem.padAngle = padAngle;
+            game.unitsSystem.playerPadLength = padLength;
+            game.unitsSystem.playerPadAngle = padAngle;
+            game.unitsSystem.playerAction = Button.A.isPressed();
         }
         else
         {
-            game.unitsSystem.padLength = 0;
+            game.unitsSystem.playerPadLength = 0;
+            game.unitsSystem.playerAction = false;
         }
     }
     

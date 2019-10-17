@@ -544,6 +544,36 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\slapper\\SlapperControllerHandler.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\slapper\\SlapperControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\brawler - Copy": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\BaseBrawlerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\BrawlerControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\BrawlerIdleHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\BrawlerDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\BrawlerPunchHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/Work.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\Work.java": {
+			"sdcard": false
 		}
 	}
 }

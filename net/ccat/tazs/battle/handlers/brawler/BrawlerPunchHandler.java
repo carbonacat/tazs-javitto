@@ -21,54 +21,17 @@ public class BrawlerPunchHandler
     
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
-        int unitTimer = system.unitsTimers[unitIdentifier];
         int targetIdentifier = system.unitsTargetIdentifiers[unitIdentifier];
         
         if (targetIdentifier == UnitsSystem.IDENTIFIER_NONE)
         {
-            unitTimer = 0;
+            system.unitsTimers[unitIdentifier] = 0;
             system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance;
         }
-        else
-        {
-            if (unitTimer == 0)
-                unitTimer = 1;
-            else
-            {
-                unitTimer++;
-                if (unitTimer < TIMER_PUNCH_MAX)
-                {
-                    float handDistance = MathTools.lerp(unitTimer,
-                                                        TIMER_INIT, HAND_IDLE_DISTANCE,
-                                                        TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
-                    float unitX = system.unitsXs[unitIdentifier];
-                    float unitY = system.unitsYs[unitIdentifier];
-                    float unitAngle = system.unitsAngles[unitIdentifier];
-                    char unitTeam = system.unitsTeams[unitIdentifier];
-                    float weaponX = handX(unitX, unitAngle, handDistance);
-                    float weaponY = handY(unitY, unitAngle, handDistance);
-                    
-                    // TODO: 1-team isn't really a good way to find the other team.
-                    int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, HAND_RADIUS + UNIT_RADIUS, false);
-                    
-                    if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
-                    {
-                        system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
-                                                                      HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
-                                                                      HAND_POWER);
-                        // Interpolating to find the equivalent withdrawal position.
-                        unitTimer = MathTools.lerpi(unitTimer, 0, TIMER_PUNCH_MAX, TIMER_PUNCH_MAX, TIMER_PUNCH_REST);
-                    }
-                }
-                if (unitTimer == TIMER_PUNCH_REST)
-                {
-                    unitTimer = 0;
-                    system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance;
-                }
-            }
-        }
-        // Updating the changed state.
-        system.unitsTimers[unitIdentifier] = unitTimer;
+        else if (system.unitsTimers[unitIdentifier] == 0)
+            startAttack(system, unitIdentifier);
+        else if (!handleAttack(system, unitIdentifier))
+            system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance;
     }
     
     
@@ -95,21 +58,14 @@ public class BrawlerPunchHandler
      */
     public static float handDistanceForPunchTimer(int unitTimer)
     {
-        if (unitTimer < TIMER_PUNCH_MAX)
+        if (unitTimer < ATTACK_TIMER_MAX)
             return MathTools.lerp(unitTimer,
-                                  TIMER_INIT, HAND_IDLE_DISTANCE,
-                                  TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
-        else if (unitTimer < TIMER_PUNCH_REST)
+                                  ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
+                                  ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
+        else if (unitTimer < ATTACK_TIMER_REST)
             return MathTools.lerp(unitTimer,
-                                  TIMER_PUNCH_MAX, HAND_MAX_DISTANCE,
-                                  TIMER_PUNCH_REST, HAND_IDLE_DISTANCE);
+                                  ATTACK_TIMER_MAX, HAND_MAX_DISTANCE,
+                                  ATTACK_TIMER_REST, HAND_IDLE_DISTANCE);
         return HAND_IDLE_DISTANCE;
     }
-    
-    
-    /***** PRIVATE *****/
-    
-    public static final int TIMER_INIT = 0;
-    public static final int TIMER_PUNCH_MAX = 8;
-    public static final int TIMER_PUNCH_REST = 32;
 }

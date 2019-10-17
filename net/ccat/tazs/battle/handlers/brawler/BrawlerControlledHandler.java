@@ -39,12 +39,11 @@ public class BrawlerControlledHandler
     
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        int unitTimer = system.unitsTimers[unitIdentifier];
-
+        // Moving around using the sticks.
         {
+            float unitX = system.unitsXs[unitIdentifier];
+            float unitY = system.unitsYs[unitIdentifier];
+            float unitAngle = system.unitsAngles[unitIdentifier];
             float targetAngle = system.playerPadAngle;
             float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -ANGLE_ROTATION_BY_TICK, ANGLE_ROTATION_BY_TICK);
             
@@ -60,41 +59,13 @@ public class BrawlerControlledHandler
                 system.unitsYs[unitIdentifier] = unitY;
             }
         }
-        
-        // TODO: Extremely similar to BrawlerPunchHandler.
-        if (unitTimer == 0)
+        if (system.unitsTimers[unitIdentifier] == 0)
         {
             if (system.playerAction)
-                unitTimer = 1;
+                startAttack(system, unitIdentifier);
         }
         else
-        {
-            unitTimer++;
-            if (unitTimer < TIMER_PUNCH_MAX)
-            {
-                float handDistance = MathTools.lerp(unitTimer,
-                                                    TIMER_INIT, HAND_IDLE_DISTANCE,
-                                                    TIMER_PUNCH_MAX, HAND_MAX_DISTANCE);
-                char unitTeam = system.unitsTeams[unitIdentifier];
-                float weaponX = handX(unitX, unitAngle, handDistance);
-                float weaponY = handY(unitY, unitAngle, handDistance);
-                
-                // TODO: 1-team isn't really a good way to find the other team.
-                int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, HAND_RADIUS + UNIT_RADIUS, false);
-                
-                if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
-                {
-                    system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
-                                                                  HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
-                                                                  HAND_POWER);
-                    // Interpolating to find the equivalent withdrawal position.
-                    unitTimer = MathTools.lerpi(unitTimer, 0, TIMER_PUNCH_MAX, TIMER_PUNCH_MAX, TIMER_PUNCH_REST);
-                }
-            }
-            if (unitTimer == TIMER_PUNCH_REST)
-                unitTimer = 0;
-        }
-        system.unitsTimers[unitIdentifier] = unitTimer;
+            handleAttack(system, unitIdentifier);
     }
     
     

@@ -46,7 +46,7 @@ public class BrawlerIdleHandler
             float relativeY = system.unitsYs[targetIdentifier] - unitY;
             float squaredDistance = relativeX * relativeX + relativeY * relativeY;
             
-            // Updating the angle
+            // Updating the angle.
             if (squaredDistance > 0)
             {
                 float targetAngle = Math.atan2(relativeY, relativeX);

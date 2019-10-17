@@ -27,6 +27,9 @@ public class BaseBrawlerHandler
     public static final float UNIT_RADIUS = 4.f;
     public static final float POWER_HP_RATIO = 3.f;
     public static final int COST = 20;
+    public static final int ATTACK_TIMER_INIT = 0;
+    public static final int ATTACK_TIMER_MAX = 8;
+    public static final int ATTACK_TIMER_REST = 32;
     
     
     /***** INFORMATION *****/
@@ -106,6 +109,62 @@ public class BaseBrawlerHandler
     }
     
     
+    /***** ATTACKING *****/
+    
+    /**
+     * Starts the Attack.
+     * 
+     * @param system
+     * @param unitIdentifier
+     */
+    protected void startAttack(UnitsSystem system, int unitIdentifier)
+    {
+        system.unitsTimers[unitIdentifier] = 1;
+    }
+    
+    /**
+     * Handles a started attack.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @return False if the attack ended.
+     */
+    protected boolean handleAttack(UnitsSystem system, int unitIdentifier)
+    {
+        int unitTimer = system.unitsTimers[unitIdentifier] + 1;
+        
+        if (unitTimer < ATTACK_TIMER_MAX)
+        {
+            float handDistance = MathTools.lerp(unitTimer,
+                                                ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
+                                                ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
+            float unitX = system.unitsXs[unitIdentifier];
+            float unitY = system.unitsYs[unitIdentifier];
+            float unitAngle = system.unitsAngles[unitIdentifier];
+            char unitTeam = system.unitsTeams[unitIdentifier];
+            float weaponX = handX(unitX, unitAngle, handDistance);
+            float weaponY = handY(unitY, unitAngle, handDistance);
+            
+            // TODO: 1-team isn't really a good way to find the other team.
+            int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, HAND_RADIUS + UNIT_RADIUS, false);
+            
+            if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+            {
+                system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
+                                                              HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
+                                                              HAND_POWER);
+                // Interpolating to find the equivalent withdrawal position.
+                unitTimer = MathTools.lerpi(unitTimer, 0, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX, ATTACK_TIMER_REST);
+            }
+        }
+        if (unitTimer == ATTACK_TIMER_REST)
+            unitTimer = 0;
+        system.unitsTimers[unitIdentifier] = unitTimer;
+        return unitTimer != 0;
+    }
+    
+    
+    
     /***** RENDERING *****/
     
     public void drawAsUI(UnitsSystem system,
@@ -116,6 +175,7 @@ public class BaseBrawlerHandler
                     system.brawlerBodySpriteByTeam[unitTeam], system.handSprite,
                     screen);
     }
+    
     
     protected void drawBrawler(float unitX, float unitY, float unitAngle, float handDistance,
                                NonAnimatedSprite bodySprite, HandSprite handSprite,

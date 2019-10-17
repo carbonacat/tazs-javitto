@@ -2,10 +2,6 @@ package net.ccat.tazs.battle.handlers.slapper;
 
 import femto.mode.HiRes16Color;
 
-import net.ccat.tazs.resources.Colors;
-import net.ccat.tazs.resources.VideoConstants;
-import net.ccat.tazs.tools.MathTools;
-
 
 /**
  * Handles the Dead state of a Slapper.
@@ -32,7 +28,7 @@ public class SlapperDeadHandler
         int unitTimer = system.unitsTimers[unitIdentifier];
         
         if (unitTimer == 0)
-            unitTimer = TICKS_TO_GROUND;
+            unitTimer = DEATH_TICKS;
         else if (unitTimer > 0)
         {
             unitTimer--;
@@ -47,17 +43,6 @@ public class SlapperDeadHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        int unitTimer = system.unitsTimers[unitIdentifier];
-        
-        drawDeadSlapper(unitX, unitY, unitAngle, system.slapperBodySpriteByTeam[unitTeam],
-                        unitTimer, TICKS_TO_GROUND,
-                        screen);
+        drawDeadUnit(system, unitIdentifier, screen);
     }
-    
-    
-    private static final int TICKS_TO_GROUND = 64;
 }

@@ -25,7 +25,6 @@ public class BaseBrawlerHandler
     public static final float HAND_RADIUS = 1.f;
     public static final float HAND_POWER = 5.f;
     public static final float UNIT_RADIUS = 4.f;
-    public static final float POWER_HP_RATIO = 3.f;
     public static final int COST = 20;
     public static final int ATTACK_TIMER_INIT = 0;
     public static final int ATTACK_TIMER_MAX = 8;
@@ -88,25 +87,8 @@ public class BaseBrawlerHandler
     public void onHit(UnitsSystem system, int unitIdentifier,
                       float powerX, float powerY, float power)
     {
-        short health = system.unitsHealths[unitIdentifier];
-        
-        // TODO: Do a proper pushback. [011]
-        system.unitsXs[unitIdentifier] += powerX;
-        system.unitsYs[unitIdentifier] += powerY;
-        if (health > 0)
-        {
-            float lostHealth = power * POWER_HP_RATIO;
-            
-            if (health > lostHealth)
-                health -= (short)(int)lostHealth;
-            else
-            {
-                system.unitsHandlers[unitIdentifier] = BrawlerDeadHandler.instance;
-                system.unitsTimers[unitIdentifier] = 0;
-                health = 0;
-            }
-        }
-        system.unitsHealths[unitIdentifier] = health;
+        if (HandlersTools.hitAndCheckIfBecameDead(system, unitIdentifier, powerX, powerY, power))
+            system.unitsHandlers[unitIdentifier] = BrawlerDeadHandler.instance;
     }
     
     
@@ -165,7 +147,6 @@ public class BaseBrawlerHandler
     }
     
     
-    
     /***** RENDERING *****/
     
     public void drawAsUI(UnitsSystem system,
@@ -211,7 +192,7 @@ public class BaseBrawlerHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
-        float handDistance = handDistanceForPunchTimer(unitTimer);
+        float handDistance = handDistanceForAttackTimer(unitTimer);
         
         drawBrawler(unitX, unitY, unitAngle, handDistance, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }
@@ -243,7 +224,7 @@ public class BaseBrawlerHandler
      * @param unitTimer The Unit's timer value.
      * @return The distance for the hand.
      */
-    private static float handDistanceForPunchTimer(int unitTimer)
+    private static float handDistanceForAttackTimer(int unitTimer)
     {
         if (unitTimer < ATTACK_TIMER_MAX)
             return MathTools.lerp(unitTimer,

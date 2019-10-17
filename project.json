@@ -580,6 +580,12 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\HandlerTools.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/BaseInfantryHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\BaseInfantryHandler.java": {
+			"sdcard": false
 		}
 	}
 }

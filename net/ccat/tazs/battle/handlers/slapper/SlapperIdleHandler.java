@@ -2,8 +2,6 @@ package net.ccat.tazs.battle.handlers.slapper;
 
 import femto.mode.HiRes16Color;
 
-import net.ccat.tazs.resources.Colors;
-import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 
 
@@ -79,11 +77,6 @@ public class SlapperIdleHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        
-        drawSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.slapperBodySpriteByTeam[unitTeam], system.handSprite, screen);
+        drawUnit(system, unitIdentifier, screen);
     }
 }

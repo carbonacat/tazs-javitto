@@ -11,6 +11,9 @@ import net.ccat.tazs.tools.MathTools;
  */
 public class HandlersTools
 {
+    public static final float POWER_HP_RATIO = 3.f;
+    
+    
     /**
      * Renders the Control Circle for the given Unit.
      * 
@@ -54,5 +57,40 @@ public class HandlersTools
             system.unitsXs[unitIdentifier] = unitX;
             system.unitsYs[unitIdentifier] = unitY;
         }
+    }
+    
+    /**
+     * Hits a Unit with a power.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @param powerX
+     * @param powerY
+     * @param power
+     * @return True if the Unit just died because of the hit, false elsewhere.
+     */
+    public static boolean hitAndCheckIfBecameDead(UnitsSystem system, int unitIdentifier,
+                                                  float powerX, float powerY, float power)
+    {
+        short health = system.unitsHealths[unitIdentifier];
+        
+        // TODO: Do a proper pushback. [011]
+        system.unitsXs[unitIdentifier] += powerX;
+        system.unitsYs[unitIdentifier] += powerY;
+        if (health > 0)
+        {
+            float lostHealth = power * POWER_HP_RATIO;
+            
+            if (health > lostHealth)
+                health -= (short)(int)lostHealth;
+            else
+            {
+                system.unitsTimers[unitIdentifier] = 0;
+                health = 0;
+            }
+            system.unitsHealths[unitIdentifier] = health;
+            return health == 0;
+        }
+        return false;
     }
 }

@@ -30,6 +30,10 @@ public class BaseSlapperHandler
     public static final float UNIT_RADIUS = 4.f;
     public static final float POWER_HP_RATIO = 3.f;
     public static final int COST = 25;
+    public static final int ATTACK_TIMER_INIT = 0;
+    public static final int ATTACK_TIMER_MAX = 8;
+    public static final int ATTACK_TIMER_REST = 32;
+    public static final int DEATH_TICKS = 64;
     
     
     /***** INFORMATION *****/
@@ -87,25 +91,63 @@ public class BaseSlapperHandler
     public void onHit(UnitsSystem system, int unitIdentifier,
                       float powerX, float powerY, float power)
     {
-        short health = system.unitsHealths[unitIdentifier];
+        if (HandlersTools.hitAndCheckIfBecameDead(system, unitIdentifier, powerX, powerY, power))
+            system.unitsHandlers[unitIdentifier] = SlapperDeadHandler.instance;
+    }
+    
+    
+    /***** ATTACKING *****/
+    
+    /**
+     * Starts the Attack.
+     * 
+     * @param system
+     * @param unitIdentifier
+     */
+    protected void startAttack(UnitsSystem system, int unitIdentifier)
+    {
+        system.unitsTimers[unitIdentifier] = 1;
+    }
+    
+    /**
+     * Handles a started attack.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @return False if the attack ended.
+     */
+    protected boolean handleAttack(UnitsSystem system, int unitIdentifier)
+    {
+        int unitTimer = system.unitsTimers[unitIdentifier] + 1;
         
-        // TODO: Do a proper pushback. [011]
-        system.unitsXs[unitIdentifier] += powerX;
-        system.unitsYs[unitIdentifier] += powerY;
-        if (health > 0)
+        if (unitTimer < ATTACK_TIMER_MAX)
         {
-            float lostHealth = power * POWER_HP_RATIO;
+            float handDistance = MathTools.lerp(unitTimer,
+                                                ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
+                                                ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
+            float unitX = system.unitsXs[unitIdentifier];
+            float unitY = system.unitsYs[unitIdentifier];
+            float unitAngle = system.unitsAngles[unitIdentifier];
+            char unitTeam = system.unitsTeams[unitIdentifier];
+            float weaponX = handX(unitX, unitAngle, handDistance);
+            float weaponY = handY(unitY, unitAngle, handDistance);
             
-            if (health > lostHealth)
-                health -= (short)(int)lostHealth;
-            else
+            // TODO: 1-team isn't really a good way to find the other team.
+            int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, HAND_RADIUS + UNIT_RADIUS, false);
+            
+            if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
             {
-                system.unitsHandlers[unitIdentifier] = SlapperDeadHandler.instance;
-                system.unitsTimers[unitIdentifier] = 0;
-                health = 0;
+                system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
+                                                              HAND_POWER * Math.sin(unitAngle), HAND_POWER * -Math.sin(unitAngle),
+                                                              HAND_POWER);
+                // Interpolating to find the equivalent withdrawal position.
+                unitTimer = MathTools.lerpi(unitTimer, 0, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX, ATTACK_TIMER_REST);
             }
         }
-        system.unitsHealths[unitIdentifier] = health;
+        if (unitTimer == ATTACK_TIMER_REST)
+            unitTimer = 0;
+        system.unitsTimers[unitIdentifier] = unitTimer;
+        return unitTimer != 0;
     }
     
     
@@ -119,6 +161,46 @@ public class BaseSlapperHandler
                     system.slapperBodySpriteByTeam[unitTeam], system.handSprite,
                     screen);
     }
+    
+    protected void drawUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        
+        drawSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.slapperBodySpriteByTeam[unitTeam], system.handSprite, screen);
+    }
+    
+    protected void drawDeadUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.SLAPPERBODY_FRAME_DEAD_START);
+        int frame = MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_FRAME_DEAD_START, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST);
+        NonAnimatedSprite bodySprite = system.slapperBodySpriteByTeam[unitTeam];
+        
+        bodySprite.selectFrame(frame);
+        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
+        bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
+        bodySprite.draw(screen);
+    }
+    
+    protected void drawAttackingUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        float handDistance = handDistanceForAttackTimer(unitTimer);
+        
+        drawSlapper(unitX, unitY, unitAngle, handDistance, system.slapperBodySpriteByTeam[unitTeam], system.handSprite, screen);
+    }
+    
     
     protected void drawSlapper(float unitX, float unitY, float unitAngle, float handDistance,
                                NonAnimatedSprite bodySprite, HandSprite handSprite,
@@ -139,17 +221,23 @@ public class BaseSlapperHandler
             handSprite.draw(screen);
     }
     
-    protected void drawDeadSlapper(float unitX, float unitY, float unitAngle,
-                                   NonAnimatedSprite bodySprite,
-                                   int ticks, int ticksMax,
-                                   HiRes16Color screen)
+    
+    /***** TOOLS *****/
+    
+    /**
+     * @param unitTimer The Unit's timer value.
+     * @return The distance for the hand.
+     */
+    private static float handDistanceForAttackTimer(int unitTimer)
     {
-        int rawFrame = MathTools.lerpi(ticks, 0, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST, ticksMax, VideoConstants.SLAPPERBODY_FRAME_DEAD_START);
-        int frame = MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_FRAME_DEAD_START, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST);
-        
-        bodySprite.selectFrame(frame);
-        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
-        bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
-        bodySprite.draw(screen);
+        if (unitTimer < ATTACK_TIMER_MAX)
+            return MathTools.lerp(unitTimer,
+                                  ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
+                                  ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
+        else if (unitTimer < ATTACK_TIMER_REST)
+            return MathTools.lerp(unitTimer,
+                                  ATTACK_TIMER_MAX, HAND_MAX_DISTANCE,
+                                  ATTACK_TIMER_REST, HAND_IDLE_DISTANCE);
+        return HAND_IDLE_DISTANCE;
     }
 }

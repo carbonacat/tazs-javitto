@@ -2,10 +2,6 @@ package net.ccat.tazs.battle.handlers.brawler;
 
 import femto.mode.HiRes16Color;
 
-import net.ccat.tazs.resources.Colors;
-import net.ccat.tazs.resources.VideoConstants;
-import net.ccat.tazs.tools.MathTools;
-
 
 /**
  * Handles the Dead state of a Brawler.

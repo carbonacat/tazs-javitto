@@ -21,55 +21,8 @@ public class BrawlerIdleHandler
     
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
-        int unitTimer = system.unitsTimers[unitIdentifier];
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        int targetIdentifier = system.unitsTargetIdentifiers[unitIdentifier];
-        
-        // Random walk
-        unitTimer--;
-        if (unitTimer <= 0)
-        {
-        
-            // TODO: Not the right way to find another team.
-            targetIdentifier = system.findClosestUnit(unitX, unitY, 1 - unitTeam, SEEK_DISTANCE_MAX, true);
-            system.unitsTargetIdentifiers[unitIdentifier] = targetIdentifier;
-            unitTimer = 128;
-        }
-        if (targetIdentifier != UnitsSystem.IDENTIFIER_NONE)
-        {
-            float relativeX = system.unitsXs[targetIdentifier] - unitX;
-            float relativeY = system.unitsYs[targetIdentifier] - unitY;
-            float squaredDistance = relativeX * relativeX + relativeY * relativeY;
-            
-            // Updating the angle.
-            if (squaredDistance > 0)
-            {
-                float targetAngle = Math.atan2(relativeY, relativeX);
-                float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -ANGLE_ROTATION_BY_TICK, ANGLE_ROTATION_BY_TICK);
-                
-                unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
-            }
-            if (squaredDistance > CLOSE_DISTANCE_SQUARED)
-            {
-                unitX += Math.cos(unitAngle) * WALK_SPEED;
-                unitY += Math.sin(unitAngle) * WALK_SPEED;
-            }
-            else
-            {
-                 // Let's punch them!
-                unitTimer = 0;
-                system.unitsHandlers[unitIdentifier] = BrawlerPunchHandler.instance;
-            }
-        }
-
-        // Updating the changed state.
-        system.unitsTimers[unitIdentifier] = unitTimer;
-        system.unitsXs[unitIdentifier] = unitX;
-        system.unitsYs[unitIdentifier] = unitY;
-        system.unitsAngles[unitIdentifier] = unitAngle;
+        if (HandlersTools.seekAnEnemy(system, unitIdentifier, WALK_SPEED, ANGLE_ROTATION_BY_TICK, CLOSE_DISTANCE_SQUARED, RECONSIDER_TICKS))
+            system.unitsHandlers[unitIdentifier] = BrawlerPunchHandler.instance;
     }
     
     

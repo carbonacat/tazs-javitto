@@ -12,7 +12,10 @@ import net.ccat.tazs.tools.MathTools;
 public class HandlersTools
 {
     public static final float POWER_HP_RATIO = 3.f;
+    public static final float SEEK_DISTANCE_MAX = 250.f;
     
+    
+    /***** RENDERING *****/
     
     /**
      * Renders the Control Circle for the given Unit.
@@ -29,6 +32,9 @@ public class HandlersTools
         
         screen.drawCircle(unitX, unitY, Dimensions.UNIT_CONTROL_RADIUS, Teams.colorForTeam(unitTeam), false);
     }
+    
+    
+    /***** STANDARD BEHAVIOR *****/
     
     /**
      * Handles a movement using the player controls.
@@ -57,6 +63,74 @@ public class HandlersTools
             system.unitsXs[unitIdentifier] = unitX;
             system.unitsYs[unitIdentifier] = unitY;
         }
+    }
+    
+    /**
+     * Seeks an enemy, walk toward it until at range.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @param walkSpeed How fast per tick the Unit moves.
+     * @param rotationSpeed How fast per tick the Unit rotates.
+     * @param closeEnoughDistanceSquared The distance where the Unit is close enough to attack, but squared.
+     * @param ticksUntilChangingTarget Ticks before the Unit consider another target.
+     * @return True if an enemy is close enough -
+     */
+    public static boolean seekAnEnemy(UnitsSystem system, int unitIdentifier,
+                                      float walkSpeed, float rotationSpeed,
+                                      float closeEnoughDistanceSquared,
+                                      int ticksUntilChangingTarget)
+    {
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int targetIdentifier = system.unitsTargetIdentifiers[unitIdentifier];
+        boolean closeEnough = false;
+        
+        // Random walk
+        unitTimer--;
+        if (unitTimer <= 0)
+        {
+            // TODO: Not the right way to find another team.
+            targetIdentifier = system.findClosestUnit(unitX, unitY, 1 - unitTeam, SEEK_DISTANCE_MAX, true);
+            system.unitsTargetIdentifiers[unitIdentifier] = targetIdentifier;
+            unitTimer = ticksUntilChangingTarget;
+        }
+        if (targetIdentifier != UnitsSystem.IDENTIFIER_NONE)
+        {
+            float relativeX = system.unitsXs[targetIdentifier] - unitX;
+            float relativeY = system.unitsYs[targetIdentifier] - unitY;
+            float squaredDistance = relativeX * relativeX + relativeY * relativeY;
+            
+            // Updating the angle.
+            if (squaredDistance > 0)
+            {
+                float targetAngle = Math.atan2(relativeY, relativeX);
+                float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -rotationSpeed, rotationSpeed);
+                
+                unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
+            }
+            if (squaredDistance > closeEnoughDistanceSquared)
+            {
+                unitX += Math.cos(unitAngle) * walkSpeed;
+                unitY += Math.sin(unitAngle) * walkSpeed;
+            }
+            else
+            {
+                 // Let's punch them!
+                unitTimer = 0;
+                closeEnough = true;
+            }
+        }
+
+        // Updating the changed state.
+        system.unitsTimers[unitIdentifier] = unitTimer;
+        system.unitsXs[unitIdentifier] = unitX;
+        system.unitsYs[unitIdentifier] = unitY;
+        system.unitsAngles[unitIdentifier] = unitAngle;
+        return closeEnough;
     }
     
     /**

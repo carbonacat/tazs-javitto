@@ -79,11 +79,6 @@ public class BrawlerIdleHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        
-        drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
+        drawUnit(system, unitIdentifier, screen);
     }
 }

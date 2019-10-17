@@ -48,24 +48,4 @@ public class BrawlerPunchHandler
         
         drawBrawler(unitX, unitY, unitAngle, handDistance, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }
-    
-    
-    /***** TOOLS *****/
-
-    /**
-     * @param unitTimer The Unit's timer value.
-     * @return The distance for the hand.
-     */
-    public static float handDistanceForPunchTimer(int unitTimer)
-    {
-        if (unitTimer < ATTACK_TIMER_MAX)
-            return MathTools.lerp(unitTimer,
-                                  ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
-                                  ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
-        else if (unitTimer < ATTACK_TIMER_REST)
-            return MathTools.lerp(unitTimer,
-                                  ATTACK_TIMER_MAX, HAND_MAX_DISTANCE,
-                                  ATTACK_TIMER_REST, HAND_IDLE_DISTANCE);
-        return HAND_IDLE_DISTANCE;
-    }
 }

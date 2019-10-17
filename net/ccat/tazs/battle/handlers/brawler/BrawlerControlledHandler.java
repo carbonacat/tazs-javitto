@@ -40,6 +40,7 @@ public class BrawlerControlledHandler
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
         // Moving around using the sticks.
+        // TODO: Potential code to share.
         {
             float unitX = system.unitsXs[unitIdentifier];
             float unitY = system.unitsYs[unitIdentifier];
@@ -73,15 +74,7 @@ public class BrawlerControlledHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        int unitTimer = system.unitsTimers[unitIdentifier];
-        float handDistance = handDistanceForPunchTimer(unitTimer);
-        
-        // TODO: Standard stuff?
-        screen.drawCircle(unitX, unitY, Dimensions.UNIT_CONTROL_RADIUS, Teams.colorForTeam(unitTeam), false);
-        drawBrawler(unitX, unitY, unitAngle, handDistance, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
+        HandlersTools.drawControlCircle(system, unitIdentifier, screen);
+        drawAttackingUnit(system, unitIdentifier, screen);
     }
 }

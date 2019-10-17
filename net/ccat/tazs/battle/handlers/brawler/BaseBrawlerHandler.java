@@ -176,6 +176,29 @@ public class BaseBrawlerHandler
                     screen);
     }
     
+    protected void drawUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        
+        drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
+    }
+    
+    protected void drawAttackingUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        float handDistance = handDistanceForPunchTimer(unitTimer);
+        
+        drawBrawler(unitX, unitY, unitAngle, handDistance, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
+    }
+    
     
     protected void drawBrawler(float unitX, float unitY, float unitAngle, float handDistance,
                                NonAnimatedSprite bodySprite, HandSprite handSprite,
@@ -208,5 +231,25 @@ public class BaseBrawlerHandler
         bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
         bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
         bodySprite.draw(screen);
+    }
+    
+    
+    /***** TOOLS *****/
+    
+    /**
+     * @param unitTimer The Unit's timer value.
+     * @return The distance for the hand.
+     */
+    private static float handDistanceForPunchTimer(int unitTimer)
+    {
+        if (unitTimer < ATTACK_TIMER_MAX)
+            return MathTools.lerp(unitTimer,
+                                  ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
+                                  ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
+        else if (unitTimer < ATTACK_TIMER_REST)
+            return MathTools.lerp(unitTimer,
+                                  ATTACK_TIMER_MAX, HAND_MAX_DISTANCE,
+                                  ATTACK_TIMER_REST, HAND_IDLE_DISTANCE);
+        return HAND_IDLE_DISTANCE;
     }
 }

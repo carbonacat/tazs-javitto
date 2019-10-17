@@ -30,6 +30,7 @@ public class BaseBrawlerHandler
     public static final int ATTACK_TIMER_INIT = 0;
     public static final int ATTACK_TIMER_MAX = 8;
     public static final int ATTACK_TIMER_REST = 32;
+    public static final int DEATH_TICKS = 64;
     
     
     /***** INFORMATION *****/
@@ -187,6 +188,23 @@ public class BaseBrawlerHandler
         drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.brawlerBodySpriteByTeam[unitTeam], system.handSprite, screen);
     }
     
+    protected void drawDeadUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.BRAWLERBODY_FRAME_DEAD_START);
+        int frame = MathTools.clampi(rawFrame, VideoConstants.BRAWLERBODY_FRAME_DEAD_START, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST);
+        NonAnimatedSprite bodySprite = system.brawlerBodySpriteByTeam[unitTeam];
+        
+        bodySprite.selectFrame(frame);
+        bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
+        bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
+        bodySprite.draw(screen);
+    }
+    
     protected void drawAttackingUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
@@ -217,20 +235,6 @@ public class BaseBrawlerHandler
         // Is the hand below?
         if (unitAngle >= 0)
             handSprite.draw(screen);
-    }
-    
-    protected void drawDeadBrawler(float unitX, float unitY, float unitAngle,
-                                   NonAnimatedSprite bodySprite,
-                                   int ticks, int ticksMax,
-                                   HiRes16Color screen)
-    {
-        int rawFrame = MathTools.lerpi(ticks, 0, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST, ticksMax, VideoConstants.BRAWLERBODY_FRAME_DEAD_START);
-        int frame = MathTools.clampi(rawFrame, VideoConstants.BRAWLERBODY_FRAME_DEAD_START, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST);
-        
-        bodySprite.selectFrame(frame);
-        bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
-        bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
-        bodySprite.draw(screen);
     }
     
     

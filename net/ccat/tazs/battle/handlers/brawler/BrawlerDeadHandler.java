@@ -32,7 +32,7 @@ public class BrawlerDeadHandler
         int unitTimer = system.unitsTimers[unitIdentifier];
         
         if (unitTimer == 0)
-            unitTimer = TICKS_TO_GROUND;
+            unitTimer = DEATH_TICKS;
         else if (unitTimer > 0)
         {
             unitTimer--;
@@ -47,17 +47,6 @@ public class BrawlerDeadHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        int unitTimer = system.unitsTimers[unitIdentifier];
-        
-        drawDeadBrawler(unitX, unitY, unitAngle, system.brawlerBodySpriteByTeam[unitTeam],
-                        unitTimer, TICKS_TO_GROUND,
-                        screen);
+        drawDeadUnit(system, unitIdentifier, screen);
     }
-    
-    
-    private static final int TICKS_TO_GROUND = 64;
 }

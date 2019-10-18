@@ -8,7 +8,8 @@ class VideoConstants
 {
     public static final float BRAWLERBODY_ORIGIN_X = 3;
     public static final float BRAWLERBODY_ORIGIN_Y = 9;
-    public static final float BRAWLERBODY_WEAPON_ORIGIN_Y = 5;
+    public static final float BRAWLERBODY_HAND_ORIGIN_Y = 5;
+    public static final float BRAWLERBODY_WEAPON_ORIGIN_Y = 3;
     public static final int BRAWLERBODY_FRAME_IDLE = 0;
     public static final int BRAWLERBODY_FRAME_DEAD_START = 1;
     public static final int BRAWLERBODY_FRAME_DEAD_LAST = 6;
@@ -32,7 +33,7 @@ class VideoConstants
     public static final int SLAPPERBODY_FRAME_DEAD_START = 1;
     public static final int SLAPPERBODY_FRAME_DEAD_LAST = 11;
     
-    public static final int SWORD_ORIGIN_X = 2;
+    public static final int SWORD_ORIGIN_X = 5;
     public static final int SWORD_ORIGIN_Y = 5;
     public static final int SWORD_FRAME_VERTICAL = 0;
     public static final int SWORD_FRAME_HORIZONTAL = 4;

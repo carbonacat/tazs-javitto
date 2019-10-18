@@ -207,7 +207,7 @@ public class BaseBrawlerHandler
                                HiRes16Color screen)
     {
         handSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_X,
-                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y);
+                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLERBODY_HAND_ORIGIN_Y);
         // Is the hand above?
         if (unitAngle < 0)
             handSprite.draw(screen);

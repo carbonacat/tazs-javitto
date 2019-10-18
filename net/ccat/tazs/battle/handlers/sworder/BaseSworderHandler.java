@@ -24,10 +24,10 @@ public class BaseSworderHandler
     public static final float HAND_MAX_DISTANCE = 6.f;
     public static final float SWORD_RADIUS = 2.f;
     public static final float SWORD_POWER = 10.f;
-    public static final float SWORD_RANGE_RATIO = 2.f;
+    public static final float SWORD_RANGE_RATIO = 1.5f;
     public static final int ATTACK_TIMER_INIT = 0;
     public static final int ATTACK_TIMER_MAX = 12;
-    public static final int ATTACK_TIMER_REST = 48;
+    public static final int ATTACK_TIMER_REST = 64;
     
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE * SWORD_RANGE_RATIO + SWORD_RADIUS + HandlersTools.UNIT_RADIUS - 1;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
@@ -131,8 +131,8 @@ public class BaseSworderHandler
             float unitAngle = system.unitsAngles[unitIdentifier];
             char unitTeam = system.unitsTeams[unitIdentifier];
             float swordDistance = handDistance * SWORD_RANGE_RATIO;
-            float weaponX = handX(unitX, unitAngle, handDistance);
-            float weaponY = handY(unitY, unitAngle, handDistance);
+            float weaponX = handX(unitX, unitAngle, swordDistance);
+            float weaponY = handY(unitY, unitAngle, swordDistance);
             
             // TODO: 1-team isn't really a good way to find the other team.
             int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, SWORD_RADIUS + HandlersTools.UNIT_RADIUS, false);
@@ -159,9 +159,10 @@ public class BaseSworderHandler
                          float unitX, float unitY, float unitAngle, int unitTeam,
                          HiRes16Color screen)
     {
-        drawSword(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
-                  system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
-                  screen);
+        drawSworder(unitX, unitY, unitAngle,
+                    HAND_IDLE_DISTANCE, 0,
+                    system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
+                    screen);
     }
     
     protected void drawUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
@@ -171,7 +172,10 @@ public class BaseSworderHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         
-        drawSword(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite, screen);
+        drawSworder(unitX, unitY, unitAngle,
+                    HAND_IDLE_DISTANCE, 0,
+                    system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
+                    screen);
     }
     
     protected void drawDeadUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
@@ -199,23 +203,32 @@ public class BaseSworderHandler
         char unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
         float handDistance = handDistanceForAttackTimer(unitTimer);
+        int swordFrame = swordFrameForAttackTimer(unitTimer);
         
-        drawSword(unitX, unitY, unitAngle, handDistance, system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite, screen);
+        drawSworder(unitX, unitY, unitAngle,
+                    handDistance, swordFrameForAttackTimer(unitTimer),
+                    system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
+                    screen);
     }
     
     
-    protected void drawSword(float unitX, float unitY, float unitAngle, float handDistance,
-                             NonAnimatedSprite bodySprite, SwordSprite swordSprite,
-                             HiRes16Color screen)
+    protected void drawSworder(float unitX, float unitY, float unitAngle,
+                               float handDistance, int swordFrame,
+                               NonAnimatedSprite bodySprite, SwordSprite swordSprite,
+                               HiRes16Color screen)
     {
+        boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
+        
         swordSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_X,
                                 handY(unitY, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y);
+        swordSprite.selectFrame(swordFrame);
+        swordSprite.setMirrored(mirrored);
         // Is the hand above?
         if (unitAngle < 0)
             swordSprite.draw(screen);
         bodySprite.selectFrame(VideoConstants.BRAWLERBODY_FRAME_IDLE);
         bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
-        bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
+        bodySprite.setMirrored(mirrored);
         bodySprite.draw(screen);
 
         // Is the hand below?
@@ -241,5 +254,18 @@ public class BaseSworderHandler
                                   ATTACK_TIMER_MAX, HAND_MAX_DISTANCE,
                                   ATTACK_TIMER_REST, HAND_IDLE_DISTANCE);
         return HAND_IDLE_DISTANCE;
+    }
+    
+    private static int swordFrameForAttackTimer(int unitTimer)
+    {
+        if (unitTimer < ATTACK_TIMER_MAX)
+            return MathTools.lerpi(unitTimer,
+                                   ATTACK_TIMER_INIT, VideoConstants.SWORD_FRAME_VERTICAL,
+                                   ATTACK_TIMER_MAX, VideoConstants.SWORD_FRAME_HORIZONTAL);
+        else if (unitTimer < ATTACK_TIMER_REST)
+            return MathTools.lerpi(unitTimer,
+                                   ATTACK_TIMER_MAX, VideoConstants.SWORD_FRAME_HORIZONTAL,
+                                   ATTACK_TIMER_REST, VideoConstants.SWORD_FRAME_VERTICAL);
+        return VideoConstants.SWORD_FRAME_VERTICAL;
     }
 }

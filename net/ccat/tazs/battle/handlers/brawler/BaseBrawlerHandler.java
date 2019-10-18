@@ -26,7 +26,8 @@ public class BaseBrawlerHandler
     public static final float HAND_POWER = 5.f;
     public static final int ATTACK_TIMER_INIT = 0;
     public static final int ATTACK_TIMER_MAX = 8;
-    public static final int ATTACK_TIMER_REST = 32;
+    public static final int ATTACK_TIMER_RETREATED = 16;
+    public static final int ATTACK_TIMER_RESTED = 32;
     
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + HAND_RADIUS + HandlersTools.UNIT_RADIUS - 1;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
@@ -141,10 +142,10 @@ public class BaseBrawlerHandler
                                                               HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
                                                               HAND_POWER);
                 // Interpolating to find the equivalent withdrawal position.
-                unitTimer = MathTools.lerpi(unitTimer, 0, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX, ATTACK_TIMER_REST);
+                unitTimer = MathTools.lerpi(unitTimer, ATTACK_TIMER_INIT, ATTACK_TIMER_RETREATED, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX);
             }
         }
-        if (unitTimer == ATTACK_TIMER_REST)
+        if (unitTimer == ATTACK_TIMER_RESTED)
             unitTimer = 0;
         system.unitsTimers[unitIdentifier] = unitTimer;
         return unitTimer != 0;
@@ -234,10 +235,10 @@ public class BaseBrawlerHandler
             return MathTools.lerp(unitTimer,
                                   ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
                                   ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
-        else if (unitTimer < ATTACK_TIMER_REST)
+        else if (unitTimer < ATTACK_TIMER_RETREATED)
             return MathTools.lerp(unitTimer,
                                   ATTACK_TIMER_MAX, HAND_MAX_DISTANCE,
-                                  ATTACK_TIMER_REST, HAND_IDLE_DISTANCE);
+                                  ATTACK_TIMER_RETREATED, HAND_IDLE_DISTANCE);
         return HAND_IDLE_DISTANCE;
     }
 }

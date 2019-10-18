@@ -26,8 +26,9 @@ public class BaseSworderHandler
     public static final float SWORD_POWER = 10.f;
     public static final float SWORD_RANGE_RATIO = 1.5f;
     public static final int ATTACK_TIMER_INIT = 0;
-    public static final int ATTACK_TIMER_MAX = 12;
-    public static final int ATTACK_TIMER_REST = 64;
+    public static final int ATTACK_TIMER_MAX = 16;
+    public static final int ATTACK_TIMER_RETREATED = 32;
+    public static final int ATTACK_TIMER_RESTED = 64;
     
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE * SWORD_RANGE_RATIO + SWORD_RADIUS + HandlersTools.UNIT_RADIUS - 1;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
@@ -143,10 +144,10 @@ public class BaseSworderHandler
                                                               SWORD_POWER * Math.cos(unitAngle), SWORD_POWER * Math.sin(unitAngle),
                                                               SWORD_POWER);
                 // Interpolating to find the equivalent withdrawal position.
-                unitTimer = MathTools.lerpi(unitTimer, 0, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX, ATTACK_TIMER_REST);
+                unitTimer = MathTools.lerpi(unitTimer, ATTACK_TIMER_INIT, ATTACK_TIMER_RETREATED, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX);
             }
         }
-        if (unitTimer == ATTACK_TIMER_REST)
+        if (unitTimer == ATTACK_TIMER_RESTED)
             unitTimer = 0;
         system.unitsTimers[unitIdentifier] = unitTimer;
         return unitTimer != 0;
@@ -249,10 +250,10 @@ public class BaseSworderHandler
             return MathTools.lerp(unitTimer,
                                   ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
                                   ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
-        else if (unitTimer < ATTACK_TIMER_REST)
+        else if (unitTimer < ATTACK_TIMER_RETREATED)
             return MathTools.lerp(unitTimer,
                                   ATTACK_TIMER_MAX, HAND_MAX_DISTANCE,
-                                  ATTACK_TIMER_REST, HAND_IDLE_DISTANCE);
+                                  ATTACK_TIMER_RETREATED, HAND_IDLE_DISTANCE);
         return HAND_IDLE_DISTANCE;
     }
     
@@ -262,10 +263,10 @@ public class BaseSworderHandler
             return MathTools.lerpi(unitTimer,
                                    ATTACK_TIMER_INIT, VideoConstants.SWORD_FRAME_VERTICAL,
                                    ATTACK_TIMER_MAX, VideoConstants.SWORD_FRAME_HORIZONTAL);
-        else if (unitTimer < ATTACK_TIMER_REST)
+        else if (unitTimer < ATTACK_TIMER_RETREATED)
             return MathTools.lerpi(unitTimer,
                                    ATTACK_TIMER_MAX, VideoConstants.SWORD_FRAME_HORIZONTAL,
-                                   ATTACK_TIMER_REST, VideoConstants.SWORD_FRAME_VERTICAL);
+                                   ATTACK_TIMER_RETREATED, VideoConstants.SWORD_FRAME_VERTICAL);
         return VideoConstants.SWORD_FRAME_VERTICAL;
     }
 }

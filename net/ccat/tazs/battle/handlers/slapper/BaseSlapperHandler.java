@@ -19,18 +19,18 @@ public class BaseSlapperHandler
 {
     public static final short HEALTH_INITIAL = 100;
     public static final float WALK_SPEED = 0.125f;
-    public static final float CLOSE_DISTANCE = 10.f;
-    public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     public static final float ANGLE_ROTATION_BY_TICK = 8.f / 256.f;
     public static final float HAND_IDLE_DISTANCE = 2.f;
     public static final float HAND_MAX_DISTANCE = 6.f;
     public static final float HAND_RADIUS = 1.f;
     public static final float HAND_POWER = 5.f;
-    public static final float UNIT_RADIUS = 5.f;
-    public static final float POWER_HP_RATIO = 3.f;
     public static final int ATTACK_TIMER_INIT = 0;
     public static final int ATTACK_TIMER_MAX = 8;
     public static final int ATTACK_TIMER_REST = 32;
+    
+    public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + HAND_RADIUS + HandlersTools.UNIT_RADIUS - 1;
+    public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
+    
     public static final int COST = 25;
     public static final int DEATH_TICKS = 64;
     public static final int RECONSIDER_TICKS = 128;
@@ -133,7 +133,7 @@ public class BaseSlapperHandler
             float weaponY = handY(unitY, unitAngle, handDistance);
             
             // TODO: 1-team isn't really a good way to find the other team.
-            int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, HAND_RADIUS + UNIT_RADIUS, false);
+            int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, HAND_RADIUS + HandlersTools.UNIT_RADIUS, false);
             
             if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
             {

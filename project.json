@@ -586,6 +586,87 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\BaseInfantryHandler.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\HandlersTools.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\SwordSprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/sword": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\SwordSprite.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword/BaseSwordHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\BaseSwordHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword/SwordControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\SwordControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword/SwordDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\SwordDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword/SwordIdleHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\SwordIdleHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword/SwordAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sword\\SwordAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites/sword": {},
+		"\\net\\ccat\\tazs\\resources\\sprites\\sword": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites/sword/SwordSprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites/sword\\SwordSprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\sword\\SwordRawSprite.json": {
+			"implements": "",
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\sword\\SwordRawSprite.png": {
+			"implements": "",
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\sword\\SwordSprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder": {},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\BaseSwordHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\SwordAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\SwordControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\SwordIdleHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\SwordDeadHandler.java": {
+			"sdcard": false
 		}
 	}
 }

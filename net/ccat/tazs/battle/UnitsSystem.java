@@ -9,6 +9,7 @@ import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.sprites.slapper.SlapperBodyASprite;
 import net.ccat.tazs.resources.sprites.slapper.SlapperBodyBSprite;
+import net.ccat.tazs.resources.sprites.sword.SwordSprite;
 
 import net.ccat.tazs.tools.MathTools;
 
@@ -362,6 +363,7 @@ class UnitsSystem
     public final NonAnimatedSprite[] brawlerBodySpriteByTeam = new NonAnimatedSprite[TEAM_MAX];
     public final NonAnimatedSprite[] slapperBodySpriteByTeam = new NonAnimatedSprite[TEAM_MAX];
     public final HandSprite handSprite = new HandSprite();
+    public final SwordSprite swordSprite = new SwordSprite();
     
     /**
      * Renders all the Units.

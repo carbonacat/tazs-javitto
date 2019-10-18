@@ -232,7 +232,7 @@ public class BattlePreparationPhaseState
             else if (game.uiMode == UIModes.TOO_EXPENSIVE)
                 screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_TOO_EXPENSIVE);
             else
-                screen.print(Texts.UNIT_BRAWLER);
+                screen.print(UnitTypes.idleHandlerForType(game.currentUnitType).name());
         }
         else
         {

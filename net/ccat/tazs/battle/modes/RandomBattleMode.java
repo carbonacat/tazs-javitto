@@ -27,17 +27,18 @@ public class RandomBattleMode
         {
             float clusterX = 60 + Math.random(-35, 35);
             float clusterY = Math.random(-35, 35);
+            int clusterUnitType = Math.random(0, UnitTypes.END);
+            UnitHandler clusterUnitHandler = UnitTypes.idleHandlerForType(clusterUnitType);
+            int clusterCost = Math.random(clusterUnitHandler.cost(), clusterUnitHandler.cost() * 2 + 100);
             
-            for (int remainingUnit = Math.random(1, 4); remainingUnit > 0 ; remainingUnit--)
+            while (clusterCost > 0)
+            {
                 game.unitsSystem.addUnit(clusterX + Math.random(-10, 10), clusterY + Math.random(-10, 10),
                                           Math.PI,
-                                          BrawlerIdleHandler.instance,
+                                          clusterUnitHandler,
                                           Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-            for (int remainingUnit = Math.random(0, 4); remainingUnit > 0 ; remainingUnit--)
-                game.unitsSystem.addUnit(clusterX + Math.random(-10, 10), clusterY + Math.random(-10, 10),
-                                          Math.PI,
-                                          SlapperIdleHandler.instance,
-                                          Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+                clusterCost -= clusterUnitHandler.cost();
+            }
         }
         updateTopBarUI(game);
     }

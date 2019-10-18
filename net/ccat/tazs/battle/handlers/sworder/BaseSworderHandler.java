@@ -189,11 +189,27 @@ public class BaseSworderHandler
         int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.BRAWLERBODY_FRAME_DEAD_START);
         int frame = MathTools.clampi(rawFrame, VideoConstants.BRAWLERBODY_FRAME_DEAD_START, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST);
         NonAnimatedSprite bodySprite = system.brawlerBodySpriteByTeam[unitTeam];
+        SwordSprite swordSprite = system.swordSprite;
+        int swordFrame = swordFrameForDeathTimer(unitTimer);
+        boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
         
+        swordSprite.setPosition(handX(unitX, unitAngle, HAND_IDLE_DISTANCE) - VideoConstants.SWORD_ORIGIN_X,
+                                handY(unitY, unitAngle, HAND_IDLE_DISTANCE) - VideoConstants.SWORD_ORIGIN_Y - swordYForDeathTimer(unitTimer));
+        swordSprite.selectFrame(swordFrame);
+        swordSprite.setMirrored(mirrored);
+        
+        // Is the hand above?
+        if (unitAngle < 0)
+            swordSprite.draw(screen);
+
         bodySprite.selectFrame(frame);
         bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
-        bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
+        bodySprite.setMirrored(mirrored);
         bodySprite.draw(screen);
+        
+        // Is the hand below?
+        if (unitAngle >= 0)
+            swordSprite.draw(screen);
     }
     
     protected void drawAttackingUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
@@ -224,9 +240,11 @@ public class BaseSworderHandler
                                 handY(unitY, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y);
         swordSprite.selectFrame(swordFrame);
         swordSprite.setMirrored(mirrored);
+        
         // Is the hand above?
         if (unitAngle < 0)
             swordSprite.draw(screen);
+            
         bodySprite.selectFrame(VideoConstants.BRAWLERBODY_FRAME_IDLE);
         bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
         bodySprite.setMirrored(mirrored);
@@ -268,5 +286,23 @@ public class BaseSworderHandler
                                    ATTACK_TIMER_MAX, VideoConstants.SWORD_FRAME_HORIZONTAL,
                                    ATTACK_TIMER_RETREATED, VideoConstants.SWORD_FRAME_VERTICAL);
         return VideoConstants.SWORD_FRAME_VERTICAL;
+    }
+    
+    private static int swordFrameForDeathTimer(int unitTimer)
+    {
+        if ((unitTimer > 0) && (unitTimer <= DEATH_TICKS))
+            return MathTools.lerpi(unitTimer,
+                                   0, VideoConstants.SWORD_FRAME_HORIZONTAL,
+                                   DEATH_TICKS, VideoConstants.SWORD_FRAME_VERTICAL);
+        return VideoConstants.SWORD_FRAME_HORIZONTAL;
+    }
+    
+    private static float swordYForDeathTimer(int unitTimer)
+    {
+        if ((unitTimer > 0) && (unitTimer <= DEATH_TICKS))
+            return MathTools.lerp(unitTimer,
+                                  0, 0,
+                                  DEATH_TICKS, VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y);
+        return 0;
     }
 }

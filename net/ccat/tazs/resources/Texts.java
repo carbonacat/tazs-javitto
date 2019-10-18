@@ -31,7 +31,7 @@ class Texts
     public static final String CHALLENGES_03_SUMMARY = "CAREFUL";
     public static final String CHALLENGES_04_NAME = "A Bunch of Guys 4";
     public static final String CHALLENGES_04_SUMMARY = "CAREFUL!!1";
-    public static final String CHALLENGES_05_NAME = "Party ";
+    public static final String CHALLENGES_05_NAME = "Party";
     public static final String CHALLENGES_05_SUMMARY = "Hehehe";
     
     

@@ -14,6 +14,7 @@ public class HandlersTools
     public static final float POWER_HP_RATIO = 3.f;
     public static final float SEEK_DISTANCE_MAX = 250.f;
     public static final float UNIT_RADIUS = 5.f;
+    public static final float UNIT_ATTACK_ANGLE = Math.PI * 0.5f;
     
     
     /***** RENDERING *****/
@@ -104,11 +105,12 @@ public class HandlersTools
             float relativeX = system.unitsXs[targetIdentifier] - unitX;
             float relativeY = system.unitsYs[targetIdentifier] - unitY;
             float squaredDistance = relativeX * relativeX + relativeY * relativeY;
+            float targetAngle = 0;
             
             // Updating the angle.
             if (squaredDistance > 0)
             {
-                float targetAngle = Math.atan2(relativeY, relativeX);
+                targetAngle = Math.atan2(relativeY, relativeX);
                 float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -rotationSpeed, rotationSpeed);
                 
                 unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
@@ -118,7 +120,7 @@ public class HandlersTools
                 unitX += Math.cos(unitAngle) * walkSpeed;
                 unitY += Math.sin(unitAngle) * walkSpeed;
             }
-            else
+            else if (MathTools.abs(MathTools.wrapAngle(targetAngle - unitAngle)) < UNIT_ATTACK_ANGLE)
             {
                  // Let's punch them!
                 unitTimer = 0;

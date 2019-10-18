@@ -667,6 +667,12 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\SwordDeadHandler.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges/Challenge05BattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\Challenge05BattleMode.java": {
+			"sdcard": false
 		}
 	}
 }

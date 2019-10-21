@@ -21,16 +21,15 @@ public class BaseShieldBearerHandler
     public static final float WALK_SPEED = 0.100f;
     public static final float ANGLE_ROTATION_BY_TICK = 8.f / 256.f;
     public static final float HAND_IDLE_DISTANCE = 2.f;
-    public static final float HAND_MAX_DISTANCE = 6.f;
-    public static final float SHIELDBEARER_RADIUS = 2.f;
-    public static final float SHIELDBEARER_POWER = 10.f;
-    public static final float SHIELDBEARER_RANGE_RATIO = 1.5f;
+    public static final float HAND_MAX_DISTANCE = 4.f;
+    public static final float SHIELDBEARER_RADIUS = 3.f;
+    public static final float SHIELDBEARER_POWER = 5.f;
     public static final int ATTACK_TIMER_INIT = 0;
     public static final int ATTACK_TIMER_MAX = 16;
     public static final int ATTACK_TIMER_RETREATED = 32;
-    public static final int ATTACK_TIMER_RESTED = 64;
+    public static final int ATTACK_TIMER_RESTED = 48;
     
-    public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE * SHIELDBEARER_RANGE_RATIO + SHIELDBEARER_RADIUS + HandlersTools.UNIT_RADIUS - 1;
+    public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + SHIELDBEARER_RADIUS + HandlersTools.UNIT_RADIUS - 1;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
     public static final int COST = 50;
@@ -141,9 +140,8 @@ public class BaseShieldBearerHandler
             float unitY = system.unitsYs[unitIdentifier];
             float unitAngle = system.unitsAngles[unitIdentifier];
             char unitTeam = system.unitsTeams[unitIdentifier];
-            float shieldBearerDistance = handDistance * SHIELDBEARER_RANGE_RATIO;
-            float weaponX = handX(unitX, unitAngle, shieldBearerDistance);
-            float weaponY = handY(unitY, unitAngle, shieldBearerDistance);
+            float weaponX = handX(unitX, unitAngle, handDistance);
+            float weaponY = handY(unitY, unitAngle, handDistance);
             
             // TODO: 1-team isn't really a good way to find the other team.
             int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, SHIELDBEARER_RADIUS + HandlersTools.UNIT_RADIUS, false);

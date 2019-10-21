@@ -245,6 +245,7 @@ public class BaseShieldBearerHandler
                                     HiRes16Color screen)
     {
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
+        boolean facingFront = unitAngle >= 0;
         
         shieldSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_X,
                                  handY(unitY, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_Y - VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y);
@@ -252,7 +253,7 @@ public class BaseShieldBearerHandler
         shieldSprite.setMirrored(mirrored);
         
         // Is the hand above?
-        if (unitAngle < 0)
+        if (!facingFront)
             shieldSprite.draw(screen);
             
         bodySprite.selectFrame(VideoConstants.BRAWLERBODY_FRAME_IDLE);
@@ -261,7 +262,7 @@ public class BaseShieldBearerHandler
         bodySprite.draw(screen);
 
         // Is the hand below?
-        if (unitAngle >= 0)
+        if (facingFront)
             shieldSprite.draw(screen);
     }
     

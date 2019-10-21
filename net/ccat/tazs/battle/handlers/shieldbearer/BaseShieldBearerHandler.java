@@ -1,20 +1,20 @@
-package net.ccat.tazs.battle.handlers.sworder;
+package net.ccat.tazs.battle.handlers.shieldbearer;
 
 import femto.mode.HiRes16Color;
 import femto.Sprite;
 
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.sprites.sword.SwordSprite;
+import net.ccat.tazs.resources.sprites.shield.ShieldSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 
 
 /**
- * Base Handler for all Handlers related to the Sworder.
+ * Base Handler for all Handlers related to the ShieldBearer.
  */
-public class BaseSworderHandler
+public class BaseShieldBearerHandler
     implements UnitHandler
 {
     public static final short HEALTH_INITIAL = 150;
@@ -22,15 +22,15 @@ public class BaseSworderHandler
     public static final float ANGLE_ROTATION_BY_TICK = 8.f / 256.f;
     public static final float HAND_IDLE_DISTANCE = 2.f;
     public static final float HAND_MAX_DISTANCE = 6.f;
-    public static final float SWORD_RADIUS = 2.f;
-    public static final float SWORD_POWER = 10.f;
-    public static final float SWORD_RANGE_RATIO = 1.5f;
+    public static final float SHIELDBEARER_RADIUS = 2.f;
+    public static final float SHIELDBEARER_POWER = 10.f;
+    public static final float SHIELDBEARER_RANGE_RATIO = 1.5f;
     public static final int ATTACK_TIMER_INIT = 0;
     public static final int ATTACK_TIMER_MAX = 16;
     public static final int ATTACK_TIMER_RETREATED = 32;
     public static final int ATTACK_TIMER_RESTED = 64;
     
-    public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE * SWORD_RANGE_RATIO + SWORD_RADIUS + HandlersTools.UNIT_RADIUS - 1;
+    public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE * SHIELDBEARER_RANGE_RATIO + SHIELDBEARER_RADIUS + HandlersTools.UNIT_RADIUS - 1;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
     public static final int COST = 50;
@@ -42,12 +42,12 @@ public class BaseSworderHandler
     
     public int unitType()
     {
-        return UnitTypes.SWORDER;
+        return UnitTypes.SHIELDBEARER;
     }
     
     public String name()
     {
-        return Texts.UNIT_SWORDER;
+        return Texts.UNIT_SHIELDBEARER;
     }
     
     public int startingHealth()
@@ -84,7 +84,7 @@ public class BaseSworderHandler
     {
         if (control)
         {
-            system.unitsHandlers[unitIdentifier] = SworderControlledHandler.instance;
+            system.unitsHandlers[unitIdentifier] = ShieldBearerControlledHandler.instance;
             return true;
         }
         return false;
@@ -94,7 +94,7 @@ public class BaseSworderHandler
                       float powerX, float powerY, float power)
     {
         if (HandlersTools.hitAndCheckIfBecameDead(system, unitIdentifier, powerX, powerY, power))
-            system.unitsHandlers[unitIdentifier] = SworderDeadHandler.instance;
+            system.unitsHandlers[unitIdentifier] = ShieldBearerDeadHandler.instance;
     }
     
     
@@ -131,18 +131,18 @@ public class BaseSworderHandler
             float unitY = system.unitsYs[unitIdentifier];
             float unitAngle = system.unitsAngles[unitIdentifier];
             char unitTeam = system.unitsTeams[unitIdentifier];
-            float swordDistance = handDistance * SWORD_RANGE_RATIO;
-            float weaponX = handX(unitX, unitAngle, swordDistance);
-            float weaponY = handY(unitY, unitAngle, swordDistance);
+            float shieldBearerDistance = handDistance * SHIELDBEARER_RANGE_RATIO;
+            float weaponX = handX(unitX, unitAngle, shieldBearerDistance);
+            float weaponY = handY(unitY, unitAngle, shieldBearerDistance);
             
             // TODO: 1-team isn't really a good way to find the other team.
-            int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, SWORD_RADIUS + HandlersTools.UNIT_RADIUS, false);
+            int hitUnitIdentifier = system.findClosestUnit(weaponX, weaponY, 1 - unitTeam, SHIELDBEARER_RADIUS + HandlersTools.UNIT_RADIUS, false);
             
             if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
             {
                 system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
-                                                              SWORD_POWER * Math.cos(unitAngle), SWORD_POWER * Math.sin(unitAngle),
-                                                              SWORD_POWER);
+                                                              SHIELDBEARER_POWER * Math.cos(unitAngle), SHIELDBEARER_POWER * Math.sin(unitAngle),
+                                                              SHIELDBEARER_POWER);
                 // Interpolating to find the equivalent withdrawal position.
                 unitTimer = MathTools.lerpi(unitTimer, ATTACK_TIMER_INIT, ATTACK_TIMER_RETREATED, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX);
             }
@@ -160,10 +160,10 @@ public class BaseSworderHandler
                          float unitX, float unitY, float unitAngle, int unitTeam,
                          HiRes16Color screen)
     {
-        drawSworder(unitX, unitY, unitAngle,
-                    HAND_IDLE_DISTANCE, 0,
-                    system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
-                    screen);
+        drawShieldBearer(unitX, unitY, unitAngle,
+                         HAND_IDLE_DISTANCE, 0,
+                         system.brawlerBodySpriteByTeam[unitTeam], system.shieldSprite,
+                         screen);
     }
     
     protected void drawUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
@@ -173,10 +173,10 @@ public class BaseSworderHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         
-        drawSworder(unitX, unitY, unitAngle,
-                    HAND_IDLE_DISTANCE, 0,
-                    system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
-                    screen);
+        drawShieldBearer(unitX, unitY, unitAngle,
+                         HAND_IDLE_DISTANCE, 0,
+                         system.brawlerBodySpriteByTeam[unitTeam], system.shieldSprite,
+                         screen);
     }
     
     protected void drawDeadUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
@@ -189,18 +189,19 @@ public class BaseSworderHandler
         int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.BRAWLERBODY_FRAME_DEAD_START);
         int frame = MathTools.clampi(rawFrame, VideoConstants.BRAWLERBODY_FRAME_DEAD_START, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST);
         NonAnimatedSprite bodySprite = system.brawlerBodySpriteByTeam[unitTeam];
-        SwordSprite swordSprite = system.swordSprite;
-        int swordFrame = swordFrameForDeathTimer(unitTimer);
+        ShieldSprite shieldSprite = system.shieldSprite;
+        boolean facingFront = unitAngle >= 0;
+        int shieldFrame = shieldFrameForDeathTimer(unitTimer, facingFront);
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
         
-        swordSprite.setPosition(handX(unitX, unitAngle, HAND_IDLE_DISTANCE) - VideoConstants.SWORD_ORIGIN_X,
-                                handY(unitY, unitAngle, HAND_IDLE_DISTANCE) - VideoConstants.SWORD_ORIGIN_Y - swordYForDeathTimer(unitTimer));
-        swordSprite.selectFrame(swordFrame);
-        swordSprite.setMirrored(mirrored);
+        shieldSprite.setPosition(handX(unitX, unitAngle, HAND_IDLE_DISTANCE) - VideoConstants.SHIELD_ORIGIN_X,
+                                 handY(unitY, unitAngle, HAND_IDLE_DISTANCE) - VideoConstants.SHIELD_ORIGIN_Y - shieldBearerYForDeathTimer(unitTimer));
+        shieldSprite.selectFrame(shieldFrame);
+        shieldSprite.setMirrored(mirrored);
         
         // Is the hand above?
-        if (unitAngle < 0)
-            swordSprite.draw(screen);
+        if (!facingFront)
+            shieldSprite.draw(screen);
 
         bodySprite.selectFrame(frame);
         bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
@@ -208,8 +209,8 @@ public class BaseSworderHandler
         bodySprite.draw(screen);
         
         // Is the hand below?
-        if (unitAngle >= 0)
-            swordSprite.draw(screen);
+        if (facingFront)
+            shieldSprite.draw(screen);
     }
     
     protected void drawAttackingUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
@@ -220,29 +221,31 @@ public class BaseSworderHandler
         char unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
         float handDistance = handDistanceForAttackTimer(unitTimer);
+        boolean facingFront = unitAngle >= 0;
+        int shieldFrame = shieldFrameForAttackTimer(unitTimer, facingFront);
         
-        drawSworder(unitX, unitY, unitAngle,
-                    handDistance, swordFrameForAttackTimer(unitTimer),
-                    system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
-                    screen);
+        drawShieldBearer(unitX, unitY, unitAngle,
+                         handDistance, shieldFrame,
+                         system.brawlerBodySpriteByTeam[unitTeam], system.shieldSprite,
+                         screen);
     }
     
     
-    protected void drawSworder(float unitX, float unitY, float unitAngle,
-                               float handDistance, int swordFrame,
-                               NonAnimatedSprite bodySprite, SwordSprite swordSprite,
-                               HiRes16Color screen)
+    protected void drawShieldBearer(float unitX, float unitY, float unitAngle,
+                                    float handDistance, int shieldBearerFrame,
+                                    NonAnimatedSprite bodySprite, ShieldSprite shieldSprite,
+                                    HiRes16Color screen)
     {
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
         
-        swordSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_X,
-                                handY(unitY, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y);
-        swordSprite.selectFrame(swordFrame);
-        swordSprite.setMirrored(mirrored);
+        shieldSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_X,
+                                 handY(unitY, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_Y - VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y);
+        shieldSprite.selectFrame(shieldBearerFrame);
+        shieldSprite.setMirrored(mirrored);
         
         // Is the hand above?
         if (unitAngle < 0)
-            swordSprite.draw(screen);
+            shieldSprite.draw(screen);
             
         bodySprite.selectFrame(VideoConstants.BRAWLERBODY_FRAME_IDLE);
         bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
@@ -251,7 +254,7 @@ public class BaseSworderHandler
 
         // Is the hand below?
         if (unitAngle >= 0)
-            swordSprite.draw(screen);
+            shieldSprite.draw(screen);
     }
     
     
@@ -274,34 +277,40 @@ public class BaseSworderHandler
         return HAND_IDLE_DISTANCE;
     }
     
-    private static int swordFrameForAttackTimer(int unitTimer)
+    private static int shieldFrameForAttackTimer(int unitTimer, boolean facingFront)
     {
+        final int standingFrame = facingFront ? VideoConstants.SHIELD_FRAME_FRONT : VideoConstants.SHIELD_FRAME_BACK;
+        final int bashingFrame = standingFrame + 1;
+        
         if (unitTimer < ATTACK_TIMER_MAX)
             return MathTools.lerpi(unitTimer,
-                                   ATTACK_TIMER_INIT, VideoConstants.SWORD_FRAME_VERTICAL,
-                                   ATTACK_TIMER_MAX, VideoConstants.SWORD_FRAME_HORIZONTAL);
+                                   ATTACK_TIMER_INIT, standingFrame,
+                                   ATTACK_TIMER_MAX, bashingFrame);
         else if (unitTimer < ATTACK_TIMER_RETREATED)
             return MathTools.lerpi(unitTimer,
-                                   ATTACK_TIMER_MAX, VideoConstants.SWORD_FRAME_HORIZONTAL,
-                                   ATTACK_TIMER_RETREATED, VideoConstants.SWORD_FRAME_VERTICAL);
-        return VideoConstants.SWORD_FRAME_VERTICAL;
+                                   ATTACK_TIMER_MAX, bashingFrame,
+                                   ATTACK_TIMER_RETREATED, standingFrame);
+        return standingFrame;
     }
     
-    private static int swordFrameForDeathTimer(int unitTimer)
+    private static int shieldFrameForDeathTimer(int unitTimer, boolean facingFront)
     {
+        final int standingFrame = facingFront ? VideoConstants.SHIELD_FRAME_FRONT : VideoConstants.SHIELD_FRAME_BACK;
+        final int fallenFrame = standingFrame + VideoConstants.SHIELD_FRAME_FALLEN_INCREMENT;
+        
         if ((unitTimer > 0) && (unitTimer <= DEATH_TICKS))
             return MathTools.lerpi(unitTimer,
-                                   0, VideoConstants.SWORD_FRAME_HORIZONTAL,
-                                   DEATH_TICKS, VideoConstants.SWORD_FRAME_VERTICAL);
-        return VideoConstants.SWORD_FRAME_HORIZONTAL;
+                                   0, fallenFrame,
+                                   DEATH_TICKS, standingFrame);
+        return fallenFrame;
     }
     
-    private static float swordYForDeathTimer(int unitTimer)
+    private static float shieldBearerYForDeathTimer(int unitTimer)
     {
         if ((unitTimer > 0) && (unitTimer <= DEATH_TICKS))
             return MathTools.lerp(unitTimer,
                                   0, 0,
-                                  DEATH_TICKS, VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y);
+                                  DEATH_TICKS, VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y);
         return 0;
     }
 }

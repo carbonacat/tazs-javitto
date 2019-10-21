@@ -1,4 +1,4 @@
-package net.ccat.tazs.battle.handlers.sworder;
+package net.ccat.tazs.battle.handlers.shieldbearer;
 
 import femto.mode.HiRes16Color;
 
@@ -6,14 +6,14 @@ import net.ccat.tazs.tools.MathTools;
 
 
 /**
- * Handles the Idle state of a Sworder.
+ * Handles the Idle state of a ShieldBearer.
  * - Seeks the closest Enemy.
- * - Switch to SworderPunch when close enough to punch them.
+ * - Switch to ShieldBearerPunch when close enough to punch them.
  */
-public class SworderSeekHandler
-    extends BaseSworderHandler
+public class ShieldBearerSeekHandler
+    extends BaseShieldBearerHandler
 {
-    static final SworderSeekHandler instance = new SworderSeekHandler();
+    static final ShieldBearerSeekHandler instance = new ShieldBearerSeekHandler();
     
     
     /***** LIFECYCLE *****/
@@ -21,7 +21,7 @@ public class SworderSeekHandler
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
         if (HandlersTools.seekAnEnemy(system, unitIdentifier, WALK_SPEED, ANGLE_ROTATION_BY_TICK, CLOSE_DISTANCE_SQUARED, RECONSIDER_TICKS))
-            system.unitsHandlers[unitIdentifier] = SworderAttackHandler.instance;
+            system.unitsHandlers[unitIdentifier] = ShieldBearerAttackHandler.instance;
     }
     
     

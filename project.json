@@ -673,6 +673,90 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\Challenge05BattleMode.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\BaseSworderHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\SworderAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\SworderControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\SworderDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\sworder\\SworderSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\New folder": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\shield": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer": {},
+		"\\net\\ccat\\tazs\\battle\\handlers\\shieldbearer": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer/BaseShieldBearerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer\\BaseShieldBearerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer/ShieldBearerAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer\\ShieldBearerAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer/ShieldBearerControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer\\ShieldBearerControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer/SworderDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer\\SworderDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer/ShieldBearerSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/shieldbearer\\ShieldBearerSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\shield\\ShieldRawSprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\shield\\ShieldRawSprite.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\shieldbearer\\BaseShieldBearerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\shieldbearer\\ShieldBearerAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\shieldbearer\\ShieldBearerSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\shieldbearer\\SworderDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\shieldbearer\\ShieldBearerControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\shield/ShieldSprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\shield\\ShieldSprite.java": {
+			"sdcard": false
 		}
 	}
 }

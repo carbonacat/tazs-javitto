@@ -1,17 +1,17 @@
-package net.ccat.tazs.battle.handlers.sworder;
+package net.ccat.tazs.battle.handlers.shieldbearer;
 
 import femto.mode.HiRes16Color;
 
 
 /**
- * Handles the Controlled state of a Sworder.
+ * Handles the Controlled state of a ShieldBearer.
  * - Reads the PAD
- * - Switch to SworderDead when dead
+ * - Switch to ShieldBearerDead when dead
  */
-public class SworderControlledHandler
-    extends BaseSworderHandler
+public class ShieldBearerControlledHandler
+    extends BaseShieldBearerHandler
 {
-    static final SworderControlledHandler instance = new SworderControlledHandler();
+    static final ShieldBearerControlledHandler instance = new ShieldBearerControlledHandler();
     
     
     /***** INFORMATION *****/
@@ -25,7 +25,7 @@ public class SworderControlledHandler
     {
         if (control)
             return false;
-        system.unitsHandlers[unitIdentifier] = SworderSeekHandler.instance;
+        system.unitsHandlers[unitIdentifier] = ShieldBearerSeekHandler.instance;
         return true;
     }
     

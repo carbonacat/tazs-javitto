@@ -84,7 +84,7 @@ class Texts
     /***** TITLE SCREEN *****/
     
     public static final String TITLE = "<Totally Accurate Zombie Simulator>";
-    public static final String TITLE_VERSION = "<0.1.1.dev - 2019-10-xx";
+    public static final String TITLE_VERSION = "0.2.1.dev - 2019-10-21+";
     public static final String TITLE_MENU_QUICKBATTLE = "Quick Battle";
     public static final String TITLE_MENU_SANDBOX = "Sandbox";
     public static final String TITLE_MENU_CHALLENGES = "Challenges";
@@ -95,6 +95,7 @@ class Texts
     public static final String UNIT_K_UNIT = " unit";
     public static final String UNIT_K_UNITS = " units";
     public static final String UNIT_BRAWLER = "Brawler";
+    public static final String UNIT_SHIELDBEARER = "Shield Bearer";
     public static final String UNIT_SLAPPER = "Slapper";
     public static final String UNIT_SWORDER = "Sworder";
 }

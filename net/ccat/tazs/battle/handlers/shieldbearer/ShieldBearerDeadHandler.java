@@ -1,16 +1,16 @@
-package net.ccat.tazs.battle.handlers.sworder;
+package net.ccat.tazs.battle.handlers.shieldbearer;
 
 import femto.mode.HiRes16Color;
 
 
 /**
- * Handles the Dead state of a Sworder.
+ * Handles the Dead state of a ShieldBearer.
  * - Pretty much renders a corpse.
  */
-public class SworderDeadHandler
-    extends BaseSworderHandler
+public class ShieldBearerDeadHandler
+    extends BaseShieldBearerHandler
 {
-    static final SworderDeadHandler instance = new SworderDeadHandler();
+    static final ShieldBearerDeadHandler instance = new ShieldBearerDeadHandler();
     
     
     /***** EVENTS *****/

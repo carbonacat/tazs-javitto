@@ -1,16 +1,16 @@
-package net.ccat.tazs.battle.handlers.sworder;
+package net.ccat.tazs.battle.handlers.shieldbearer;
 
 import femto.mode.HiRes16Color;
 
 
 /**
- * Handles when a Sworder slaps a target.
- * Goes back to SworderIdle when it's done.
+ * Handles when a ShieldBearer slaps a target.
+ * Goes back to ShieldBearerIdle when it's done.
  */
-public class SworderAttackHandler
-    extends BaseSworderHandler
+public class ShieldBearerAttackHandler
+    extends BaseShieldBearerHandler
 {
-    static final SworderAttackHandler instance = new SworderAttackHandler();
+    static final ShieldBearerAttackHandler instance = new ShieldBearerAttackHandler();
     
     
     /***** LIFECYCLE *****/
@@ -22,12 +22,12 @@ public class SworderAttackHandler
         if (targetIdentifier == UnitsSystem.IDENTIFIER_NONE)
         {
             system.unitsTimers[unitIdentifier] = 0;
-            system.unitsHandlers[unitIdentifier] = SworderSeekHandler.instance;
+            system.unitsHandlers[unitIdentifier] = ShieldBearerSeekHandler.instance;
         }
         else if (system.unitsTimers[unitIdentifier] == 0)
             startAttack(system, unitIdentifier);
         else if (!handleAttack(system, unitIdentifier))
-            system.unitsHandlers[unitIdentifier] = SworderSeekHandler.instance;
+            system.unitsHandlers[unitIdentifier] = ShieldBearerSeekHandler.instance;
     }
     
     

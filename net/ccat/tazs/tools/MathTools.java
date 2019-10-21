@@ -11,6 +11,7 @@ public class MathTools
     public static float PI_1_4 = 0.25f * Math.PI;
     public static float PI_1_2 = 0.5f * Math.PI;
     public static float PI_3_4 = 0.75f * Math.PI;
+    public static float PI_7_8 = 0.875f * Math.PI;
     public static float PI_3_2 = 1.5f * Math.PI;
     public static float PI_2_1 = 2.f * Math.PI;
 

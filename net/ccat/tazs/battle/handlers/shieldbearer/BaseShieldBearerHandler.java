@@ -93,6 +93,16 @@ public class BaseShieldBearerHandler
     public void onHit(UnitsSystem system, int unitIdentifier,
                       float powerX, float powerY, float power)
     {
+        if (power <= 0)
+            return ;
+        
+        float hitAngle = Math.atan2(powerY, powerX);
+        float deltaAngle = MathTools.wrapAngle(system.unitsAngles[unitIdentifier] - hitAngle);
+        float multiplier = impactMultiplierForRelativeAngle(deltaAngle);
+        
+        powerX *= multiplier;
+        powerY *= multiplier;
+        power *= multiplier;
         if (HandlersTools.hitAndCheckIfBecameDead(system, unitIdentifier, powerX, powerY, power))
             system.unitsHandlers[unitIdentifier] = ShieldBearerDeadHandler.instance;
     }
@@ -313,4 +323,21 @@ public class BaseShieldBearerHandler
                                   DEATH_TICKS, VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y);
         return 0;
     }
+    
+    private static float impactMultiplierForRelativeAngle(float deltaAngle)
+    {
+        if ((deltaAngle <= -MathTools.PI_7_8) || (deltaAngle >= MathTools.PI_7_8))
+            return IMPACT_FRONT_PERFECT;
+        if ((deltaAngle <= -MathTools.PI_3_4) || (deltaAngle >= MathTools.PI_3_4))
+            return IMPACT_FRONT;
+        if ((deltaAngle <= -MathTools.PI_1_2) || (deltaAngle >= MathTools.PI_1_2))
+            return IMPACT_FRONT_SIDES;
+        else
+            return IMPACT_BACK;
+    }
+    
+    private static float IMPACT_FRONT_PERFECT = 0.1f;
+    private static float IMPACT_FRONT = 0.25f;
+    private static float IMPACT_FRONT_SIDES = 0.5f;
+    private static float IMPACT_BACK = 1.f;
 }

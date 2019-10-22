@@ -98,4 +98,5 @@ class Texts
     public static final String UNIT_SHIELDBEARER = "Shield Bearer";
     public static final String UNIT_SLAPPER = "Slapper";
     public static final String UNIT_SWORDER = "Sworder";
+    public static final String UNIT_TARGET = "Target";
 }

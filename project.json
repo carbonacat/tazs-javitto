@@ -790,6 +790,54 @@
 		},
 		"\\net\\ccat\\tazs\\tools\\Performances.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\target": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\target\\TargetRawSprite.json": {
+			"implements": "",
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\target\\TargetRawSprite.png": {
+			"implements": "",
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\target/TargetSprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\target\\TargetSprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/target": {},
+		"\\net\\ccat\\tazs\\battle\\handlers\\target": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/target/BaseTargetHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/target\\BaseTargetHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/target/TargetIdleHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/target\\TargetIdleHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/target/TargetDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/target\\TargetDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\target\\BaseTargetHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\target\\TargetDeadHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\target\\TargetIdleHandler.java": {
+			"sdcard": false
 		}
 	}
 }

@@ -1,9 +1,10 @@
 package net.ccat.tazs.battle;
 
 import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
+import net.ccat.tazs.battle.handlers.shieldbearer.ShieldBearerSeekHandler;
 import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.battle.handlers.sworder.SworderSeekHandler;
-import net.ccat.tazs.battle.handlers.shieldbearer.ShieldBearerSeekHandler;
+import net.ccat.tazs.battle.handlers.target.TargetIdleHandler;
 
 
 /**
@@ -24,7 +25,8 @@ public class UnitTypes
      */
     static final int SWORDER = SLAPPER + 1;
     static final int SHIELDBEARER = SWORDER + 1;
-    static final int END = SHIELDBEARER + 1;
+    static final int TARGET = SHIELDBEARER + 1;
+    static final int END = TARGET + 1;
     
     
     /***** INFORMATION *****/
@@ -39,6 +41,8 @@ public class UnitTypes
             return SworderSeekHandler.instance;
         if (unitType == SHIELDBEARER)
             return ShieldBearerSeekHandler.instance;
+        if (unitType == TARGET)
+            return TargetIdleHandler.instance;
         // Not supposed to happen.
         while (true);
         return BrawlerIdleHandler.instance;

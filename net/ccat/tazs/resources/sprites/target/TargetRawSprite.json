@@ -1,0 +1,69 @@
+{ "frames": {
+   "TargetSprite 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 7, "h": 10 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 7, "h": 10 },
+    "sourceSize": { "w": 7, "h": 10 },
+    "duration": 500
+   },
+   "TargetSprite 1.aseprite": {
+    "frame": { "x": 7, "y": 0, "w": 7, "h": 10 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 7, "h": 10 },
+    "sourceSize": { "w": 7, "h": 10 },
+    "duration": 250
+   },
+   "TargetSprite 2.aseprite": {
+    "frame": { "x": 14, "y": 0, "w": 7, "h": 9 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 1, "w": 7, "h": 9 },
+    "sourceSize": { "w": 7, "h": 10 },
+    "duration": 100
+   },
+   "TargetSprite 3.aseprite": {
+    "frame": { "x": 21, "y": 0, "w": 7, "h": 8 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 2, "w": 7, "h": 8 },
+    "sourceSize": { "w": 7, "h": 10 },
+    "duration": 100
+   },
+   "TargetSprite 4.aseprite": {
+    "frame": { "x": 28, "y": 0, "w": 7, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 3, "w": 7, "h": 7 },
+    "sourceSize": { "w": 7, "h": 10 },
+    "duration": 100
+   },
+   "TargetSprite 5.aseprite": {
+    "frame": { "x": 35, "y": 0, "w": 7, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 3, "w": 7, "h": 7 },
+    "sourceSize": { "w": 7, "h": 10 },
+    "duration": 250
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.15-x64",
+  "image": "TargetRawSprite.png",
+  "format": "I8",
+  "size": { "w": 42, "h": 10 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "playIdle", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "playDamaged", "from": 1, "to": 1, "direction": "forward" },
+   { "name": "playDestroyed", "from": 2, "to": 5, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Main", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

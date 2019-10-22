@@ -6,12 +6,13 @@ import femto.Sprite;
 import net.ccat.tazs.battle.handlers.HandlersTools;
 import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyASprite;
 import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyBSprite;
-import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
+import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
+import net.ccat.tazs.resources.sprites.shield.ShieldSprite;
 import net.ccat.tazs.resources.sprites.slapper.SlapperBodyASprite;
 import net.ccat.tazs.resources.sprites.slapper.SlapperBodyBSprite;
-import net.ccat.tazs.resources.sprites.shield.ShieldSprite;
 import net.ccat.tazs.resources.sprites.sword.SwordSprite;
+import net.ccat.tazs.resources.sprites.target.TargetSprite;
 
 import net.ccat.tazs.tools.MathTools;
 
@@ -418,6 +419,7 @@ class UnitsSystem
     public final HandSprite handSprite = new HandSprite();
     public final SwordSprite swordSprite = new SwordSprite();
     public final ShieldSprite shieldSprite = new ShieldSprite();
+    public final TargetSprite targetSprite = new TargetSprite();
     
     /**
      * Renders all the Units.

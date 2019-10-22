@@ -6,6 +6,26 @@ package net.ccat.tazs.resources;
  */
 class Colors
 {
+    /***** DEBUG *****/
+    
+    public static final int DEBUG_BAR_SEPARATOR = 15;
+    public static final int DEBUG_STAT_OUTSIDE = 4; // Dark Purple
+    public static final int DEBUG_STAT_CONTROLSUPDATING = 9; // Pale Purple
+    public static final int DEBUG_STAT_UNITSTICKING = 8; // Bright Red
+    public static final int DEBUG_STAT_GAMERULESCHECKING = 10; // Pale Green
+    public static final int DEBUG_STATS_UIUPDATING = 11; // Bright Pink
+    public static final int DEBUG_STAT_SCREENCLEARING = 4; // Dark Purple
+    public static final int DEBUG_STAT_UNITSDRAWING = 8; // Bright Red
+    public static final int DEBUG_STATS_UIRENDERING = 11; // Bright Pink
+    public static final int DEBUG_STATS_SCREENFLUSHING = 4; // Dark Purple
+    
+    /***** HELP *****/
+    
+    public static final int HELP_BG = 1;
+    public static final int HELP_ACTIVE = 15;
+    public static final int HELP_INACTIVE = 5;
+    
+    
     /***** PAD MENU *****/
     
     public static final int PADMENU_BACKGROUND = 5;
@@ -15,13 +35,6 @@ class Colors
     public static final int PADMENU_TEXT_DISABLED = 5;
     public static final int PADMENU_SELECTED_BORDER = 15;
     public static final int PADMENU_OVERLAY = 5;
-    
-    
-    /***** HELP *****/
-    
-    public static final int HELP_BG = 1;
-    public static final int HELP_ACTIVE = 15;
-    public static final int HELP_INACTIVE = 5;
     
 
     /***** SCENE *****/

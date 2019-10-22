@@ -11,6 +11,7 @@ import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.UITools;
 
@@ -31,6 +32,8 @@ public class BattlePhaseState
     
     public void init()
     {
+        Performances.onInit();
+        
         TAZSGame game = mGame;
         
         game.screen.cameraX = -Dimensions.SCREEN_WIDTH * 0.5;
@@ -45,34 +48,45 @@ public class BattlePhaseState
     
     public void update()
     {
+        Performances.onUpdateStart();
+        
         HiRes16Color screen = mGame.screen;
         TAZSGame game = mGame;
         
         updatePlayerControl();
+        Performances.onUpdatedPlayerControl();
         
         game.unitsSystem.onTick();
+        Performances.onTickedUnitsSystem();
         
-        int winnerTeam = game.unitsSystem.winnerTeam();
-        
-        if (winnerTeam != Teams.TO_BE_DETERMINED)
-        {
-            game.unitsSystem.playerPadLength = 0;
-            game.unitsSystem.playerAction = false;
-            Game.changeState(new BattleResultPhaseState(game, winnerTeam));
-        }
+        checkGameRules();
+        Performances.onCheckedGameRules();
         
         updateUI();
         mGame.battleMode.onBattleUpdateUI(game);
+        Performances.onUpdatedUI();
             
         screen.clear(Colors.SCENE_BG);
+        Performances.onClearedScreen();
+        
         mGame.unitsSystem.draw(screen);
+        Performances.onDrawnUnitsSystem();
+        
         renderUI();
+        Performances.renderPerfBar(screen);
+        Performances.onRenderedUI();
+        
         screen.flush();
+        Performances.onFlushedScreen();
+        
+        Performances.onUpdateEnd();
     }
     
     public void shutdown()
     {
         mGame = null;
+        
+        Performances.onShutdown();
     }
  
  
@@ -110,6 +124,19 @@ public class BattlePhaseState
         {
             game.unitsSystem.playerPadLength = 0;
             game.unitsSystem.playerAction = false;
+        }
+    }
+    
+    private void checkGameRules()
+    {
+        TAZSGame game = mGame;
+        int winnerTeam = game.unitsSystem.winnerTeam();
+        
+        if (winnerTeam != Teams.TO_BE_DETERMINED)
+        {
+            game.unitsSystem.playerPadLength = 0;
+            game.unitsSystem.playerAction = false;
+            Game.changeState(new BattleResultPhaseState(game, winnerTeam));
         }
     }
     

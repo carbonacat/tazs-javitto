@@ -757,6 +757,33 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\sprites\\shield\\ShieldSprite.java": {
 			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.5.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.6.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.7.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.8.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.9.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.10.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.11.gif": {
+			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.12.gif": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\shieldbearer\\ShieldBearerDeadHandler.java": {
+			"sdcard": false
 		}
 	}
 }

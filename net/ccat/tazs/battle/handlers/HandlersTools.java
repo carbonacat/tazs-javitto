@@ -13,7 +13,7 @@ public class HandlersTools
 {
     public static final float POWER_HP_RATIO = 3.f;
     public static final float SEEK_DISTANCE_MAX = 250.f;
-    public static final float UNIT_RADIUS = 5.f;
+    public static final float UNIT_RADIUS = 3.f;
     public static final float UNIT_ATTACK_ANGLE = Math.PI * 0.25f;
     
     

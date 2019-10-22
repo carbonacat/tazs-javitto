@@ -3,6 +3,7 @@ package net.ccat.tazs.battle;
 import femto.mode.HiRes16Color;
 import femto.Sprite;
 
+import net.ccat.tazs.battle.handlers.HandlersTools;
 import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyASprite;
 import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyBSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
@@ -356,6 +357,55 @@ class UnitsSystem
             
             mStats[teamHPIndex] = mStats[teamHPIndex] + unitsHealths[unitIdentifier];
         }
+        separateAllAliveUnits();
+    }
+    
+    // TODO: Don't belong here?
+    public void separateAllAliveUnits()
+    {
+        for (int firstUnitIdentifier = 0; firstUnitIdentifier < mCount; firstUnitIdentifier++)
+            if (unitsHealths[firstUnitIdentifier] > 0)
+            {
+                float firstX = unitsXs[firstUnitIdentifier];
+                float firstY = unitsYs[firstUnitIdentifier];
+                float firstRadius = HandlersTools.UNIT_RADIUS;
+                
+                for (int secondUnitIdentifier = firstUnitIdentifier + 1; secondUnitIdentifier < mCount; secondUnitIdentifier++)
+                    if (unitsHealths[secondUnitIdentifier] > 0)
+                        {
+                            float secondX = unitsXs[secondUnitIdentifier];
+                            float secondY = unitsYs[secondUnitIdentifier];
+                            float secondRadius = HandlersTools.UNIT_RADIUS;
+                            float bothRadius = firstRadius + secondRadius;
+                            float firstToSecondX = secondX - firstX;
+                            float firstToSecondY = secondY - firstY;
+                            float penetrationXAbs = MathTools.abs(firstToSecondX) - bothRadius;
+                            float penetrationYAbs = MathTools.abs(firstToSecondY) - bothRadius;
+                        
+                            if ((penetrationXAbs < 0) && (penetrationYAbs < 0))
+                            {
+                                // Let's separate them.
+                                if (penetrationXAbs > penetrationYAbs)
+                                {
+                                    float separationX = penetrationXAbs * (firstToSecondX > 0 ? -0.5f : 0.5f);
+                                    
+                                    firstX -= separationX;
+                                    secondX += separationX;
+                                    unitsXs[secondUnitIdentifier] = secondX;
+                                }
+                                else
+                                {
+                                    float separationY = penetrationYAbs * (firstToSecondY > 0 ? -0.5f : 0.5f);
+                                    
+                                    firstY -= separationY;
+                                    secondY += separationY;
+                                    unitsYs[secondUnitIdentifier] = secondY;
+                                }
+                            }
+                        }
+                unitsXs[firstUnitIdentifier] = firstX;
+                unitsYs[firstUnitIdentifier] = firstY;
+            }
     }
     
     

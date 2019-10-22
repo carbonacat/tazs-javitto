@@ -157,6 +157,8 @@ public class BattlePhaseState
             screen.print(Texts.BUTTON_C);
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU);
+            screen.print(Texts.MISC_SEPARATOR);
+            screen.print(Runtime.getRuntime().freeMemory());
         }
 
         game.padMenuUI.draw(screen);

@@ -186,22 +186,20 @@ class UnitsSystem
     }
     
     /**
-     * Finds the unit closest from the given point, of the given allegience.
+     * Finds the closest alive unit of a given allegience.
      * @param x The X coordinate.
      * @param y the Y coordinate.
      * @param team The team that must match.
      * @param maxDistance The max distance the closest unit can have.
-     * @param ignoreDead If true, the dead (health = 0) will be ignored.
      * @return the found Unit's identifier, or IDENTIFIER_NONE if none found.
      */
-    public int findClosestUnit(float x, float y, char team, float maxDistance, boolean ignoreDead)
+    public int findClosestLivingUnit(float x, float y, char team, float maxDistance)
     {
         int closestUnitIdentifier = IDENTIFIER_NONE;
         float closestUnitDistanceSquared = maxDistance * maxDistance;
         
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
-            if ((!ignoreDead || (unitsHealths[unitIdentifier] > 0)) &&
-                (unitsTeams[unitIdentifier] == team))
+            if ((unitsHealths[unitIdentifier] > 0) && (unitsTeams[unitIdentifier] == team))
             {
                 float relativeX = x - unitsXs[unitIdentifier];
                 float relativeY = y - unitsYs[unitIdentifier];

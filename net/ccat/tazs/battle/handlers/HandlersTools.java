@@ -96,7 +96,7 @@ public class HandlersTools
         if (unitTimer <= 0)
         {
             // TODO: Not the right way to find another team.
-            targetIdentifier = system.findClosestUnit(unitX, unitY, 1 - unitTeam, SEEK_DISTANCE_MAX, true);
+            targetIdentifier = system.findClosestLivingUnit(unitX, unitY, 1 - unitTeam, SEEK_DISTANCE_MAX);
             system.unitsTargetIdentifiers[unitIdentifier] = targetIdentifier;
             unitTimer = ticksUntilChangingTarget;
         }

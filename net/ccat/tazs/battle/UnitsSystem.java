@@ -78,6 +78,7 @@ class UnitsSystem
         mCount = 0;
         for (int i = 0; i < STATS_MAX; i++)
             mStats[i] = 0;
+        mSeparatePairUnits = false;
     }
     
     /**
@@ -361,7 +362,10 @@ class UnitsSystem
     // TODO: Don't belong here?
     public void separateAllAliveUnits()
     {
-        for (int firstUnitIdentifier = 0; firstUnitIdentifier < mCount; firstUnitIdentifier++)
+        int startingIndex = mSeparatePairUnits ? 0 : 1;
+        
+        mSeparatePairUnits = !mSeparatePairUnits;
+        for (int firstUnitIdentifier = startingIndex; firstUnitIdentifier < mCount; firstUnitIdentifier += 2)
             if (unitsHealths[firstUnitIdentifier] > 0)
             {
                 float firstX = unitsXs[firstUnitIdentifier];
@@ -433,6 +437,8 @@ class UnitsSystem
     
     private byte[] mSave = new byte[UNITS_MAX * SAVE_UNIT_SIZE];
     private int mSaveCount = 0;
+    
+    private boolean mSeparatePairUnits = false;
 
     private static final float FIND_DISTANCE_MAX = 5.f;
     private static final float FAR = 999;

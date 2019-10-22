@@ -24,7 +24,13 @@ public class UnitTypes
      * @see ccat.tazs.battle.handlers.sword
      */
     static final int SWORDER = SLAPPER + 1;
+    /**
+     * @see ccat.tazs.battle.handlers.shieldbearer
+     */
     static final int SHIELDBEARER = SWORDER + 1;
+    /**
+     * @see ccat.tazs.battle.handlers.target
+     */
     static final int TARGET = SHIELDBEARER + 1;
     static final int END = TARGET + 1;
     

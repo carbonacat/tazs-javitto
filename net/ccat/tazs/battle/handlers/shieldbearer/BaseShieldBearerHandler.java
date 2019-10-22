@@ -29,7 +29,7 @@ public class BaseShieldBearerHandler
     public static final int ATTACK_TIMER_RETREATED = 32;
     public static final int ATTACK_TIMER_RESTED = 48;
     
-    public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + SHIELDBEARER_RADIUS + HandlersTools.UNIT_RADIUS - 1;
+    public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + SHIELDBEARER_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
     public static final int COST = 50;

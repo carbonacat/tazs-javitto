@@ -149,10 +149,11 @@ public class HandlersTools
                                                   float powerX, float powerY, float power)
     {
         short health = system.unitsHealths[unitIdentifier];
+        float inverseWeight = system.unitsHandlers[unitIdentifier].inverseWeight();
         
         // TODO: Do a proper pushback. [011]
-        system.unitsXs[unitIdentifier] += powerX;
-        system.unitsYs[unitIdentifier] += powerY;
+        system.unitsXs[unitIdentifier] += powerX * inverseWeight;
+        system.unitsYs[unitIdentifier] += powerY * inverseWeight;
         if (health > 0)
         {
             float lostHealth = power * POWER_HP_RATIO;

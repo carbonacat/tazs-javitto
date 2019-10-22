@@ -21,6 +21,7 @@ public class BaseTargetHandler
     public static final short HEALTH_DAMAGED = 50;
     
     public static final int COST = 0;
+    public static final float INVERSE_WEIGHT = 0;
     public static final int DEATH_TICKS = 64;
     
     
@@ -49,6 +50,11 @@ public class BaseTargetHandler
     public boolean isControlled()
     {
         return false;
+    }
+    
+    public float inverseWeight()
+    {
+        return INVERSE_WEIGHT;
     }
     
     

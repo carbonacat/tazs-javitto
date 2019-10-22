@@ -38,6 +38,12 @@ public interface UnitHandler
      */
     public abstract boolean isControlled();
     
+    /**
+     * A Heavier Unit will move less against a Lighter one when being separated.
+     * @return The inverse weight (that is, 1/weight) for this Unit. 0 means it won't budge at all.
+     */
+    public abstract float inverseWeight();
+    
     
     /***** LIFECYCLE *****/
     

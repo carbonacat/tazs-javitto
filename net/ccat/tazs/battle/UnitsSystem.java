@@ -387,21 +387,25 @@ class UnitsSystem
                         
                             if ((penetrationXAbs < 0) && (penetrationYAbs < 0))
                             {
+                                float firstInverseWeight = unitsHandlers[firstUnitIdentifier].inverseWeight();
+                                float secondInverseWeight = unitsHandlers[secondUnitIdentifier].inverseWeight();
+                                float bothInverseWeight = Math.max(firstInverseWeight + secondInverseWeight, 0.00390625f);
+
                                 // Let's separate them.
                                 if (penetrationXAbs > penetrationYAbs)
                                 {
                                     float separationX = penetrationXAbs * (firstToSecondX > 0 ? -0.5f : 0.5f);
                                     
-                                    firstX -= separationX;
-                                    secondX += separationX;
+                                    firstX -= separationX * firstInverseWeight / bothInverseWeight;
+                                    secondX += separationX * secondInverseWeight / bothInverseWeight;
                                     unitsXs[secondUnitIdentifier] = secondX;
                                 }
                                 else
                                 {
                                     float separationY = penetrationYAbs * (firstToSecondY > 0 ? -0.5f : 0.5f);
                                     
-                                    firstY -= separationY;
-                                    secondY += separationY;
+                                    firstY -= separationY * firstInverseWeight / bothInverseWeight;
+                                    secondY += separationY * secondInverseWeight / bothInverseWeight;
                                     unitsYs[secondUnitIdentifier] = secondY;
                                 }
                             }

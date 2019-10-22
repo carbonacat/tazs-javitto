@@ -33,6 +33,7 @@ public class BaseBrawlerHandler
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
     public static final int COST = 20;
+    public static final float INVERSE_WEIGHT = 1.00;
     public static final int DEATH_TICKS = 64;
     public static final int RECONSIDER_TICKS = 128;
     
@@ -62,6 +63,11 @@ public class BaseBrawlerHandler
     public boolean isControlled()
     {
         return false;
+    }
+    
+    public float inverseWeight()
+    {
+        return INVERSE_WEIGHT;
     }
     
     

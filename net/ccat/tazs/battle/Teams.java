@@ -43,4 +43,20 @@ class Teams
             case ENEMY: return Colors.TEAM_ENEMY;
         }
     }
+    
+    /**
+     * @param team
+     * @return the ID of the opposite team.
+     */
+    public static final int oppositeTeam(int team)
+    {
+        switch (team)
+        {
+            default:
+            case TO_BE_DETERMINED: return TO_BE_DETERMINED;
+            case NONE: return NONE;
+            case PLAYER: return ENEMY;
+            case ENEMY: return PLAYER;
+        }
+    }
 }

@@ -784,6 +784,12 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\shieldbearer\\ShieldBearerDeadHandler.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\tools/Performances.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\tools\\Performances.java": {
+			"sdcard": false
 		}
 	}
 }

@@ -135,8 +135,8 @@ public class BaseSworderHandler
             float weaponX = handX(unitX, unitAngle, swordDistance);
             float weaponY = handY(unitY, unitAngle, swordDistance);
             
-            // TODO: 1-team isn't really a good way to find the other team.
-            int hitUnitIdentifier = system.findClosestLivingUnit(weaponX, weaponY, 1 - unitTeam, SWORD_RADIUS + HandlersTools.UNIT_RADIUS);
+            int hitUnitIdentifier = system.findClosestLivingUnit(weaponX, weaponY, Teams.oppositeTeam(unitTeam),
+                                                                 SWORD_RADIUS + HandlersTools.UNIT_RADIUS);
             
             if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
             {

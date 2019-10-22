@@ -27,8 +27,17 @@ public class RandomBattleMode
         {
             float clusterX = 60 + Math.random(-35, 35);
             float clusterY = Math.random(-35, 35);
-            int clusterUnitType = Math.random(0, UnitTypes.END);
-            UnitHandler clusterUnitHandler = UnitTypes.idleHandlerForType(clusterUnitType);
+            int clusterUnitType;
+            UnitHandler clusterUnitHandler;
+            
+            // TODO: I know it's bad to use do/while.
+            do
+            {
+                clusterUnitType = Math.random(0, UnitTypes.END);
+                clusterUnitHandler = UnitTypes.idleHandlerForType(clusterUnitType);
+            }
+            while (clusterUnitHandler.cost() == 0);
+            
             int clusterCost = Math.random(clusterUnitHandler.cost(), clusterUnitHandler.cost() * 2 + 100);
             
             while (clusterCost > 0)

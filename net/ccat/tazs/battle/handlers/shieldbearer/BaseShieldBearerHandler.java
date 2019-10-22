@@ -168,8 +168,10 @@ public class BaseShieldBearerHandler
                          float unitX, float unitY, float unitAngle, int unitTeam,
                          HiRes16Color screen)
     {
+        boolean facingFront = unitAngle >= 0;
+        
         drawShieldBearer(unitX, unitY, unitAngle,
-                         HAND_IDLE_DISTANCE, 0,
+                         HAND_IDLE_DISTANCE, shieldFrameForIdle(facingFront),
                          system.brawlerBodySpriteByTeam[unitTeam], system.shieldSprite,
                          screen);
     }
@@ -180,9 +182,10 @@ public class BaseShieldBearerHandler
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
+        boolean facingFront = unitAngle >= 0;
         
         drawShieldBearer(unitX, unitY, unitAngle,
-                         HAND_IDLE_DISTANCE, 0,
+                         HAND_IDLE_DISTANCE, shieldFrameForIdle(facingFront),
                          system.brawlerBodySpriteByTeam[unitTeam], system.shieldSprite,
                          screen);
     }
@@ -284,6 +287,11 @@ public class BaseShieldBearerHandler
                                   ATTACK_TIMER_MAX, HAND_MAX_DISTANCE,
                                   ATTACK_TIMER_RETREATED, HAND_IDLE_DISTANCE);
         return HAND_IDLE_DISTANCE;
+    }
+    
+    private static int shieldFrameForIdle(boolean facingFront)
+    {
+        return facingFront ? VideoConstants.SHIELD_FRAME_FRONT : VideoConstants.SHIELD_FRAME_BACK;
     }
     
     private static int shieldFrameForAttackTimer(int unitTimer, boolean facingFront)

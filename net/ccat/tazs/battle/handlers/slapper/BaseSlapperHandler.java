@@ -18,23 +18,23 @@ public class BaseSlapperHandler
     implements UnitHandler
 {
     public static final short HEALTH_INITIAL = 100;
-    public static final float WALK_SPEED = 0.125f;
-    public static final float ANGLE_ROTATION_BY_TICK = 8.f / 256.f;
+    public static final float WALK_SPEED = 0.250f;
+    public static final float ANGLE_ROTATION_BY_TICK = 32.f / 256.f;
     public static final float HAND_IDLE_DISTANCE = 2.f;
     public static final float HAND_MAX_DISTANCE = 6.f;
     public static final float HAND_RADIUS = 1.f;
     public static final float HAND_POWER = 5.f;
     public static final int ATTACK_TIMER_INIT = 0;
-    public static final int ATTACK_TIMER_MAX = 8;
-    public static final int ATTACK_TIMER_RETREATED = 16;
-    public static final int ATTACK_TIMER_RESTED = 32;
+    public static final int ATTACK_TIMER_MAX = 4;
+    public static final int ATTACK_TIMER_RETREATED = 8;
+    public static final int ATTACK_TIMER_RESTED = 16;
     
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + HAND_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
     public static final int COST = 25;
     public static final float INVERSE_WEIGHT = 1.00;
-    public static final int DEATH_TICKS = 64;
+    public static final int DEATH_TICKS = 32;
     public static final int RECONSIDER_TICKS = 128;
     
     

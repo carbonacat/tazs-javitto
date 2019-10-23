@@ -18,24 +18,24 @@ public class BaseSworderHandler
     implements UnitHandler
 {
     public static final short HEALTH_INITIAL = 150;
-    public static final float WALK_SPEED = 0.100f;
-    public static final float ANGLE_ROTATION_BY_TICK = 8.f / 256.f;
+    public static final float WALK_SPEED = 0.200f;
+    public static final float ANGLE_ROTATION_BY_TICK = 24.f / 256.f;
     public static final float HAND_IDLE_DISTANCE = 2.f;
     public static final float HAND_MAX_DISTANCE = 6.f;
     public static final float SWORD_RADIUS = 2.f;
     public static final float SWORD_POWER = 10.f;
     public static final float SWORD_RANGE_RATIO = 1.5f;
     public static final int ATTACK_TIMER_INIT = 0;
-    public static final int ATTACK_TIMER_MAX = 16;
-    public static final int ATTACK_TIMER_RETREATED = 32;
-    public static final int ATTACK_TIMER_RESTED = 64;
+    public static final int ATTACK_TIMER_MAX = 8;
+    public static final int ATTACK_TIMER_RETREATED = 16;
+    public static final int ATTACK_TIMER_RESTED = 32;
     
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE * SWORD_RANGE_RATIO + SWORD_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
     public static final int COST = 50;
     public static final float INVERSE_WEIGHT = 1.25;
-    public static final int DEATH_TICKS = 64;
+    public static final int DEATH_TICKS = 32;
     public static final int RECONSIDER_TICKS = 128;
     
     

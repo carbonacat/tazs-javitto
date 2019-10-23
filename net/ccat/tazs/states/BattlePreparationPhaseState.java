@@ -41,7 +41,7 @@ public class BattlePreparationPhaseState
         TAZSGame game = mGame;
         
         game.unitsSystem.clear();
-        game.moveCamera(0, 0);
+        game.centerCameraOn(0, 0);
         game.cursorX = 0;
         game.cursorY = 0;
         game.cursorSprite.playInvalid();

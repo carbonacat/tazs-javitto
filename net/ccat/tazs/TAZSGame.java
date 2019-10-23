@@ -1,6 +1,7 @@
 package net.ccat.tazs;
 
 import femto.font.TIC80;
+import femto.input.Button;
 import femto.mode.HiRes16Color;
 import femto.sound.Mixer;
 
@@ -28,6 +29,9 @@ import net.ccat.tazs.ui.UIModes;
  */
 class TAZSGame
 {
+    public static final float CAMERA_SPEED_PER_TICK = 4.f;
+    
+    
     public TAZSGame()
     {
         screen = new HiRes16Color(ModifiedNAJI16.palette(), TIC80.font());
@@ -159,27 +163,50 @@ class TAZSGame
     public float cursorX;
     public float cursorY;
     
+    
+    /***** CAMERA *****/
+    
     /**
      * Makes the camera follows smoothly the given coordinates.
      * 
      * @param x
      * @param y
      */
-    public void moveCamera(float x, float y)
+    public void centerCameraOn(float x, float y)
     {
         screen.cameraX = x - Dimensions.SCREEN_WIDTH_2;
         screen.cameraY = y - Dimensions.SCREEN_HEIGHT_2;
     }
+    
     /**
      * Makes the camera follows smoothly the given coordinates.
      * 
      * @param x
      * @param y
      */
-    public void moveCameraSmoothly(float x, float y)
+    public void centerCameraSmoothlyOn(float x, float y)
     {
         screen.cameraX = (screen.cameraX * CAMERA_FOLLOW_OLD_MULTIPLIER + (x - Dimensions.SCREEN_WIDTH_2) * CAMERA_FOLLOW_NEW_MULTIPLIER) / CAMERA_FOLLOW_DIVIDER;
         screen.cameraY = (screen.cameraY * CAMERA_FOLLOW_OLD_MULTIPLIER + (y - Dimensions.SCREEN_HEIGHT_2) * CAMERA_FOLLOW_NEW_MULTIPLIER) / CAMERA_FOLLOW_DIVIDER;
+    }
+    
+    /**
+     * Uses the pad to move the Camera around.
+     */
+    public void moveCameraWithPad()
+    {
+        float cameraX = screen.cameraX + Dimensions.SCREEN_WIDTH_2;
+        float cameraY = screen.cameraY + Dimensions.SCREEN_HEIGHT_2;
+        
+        if (Button.Up.isPressed())
+            cameraY -= TAZSGame.CAMERA_SPEED_PER_TICK;
+        if (Button.Down.isPressed())
+            cameraY += TAZSGame.CAMERA_SPEED_PER_TICK;
+        if (Button.Left.isPressed())
+            cameraX -= TAZSGame.CAMERA_SPEED_PER_TICK;
+        if (Button.Right.isPressed())
+            cameraX += TAZSGame.CAMERA_SPEED_PER_TICK;
+        centerCameraSmoothlyOn(cameraX, cameraY);
     }
     
     

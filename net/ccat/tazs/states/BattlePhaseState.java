@@ -37,7 +37,7 @@ public class BattlePhaseState
         
         TAZSGame game = mGame;
         
-        game.moveCamera(0, 0);
+        game.centerCameraOn(0, 0);
         game.padMenuUI.clearChoices();
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.BATTLE_RETRY);
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.BATTLE_EXIT);
@@ -97,36 +97,38 @@ public class BattlePhaseState
     {
         TAZSGame game = mGame;
         
+        game.unitsSystem.playerPadLength = 0;
+        game.unitsSystem.playerPrimaryAction = false;
+        game.unitsSystem.playerSecondaryAction = false;
         if (!game.padMenuUI.isFocused())
         {
-            int x = 0;
-            int y = 0;
-            float padLength = 0;
-            float padAngle = game.unitsSystem.playerPadAngle;
-            
-            if (Button.Up.isPressed())
-                y--;
-            if (Button.Down.isPressed())
-                y++;
-            if (Button.Left.isPressed())
-                x--;
-            if (Button.Right.isPressed())
-                x++;
-            if ((x != 0) || (y != 0))
+            if (game.unitsSystem.controlledUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
             {
-                padAngle = angleFromPad(x, y);
-                padLength = 1;
+                int x = 0;
+                int y = 0;
+                float padLength = 0;
+                float padAngle = game.unitsSystem.playerPadAngle;
+                
+                if (Button.Up.isPressed())
+                    y--;
+                if (Button.Down.isPressed())
+                    y++;
+                if (Button.Left.isPressed())
+                    x--;
+                if (Button.Right.isPressed())
+                    x++;
+                if ((x != 0) || (y != 0))
+                {
+                    padAngle = angleFromPad(x, y);
+                    padLength = 1;
+                }
+                game.unitsSystem.playerPadLength = padLength;
+                game.unitsSystem.playerPadAngle = padAngle;
+                game.unitsSystem.playerPrimaryAction = Button.A.isPressed();
+                game.unitsSystem.playerSecondaryAction = Button.B.isPressed();
             }
-            game.unitsSystem.playerPadLength = padLength;
-            game.unitsSystem.playerPadAngle = padAngle;
-            game.unitsSystem.playerPrimaryAction = Button.A.isPressed();
-            game.unitsSystem.playerSecondaryAction = Button.B.isPressed();
-        }
-        else
-        {
-            game.unitsSystem.playerPadLength = 0;
-            game.unitsSystem.playerPrimaryAction = false;
-            game.unitsSystem.playerSecondaryAction = false;
+            else
+                game.moveCameraWithPad();
         }
     }
     
@@ -172,7 +174,7 @@ public class BattlePhaseState
         {
             int controlledUnitIdentifier = game.unitsSystem.controlledUnitIdentifier;
             
-            game.moveCameraSmoothly(game.unitsSystem.unitsXs[controlledUnitIdentifier], game.unitsSystem.unitsYs[controlledUnitIdentifier]);
+            game.centerCameraSmoothlyOn(game.unitsSystem.unitsXs[controlledUnitIdentifier], game.unitsSystem.unitsYs[controlledUnitIdentifier]);
         }
     }
     

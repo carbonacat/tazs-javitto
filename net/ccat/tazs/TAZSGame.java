@@ -16,6 +16,8 @@ import net.ccat.tazs.resources.sounds.CursorMoveSound;
 import net.ccat.tazs.resources.sounds.CursorSelectSound;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
+import net.ccat.tazs.resources.sprites.tinygrass.TinyGrassSprite;
+import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.TopBarUI;
 import net.ccat.tazs.ui.UIModes;
@@ -30,16 +32,11 @@ class TAZSGame
     {
         screen = new HiRes16Color(ModifiedNAJI16.palette(), TIC80.font());
         unitsSystem = new UnitsSystem();
-        cursorSprite = new CursorSprite();
-        menuCursorSprite = new MenuCursorSprite();
         menuCursorSprite.playDefault();
         menuCursorSprite.setStatic(true);
         padMenuUI = new PadMenuUI();
         topBarUI = new TopBarUI();
-        cursorMoveSound = new CursorMoveSound();
-        cursorSelectSound = new CursorSelectSound();
-        cursorCancelSound = new CursorCancelSound();
-        
+
         // Something went wrong if that went havoc!
         while (mAreaCoords.length != AREA_TEAMS_MAX * AREA_SIZE);
         
@@ -74,10 +71,19 @@ class TAZSGame
         screen.fillCircle(maxX, maxY, 2, 15, false);
         screen.fillCircle(minX, maxY, 2, 15, false);
         
+        int frameBase = (System.currentTimeMillis() / SCENE_GRASS_MILLIS) % (VideoConstants.TINYGRASS_FRAME_COUNT + SCENE_GRASS_FRAME_DELAY);
+        
+        if (frameBase > SCENE_GRASS_FRAME_DELAY)
+            frameBase -= SCENE_GRASS_FRAME_DELAY;
+        else
+            frameBase = 0;
+        tinyGrassSprite.selectFrame(frameBase);
         for (float cellX = minCellX; cellX < maxX + SCENE_CELL_WIDTH; cellX += SCENE_CELL_WIDTH)
             for (float cellY= minCellY; cellY < maxY + SCENE_CELL_HEIGHT; cellY += SCENE_CELL_HEIGHT)
-                
-                screen.fillCircle(cellX, cellY, 2, 8, false);
+            {
+                tinyGrassSprite.setPosition(cellX - VideoConstants.TINYGRASS_ORIGIN_X, cellY - VideoConstants.TINYGRASS_ORIGIN_Y);
+                tinyGrassSprite.draw(screen);
+            }
     }
     
     
@@ -179,11 +185,12 @@ class TAZSGame
     
     /***** COMMON RESOURCES *****/
     
-    public CursorSprite cursorSprite;
-    public MenuCursorSprite menuCursorSprite;
-    public CursorMoveSound cursorMoveSound;
-    public CursorSelectSound cursorSelectSound;
-    public CursorCancelSound cursorCancelSound;
+    public CursorSprite cursorSprite = new CursorSprite();
+    public MenuCursorSprite menuCursorSprite = new MenuCursorSprite();
+    public TinyGrassSprite tinyGrassSprite = new TinyGrassSprite();
+    public CursorMoveSound cursorMoveSound = new CursorMoveSound();
+    public CursorSelectSound cursorSelectSound = new CursorSelectSound();
+    public CursorCancelSound cursorCancelSound = new CursorCancelSound();
     
     
     /***** PRIVATE *****/
@@ -208,4 +215,6 @@ class TAZSGame
     
     private static final int SCENE_CELL_WIDTH = 32;
     private static final int SCENE_CELL_HEIGHT = 24;
+    private static final int SCENE_GRASS_MILLIS = 100;
+    private static final int SCENE_GRASS_FRAME_DELAY = 4;
 }

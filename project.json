@@ -838,6 +838,26 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\target\\TargetIdleHandler.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\grass": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\tinygrass": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\tinygrass\\TinyGrassRawSprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\tinygrass\\TinyGrassRawSprite.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\tinygrass/TinyGrassSprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\tinygrass\\TinyGrassSprite.java": {
+			"sdcard": false
 		}
 	}
 }

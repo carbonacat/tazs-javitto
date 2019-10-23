@@ -78,4 +78,14 @@ class VideoConstants
     public static final int TARGET_FRAME_DAMAGED = 1;
     public static final int TARGET_FRAME_DEAD_START = 1;
     public static final int TARGET_FRAME_DEAD_LAST = 5;
+    
+    
+    /***** TINY GRASS *****/
+    
+    public static final float TINYGRASS_ORIGIN_X = 2;
+    public static final float TINYGRASS_ORIGIN_Y = 3;
+    public static final int TINYGRASS_FRAME_IDLE = 0;
+    public static final int TINYGRASS_FRAME_START = 0;
+    public static final int TINYGRASS_FRAME_LAST = 3;
+    public static final int TINYGRASS_FRAME_COUNT = TINYGRASS_FRAME_LAST + 1;
 }

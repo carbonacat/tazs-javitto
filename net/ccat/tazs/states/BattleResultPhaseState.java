@@ -6,6 +6,7 @@ import femto.mode.HiRes16Color;
 import femto.State;
 
 import net.ccat.tazs.battle.Teams;
+import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.Texts;
@@ -52,6 +53,7 @@ public class BattleResultPhaseState
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.RESULT_RETRY);
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.RESULT_EXIT);
         mStatsAreShown = true;
+        mLastLosingDyingUnitIdentifier = game.unitsSystem.findUnitThatJustDied(Teams.oppositeTeam(mWinnerTeam));
     }
     
     public void update()
@@ -97,8 +99,10 @@ public class BattleResultPhaseState
             }
             game.battleMode.onPreparationMenuUpdate(game);
         }
-        else
-            game.moveCameraWithPad();
+        else if (game.moveCameraWithPad())
+            mLastLosingDyingUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
+        else if (mLastLosingDyingUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+            game.centerCameraSmoothlyOn(game.unitsSystem.unitsXs[mLastLosingDyingUnitIdentifier], game.unitsSystem.unitsYs[mLastLosingDyingUnitIdentifier]);
         mLogoY = Math.min(mLogoY + Dimensions.RESULT_LOGO_Y_SPEED, Dimensions.RESULT_LOGO_Y_FINAL);
         if (Button.B.justPressed())
             mStatsAreShown = !mStatsAreShown;
@@ -111,8 +115,8 @@ public class BattleResultPhaseState
     
     private void renderUI()
     {
-        HiRes16Color screen = mGame.screen;
         TAZSGame game = mGame;
+        HiRes16Color screen = game.screen;
 
         // Summary logo
         screen.drawRect(Dimensions.RESULT_LOGO_X, mLogoY, Dimensions.RESULT_LOGO_WIDTH, Dimensions.RESULT_LOGO_HEIGHT, Colors.WINDOW_BORDER);
@@ -213,6 +217,7 @@ public class BattleResultPhaseState
     private int mEnemyUnitsCost;
     private int mLogoY = Dimensions.RESULT_LOGO_Y_INITIAL;
     private int mStatsY = Dimensions.RESULT_STATS_Y_HIDDEN;
+    private int mLastLosingDyingUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
     private boolean mStatsAreShown = true;
     private ResultSummarySprite mSummarySprite = new ResultSummarySprite();
 }

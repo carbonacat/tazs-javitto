@@ -192,11 +192,13 @@ class TAZSGame
     
     /**
      * Uses the pad to move the Camera around.
+     * @return true if the Camera was moved in such way, false elsewhere.
      */
-    public void moveCameraWithPad()
+    public boolean moveCameraWithPad()
     {
         float cameraX = screen.cameraX + Dimensions.SCREEN_WIDTH_2;
         float cameraY = screen.cameraY + Dimensions.SCREEN_HEIGHT_2;
+        boolean moved = false;
         
         if (Button.Up.isPressed())
             cameraY -= TAZSGame.CAMERA_SPEED_PER_TICK;
@@ -207,6 +209,7 @@ class TAZSGame
         if (Button.Right.isPressed())
             cameraX += TAZSGame.CAMERA_SPEED_PER_TICK;
         centerCameraSmoothlyOn(cameraX, cameraY);
+        return (Button.Up.isPressed() || Button.Down.isPressed() || Button.Left.isPressed() || Button.Right.isPressed());
     }
     
     

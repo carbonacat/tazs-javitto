@@ -218,6 +218,33 @@ class UnitsSystem
         return closestUnitIdentifier;
     }
     
+    /**
+     * Finds a Unit that died the most recently (0 as timer, or max one otherwise).
+     * @param team The team the Unit must belongs too.
+     * @return The unit's identifier, or IDENTIFIER_NONE if none matched.
+     */
+    public int findUnitThatJustDied(char team)
+    {
+        int bestTimer = -1;
+        int bestIdentifier = IDENTIFIER_NONE;
+        
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
+            if ((unitsHealths[unitIdentifier] == 0) && (unitsTeams[unitIdentifier] == team))
+            {
+                int candidateTimer = unitsTimers[unitIdentifier];
+                
+                // Have they just died?
+                if (candidateTimer == 0)
+                    return unitIdentifier;
+                if (bestTimer < candidateTimer)
+                {
+                    bestIdentifier = unitIdentifier;
+                    bestTimer = candidateTimer;
+                }
+            }
+        return bestIdentifier;
+    }
+    
     
     /***** SAVING/RESTORE *****/
     
@@ -261,6 +288,7 @@ class UnitsSystem
                 unitHandler.onPlayerControl(this, actualUnitIdentifier, true);
             saveIndex += SAVE_UNIT_SIZE;
         }
+        mTicks = 0;
     }
     
     
@@ -355,6 +383,7 @@ class UnitsSystem
      */
     public void onTick()
     {
+        mTicks++;
         controlledUnitIdentifier = IDENTIFIER_NONE;
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
             unitsHandlers[unitIdentifier].onTick(this, unitIdentifier);
@@ -425,6 +454,11 @@ class UnitsSystem
             }
     }
     
+    public int ticks()
+    {
+        return mTicks;
+    }
+    
     
     /***** RENDERING *****/
     
@@ -450,6 +484,7 @@ class UnitsSystem
     
     private int mCount = 0;
     private int[] mStats = new int[STATS_MAX];
+    private int mTicks = 0;
     
     private byte[] mSave = new byte[UNITS_MAX * SAVE_UNIT_SIZE];
     private int mSaveCount = 0;

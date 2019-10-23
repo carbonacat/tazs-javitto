@@ -60,7 +60,7 @@ public class BattleResultPhaseState
         mGame.unitsSystem.onTick();
         updateUI();
 
-        screen.clear(Colors.SCENE_BG);
+        mGame.drawSceneBackground();
         mGame.unitsSystem.draw(screen);
         renderUI();
         screen.flush();

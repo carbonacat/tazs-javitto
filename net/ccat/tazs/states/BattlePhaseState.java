@@ -66,7 +66,7 @@ public class BattlePhaseState
         mGame.battleMode.onBattleUpdateUI(game);
         Performances.onUpdatedUI();
             
-        screen.clear(Colors.SCENE_BG);
+        mGame.drawSceneBackground();
         Performances.onClearedScreen();
         
         mGame.unitsSystem.draw(screen);

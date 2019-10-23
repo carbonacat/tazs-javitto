@@ -63,7 +63,7 @@ public class BattlePreparationPhaseState
         
         updateInput();
         
-        screen.clear(Colors.SCENE_BG);
+        mGame.drawSceneBackground();
         renderArea(Teams.PLAYER, Colors.TEAM_PLAYER_AREA_BORDER, Colors.TEAM_PLAYER_AREA_INSIDE);
         renderArea(Teams.ENEMY, Colors.TEAM_ENEMY_AREA_BORDER, Colors.TEAM_ENEMY_AREA_INSIDE);
         mGame.unitsSystem.draw(screen);

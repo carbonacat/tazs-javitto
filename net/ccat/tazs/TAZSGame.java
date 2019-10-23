@@ -8,6 +8,7 @@ import net.ccat.tazs.battle.BattleMode;
 import net.ccat.tazs.battle.Teams;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.battle.UnitTypes;
+import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
 import net.ccat.tazs.resources.sounds.CursorCancelSound;
@@ -49,6 +50,14 @@ class TAZSGame
     /***** RENDERING *****/
     
     public HiRes16Color screen;
+    
+    /**
+     * Renders the scene's background.
+     */
+    public void drawSceneBackground()
+    {
+        screen.clear(Colors.SCENE_BG);
+    }
     
     
     /***** GAME *****/

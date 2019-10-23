@@ -56,7 +56,28 @@ class TAZSGame
      */
     public void drawSceneBackground()
     {
-        screen.clear(Colors.SCENE_BG);
+        final int drawWidth = Dimensions.SCREEN_WIDTH;
+        final int drawHeight = Dimensions.HELPBAR_BOX_MIN_Y - Dimensions.TOPBAR_HEIGHT;
+        final int drawY = Dimensions.TOPBAR_HEIGHT;
+        
+        float minX = screen.cameraX;
+        float minY = screen.cameraY + drawY;
+        float maxX = minX + drawWidth;
+        float maxY = minY + drawHeight;
+        float minCellX = minX - (float)(((int)minX) % SCENE_CELL_WIDTH + SCENE_CELL_WIDTH);
+        float minCellY = minY - (float)(((int)minY) % SCENE_CELL_HEIGHT + SCENE_CELL_WIDTH);
+        
+        screen.fillRect(0, drawY, drawWidth, drawHeight, Colors.SCENE_BG, true);
+
+        screen.fillCircle(minX, minY, 2, 15, false);
+        screen.fillCircle(maxX, minY, 2, 15, false);
+        screen.fillCircle(maxX, maxY, 2, 15, false);
+        screen.fillCircle(minX, maxY, 2, 15, false);
+        
+        for (float cellX = minCellX; cellX < maxX + SCENE_CELL_WIDTH; cellX += SCENE_CELL_WIDTH)
+            for (float cellY= minCellY; cellY < maxY + SCENE_CELL_HEIGHT; cellY += SCENE_CELL_HEIGHT)
+                
+                screen.fillCircle(cellX, cellY, 2, 8, false);
     }
     
     
@@ -184,4 +205,7 @@ class TAZSGame
     private static final float CAMERA_FOLLOW_OLD_MULTIPLIER = 7;
     private static final float CAMERA_FOLLOW_NEW_MULTIPLIER = 1;
     private static final float CAMERA_FOLLOW_DIVIDER = 8.f;
+    
+    private static final int SCENE_CELL_WIDTH = 32;
+    private static final int SCENE_CELL_HEIGHT = 24;
 }

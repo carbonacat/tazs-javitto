@@ -40,6 +40,9 @@ class Colors
     /***** SCENE *****/
     
     public static final int SCENE_BG = 7;
+    public static final int SCENE_GRASS = 10;
+    public static final int SCENE_GRASS = 7;
+    public static final int SCENE_GRASS_TOP = 7;
     
     
     /***** TEAM *****/

@@ -396,7 +396,6 @@ class UnitsSystem
     public void onTick()
     {
         mTicks++;
-        controlledUnitIdentifier = IDENTIFIER_NONE;
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
             unitsHandlers[unitIdentifier].onTick(this, unitIdentifier);
         // Updating some stats.

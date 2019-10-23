@@ -174,9 +174,18 @@ class TAZSGame
             UnitHandler unitHandler = unitsSystem.unitsHandlers[unitIdentifier];
             int unitHealth = unitsSystem.unitsHealths[unitIdentifier];
             int unitStartingHealth = unitHandler.startingHealth();
+            int borderColor = Colors.CONTROLLED_UNIT_LIFEBAR_BORDER;
             
-            if (unitHealth < unitStartingHealth / 2)
+            if (unitHealth <= 0)
+            {
+                lifeSprite.playDead();
+                borderColor = Colors.CONTROLLED_UNIT_LIFEBAR_BORDER_DEAD;
+            }
+            else if (unitHealth < unitStartingHealth / 2)
+            {
                 lifeSprite.playDanger();
+                borderColor = Colors.CONTROLLED_UNIT_LIFEBAR_BORDER_DANGER;
+            }
             else
                 lifeSprite.playDefault();
             lifeSprite.draw(screen);
@@ -185,16 +194,19 @@ class TAZSGame
             int lifeBarWidth = MathTools.clampi(unitHealth / Dimensions.CONTROLLED_UNIT_LIFEBAR_HEALTH_DIVIDER, 0, barWidth);
             
             screen.drawVLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 1,
-                             Dimensions.CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT, Colors.CONTROLLED_UNIT_LIFEBAR_BORDER);
+                             Dimensions.CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT, borderColor);
             screen.drawVLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + barWidth + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 1,
-                             Dimensions.CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT, Colors.CONTROLLED_UNIT_LIFEBAR_BORDER);
-            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y, barWidth, Colors.CONTROLLED_UNIT_LIFEBAR_BORDER);
+                             Dimensions.CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT, borderColor);
+            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y,
+                             barWidth, borderColor);
             screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + Dimensions.CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT + 1,
-                             barWidth,
-                             Colors.CONTROLLED_UNIT_LIFEBAR_BORDER);
-            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 1, lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_HIGHER);
-            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 2, lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_MIDDLE);
-            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 3, lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_LOWER);
+                             barWidth, borderColor);
+            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 1,
+                             lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_HIGHER);
+            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 2,
+                             lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_MIDDLE);
+            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 3,
+                             lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_LOWER);
         }
     }
     

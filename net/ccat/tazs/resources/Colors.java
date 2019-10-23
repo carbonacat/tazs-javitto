@@ -23,6 +23,8 @@ class Colors
     /***** CONTROLLED UNIT *****/
     
     public static final int CONTROLLED_UNIT_LIFEBAR_BORDER = 1;
+    public static final int CONTROLLED_UNIT_LIFEBAR_BORDER_DANGER = 2;
+    public static final int CONTROLLED_UNIT_LIFEBAR_BORDER_DEAD = 5;
     public static final int CONTROLLED_UNIT_LIFEBAR_FILL_LOWER = 3;
     public static final int CONTROLLED_UNIT_LIFEBAR_FILL_MIDDLE = 8;
     public static final int CONTROLLED_UNIT_LIFEBAR_FILL_HIGHER = 11;

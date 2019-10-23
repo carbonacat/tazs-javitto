@@ -69,11 +69,6 @@ class TAZSGame
         float minCellY = minY - (float)(((int)minY) % SCENE_CELL_HEIGHT + SCENE_CELL_WIDTH);
         
         screen.fillRect(0, drawY, drawWidth, drawHeight, Colors.SCENE_BG, true);
-
-        screen.fillCircle(minX, minY, 2, 15, false);
-        screen.fillCircle(maxX, minY, 2, 15, false);
-        screen.fillCircle(maxX, maxY, 2, 15, false);
-        screen.fillCircle(minX, maxY, 2, 15, false);
         
         int frameBase = (System.currentTimeMillis() / SCENE_GRASS_MILLIS) % (VideoConstants.TINYGRASS_FRAME_COUNT + SCENE_GRASS_FRAME_DELAY);
         

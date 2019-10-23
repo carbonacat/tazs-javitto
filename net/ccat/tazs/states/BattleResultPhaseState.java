@@ -13,6 +13,7 @@ import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.resources.sprites.ResultSummarySprite;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.UITools;
 
@@ -41,6 +42,8 @@ public class BattleResultPhaseState
     
     public void init()
     {
+        Performances.onInit();
+        
         TAZSGame game = mGame;
         
         if (mWinnerTeam == Teams.PLAYER)
@@ -58,6 +61,8 @@ public class BattleResultPhaseState
     
     public void update()
     {
+        Performances.onUpdateStart();
+        
         HiRes16Color screen = mGame.screen;
         
         mGame.unitsSystem.onTick();
@@ -66,12 +71,18 @@ public class BattleResultPhaseState
         mGame.drawSceneBackground();
         mGame.unitsSystem.draw(screen);
         renderUI();
+        
         screen.flush();
+        Performances.onFlushedScreen();
+        
+        Performances.onUpdateEnd();
     }
     
     public void shutdown()
     {
         mGame = null;
+        
+        Performances.onShutdown();
     }
  
  

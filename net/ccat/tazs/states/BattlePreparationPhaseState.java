@@ -16,6 +16,7 @@ import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.UIModes;
 import net.ccat.tazs.ui.UITools;
@@ -38,6 +39,8 @@ public class BattlePreparationPhaseState
     
     public void init()
     {
+        Performances.onInit();
+        
         TAZSGame game = mGame;
         
         game.unitsSystem.clear();
@@ -59,6 +62,8 @@ public class BattlePreparationPhaseState
     
     public void update()
     {
+        Performances.onUpdateStart();
+        
         HiRes16Color screen = mGame.screen;
         
         updateInput();
@@ -68,12 +73,18 @@ public class BattlePreparationPhaseState
         renderArea(Teams.ENEMY, Colors.TEAM_ENEMY_AREA_BORDER, Colors.TEAM_ENEMY_AREA_INSIDE);
         mGame.unitsSystem.draw(screen);
         renderUI();
+        
         screen.flush();
+        Performances.onFlushedScreen();
+        
+        Performances.onUpdateEnd();
     }
     
     public void shutdown()
     {
         mGame = null;
+        
+        Performances.onShutdown();
     }
  
  

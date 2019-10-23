@@ -7,6 +7,7 @@ import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.VideoConstants;
+import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.UITools;
 
 import femto.Game;
@@ -33,6 +34,8 @@ class TitleScreenState
     
     public void init()
     {
+        Performances.onInit();
+        
         if (mGame == null)
             mGame = new TAZSGame();
         mGame.menuCursorSprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CURSOR_X, Dimensions.TITLE_MENU_ENTRY_Y_START - VideoConstants.MENU_CURSOR_ORIGIN_Y);
@@ -40,6 +43,8 @@ class TitleScreenState
     
     public void update()
     {
+        Performances.onUpdateStart();
+        
         HiRes16Color screen = mGame.screen;
         
         if (Button.A.justPressed())
@@ -71,11 +76,15 @@ class TitleScreenState
         mCurrentMenuIdentifier = (mCurrentMenuIdentifier + MENU_ENTRIES_COUNT) % MENU_ENTRIES_COUNT;
         
         draw(screen);
+        
+        Performances.onUpdateEnd();
     }
     
     public void shutdown()
     {
         mGame = null;
+        
+        Performances.onShutdown();
     }
     
     
@@ -98,6 +107,7 @@ class TitleScreenState
         drawMenuChoice(MENU_ENTRIES_CHALLENGES, Texts.TITLE_MENU_CHALLENGES, screen);
         
         screen.flush();
+        Performances.onFlushedScreen();
     }
     
     

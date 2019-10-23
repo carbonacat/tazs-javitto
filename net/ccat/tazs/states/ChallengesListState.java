@@ -12,6 +12,7 @@ import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
+import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.UITools;
 
 import femto.Game;
@@ -45,11 +46,15 @@ class ChallengesListState
     
     public void init()
     {
+        Performances.onInit();
+        
         mGame.menuCursorSprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CURSOR_X, Dimensions.TITLE_MENU_ENTRY_Y_START - VideoConstants.MENU_CURSOR_ORIGIN_Y);
     }
     
     public void update()
     {
+        Performances.onUpdateStart();
+        
         HiRes16Color screen = mGame.screen;
         
         if (Button.A.justPressed())
@@ -80,11 +85,15 @@ class ChallengesListState
         }
         
         draw(screen);
+        
+        Performances.onUpdateEnd();
     }
     
     public void shutdown()
     {
         mGame = null;
+        
+        Performances.onShutdown();
     }
     
     
@@ -107,6 +116,7 @@ class ChallengesListState
             drawMenuChoice(entry, screen);
         
         screen.flush();
+        Performances.onFlushedScreen();
     }
     
     

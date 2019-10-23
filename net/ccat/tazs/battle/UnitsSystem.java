@@ -245,6 +245,18 @@ class UnitsSystem
         return bestIdentifier;
     }
     
+    /**
+     * Finds a Unit that is Controlled.
+     * @return The unit's identifier, or IDENTIFIER_NONE if none matched.
+     */
+    public int findControlledUnitIdentifier()
+    {
+        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
+            if (unitsHandlers[unitIdentifier].isControlled())
+                return unitIdentifier;
+        return IDENTIFIER_NONE;
+    }
+    
     
     /***** SAVING/RESTORE *****/
     

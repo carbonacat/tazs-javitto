@@ -94,6 +94,8 @@ public class Dimensions
     
     public static final int TOPBAR_LIFE_X = 1;
     public static final int TOPBAR_LIFE_Y = TOPBAR_HEIGHT + 1;
+    public static final int TOPBAR_LIFE_BAR_X = 17;
+    public static final int TOPBAR_LIFE_BAR_Y = TOPBAR_HEIGHT + 2;
     
     
     /***** UNIT BOX *****/

@@ -203,17 +203,7 @@ public class BattlePhaseState
 
         game.padMenuUI.draw(screen);
         game.topBarUI.draw(screen);
-        
-        if (game.unitsSystem.controlledUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
-        {
-            int controlledUnitIdentifier = game.unitsSystem.controlledUnitIdentifier;
-            
-            if (game.unitsSystem.unitsHealths[controlledUnitIdentifier] < game.unitsSystem.unitsHandlers[controlledUnitIdentifier].startingHealth() / 2)
-                game.lifeSprite.playDanger();
-            else
-                game.lifeSprite.playDefault();
-            game.lifeSprite.draw(screen);
-        }
+        game.drawUnitUI(game.unitsSystem.controlledUnitIdentifier);
     }
     
     private float angleFromPad(int x, int y)

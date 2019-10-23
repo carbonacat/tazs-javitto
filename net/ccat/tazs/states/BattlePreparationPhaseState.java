@@ -273,6 +273,7 @@ public class BattlePreparationPhaseState
         
         game.topBarUI.draw(screen);
         game.padMenuUI.draw(screen);
+        game.drawUnitUI(game.unitsSystem.findControlledUnitIdentifier());
     }
     
     private void changeCurrentUnit(int delta)

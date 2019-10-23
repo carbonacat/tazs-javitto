@@ -7,6 +7,7 @@ import femto.sound.Mixer;
 
 import net.ccat.tazs.battle.BattleMode;
 import net.ccat.tazs.battle.Teams;
+import net.ccat.tazs.battle.UnitHandler;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.battle.UnitTypes;
 import net.ccat.tazs.resources.Colors;
@@ -158,6 +159,28 @@ class TAZSGame
     // Cursor's in-game coordinates.
     public float cursorX;
     public float cursorY;
+    
+    
+    // TODO: Maybe not at the right place here.
+    /**
+     * Renders the Unit's UI if applicable.
+     * @param unitIdentifier The Unit. IDENTIFIER_NONE won't do anything.
+     */
+    public void drawUnitUI(int unitIdentifier)
+    {
+        if (unitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+        {
+            UnitHandler unitHandler = unitsSystem.unitsHandlers[unitIdentifier];
+            int unitHealth = unitsSystem.unitsHealths[unitIdentifier];
+            int unitStartingHealth = unitHandler.startingHealth();
+            
+            if (unitHealth < unitStartingHealth / 2)
+                lifeSprite.playDanger();
+            else
+                lifeSprite.playDefault();
+            lifeSprite.draw(screen);
+        }
+    }
     
     
     /***** CAMERA *****/

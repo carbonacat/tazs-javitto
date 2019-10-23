@@ -193,6 +193,7 @@ public class BattleResultPhaseState
         }
         
         game.padMenuUI.draw(screen);
+        game.drawUnitUI(game.unitsSystem.controlledUnitIdentifier);
     }
     
     

@@ -51,6 +51,7 @@ public class BattleResultPhaseState
         game.padMenuUI.clearChoices();
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.RESULT_RETRY);
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.RESULT_EXIT);
+        mStatsAreShown = true;
     }
     
     public void update()
@@ -97,7 +98,9 @@ public class BattleResultPhaseState
             game.battleMode.onPreparationMenuUpdate(game);
         }
         mLogoY = Math.min(mLogoY + Dimensions.RESULT_LOGO_Y_SPEED, Dimensions.RESULT_LOGO_Y_FINAL);
-        if (Button.B.isPressed())
+        if (Button.B.justPressed())
+            mStatsAreShown = !mStatsAreShown;
+        if (mStatsAreShown)
             mStatsY = Math.max(mStatsY - Dimensions.RESULT_STATS_Y_SPEED, Dimensions.RESULT_STATS_Y_VISIBLE);
         else
             mStatsY = Math.min(mStatsY + Dimensions.RESULT_STATS_Y_SPEED, Dimensions.RESULT_STATS_Y_HIDDEN);
@@ -208,5 +211,6 @@ public class BattleResultPhaseState
     private int mEnemyUnitsCost;
     private int mLogoY = Dimensions.RESULT_LOGO_Y_INITIAL;
     private int mStatsY = Dimensions.RESULT_STATS_Y_HIDDEN;
+    private boolean mStatsAreShown = true;
     private ResultSummarySprite mSummarySprite = new ResultSummarySprite();
 }

@@ -6,6 +6,7 @@ import femto.mode.HiRes16Color;
 import femto.State;
 
 import net.ccat.tazs.battle.Teams;
+import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.Texts;
@@ -36,8 +37,7 @@ public class BattlePhaseState
         
         TAZSGame game = mGame;
         
-        game.screen.cameraX = -Dimensions.SCREEN_WIDTH * 0.5;
-        game.screen.cameraY = -Dimensions.SCREEN_HEIGHT * 0.5;
+        game.moveCamera(0, 0);
         game.padMenuUI.clearChoices();
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.BATTLE_RETRY);
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.BATTLE_EXIT);
@@ -163,6 +163,13 @@ public class BattlePhaseState
             game.battleMode.onPreparationMenuUpdate(game);
         }
         UITools.resetJustPressed();
+        
+        if (game.unitsSystem.controlledUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+        {
+            int controlledUnitIdentifier = game.unitsSystem.controlledUnitIdentifier;
+            
+            game.moveCameraSmoothly(game.unitsSystem.unitsXs[controlledUnitIdentifier], game.unitsSystem.unitsYs[controlledUnitIdentifier]);
+        }
     }
     
     private void renderUI()

@@ -42,8 +42,6 @@ public class BattleResultPhaseState
     {
         TAZSGame game = mGame;
         
-        game.screen.cameraX = -Dimensions.SCREEN_WIDTH * 0.5;
-        game.screen.cameraY = -Dimensions.SCREEN_HEIGHT * 0.5;
         if (mWinnerTeam == Teams.PLAYER)
             mSummarySprite.playVictory();
         else if (mWinnerTeam == Teams.ENEMY)

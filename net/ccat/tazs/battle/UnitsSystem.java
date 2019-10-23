@@ -80,6 +80,7 @@ class UnitsSystem
         for (int i = 0; i < STATS_MAX; i++)
             mStats[i] = 0;
         mSeparatePairUnits = false;
+        controlledUnitIdentifier = IDENTIFIER_NONE;
     }
     
     /**
@@ -157,6 +158,7 @@ class UnitsSystem
             unitsHandlers[unitIdentifier] = unitsHandlers[lastUnitIdentifier];
             unitsTeams[unitIdentifier] = unitsTeams[lastUnitIdentifier];
         }
+        controlledUnitIdentifier = IDENTIFIER_NONE;
         return true;
     }
     
@@ -338,6 +340,12 @@ class UnitsSystem
      */
     public boolean playerAction;
     
+    /**
+     * The current Controlled Unit's identifier.
+     * Controlled Handlers must update this field from their onTick(), as it's reset otherwise.
+     */
+    public int controlledUnitIdentifier = IDENTIFIER_NONE;
+    
     
     /***** LIFECYCLE *****/
     
@@ -346,6 +354,7 @@ class UnitsSystem
      */
     public void onTick()
     {
+        controlledUnitIdentifier = IDENTIFIER_NONE;
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
             unitsHandlers[unitIdentifier].onTick(this, unitIdentifier);
         // Updating some stats.

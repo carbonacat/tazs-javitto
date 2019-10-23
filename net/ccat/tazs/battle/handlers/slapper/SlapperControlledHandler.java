@@ -34,6 +34,7 @@ public class SlapperControlledHandler
     
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
+        system.controlledUnitIdentifier = unitIdentifier;
         HandlersTools.moveUnitWithPad(system, unitIdentifier, ANGLE_ROTATION_BY_TICK, WALK_SPEED);
         if (system.unitsTimers[unitIdentifier] == 0)
         {

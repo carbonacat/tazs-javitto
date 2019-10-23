@@ -15,8 +15,8 @@ public class Dimensions
     
     /***** PAD MENU *****/
     
-    public static final int PADMENU_X = SCREEN_WIDTH / 2;
-    public static final int PADMENU_Y = SCREEN_HEIGHT / 2;
+    public static final int PADMENU_X = SCREEN_WIDTH_2;
+    public static final int PADMENU_Y = SCREEN_HEIGHT_2;
     
     
     /***** PREPARATION *****/
@@ -60,6 +60,8 @@ public class Dimensions
     
     public static final int SCREEN_WIDTH = 220;
     public static final int SCREEN_HEIGHT = 176;
+    public static final int SCREEN_WIDTH_2 = SCREEN_WIDTH / 2;
+    public static final int SCREEN_HEIGHT_2 = SCREEN_HEIGHT / 2;
     
     
     /***** TITLE *****/

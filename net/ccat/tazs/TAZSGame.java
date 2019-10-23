@@ -8,6 +8,7 @@ import net.ccat.tazs.battle.BattleMode;
 import net.ccat.tazs.battle.Teams;
 import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.battle.UnitTypes;
+import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
 import net.ccat.tazs.resources.sounds.CursorCancelSound;
 import net.ccat.tazs.resources.sounds.CursorMoveSound;
@@ -122,6 +123,29 @@ class TAZSGame
     public float cursorX;
     public float cursorY;
     
+    /**
+     * Makes the camera follows smoothly the given coordinates.
+     * 
+     * @param x
+     * @param y
+     */
+    public void moveCamera(float x, float y)
+    {
+        screen.cameraX = x - Dimensions.SCREEN_WIDTH_2;
+        screen.cameraY = y - Dimensions.SCREEN_HEIGHT_2;
+    }
+    /**
+     * Makes the camera follows smoothly the given coordinates.
+     * 
+     * @param x
+     * @param y
+     */
+    public void moveCameraSmoothly(float x, float y)
+    {
+        screen.cameraX = (screen.cameraX * CAMERA_FOLLOW_OLD_MULTIPLIER + (x - Dimensions.SCREEN_WIDTH_2) * CAMERA_FOLLOW_NEW_MULTIPLIER) / CAMERA_FOLLOW_DIVIDER;
+        screen.cameraY = (screen.cameraY * CAMERA_FOLLOW_OLD_MULTIPLIER + (y - Dimensions.SCREEN_HEIGHT_2) * CAMERA_FOLLOW_NEW_MULTIPLIER) / CAMERA_FOLLOW_DIVIDER;
+    }
+    
     
     /***** COMMON RESOURCES *****/
     
@@ -147,4 +171,8 @@ class TAZSGame
     private static final int AREAS_MIN_Y_OFFSET = 1;
     private static final int AREAS_MAX_X_OFFSET = 2;
     private static final int AREAS_MAX_Y_OFFSET = 3;
+    
+    private static final float CAMERA_FOLLOW_OLD_MULTIPLIER = 7;
+    private static final float CAMERA_FOLLOW_NEW_MULTIPLIER = 1;
+    private static final float CAMERA_FOLLOW_DIVIDER = 8.f;
 }

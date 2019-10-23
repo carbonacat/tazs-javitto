@@ -102,7 +102,10 @@ public class BattlePhaseState
         game.unitsSystem.playerSecondaryAction = false;
         if (!game.padMenuUI.isFocused())
         {
-            if (game.unitsSystem.controlledUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+            int controlledUnitIdentifier = game.unitsSystem.controlledUnitIdentifier;
+        
+            if ((controlledUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+                && (game.unitsSystem.unitsHealths[controlledUnitIdentifier] > 0))
             {
                 int x = 0;
                 int y = 0;
@@ -170,9 +173,11 @@ public class BattlePhaseState
         }
         UITools.resetJustPressed();
         
-        if (game.unitsSystem.controlledUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+        int controlledUnitIdentifier = game.unitsSystem.controlledUnitIdentifier;
+            
+        if ((controlledUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+            && (game.unitsSystem.unitsHealths[controlledUnitIdentifier] > 0))
         {
-            int controlledUnitIdentifier = game.unitsSystem.controlledUnitIdentifier;
             
             game.centerCameraSmoothlyOn(game.unitsSystem.unitsXs[controlledUnitIdentifier], game.unitsSystem.unitsYs[controlledUnitIdentifier]);
         }

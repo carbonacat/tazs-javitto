@@ -56,18 +56,21 @@ public class HandlersTools
      */
     public static void moveUnitWithPad(UnitsSystem system, int unitIdentifier, float rotationSpeed, float walkSpeed)
     {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        float targetAngle = system.playerPadAngle;
-        float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -rotationSpeed, rotationSpeed);
-        
-        unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
-        system.unitsAngles[unitIdentifier] = unitAngle;
         if (system.playerPadLength > 0)
         {
+            float unitX = system.unitsXs[unitIdentifier];
+            float unitY = system.unitsYs[unitIdentifier];
             float unitSpeed = walkSpeed * system.playerPadLength;
+            float unitAngle = system.unitsAngles[unitIdentifier];
+            float targetAngle = system.playerPadAngle;
             
+            if (!system.playerSecondaryAction)
+            {
+                float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -rotationSpeed, rotationSpeed);
+                
+                unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
+                system.unitsAngles[unitIdentifier] = unitAngle;
+            }
             unitX += Math.cos(targetAngle) * unitSpeed;
             unitY += Math.sin(targetAngle) * unitSpeed;
             system.unitsXs[unitIdentifier] = unitX;

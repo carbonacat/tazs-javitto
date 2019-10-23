@@ -43,7 +43,8 @@ public class BattlePhaseState
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.BATTLE_EXIT);
         game.unitsSystem.playerPadAngle = 0;
         game.unitsSystem.playerPadLength = 0;
-        game.unitsSystem.playerAction = false;
+        game.unitsSystem.playerPrimaryAction = false;
+        game.unitsSystem.playerSecondaryAction = false;
     }
     
     public void update()
@@ -118,12 +119,14 @@ public class BattlePhaseState
             }
             game.unitsSystem.playerPadLength = padLength;
             game.unitsSystem.playerPadAngle = padAngle;
-            game.unitsSystem.playerAction = Button.A.isPressed();
+            game.unitsSystem.playerPrimaryAction = Button.A.isPressed();
+            game.unitsSystem.playerSecondaryAction = Button.B.isPressed();
         }
         else
         {
             game.unitsSystem.playerPadLength = 0;
-            game.unitsSystem.playerAction = false;
+            game.unitsSystem.playerPrimaryAction = false;
+            game.unitsSystem.playerSecondaryAction = false;
         }
     }
     
@@ -135,7 +138,8 @@ public class BattlePhaseState
         if (winnerTeam != Teams.TO_BE_DETERMINED)
         {
             game.unitsSystem.playerPadLength = 0;
-            game.unitsSystem.playerAction = false;
+            game.unitsSystem.playerPrimaryAction = false;
+            game.unitsSystem.playerSecondaryAction = false;
             Game.changeState(new BattleResultPhaseState(game, winnerTeam));
         }
     }

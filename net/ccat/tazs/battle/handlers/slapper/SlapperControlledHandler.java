@@ -38,7 +38,7 @@ public class SlapperControlledHandler
         HandlersTools.moveUnitWithPad(system, unitIdentifier, ANGLE_ROTATION_BY_TICK, WALK_SPEED);
         if (system.unitsTimers[unitIdentifier] == 0)
         {
-            if (system.playerAction)
+            if (system.playerPrimaryAction)
                 startAttack(system, unitIdentifier);
         }
         else

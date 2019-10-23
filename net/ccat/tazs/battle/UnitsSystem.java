@@ -338,7 +338,8 @@ class UnitsSystem
     /**
      * True if the Player's action control is pressed, false elsewhere.
      */
-    public boolean playerAction;
+    public boolean playerPrimaryAction;
+    public boolean playerSecondaryAction;
     
     /**
      * The current Controlled Unit's identifier.

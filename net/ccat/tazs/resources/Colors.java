@@ -19,6 +19,15 @@ class Colors
     public static final int DEBUG_STATS_UIRENDERING = 11; // Bright Pink
     public static final int DEBUG_STATS_SCREENFLUSHING = 4; // Dark Purple
     
+    
+    /***** CONTROLLED UNIT *****/
+    
+    public static final int CONTROLLED_UNIT_LIFEBAR_BORDER = 1;
+    public static final int CONTROLLED_UNIT_LIFEBAR_FILL_LOWER = 3;
+    public static final int CONTROLLED_UNIT_LIFEBAR_FILL_MIDDLE = 8;
+    public static final int CONTROLLED_UNIT_LIFEBAR_FILL_HIGHER = 11;
+    
+    
     /***** HELP *****/
     
     public static final int HELP_BG = 1;

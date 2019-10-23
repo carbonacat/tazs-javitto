@@ -92,10 +92,15 @@ public class Dimensions
     public static final int TOPBAR_SECONDARYLINE_Y_OFFSET = 10;
     public static final int TOPBAR_BAR_LENGTH_MAX = 107;
     
-    public static final int TOPBAR_LIFE_X = 1;
-    public static final int TOPBAR_LIFE_Y = TOPBAR_HEIGHT + 1;
-    public static final int TOPBAR_LIFE_BAR_X = 17;
-    public static final int TOPBAR_LIFE_BAR_Y = TOPBAR_HEIGHT + 2;
+    
+    /***** CONTROLLED UNIT *****/
+    
+    public static final int CONTROLLED_UNIT_LIFEBAR_X = 17;
+    public static final int CONTROLLED_UNIT_LIFEBAR_Y = TOPBAR_HEIGHT + 2;
+    public static final int CONTROLLED_UNIT_LIFE_X = 1;
+    public static final int CONTROLLED_UNIT_LIFE_Y = TOPBAR_HEIGHT + 1;
+    public static final int CONTROLLED_UNIT_LIFEBAR_HEALTH_DIVIDER = 5;
+    public static final int CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT = 3;
     
     
     /***** UNIT BOX *****/

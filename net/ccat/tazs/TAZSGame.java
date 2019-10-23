@@ -21,6 +21,7 @@ import net.ccat.tazs.resources.sprites.life.LifeSprite;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.sprites.tinygrass.TinyGrassSprite;
 import net.ccat.tazs.resources.VideoConstants;
+import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.TopBarUI;
 import net.ccat.tazs.ui.UIModes;
@@ -41,7 +42,7 @@ class TAZSGame
         menuCursorSprite.setStatic(true);
         lifeSprite.setStatic(true);
         lifeSprite.playDefault();
-        lifeSprite.setPosition(Dimensions.TOPBAR_LIFE_X, Dimensions.TOPBAR_LIFE_Y);
+        lifeSprite.setPosition(Dimensions.CONTROLLED_UNIT_LIFE_X, Dimensions.CONTROLLED_UNIT_LIFE_Y);
 
         // Something went wrong if that went havoc!
         while (mAreaCoords.length != AREA_TEAMS_MAX * AREA_SIZE);
@@ -179,6 +180,21 @@ class TAZSGame
             else
                 lifeSprite.playDefault();
             lifeSprite.draw(screen);
+            
+            int barWidth = unitStartingHealth / Dimensions.CONTROLLED_UNIT_LIFEBAR_HEALTH_DIVIDER;
+            int lifeBarWidth = MathTools.clampi(unitHealth / Dimensions.CONTROLLED_UNIT_LIFEBAR_HEALTH_DIVIDER, 0, barWidth);
+            
+            screen.drawVLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 1,
+                             Dimensions.CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT, Colors.CONTROLLED_UNIT_LIFEBAR_BORDER);
+            screen.drawVLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + barWidth + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 1,
+                             Dimensions.CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT, Colors.CONTROLLED_UNIT_LIFEBAR_BORDER);
+            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y, barWidth, Colors.CONTROLLED_UNIT_LIFEBAR_BORDER);
+            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + Dimensions.CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT + 1,
+                             barWidth,
+                             Colors.CONTROLLED_UNIT_LIFEBAR_BORDER);
+            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 1, lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_HIGHER);
+            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 2, lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_MIDDLE);
+            screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 3, lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_LOWER);
         }
     }
     

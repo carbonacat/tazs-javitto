@@ -43,6 +43,21 @@ class Teams
             case ENEMY: return Colors.TEAM_ENEMY;
         }
     }
+    /**
+     * @param team The Team's identifier.
+     * @return the usual, darker color for the Team.
+     */
+    public static final int darkerColorForTeam(int team)
+    {
+        switch (team)
+        {
+            default:
+            case TO_BE_DETERMINED: return Colors.TEAM_UNKNOWN_DARKER;
+            case NONE: return Colors.TEAM_UNKNOWN_DARKER;
+            case PLAYER: return Colors.TEAM_PLAYER_DARKER;
+            case ENEMY: return Colors.TEAM_ENEMY_DARKER;
+        }
+    }
     
     /**
      * @param team

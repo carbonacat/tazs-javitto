@@ -2,8 +2,10 @@ package net.ccat.tazs.battle.handlers;
 
 import femto.mode.HiRes16Color;
 
+import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.UITools;
 
 
 /**
@@ -14,7 +16,7 @@ public class HandlersTools
     public static final float POWER_HP_RATIO = 3.f;
     public static final float SEEK_DISTANCE_MAX = 250.f;
     public static final float UNIT_RADIUS = 3.f;
-    public static final float UNIT_ATTACK_ANGLE = Math.PI * 0.25f;
+    public static final float UNIT_ATTACK_ANGLE = Math.PI * 0.125f;
     
     
     /***** RENDERING *****/
@@ -30,9 +32,15 @@ public class HandlersTools
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
+        float radius = MathTools.lerp(System.currentTimeMillis() % 512, 0, Dimensions.UNIT_CONTROL_DIRECTION_LENGTH, 512, Dimensions.UNIT_CONTROL_RADIUS);
         
-        screen.drawCircle(unitX, unitY, Dimensions.UNIT_CONTROL_RADIUS, Teams.colorForTeam(unitTeam), false);
+        screen.drawCircle(unitX, unitY, radius + 1.f, Teams.colorForTeam(unitTeam), false);
+        screen.drawCircle(unitX, unitY, radius, Teams.darkerColorForTeam(unitTeam), false);
+        screen.drawLine(unitX, unitY,
+                        unitX + Math.cos(unitAngle) * Dimensions.UNIT_CONTROL_DIRECTION_LENGTH, unitY + Math.sin(unitAngle) * Dimensions.UNIT_CONTROL_DIRECTION_LENGTH,
+                        Teams.colorForTeam(unitTeam), false);
     }
     
     

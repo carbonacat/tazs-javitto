@@ -97,6 +97,8 @@ public class BattleResultPhaseState
             }
             game.battleMode.onPreparationMenuUpdate(game);
         }
+        else
+            game.moveCameraWithPad();
         mLogoY = Math.min(mLogoY + Dimensions.RESULT_LOGO_Y_SPEED, Dimensions.RESULT_LOGO_Y_FINAL);
         if (Button.B.justPressed())
             mStatsAreShown = !mStatsAreShown;

@@ -118,7 +118,7 @@ public class Performances
         while (aboveFPS)
         {
             frameMillis = nowMillis - mStartMillis;
-            if (frameMillis >= FPS_MILLIS)
+            if (frameMillis * FPS_LIMIT >= 1000)
                 aboveFPS = false;
             else
                 nowMillis = System.currentTimeMillis();
@@ -231,11 +231,10 @@ public class Performances
     private static short mScreenFlushingMillis;
     private static short mFrameMillis;
     
-    private static final int FPS_LIMIT = 30;
-    private static final int FPS_MILLIS = 1000 / FPS_LIMIT;
+    private static final int FPS_LIMIT = 32;
     private static final int STATS_COUNT = 10;
     // Helps smoothing things.
-    private static final int STATS_MILLIS_MULTIPLIER = 16;
+    private static final int STATS_MILLIS_MULTIPLIER = FPS_LIMIT;
     private static final int STATS_SMOOTHING_MULTIPLIER = 7;
     private static final int STATS_SMOOTHING_DIVIDER = STATS_SMOOTHING_MULTIPLIER + 1;
 }

@@ -219,5 +219,6 @@ public class BattleResultPhaseState
     private int mStatsY = Dimensions.RESULT_STATS_Y_HIDDEN;
     private int mLastLosingDyingUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
     private boolean mStatsAreShown = true;
+    private boolean mWasPressingDirection = false;
     private ResultSummarySprite mSummarySprite = new ResultSummarySprite();
 }

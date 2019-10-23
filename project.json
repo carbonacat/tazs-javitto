@@ -858,6 +858,17 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\sprites\\tinygrass\\TinyGrassSprite.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\life": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\life\\LifeSprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\life\\LifeSprite.png": {
+			"sdcard": false,
+			"implements": ""
 		}
 	}
 }

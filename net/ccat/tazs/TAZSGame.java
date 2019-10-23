@@ -16,6 +16,7 @@ import net.ccat.tazs.resources.sounds.CursorCancelSound;
 import net.ccat.tazs.resources.sounds.CursorMoveSound;
 import net.ccat.tazs.resources.sounds.CursorSelectSound;
 import net.ccat.tazs.resources.sprites.CursorSprite;
+import net.ccat.tazs.resources.sprites.life.LifeSprite;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.sprites.tinygrass.TinyGrassSprite;
 import net.ccat.tazs.resources.VideoConstants;
@@ -35,11 +36,11 @@ class TAZSGame
     public TAZSGame()
     {
         screen = new HiRes16Color(ModifiedNAJI16.palette(), TIC80.font());
-        unitsSystem = new UnitsSystem();
         menuCursorSprite.playDefault();
         menuCursorSprite.setStatic(true);
-        padMenuUI = new PadMenuUI();
-        topBarUI = new TopBarUI();
+        lifeSprite.setStatic(true);
+        lifeSprite.playDefault();
+        lifeSprite.setPosition(Dimensions.TOPBAR_LIFE_X, Dimensions.TOPBAR_LIFE_Y);
 
         // Something went wrong if that went havoc!
         while (mAreaCoords.length != AREA_TEAMS_MAX * AREA_SIZE);
@@ -88,7 +89,7 @@ class TAZSGame
     
     /***** GAME *****/
     
-    public UnitsSystem unitsSystem;
+    public UnitsSystem unitsSystem = new UnitsSystem();
     public int focusedUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
     public BattleMode battleMode;
     
@@ -149,8 +150,8 @@ class TAZSGame
     
     /***** UI *****/
     
-    public PadMenuUI padMenuUI;
-    public TopBarUI topBarUI;
+    public PadMenuUI padMenuUI = new PadMenuUI();
+    public TopBarUI topBarUI = new TopBarUI();
     public int uiMode = UIModes.INVALID;
     public int currentUnitType = UnitTypes.BRAWLER;
     
@@ -213,6 +214,7 @@ class TAZSGame
     public CursorSprite cursorSprite = new CursorSprite();
     public MenuCursorSprite menuCursorSprite = new MenuCursorSprite();
     public TinyGrassSprite tinyGrassSprite = new TinyGrassSprite();
+    public LifeSprite lifeSprite = new LifeSprite();
     public CursorMoveSound cursorMoveSound = new CursorMoveSound();
     public CursorSelectSound cursorSelectSound = new CursorSelectSound();
     public CursorCancelSound cursorCancelSound = new CursorCancelSound();

@@ -34,6 +34,7 @@ class VideoConstants
     public static final int EVERYTHING_TARGET_FRAME = 42;
     public static final int EVERYTHING_HAND_FRAME = 49; // TODO: Should be 48, as Aseprite says it's 49. I'm not sure what's happening.
     public static final int EVERYTHING_SWORD_FRAME = 50; // TODO: Should be 49, as Aseprite says it's 50. I'm not sure what's happening.
+    public static final int EVERYTHING_SHIELD_FRAME = 55; // TODO: Should be 54, as Aseprite says it's 55. I'm not sure what's happening.
     
     
     /***** MENU CURSOR *****/
@@ -50,8 +51,6 @@ class VideoConstants
     
     /***** SHIELD *****/
     
-    public static final int SHIELD_ORIGIN_X = 8;
-    public static final int SHIELD_ORIGIN_Y = 7;
     public static final int SHIELD_FRAME_BACK = 0;
     public static final int SHIELD_FRAME_FRONT = 4;
     // What to add to either SHIELD_FRAME_BACK or SHIELD_FRAME_FRONT to get the frame where the shield is on the ground.

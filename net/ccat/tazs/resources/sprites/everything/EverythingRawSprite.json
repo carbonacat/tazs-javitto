@@ -430,6 +430,70 @@
     "spriteSourceSize": { "x": 24, "y": 23, "w": 7, "h": 5 },
     "sourceSize": { "w": 51, "h": 51 },
     "duration": 100
+   },
+   "EverythingSprite 54.aseprite": {
+    "frame": { "x": 362, "y": 0, "w": 4, "h": 8 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 25, "y": 18, "w": 4, "h": 8 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 55.aseprite": {
+    "frame": { "x": 366, "y": 0, "w": 5, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 25, "y": 19, "w": 5, "h": 7 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 56.aseprite": {
+    "frame": { "x": 371, "y": 0, "w": 6, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 26, "y": 20, "w": 6, "h": 7 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 57.aseprite": {
+    "frame": { "x": 377, "y": 0, "w": 8, "h": 3 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 26, "y": 23, "w": 8, "h": 3 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 58.aseprite": {
+    "frame": { "x": 385, "y": 0, "w": 4, "h": 8 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 25, "y": 19, "w": 4, "h": 8 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 59.aseprite": {
+    "frame": { "x": 389, "y": 0, "w": 5, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 25, "y": 20, "w": 5, "h": 7 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 60.aseprite": {
+    "frame": { "x": 394, "y": 0, "w": 7, "h": 6 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 25, "y": 21, "w": 7, "h": 6 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 61.aseprite": {
+    "frame": { "x": 401, "y": 0, "w": 8, "h": 3 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 25, "y": 24, "w": 8, "h": 3 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
    }
  },
  "meta": {
@@ -437,7 +501,7 @@
   "version": "1.2.15-x64",
   "image": "EverythingRawSprite.png",
   "format": "I8",
-  "size": { "w": 2754, "h": 51 },
+  "size": { "w": 3162, "h": 51 },
   "scale": "1",
   "frameTags": [
    { "name": "playBrawlerAIdle", "from": 0, "to": 0, "direction": "forward" },
@@ -453,7 +517,9 @@
    { "name": "playTargetDeath", "from": 43, "to": 47, "direction": "forward" },
    { "name": "playTargetDamaged", "from": 43, "to": 43, "direction": "forward" },
    { "name": "playHand", "from": 48, "to": 48, "direction": "forward" },
-   { "name": "playSwordSwing", "from": 49, "to": 53, "direction": "forward" }
+   { "name": "playSwordSwing", "from": 49, "to": 53, "direction": "forward" },
+   { "name": "playFallingShieldBack", "from": 54, "to": 57, "direction": "forward" },
+   { "name": "playFallingShieldFront", "from": 58, "to": 61, "direction": "forward" }
   ],
   "layers": [
    { "name": "Main", "opacity": 255, "blendMode": "normal" },

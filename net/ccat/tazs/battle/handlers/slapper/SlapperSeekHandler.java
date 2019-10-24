@@ -6,15 +6,14 @@ import net.ccat.tazs.tools.MathTools;
 
 
 /**
- * Handles the Idle state of a Slapper.
+ * Handles the Seek state of a Slapper.
  * - Seeks the closest Enemy.
  * - Switch to SlapperPunch when close enough to punch them.
- * TODO: Actually not being Idle, as it seeks Enemies.
  */
-public class SlapperIdleHandler
+public class SlapperSeekHandler
     extends BaseSlapperHandler
 {
-    static final SlapperIdleHandler instance = new SlapperIdleHandler();
+    static final SlapperSeekHandler instance = new SlapperSeekHandler();
     
     
     /***** LIFECYCLE *****/
@@ -30,6 +29,6 @@ public class SlapperIdleHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawUnit(system, unitIdentifier, screen);
+        drawIdleSlapperUnit(system, unitIdentifier, screen);
     }
 }

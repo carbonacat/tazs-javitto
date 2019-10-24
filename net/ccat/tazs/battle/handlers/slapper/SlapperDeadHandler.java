@@ -43,6 +43,6 @@ public class SlapperDeadHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawDeadUnit(system, unitIdentifier, screen);
+        drawDyingSlapperUnit(system, unitIdentifier, screen);
     }
 }

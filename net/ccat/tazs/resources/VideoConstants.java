@@ -8,9 +8,9 @@ class VideoConstants
 {
     /***** BRAWLER *****/
     
-    public static final float BRAWLERBODY_HAND_ORIGIN_Y = 5;
-    public static final float BRAWLERBODY_WEAPON_ORIGIN_Y = 3;
-    public static final float BRAWLERBODY_SHIELD_ORIGIN_Y = 1;
+    public static final float BRAWLERBODY_HAND_OFFSET_Y = 5;
+    public static final float BRAWLERBODY_WEAPON_OFFSET_Y = 3;
+    public static final float BRAWLERBODY_SHIELD_OFFSET_Y = 1;
     public static final int BRAWLERBODY_FRAME_IDLE = 0;
     public static final int BRAWLERBODY_FRAME_DEAD_START = 1;
     public static final int BRAWLERBODY_FRAME_DEAD_LAST = 6;
@@ -27,7 +27,9 @@ class VideoConstants
     public static final float EVERYTHING_ORIGIN_X = 25;
     public static final float EVERYTHING_ORIGIN_Y = 25;
     public static final int EVERYTHING_FRAME_BRAWLERBODY_A = 0;
-    public static final int EVERYTHING_FRAME_BRAWLERBODY_B = EVERYTHING_FRAME_BRAWLERBODY_A + BRAWLERBODY_FRAME_DEAD_LAST + 1;
+    public static final int EVERYTHING_FRAME_BRAWLERBODY_B = 7;
+    public static final int EVERYTHING_FRAME_SLAPPERBODY_A = 14;
+    public static final int EVERYTHING_FRAME_SLAPPERBODY_B = 26;
     
     
     /***** HAND *****/
@@ -60,9 +62,7 @@ class VideoConstants
     
     /***** SLAPPER *****/
     
-    public static final float SLAPPERBODY_ORIGIN_X = 3;
-    public static final float SLAPPERBODY_ORIGIN_Y = 11;
-    public static final float SLAPPERBODY_WEAPON_ORIGIN_Y = 7;
+    public static final float SLAPPERBODY_HAND_OFFSET_Y = 5;
     public static final int SLAPPERBODY_FRAME_IDLE = 0;
     public static final int SLAPPERBODY_FRAME_DEAD_START = 1;
     public static final int SLAPPERBODY_FRAME_DEAD_LAST = 11;

@@ -231,7 +231,7 @@ public class BaseSworderHandler
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
         
         swordSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_X,
-                                handY(unitY, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y);
+                                handY(unitY, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_OFFSET_Y);
         swordSprite.selectFrame(swordFrame);
         swordSprite.setMirrored(mirrored);
         
@@ -350,8 +350,8 @@ public class BaseSworderHandler
     {
         if ((unitTimer > 0) && (unitTimer <= BaseBrawlerHandler.DEATH_TICKS))
             return MathTools.lerp(unitTimer,
-                                  0, VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y,
+                                  0, VideoConstants.BRAWLERBODY_WEAPON_OFFSET_Y,
                                   BaseBrawlerHandler.DEATH_TICKS, 0);
-        return VideoConstants.BRAWLERBODY_WEAPON_ORIGIN_Y;
+        return VideoConstants.BRAWLERBODY_WEAPON_OFFSET_Y;
     }
 }

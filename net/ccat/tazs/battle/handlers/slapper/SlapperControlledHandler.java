@@ -25,7 +25,7 @@ public class SlapperControlledHandler
     {
         if (control)
             return false;
-        system.unitsHandlers[unitIdentifier] = SlapperIdleHandler.instance;
+        system.unitsHandlers[unitIdentifier] = SlapperSeekHandler.instance;
         return true;
     }
     
@@ -51,6 +51,6 @@ public class SlapperControlledHandler
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         HandlersTools.drawControlCircle(system, unitIdentifier, screen);
-        drawAttackingUnit(system, unitIdentifier, screen);
+        drawAttackingSlapperUnit(system, unitIdentifier, screen);
     }
 }

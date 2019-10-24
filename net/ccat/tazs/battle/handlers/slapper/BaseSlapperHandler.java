@@ -71,18 +71,6 @@ public class BaseSlapperHandler
     }
     
     
-    /***** PARTS POSITIONS *****/
-    
-    protected float handX(float unitX, float unitAngle, float handDistance)
-    {
-        return unitX + handDistance * Math.cos(unitAngle);
-    }
-    protected float handY(float unitY, float unitAngle, float handDistance)
-    {
-        return unitY + handDistance * Math.sin(unitAngle);
-    }
-    
-    
     /***** EVENTS *****/
     
     public boolean onPlayerControl(UnitsSystem system, int unitIdentifier, boolean control)
@@ -103,6 +91,189 @@ public class BaseSlapperHandler
     }
     
     
+    /***** RENDERING *****/
+    
+    public void drawAsUI(UnitsSystem system,
+                         float unitX, float unitY, float unitAngle, int unitTeam,
+                         HiRes16Color screen)
+    {
+        drawStandingSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
+                            system.everythingSprite, baseFrameForTeam(unitTeam),
+                            system.handSprite,
+                            screen);
+    }
+    
+    
+    /***** RENDERING TOOLS *****/
+    
+    /**
+     * @param unitTeam
+     * @return The base frame for a given team.
+     */
+    public static int baseFrameForTeam(int unitTeam)
+    {
+        if (unitTeam == Teams.PLAYER)
+            return VideoConstants.EVERYTHING_FRAME_SLAPPERBODY_A;
+        if (unitTeam == Teams.ENEMY)
+            return VideoConstants.EVERYTHING_FRAME_SLAPPERBODY_B;
+        // Shouldn't happen!
+        while (true);
+        return VideoConstants.EVERYTHING_FRAME_SLAPPERBODY_A;
+    }
+    
+    
+    /**
+     * Renders an Idle Slapper using its information inside system.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @param screen
+     */
+    public static void drawIdleSlapperUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        
+        drawStandingSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
+                            system.everythingSprite, baseFrameForTeam(unitTeam),
+                            system.handSprite, screen);
+    }
+    
+    
+    /**
+     * Renders a Dying Slapper using its information inside system.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @param screen
+     */
+    public static void drawDyingSlapperUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+
+        drawDyingSlapperBody(unitX, unitY, unitAngle,
+                             unitTimer,
+                             system.everythingSprite, baseFrameForTeam(unitTeam),
+                             screen);
+    }
+    
+    /**
+     * Renders an Attacking Slapper using its information inside system.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @param screen
+     */
+    public static void drawAttackingSlapperUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        float handDistance = handDistanceForAttackTimer(unitTimer);
+        
+        drawStandingSlapper(unitX, unitY, unitAngle, handDistance,
+                            system.everythingSprite, baseFrameForTeam(unitTeam),
+                            system.handSprite, screen);
+    }
+    
+    /**
+     * Renders a Slapper with its weapon at a given distance.
+     * 
+     * @param unitX
+     * @param unitY
+     * @param unitAngle
+     * @param handDistance
+     * @param everythingSprite
+     * @param baseFrame
+     * @param handSprite
+     * @param screen
+     */
+    public static void drawStandingSlapper(float unitX, float unitY, float unitAngle,
+                                           float handDistance,
+                                           NonAnimatedSprite everythingSprite, int baseFrame,
+                                           HandSprite handSprite,
+                                           HiRes16Color screen)
+    {
+        // Is the hand above?
+        if (unitAngle < 0)
+            drawHand(unitX, unitY, unitAngle, handDistance, handSprite, screen);
+        drawStandingSlapperBody(unitX, unitY, unitAngle, everythingSprite, baseFrame, screen);
+        // Is the hand below?
+        if (unitAngle >= 0)
+            drawHand(unitX, unitY, unitAngle, handDistance, handSprite, screen);
+    }
+    
+    /**
+     * Renders the Slapper's Weapon.
+     * @param unitX
+     * @param unitY
+     * @param unitAngle
+     * @param handDistance
+     * @param handSprite
+     * @param screen
+     */
+    public static void drawHand(float unitX, float unitY, float unitAngle,
+                                float handDistance,
+                                HandSprite handSprite,
+                                HiRes16Color screen)
+    {
+        handSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_X,
+                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.SLAPPERBODY_HAND_OFFSET_Y);
+        handSprite.draw(screen);
+    }
+    
+    /**
+     * Renders an Idle Slapper Body.
+     * @param unitX
+     * @param unitY
+     * @param unitAngle
+     * @param everythingSprite
+     * @param baseFrame
+     * @param screen
+     */
+    public static void drawStandingSlapperBody(float unitX, float unitY, float unitAngle,
+                                               NonAnimatedSprite everythingSprite, int baseFrame,
+                                               HiRes16Color screen)
+    {
+        everythingSprite.selectFrame(baseFrame + VideoConstants.SLAPPERBODY_FRAME_IDLE);
+        everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
+        everythingSprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
+        everythingSprite.draw(screen);
+    }
+    
+    /**
+     * Renders a Dying Brawler Body.
+     * @param unitX
+     * @param unitY
+     * @param unitAngle
+     * @param unitTimer
+     * @param everythingSprite
+     * @param baseFrame
+     * @param screen
+     */
+    public static void drawDyingSlapperBody(float unitX, float unitY, float unitAngle,
+                                            int unitTimer,
+                                            NonAnimatedSprite everythingSprite, int baseFrame,
+                                            HiRes16Color screen)
+    {
+        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.SLAPPERBODY_FRAME_DEAD_START);
+        int frame = baseFrame + MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_FRAME_DEAD_START, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST);
+        
+        everythingSprite.selectFrame(frame);
+        everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
+        everythingSprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
+        everythingSprite.draw(screen);
+    }
+    
+    
     /***** ATTACKING *****/
     
     /**
@@ -111,7 +282,7 @@ public class BaseSlapperHandler
      * @param system
      * @param unitIdentifier
      */
-    protected void startAttack(UnitsSystem system, int unitIdentifier)
+    public static void startAttack(UnitsSystem system, int unitIdentifier)
     {
         system.unitsTimers[unitIdentifier] = 1;
     }
@@ -123,7 +294,7 @@ public class BaseSlapperHandler
      * @param unitIdentifier
      * @return False if the attack ended.
      */
-    protected boolean handleAttack(UnitsSystem system, int unitIdentifier)
+    public static boolean handleAttack(UnitsSystem system, int unitIdentifier)
     {
         int unitTimer = system.unitsTimers[unitIdentifier] + 1;
         
@@ -158,84 +329,23 @@ public class BaseSlapperHandler
     }
     
     
-    /***** RENDERING *****/
-    
-    public void drawAsUI(UnitsSystem system,
-                         float unitX, float unitY, float unitAngle, int unitTeam,
-                         HiRes16Color screen)
-    {
-        drawSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
-                    system.slapperBodySpriteByTeam[unitTeam], system.handSprite,
-                    screen);
-    }
-    
-    protected void drawUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
-    {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        
-        drawSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE, system.slapperBodySpriteByTeam[unitTeam], system.handSprite, screen);
-    }
-    
-    protected void drawDeadUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
-    {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        int unitTimer = system.unitsTimers[unitIdentifier];
-        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.SLAPPERBODY_FRAME_DEAD_START);
-        int frame = MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_FRAME_DEAD_START, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST);
-        NonAnimatedSprite bodySprite = system.slapperBodySpriteByTeam[unitTeam];
-        
-        bodySprite.selectFrame(frame);
-        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
-        bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
-        bodySprite.draw(screen);
-    }
-    
-    protected void drawAttackingUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
-    {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        int unitTimer = system.unitsTimers[unitIdentifier];
-        float handDistance = handDistanceForAttackTimer(unitTimer);
-        
-        drawSlapper(unitX, unitY, unitAngle, handDistance, system.slapperBodySpriteByTeam[unitTeam], system.handSprite, screen);
-    }
-    
-    
-    protected void drawSlapper(float unitX, float unitY, float unitAngle, float handDistance,
-                               NonAnimatedSprite bodySprite, HandSprite handSprite,
-                               HiRes16Color screen)
-    {
-        handSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_X,
-                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.SLAPPERBODY_WEAPON_ORIGIN_Y);
-        // Is the hand above?
-        if (unitAngle < 0)
-            handSprite.draw(screen);
-        bodySprite.selectFrame(VideoConstants.SLAPPERBODY_FRAME_IDLE);
-        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
-        bodySprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
-        bodySprite.draw(screen);
-
-        // Is the hand below?
-        if (unitAngle >= 0)
-            handSprite.draw(screen);
-    }
-    
-    
     /***** TOOLS *****/
+    
+    
+    public static float handX(float unitX, float unitAngle, float handDistance)
+    {
+        return unitX + handDistance * Math.cos(unitAngle);
+    }
+    public static float handY(float unitY, float unitAngle, float handDistance)
+    {
+        return unitY + handDistance * Math.sin(unitAngle);
+    }
     
     /**
      * @param unitTimer The Unit's timer value.
      * @return The distance for the hand.
      */
-    private static float handDistanceForAttackTimer(int unitTimer)
+    public static static float handDistanceForAttackTimer(int unitTimer)
     {
         if (unitTimer < ATTACK_TIMER_MAX)
             return MathTools.lerp(unitTimer,

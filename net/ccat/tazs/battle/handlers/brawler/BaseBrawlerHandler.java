@@ -202,11 +202,11 @@ public class BaseBrawlerHandler
     {
         // Is the hand above?
         if (unitAngle < 0)
-            drawBrawlerWeapon(unitX, unitY, unitAngle, handDistance, handSprite, screen);
+            drawHand(unitX, unitY, unitAngle, handDistance, handSprite, screen);
         drawStandingBrawlerBody(unitX, unitY, unitAngle, everythingSprite, baseFrame, screen);
         // Is the hand below?
         if (unitAngle >= 0)
-            drawBrawlerWeapon(unitX, unitY, unitAngle, handDistance, handSprite, screen);
+            drawHand(unitX, unitY, unitAngle, handDistance, handSprite, screen);
     }
     
     /**
@@ -218,13 +218,13 @@ public class BaseBrawlerHandler
      * @param handSprite
      * @param screen
      */
-    public static void drawBrawlerWeapon(float unitX, float unitY, float unitAngle,
-                                         float handDistance,
-                                         HandSprite handSprite,
-                                         HiRes16Color screen)
+    public static void drawHand(float unitX, float unitY, float unitAngle,
+                                float handDistance,
+                                HandSprite handSprite,
+                                HiRes16Color screen)
     {
         handSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_X,
-                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLERBODY_HAND_ORIGIN_Y);
+                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLERBODY_HAND_OFFSET_Y);
         handSprite.draw(screen);
     }
     

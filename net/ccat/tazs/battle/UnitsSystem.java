@@ -4,14 +4,10 @@ import femto.mode.HiRes16Color;
 import femto.Sprite;
 
 import net.ccat.tazs.battle.handlers.HandlersTools;
-import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyASprite;
-import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyBSprite;
 import net.ccat.tazs.resources.sprites.everything.EverythingSprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.sprites.shield.ShieldSprite;
-import net.ccat.tazs.resources.sprites.slapper.SlapperBodyASprite;
-import net.ccat.tazs.resources.sprites.slapper.SlapperBodyBSprite;
 import net.ccat.tazs.resources.sprites.sword.SwordSprite;
 import net.ccat.tazs.resources.sprites.target.TargetSprite;
 
@@ -25,13 +21,6 @@ class UnitsSystem
 {
     public static final int UNITS_MAX = 128;
     public static final int IDENTIFIER_NONE = -1;
-    
-    
-    public UnitsSystem()
-    {
-        slapperBodySpriteByTeam[Teams.PLAYER] = new SlapperBodyASprite();
-        slapperBodySpriteByTeam[Teams.ENEMY] = new SlapperBodyBSprite();
-    }
     
     
     /***** UNITS *****/
@@ -471,7 +460,6 @@ class UnitsSystem
     /***** RENDERING *****/
     
     public final NonAnimatedSprite everythingSprite = new EverythingSprite();
-    public final NonAnimatedSprite[] slapperBodySpriteByTeam = new NonAnimatedSprite[TEAM_MAX];
     public final HandSprite handSprite = new HandSprite();
     public final SwordSprite swordSprite = new SwordSprite();
     public final ShieldSprite shieldSprite = new ShieldSprite();

@@ -898,6 +898,12 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\sprites\\everything\\EverythingSprite.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\brawler\\BrawlerSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\slapper\\SlapperSeekHandler.java": {
+			"sdcard": false
 		}
 	}
 }

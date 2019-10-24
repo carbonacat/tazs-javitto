@@ -252,7 +252,7 @@ public class BaseShieldBearerHandler
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
         
         shieldSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_X,
-                                 handY(unitY, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_Y - VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y);
+                                 handY(unitY, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_Y - VideoConstants.BRAWLERBODY_SHIELD_OFFSET_Y);
         shieldSprite.selectFrame(shieldFrame);
         shieldSprite.setMirrored(mirrored);
         
@@ -381,9 +381,9 @@ public class BaseShieldBearerHandler
     {
         if ((unitTimer > 0) && (unitTimer <= BaseBrawlerHandler.DEATH_TICKS))
             return MathTools.lerp(unitTimer,
-                                  0, VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y,
+                                  0, VideoConstants.BRAWLERBODY_SHIELD_OFFSET_Y,
                                   BaseBrawlerHandler.DEATH_TICKS, 0);
-        return VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y;
+        return VideoConstants.BRAWLERBODY_SHIELD_OFFSET_Y;
     }
     
     public static float impactMultiplierForRelativeAngle(float deltaAngle)

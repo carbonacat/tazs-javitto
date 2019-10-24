@@ -3,9 +3,9 @@ package net.ccat.tazs.battle.handlers.shieldbearer;
 import femto.mode.HiRes16Color;
 import femto.Sprite;
 
+import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.sprites.shield.ShieldSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
@@ -34,7 +34,6 @@ public class BaseShieldBearerHandler
     
     public static final int COST = 50;
     public static final float INVERSE_WEIGHT = 1.5;
-    public static final int DEATH_TICKS = 32;
     public static final int RECONSIDER_TICKS = 128;
     
     
@@ -71,18 +70,6 @@ public class BaseShieldBearerHandler
     }
     
     
-    /***** PARTS POSITIONS *****/
-    
-    protected float handX(float unitX, float unitAngle, float handDistance)
-    {
-        return unitX + handDistance * Math.cos(unitAngle);
-    }
-    protected float handY(float unitY, float unitAngle, float handDistance)
-    {
-        return unitY + handDistance * Math.sin(unitAngle);
-    }
-    
-    
     /***** EVENTS *****/
     
     public boolean onPlayerControl(UnitsSystem system, int unitIdentifier, boolean control)
@@ -113,6 +100,167 @@ public class BaseShieldBearerHandler
     }
     
     
+    /***** RENDERING *****/
+    
+    public void drawAsUI(UnitsSystem system,
+                         float unitX, float unitY, float unitAngle, int unitTeam,
+                         HiRes16Color screen)
+    {
+        boolean facingFront = unitAngle >= 0;
+        
+        drawStandingShieldBearer(unitX, unitY, unitAngle,
+                                 HAND_IDLE_DISTANCE,
+                                 system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
+                                 system.shieldSprite,  shieldFrameForIdle(facingFront),
+                                 screen);
+    }
+    
+    
+    /***** RENDERING TOOLS *****/
+    
+    /**
+     * Renders an Idle Shield Bearer Unit.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @param screen
+     */
+    public static void drawIdleShieldBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        boolean facingFront = unitAngle >= 0;
+        
+        drawStandingShieldBearer(unitX, unitY, unitAngle,
+                                 HAND_IDLE_DISTANCE,
+                                 system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
+                                 system.shieldSprite, shieldFrameForIdle(facingFront),
+                                 screen);
+    }
+    
+    /**
+     * Renders a Dying Shield Bearer.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @param screen
+     */
+    public static void drawDyingShieldBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {       
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        boolean facingFront = unitAngle >= 0;
+        
+        // Is the hand above?
+        if (unitAngle < 0)
+            drawShield(unitX, unitY + shieldYOffsetForDeathTimer(unitTimer), unitAngle,
+                       HAND_IDLE_DISTANCE,
+                       system.shieldSprite, shieldFrameForDeathTimer(unitTimer, facingFront),
+                       screen);
+        BaseBrawlerHandler.drawDyingBrawlerBody(unitX, unitY, unitAngle,
+                                                unitTimer,
+                                                system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
+                                                screen);
+        // Is the hand below?
+        if (unitAngle >= 0)
+            drawShield(unitX, unitY + shieldYOffsetForDeathTimer(unitTimer), unitAngle,
+                       HAND_IDLE_DISTANCE,
+                       system.shieldSprite, shieldFrameForDeathTimer(unitTimer, facingFront),
+                       screen);
+    }
+    
+    /**
+     * Renders an Attacking Shield Bearer.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @param screen
+     */
+    public static void drawAttackingShieldBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
+        char unitTeam = system.unitsTeams[unitIdentifier];
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        float handDistance = handDistanceForAttackTimer(unitTimer);
+        boolean facingFront = unitAngle >= 0;
+        
+        drawStandingShieldBearer(unitX, unitY, unitAngle,
+                                 handDistance,
+                                 system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
+                                 system.shieldSprite, shieldFrameForAttackTimer(unitTimer, facingFront),
+                                 screen);
+    }
+    
+    /**
+     * Renders a Shield Bearer with its weapon at a given distance.
+     * 
+     * @param unitX
+     * @param unitY
+     * @param unitAngle
+     * @param handDistance
+     * @param everythingSprite
+     * @param baseFrame
+     * @param shieldSprite
+     * @param shieldFrame
+     * @param screen
+     */
+    public static void drawStandingShieldBearer(float unitX, float unitY, float unitAngle,
+                                                float handDistance,
+                                                NonAnimatedSprite everythingSprite, int baseFrame,
+                                                NonAnimatedSprite shieldSprite, int shieldFrame,
+                                                HiRes16Color screen)
+    {
+        // Is the hand above?
+        if (unitAngle < 0)
+            drawShield(unitX, unitY, unitAngle,
+                       handDistance,
+                       shieldSprite, shieldFrame,
+                       screen);
+        BaseBrawlerHandler.drawStandingBrawlerBody(unitX, unitY, unitAngle,
+                                                   everythingSprite, baseFrame,
+                                                   screen);
+        // Is the hand below?
+        if (unitAngle >= 0)
+            drawShield(unitX, unitY, unitAngle,
+                       handDistance,
+                       shieldSprite, shieldFrame,
+                       screen);
+    }
+    
+    /**
+     * Renders the Shield Bearer's Shield.
+     * @param unitX
+     * @param unitY
+     * @param unitAngle
+     * @param handDistance
+     * @param shieldSprite
+     * @param shieldFrame
+     * @param screen
+     */
+    public static void drawShield(float unitX, float unitY, float unitAngle,
+                                  float handDistance,
+                                  NonAnimatedSprite shieldSprite, int shieldFrame,
+                                  HiRes16Color screen)
+    {
+        boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
+        
+        shieldSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_X,
+                                 handY(unitY, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_Y - VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y);
+        shieldSprite.selectFrame(shieldFrame);
+        shieldSprite.setMirrored(mirrored);
+        
+        shieldSprite.draw(screen);
+    }
+    
+    
+    
     /***** ATTACKING *****/
     
     /**
@@ -121,7 +269,7 @@ public class BaseShieldBearerHandler
      * @param system
      * @param unitIdentifier
      */
-    protected void startAttack(UnitsSystem system, int unitIdentifier)
+    public static void startAttack(UnitsSystem system, int unitIdentifier)
     {
         system.unitsTimers[unitIdentifier] = 1;
     }
@@ -133,7 +281,7 @@ public class BaseShieldBearerHandler
      * @param unitIdentifier
      * @return False if the attack ended.
      */
-    protected boolean handleAttack(UnitsSystem system, int unitIdentifier)
+    public static boolean handleAttack(UnitsSystem system, int unitIdentifier)
     {
         int unitTimer = system.unitsTimers[unitIdentifier] + 1;
         
@@ -168,121 +316,22 @@ public class BaseShieldBearerHandler
     }
     
     
-    /***** RENDERING *****/
-    
-    public void drawAsUI(UnitsSystem system,
-                         float unitX, float unitY, float unitAngle, int unitTeam,
-                         HiRes16Color screen)
-    {
-        boolean facingFront = unitAngle >= 0;
-        
-        drawShieldBearer(unitX, unitY, unitAngle,
-                         HAND_IDLE_DISTANCE, shieldFrameForIdle(facingFront),
-                         system.slapperBodySpriteByTeam[unitTeam], system.shieldSprite,
-                         screen);
-    }
-    
-    protected void drawUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
-    {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        boolean facingFront = unitAngle >= 0;
-        
-        drawShieldBearer(unitX, unitY, unitAngle,
-                         HAND_IDLE_DISTANCE, shieldFrameForIdle(facingFront),
-                         system.slapperBodySpriteByTeam[unitTeam], system.shieldSprite,
-                         screen);
-    }
-    
-    protected void drawDeadUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
-    {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        int unitTimer = system.unitsTimers[unitIdentifier];
-        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.SLAPPERBODY_FRAME_DEAD_START);
-        int frame = MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_FRAME_DEAD_START, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST);
-        NonAnimatedSprite bodySprite = system.slapperBodySpriteByTeam[unitTeam];
-        ShieldSprite shieldSprite = system.shieldSprite;
-        boolean facingFront = unitAngle >= 0;
-        int shieldFrame = shieldFrameForDeathTimer(unitTimer, facingFront);
-        boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
-        
-        shieldSprite.setPosition(handX(unitX, unitAngle, HAND_IDLE_DISTANCE) - VideoConstants.SHIELD_ORIGIN_X,
-                                 handY(unitY, unitAngle, HAND_IDLE_DISTANCE) - VideoConstants.SHIELD_ORIGIN_Y - shieldBearerYForDeathTimer(unitTimer));
-        shieldSprite.selectFrame(shieldFrame);
-        shieldSprite.setMirrored(mirrored);
-        
-        // Is the hand above?
-        if (!facingFront)
-            shieldSprite.draw(screen);
-
-        bodySprite.selectFrame(frame);
-        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
-        bodySprite.setMirrored(mirrored);
-        bodySprite.draw(screen);
-        
-        // Is the hand below?
-        if (facingFront)
-            shieldSprite.draw(screen);
-    }
-    
-    protected void drawAttackingUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
-    {
-        float unitX = system.unitsXs[unitIdentifier];
-        float unitY = system.unitsYs[unitIdentifier];
-        float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
-        int unitTimer = system.unitsTimers[unitIdentifier];
-        float handDistance = handDistanceForAttackTimer(unitTimer);
-        boolean facingFront = unitAngle >= 0;
-        int shieldFrame = shieldFrameForAttackTimer(unitTimer, facingFront);
-        
-        drawShieldBearer(unitX, unitY, unitAngle,
-                         handDistance, shieldFrame,
-                         system.slapperBodySpriteByTeam[unitTeam], system.shieldSprite,
-                         screen);
-    }
-    
-    
-    protected void drawShieldBearer(float unitX, float unitY, float unitAngle,
-                                    float handDistance, int shieldBearerFrame,
-                                    NonAnimatedSprite bodySprite, ShieldSprite shieldSprite,
-                                    HiRes16Color screen)
-    {
-        boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
-        boolean facingFront = unitAngle >= 0;
-        
-        shieldSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_X,
-                                 handY(unitY, unitAngle, handDistance) - VideoConstants.SHIELD_ORIGIN_Y - VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y);
-        shieldSprite.selectFrame(shieldBearerFrame);
-        shieldSprite.setMirrored(mirrored);
-        
-        // Is the hand above?
-        if (!facingFront)
-            shieldSprite.draw(screen);
-            
-        bodySprite.selectFrame(VideoConstants.BRAWLERBODY_FRAME_IDLE);
-        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
-        bodySprite.setMirrored(mirrored);
-        bodySprite.draw(screen);
-
-        // Is the hand below?
-        if (facingFront)
-            shieldSprite.draw(screen);
-    }
-    
-    
     /***** TOOLS *****/
+    
+    public static float handX(float unitX, float unitAngle, float handDistance)
+    {
+        return unitX + handDistance * Math.cos(unitAngle);
+    }
+    public static float handY(float unitY, float unitAngle, float handDistance)
+    {
+        return unitY + handDistance * Math.sin(unitAngle);
+    }
     
     /**
      * @param unitTimer The Unit's timer value.
      * @return The distance for the hand.
      */
-    private static float handDistanceForAttackTimer(int unitTimer)
+    public static float handDistanceForAttackTimer(int unitTimer)
     {
         if (unitTimer < ATTACK_TIMER_MAX)
             return MathTools.lerp(unitTimer,
@@ -295,12 +344,12 @@ public class BaseShieldBearerHandler
         return HAND_IDLE_DISTANCE;
     }
     
-    private static int shieldFrameForIdle(boolean facingFront)
+    public static int shieldFrameForIdle(boolean facingFront)
     {
         return facingFront ? VideoConstants.SHIELD_FRAME_FRONT : VideoConstants.SHIELD_FRAME_BACK;
     }
     
-    private static int shieldFrameForAttackTimer(int unitTimer, boolean facingFront)
+    public static int shieldFrameForAttackTimer(int unitTimer, boolean facingFront)
     {
         final int standingFrame = facingFront ? VideoConstants.SHIELD_FRAME_FRONT : VideoConstants.SHIELD_FRAME_BACK;
         final int bashingFrame = standingFrame + 1;
@@ -316,28 +365,28 @@ public class BaseShieldBearerHandler
         return standingFrame;
     }
     
-    private static int shieldFrameForDeathTimer(int unitTimer, boolean facingFront)
+    public static int shieldFrameForDeathTimer(int unitTimer, boolean facingFront)
     {
         final int standingFrame = facingFront ? VideoConstants.SHIELD_FRAME_FRONT : VideoConstants.SHIELD_FRAME_BACK;
         final int fallenFrame = standingFrame + VideoConstants.SHIELD_FRAME_FALLEN_INCREMENT;
         
-        if ((unitTimer > 0) && (unitTimer <= DEATH_TICKS))
+        if ((unitTimer > 0) && (unitTimer <= BaseBrawlerHandler.DEATH_TICKS))
             return MathTools.lerpi(unitTimer,
                                    0, fallenFrame,
-                                   DEATH_TICKS, standingFrame);
+                                   BaseBrawlerHandler.DEATH_TICKS, standingFrame);
         return fallenFrame;
     }
     
-    private static float shieldBearerYForDeathTimer(int unitTimer)
+    public static float shieldYOffsetForDeathTimer(int unitTimer)
     {
-        if ((unitTimer > 0) && (unitTimer <= DEATH_TICKS))
+        if ((unitTimer > 0) && (unitTimer <= BaseBrawlerHandler.DEATH_TICKS))
             return MathTools.lerp(unitTimer,
-                                  0, 0,
-                                  DEATH_TICKS, VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y);
-        return 0;
+                                  0, VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y,
+                                  BaseBrawlerHandler.DEATH_TICKS, 0);
+        return VideoConstants.BRAWLERBODY_SHIELD_ORIGIN_Y;
     }
     
-    private static float impactMultiplierForRelativeAngle(float deltaAngle)
+    public static float impactMultiplierForRelativeAngle(float deltaAngle)
     {
         if ((deltaAngle <= -MathTools.PI_7_8) || (deltaAngle >= MathTools.PI_7_8))
             return IMPACT_FRONT_PERFECT;

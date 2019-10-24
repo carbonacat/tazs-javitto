@@ -29,6 +29,6 @@ public class ShieldBearerSeekHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawUnit(system, unitIdentifier, screen);
+        drawIdleShieldBearerUnit(system, unitIdentifier, screen);
     }
 }

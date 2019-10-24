@@ -2,6 +2,8 @@ package net.ccat.tazs.battle.handlers.shieldbearer;
 
 import femto.mode.HiRes16Color;
 
+import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
+
 
 /**
  * Handles the Dead state of a ShieldBearer.
@@ -28,7 +30,7 @@ public class ShieldBearerDeadHandler
         int unitTimer = system.unitsTimers[unitIdentifier];
         
         if (unitTimer == 0)
-            unitTimer = DEATH_TICKS;
+            unitTimer = BaseBrawlerHandler.DEATH_TICKS;
         else if (unitTimer > 0)
         {
             unitTimer--;
@@ -43,6 +45,6 @@ public class ShieldBearerDeadHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawDeadUnit(system, unitIdentifier, screen);
+        drawDyingShieldBearerUnit(system, unitIdentifier, screen);
     }
 }

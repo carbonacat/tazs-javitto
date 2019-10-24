@@ -6,7 +6,6 @@ import femto.Sprite;
 import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.sprites.sword.SwordSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
@@ -146,20 +145,20 @@ public class BaseSworderHandler
         
         // Is the hand above?
         if (unitAngle < 0)
-            drawSworderWeapon(unitX, unitY + swordYOffsetForDeathTimer(unitTimer), unitAngle,
-                              HAND_IDLE_DISTANCE,
-                              system.swordSprite, swordFrameForDeathTimer(unitTimer),
-                              screen);
+            drawSword(unitX, unitY + swordYOffsetForDeathTimer(unitTimer), unitAngle,
+                      HAND_IDLE_DISTANCE,
+                      system.swordSprite, swordFrameForDeathTimer(unitTimer),
+                      screen);
         BaseBrawlerHandler.drawDyingBrawlerBody(unitX, unitY, unitAngle,
                                                 unitTimer,
                                                 system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
                                                 screen);
         // Is the hand below?
         if (unitAngle >= 0)
-            drawSworderWeapon(unitX, unitY + swordYOffsetForDeathTimer(unitTimer), unitAngle,
-                              HAND_IDLE_DISTANCE,
-                              system.swordSprite, swordFrameForDeathTimer(unitTimer),
-                              screen);
+            drawSword(unitX, unitY + swordYOffsetForDeathTimer(unitTimer), unitAngle,
+                      HAND_IDLE_DISTANCE,
+                      system.swordSprite, swordFrameForDeathTimer(unitTimer),
+                      screen);
     }
     
     public static void drawAttackingSworderUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
@@ -194,28 +193,28 @@ public class BaseSworderHandler
     public static void drawStandingSworder(float unitX, float unitY, float unitAngle,
                                            float handDistance,
                                            NonAnimatedSprite everythingSprite, int baseFrame,
-                                           SwordSprite swordSprite, int swordFrame,
+                                           NonAnimatedSprite swordSprite, int swordFrame,
                                            HiRes16Color screen)
     {
         // Is the hand above?
         if (unitAngle < 0)
-            drawSworderWeapon(unitX, unitY, unitAngle,
-                              handDistance,
-                              swordSprite, swordFrame,
-                              screen);
+            drawSword(unitX, unitY, unitAngle,
+                      handDistance,
+                      swordSprite, swordFrame,
+                      screen);
         BaseBrawlerHandler.drawStandingBrawlerBody(unitX, unitY, unitAngle,
                                                    everythingSprite, baseFrame,
                                                    screen);
         // Is the hand below?
         if (unitAngle >= 0)
-            drawSworderWeapon(unitX, unitY, unitAngle,
-                              handDistance,
-                              swordSprite, swordFrame,
-                              screen);
+            drawSword(unitX, unitY, unitAngle,
+                      handDistance,
+                      swordSprite, swordFrame,
+                      screen);
     }
     
     /**
-     * Renders the Brawler Weapon.
+     * Renders the Sworder's Weapon.
      * @param unitX
      * @param unitY
      * @param unitAngle
@@ -224,10 +223,10 @@ public class BaseSworderHandler
      * @param swordFrame
      * @param screen
      */
-    public static void drawSworderWeapon(float unitX, float unitY, float unitAngle,
-                                         float handDistance,
-                                         NonAnimatedSprite swordSprite, int swordFrame,
-                                         HiRes16Color screen)
+    public static void drawSword(float unitX, float unitY, float unitAngle,
+                                 float handDistance,
+                                 NonAnimatedSprite swordSprite, int swordFrame,
+                                 HiRes16Color screen)
     {
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
         

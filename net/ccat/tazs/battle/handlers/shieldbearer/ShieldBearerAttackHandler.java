@@ -35,6 +35,6 @@ public class ShieldBearerAttackHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawAttackingUnit(system, unitIdentifier, screen);
+        drawAttackingShieldBearerUnit(system, unitIdentifier, screen);
     }
 }

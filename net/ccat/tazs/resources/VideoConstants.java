@@ -30,6 +30,7 @@ class VideoConstants
     public static final int EVERYTHING_FRAME_BRAWLERBODY_B = 7;
     public static final int EVERYTHING_FRAME_SLAPPERBODY_A = 14;
     public static final int EVERYTHING_FRAME_SLAPPERBODY_B = 26;
+    public static final int EVERYTHING_FRAME_TINYGRASS = 38;
     
     
     /***** HAND *****/
@@ -88,8 +89,6 @@ class VideoConstants
     
     /***** TINY GRASS *****/
     
-    public static final float TINYGRASS_ORIGIN_X = 2;
-    public static final float TINYGRASS_ORIGIN_Y = 3;
     public static final int TINYGRASS_FRAME_IDLE = 0;
     public static final int TINYGRASS_FRAME_START = 0;
     public static final int TINYGRASS_FRAME_LAST = 3;

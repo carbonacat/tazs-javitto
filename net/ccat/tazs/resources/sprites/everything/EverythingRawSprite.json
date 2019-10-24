@@ -302,6 +302,38 @@
     "spriteSourceSize": { "x": 22, "y": 22, "w": 8, "h": 5 },
     "sourceSize": { "w": 51, "h": 51 },
     "duration": 100
+   },
+   "EverythingSprite 38.aseprite": {
+    "frame": { "x": 266, "y": 0, "w": 5, "h": 5 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 23, "y": 22, "w": 5, "h": 5 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 700
+   },
+   "EverythingSprite 39.aseprite": {
+    "frame": { "x": 271, "y": 0, "w": 5, "h": 5 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 23, "y": 22, "w": 5, "h": 5 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 40.aseprite": {
+    "frame": { "x": 276, "y": 0, "w": 5, "h": 5 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 23, "y": 22, "w": 5, "h": 5 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 41.aseprite": {
+    "frame": { "x": 281, "y": 0, "w": 5, "h": 5 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 23, "y": 22, "w": 5, "h": 5 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
    }
  },
  "meta": {
@@ -309,7 +341,7 @@
   "version": "1.2.15-x64",
   "image": "EverythingRawSprite.png",
   "format": "I8",
-  "size": { "w": 1938, "h": 51 },
+  "size": { "w": 2142, "h": 51 },
   "scale": "1",
   "frameTags": [
    { "name": "playBrawlerAIdle", "from": 0, "to": 0, "direction": "forward" },
@@ -319,7 +351,8 @@
    { "name": "playSlapperAIdle", "from": 14, "to": 14, "direction": "forward" },
    { "name": "playSlapperADeath", "from": 15, "to": 25, "direction": "forward" },
    { "name": "playSlapperBIdle", "from": 26, "to": 26, "direction": "forward" },
-   { "name": "playSlapperBDeath", "from": 27, "to": 37, "direction": "forward" }
+   { "name": "playSlapperBDeath", "from": 27, "to": 37, "direction": "forward" },
+   { "name": "playTinyGrass", "from": 38, "to": 41, "direction": "forward" }
   ],
   "layers": [
    { "name": "Main", "opacity": 255, "blendMode": "normal" },

@@ -17,9 +17,10 @@ import net.ccat.tazs.resources.sounds.CursorCancelSound;
 import net.ccat.tazs.resources.sounds.CursorMoveSound;
 import net.ccat.tazs.resources.sounds.CursorSelectSound;
 import net.ccat.tazs.resources.sprites.CursorSprite;
+import net.ccat.tazs.resources.sprites.everything.EverythingSprite;
 import net.ccat.tazs.resources.sprites.life.LifeSprite;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
-import net.ccat.tazs.resources.sprites.tinygrass.TinyGrassSprite;
+import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.PadMenuUI;
@@ -38,6 +39,7 @@ class TAZSGame
     public TAZSGame()
     {
         screen = new HiRes16Color(ModifiedNAJI16.palette(), TIC80.font());
+        unitsSystem = new UnitsSystem(everythingSprite);
         menuCursorSprite.playDefault();
         menuCursorSprite.setStatic(true);
         lifeSprite.setStatic(true);
@@ -79,19 +81,22 @@ class TAZSGame
             frameBase -= SCENE_GRASS_FRAME_DELAY;
         else
             frameBase = 0;
-        tinyGrassSprite.selectFrame(frameBase);
+        frameBase += VideoConstants.EVERYTHING_FRAME_TINYGRASS;
+        everythingSprite.setMirrored(false);
+        everythingSprite.setFlipped(false);
+        everythingSprite.selectFrame(frameBase);
         for (float cellX = minCellX; cellX < maxX + SCENE_CELL_WIDTH; cellX += SCENE_CELL_WIDTH)
             for (float cellY= minCellY; cellY < maxY + SCENE_CELL_HEIGHT; cellY += SCENE_CELL_HEIGHT)
             {
-                tinyGrassSprite.setPosition(cellX - VideoConstants.TINYGRASS_ORIGIN_X, cellY - VideoConstants.TINYGRASS_ORIGIN_Y);
-                tinyGrassSprite.draw(screen);
+                everythingSprite.setPosition(cellX - VideoConstants.EVERYTHING_ORIGIN_X, cellY - VideoConstants.EVERYTHING_ORIGIN_Y);
+                everythingSprite.draw(screen);
             }
     }
     
     
     /***** GAME *****/
     
-    public UnitsSystem unitsSystem = new UnitsSystem();
+    public UnitsSystem unitsSystem;
     public int focusedUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
     public BattleMode battleMode;
     
@@ -262,9 +267,9 @@ class TAZSGame
     
     /***** COMMON RESOURCES *****/
     
+    public final NonAnimatedSprite everythingSprite = new EverythingSprite();
     public CursorSprite cursorSprite = new CursorSprite();
     public MenuCursorSprite menuCursorSprite = new MenuCursorSprite();
-    public TinyGrassSprite tinyGrassSprite = new TinyGrassSprite();
     public LifeSprite lifeSprite = new LifeSprite();
     public CursorMoveSound cursorMoveSound = new CursorMoveSound();
     public CursorSelectSound cursorSelectSound = new CursorSelectSound();

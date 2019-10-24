@@ -4,7 +4,6 @@ import femto.mode.HiRes16Color;
 import femto.Sprite;
 
 import net.ccat.tazs.battle.handlers.HandlersTools;
-import net.ccat.tazs.resources.sprites.everything.EverythingSprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.sprites.shield.ShieldSprite;
@@ -21,6 +20,12 @@ class UnitsSystem
 {
     public static final int UNITS_MAX = 128;
     public static final int IDENTIFIER_NONE = -1;
+    
+    
+    public UnitsSystem(NonAnimatedSprite everythingSprite)
+    {
+        this.everythingSprite = everythingSprite;
+    }
     
     
     /***** UNITS *****/
@@ -459,7 +464,7 @@ class UnitsSystem
     
     /***** RENDERING *****/
     
-    public final NonAnimatedSprite everythingSprite = new EverythingSprite();
+    public NonAnimatedSprite everythingSprite;
     public final HandSprite handSprite = new HandSprite();
     public final SwordSprite swordSprite = new SwordSprite();
     public final ShieldSprite shieldSprite = new ShieldSprite();

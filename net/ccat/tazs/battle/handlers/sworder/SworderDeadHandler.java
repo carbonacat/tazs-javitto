@@ -2,6 +2,8 @@ package net.ccat.tazs.battle.handlers.sworder;
 
 import femto.mode.HiRes16Color;
 
+import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
+
 
 /**
  * Handles the Dead state of a Sworder.
@@ -28,7 +30,7 @@ public class SworderDeadHandler
         int unitTimer = system.unitsTimers[unitIdentifier];
         
         if (unitTimer == 0)
-            unitTimer = DEATH_TICKS;
+            unitTimer = BaseBrawlerHandler.DEATH_TICKS;
         else if (unitTimer > 0)
         {
             unitTimer--;
@@ -43,6 +45,6 @@ public class SworderDeadHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawDeadUnit(system, unitIdentifier, screen);
+        drawDyingSworderUnit(system, unitIdentifier, screen);
     }
 }

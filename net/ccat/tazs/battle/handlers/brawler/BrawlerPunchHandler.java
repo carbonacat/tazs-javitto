@@ -39,6 +39,6 @@ public class BrawlerPunchHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawAttackingBrawler(system, unitIdentifier, screen);
+        drawAttackingBrawlerUnit(system, unitIdentifier, screen);
     }
 }

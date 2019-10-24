@@ -29,6 +29,6 @@ public class SworderSeekHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawUnit(system, unitIdentifier, screen);
+        drawIdleSworderUnit(system, unitIdentifier, screen);
     }
 }

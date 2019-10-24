@@ -91,71 +91,16 @@ public class BaseBrawlerHandler
     }
     
     
-    /***** ATTACKING *****/
-    
-    /**
-     * Starts the Attack.
-     * 
-     * @param system
-     * @param unitIdentifier
-     */
-    protected static void startAttack(UnitsSystem system, int unitIdentifier)
-    {
-        system.unitsTimers[unitIdentifier] = 1;
-    }
-    
-    /**
-     * Handles a started attack.
-     * 
-     * @param system
-     * @param unitIdentifier
-     * @return False if the attack ended.
-     */
-    protected static boolean handleAttack(UnitsSystem system, int unitIdentifier)
-    {
-        int unitTimer = system.unitsTimers[unitIdentifier] + 1;
-        
-        if (unitTimer < ATTACK_TIMER_MAX)
-        {
-            float handDistance = MathTools.lerp(unitTimer,
-                                                ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
-                                                ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
-            float unitX = system.unitsXs[unitIdentifier];
-            float unitY = system.unitsYs[unitIdentifier];
-            float unitAngle = system.unitsAngles[unitIdentifier];
-            char unitTeam = system.unitsTeams[unitIdentifier];
-            float weaponX = handX(unitX, unitAngle, handDistance);
-            float weaponY = handY(unitY, unitAngle, handDistance);
-            
-            int hitUnitIdentifier = system.findClosestLivingUnit(weaponX, weaponY, Teams.oppositeTeam(unitTeam),
-                                                                 HAND_RADIUS + HandlersTools.UNIT_RADIUS);
-            
-            if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
-            {
-                system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
-                                                              HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
-                                                              HAND_POWER);
-                // Interpolating to find the equivalent withdrawal position.
-                unitTimer = MathTools.lerpi(unitTimer, ATTACK_TIMER_INIT, ATTACK_TIMER_RETREATED, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX);
-            }
-        }
-        if (unitTimer == ATTACK_TIMER_RESTED)
-            unitTimer = 0;
-        system.unitsTimers[unitIdentifier] = unitTimer;
-        return unitTimer != 0;
-    }
-    
-    
     /***** RENDERING *****/
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
                          HiRes16Color screen)
     {
-        drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
-                    system.everythingSprite, baseFrameForTeam(unitTeam),
-                    system.handSprite,
-                    screen);
+        drawStandingBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
+                            system.everythingSprite, baseFrameForTeam(unitTeam),
+                            system.handSprite,
+                            screen);
     }
     
     
@@ -183,16 +128,16 @@ public class BaseBrawlerHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawIdleBrawler(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawIdleBrawlerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         
-        drawBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
-                    system.everythingSprite, baseFrameForTeam(unitTeam),
-                    system.handSprite, screen);
+        drawStandingBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
+                            system.everythingSprite, baseFrameForTeam(unitTeam),
+                            system.handSprite, screen);
     }
     
     /**
@@ -202,7 +147,7 @@ public class BaseBrawlerHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawDyingBrawler(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawDyingBrawlerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -223,7 +168,7 @@ public class BaseBrawlerHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawAttackingBrawler(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawAttackingBrawlerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -232,9 +177,9 @@ public class BaseBrawlerHandler
         int unitTimer = system.unitsTimers[unitIdentifier];
         float handDistance = handDistanceForAttackTimer(unitTimer);
         
-        drawBrawler(unitX, unitY, unitAngle, handDistance,
-                    system.everythingSprite, baseFrameForTeam(unitTeam),
-                    system.handSprite, screen);
+        drawStandingBrawler(unitX, unitY, unitAngle, handDistance,
+                            system.everythingSprite, baseFrameForTeam(unitTeam),
+                            system.handSprite, screen);
     }
     
     /**
@@ -249,15 +194,16 @@ public class BaseBrawlerHandler
      * @param handSprite
      * @param screen
      */
-    public static void drawBrawler(float unitX, float unitY, float unitAngle, float handDistance,
-                                   NonAnimatedSprite everythingSprite, int baseFrame,
-                                   HandSprite handSprite,
-                                   HiRes16Color screen)
+    public static void drawStandingBrawler(float unitX, float unitY, float unitAngle,
+                                           float handDistance,
+                                           NonAnimatedSprite everythingSprite, int baseFrame,
+                                           HandSprite handSprite,
+                                           HiRes16Color screen)
     {
         // Is the hand above?
         if (unitAngle < 0)
             drawBrawlerWeapon(unitX, unitY, unitAngle, handDistance, handSprite, screen);
-        drawIdleBrawlerBody(unitX, unitY, unitAngle, everythingSprite, baseFrame, screen);
+        drawStandingBrawlerBody(unitX, unitY, unitAngle, everythingSprite, baseFrame, screen);
         // Is the hand below?
         if (unitAngle >= 0)
             drawBrawlerWeapon(unitX, unitY, unitAngle, handDistance, handSprite, screen);
@@ -291,9 +237,9 @@ public class BaseBrawlerHandler
      * @param baseFrame
      * @param screen
      */
-    public static void drawIdleBrawlerBody(float unitX, float unitY, float unitAngle,
-                                           NonAnimatedSprite everythingSprite, int baseFrame,
-                                           HiRes16Color screen)
+    public static void drawStandingBrawlerBody(float unitX, float unitY, float unitAngle,
+                                               NonAnimatedSprite everythingSprite, int baseFrame,
+                                               HiRes16Color screen)
     {
         everythingSprite.selectFrame(baseFrame + VideoConstants.BRAWLERBODY_FRAME_IDLE);
         everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
@@ -323,6 +269,61 @@ public class BaseBrawlerHandler
         everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
         everythingSprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
         everythingSprite.draw(screen);
+    }
+    
+    
+    /***** ATTACKING *****/
+    
+    /**
+     * Starts the Attack.
+     * 
+     * @param system
+     * @param unitIdentifier
+     */
+    public static void startAttack(UnitsSystem system, int unitIdentifier)
+    {
+        system.unitsTimers[unitIdentifier] = 1;
+    }
+    
+    /**
+     * Handles a started attack.
+     * 
+     * @param system
+     * @param unitIdentifier
+     * @return False if the attack ended.
+     */
+    public static boolean handleAttack(UnitsSystem system, int unitIdentifier)
+    {
+        int unitTimer = system.unitsTimers[unitIdentifier] + 1;
+        
+        if (unitTimer < ATTACK_TIMER_MAX)
+        {
+            float handDistance = MathTools.lerp(unitTimer,
+                                                ATTACK_TIMER_INIT, HAND_IDLE_DISTANCE,
+                                                ATTACK_TIMER_MAX, HAND_MAX_DISTANCE);
+            float unitX = system.unitsXs[unitIdentifier];
+            float unitY = system.unitsYs[unitIdentifier];
+            float unitAngle = system.unitsAngles[unitIdentifier];
+            char unitTeam = system.unitsTeams[unitIdentifier];
+            float weaponX = handX(unitX, unitAngle, handDistance);
+            float weaponY = handY(unitY, unitAngle, handDistance);
+            
+            int hitUnitIdentifier = system.findClosestLivingUnit(weaponX, weaponY, Teams.oppositeTeam(unitTeam),
+                                                                 HAND_RADIUS + HandlersTools.UNIT_RADIUS);
+            
+            if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+            {
+                system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
+                                                              HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
+                                                              HAND_POWER);
+                // Interpolating to find the equivalent withdrawal position.
+                unitTimer = MathTools.lerpi(unitTimer, ATTACK_TIMER_INIT, ATTACK_TIMER_RETREATED, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX);
+            }
+        }
+        if (unitTimer == ATTACK_TIMER_RESTED)
+            unitTimer = 0;
+        system.unitsTimers[unitIdentifier] = unitTimer;
+        return unitTimer != 0;
     }
     
     

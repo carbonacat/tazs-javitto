@@ -29,6 +29,6 @@ public class BrawlerSeekHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawIdleBrawler(system, unitIdentifier, screen);
+        drawIdleBrawlerUnit(system, unitIdentifier, screen);
     }
 }

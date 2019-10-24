@@ -35,6 +35,6 @@ public class SworderAttackHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawAttackingUnit(system, unitIdentifier, screen);
+        drawAttackingSworderUnit(system, unitIdentifier, screen);
     }
 }

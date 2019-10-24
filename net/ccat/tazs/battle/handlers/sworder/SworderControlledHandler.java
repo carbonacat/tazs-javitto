@@ -51,6 +51,6 @@ public class SworderControlledHandler
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         HandlersTools.drawControlCircle(system, unitIdentifier, screen);
-        drawAttackingUnit(system, unitIdentifier, screen);
+        drawAttackingSworderUnit(system, unitIdentifier, screen);
     }
 }

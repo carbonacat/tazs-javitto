@@ -382,6 +382,14 @@
     "spriteSourceSize": { "x": 22, "y": 20, "w": 7, "h": 7 },
     "sourceSize": { "w": 51, "h": 51 },
     "duration": 100
+   },
+   "EverythingSprite 48.aseprite": {
+    "frame": { "x": 328, "y": 0, "w": 3, "h": 3 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 24, "y": 24, "w": 3, "h": 3 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
    }
  },
  "meta": {
@@ -389,7 +397,7 @@
   "version": "1.2.15-x64",
   "image": "EverythingRawSprite.png",
   "format": "I8",
-  "size": { "w": 2448, "h": 51 },
+  "size": { "w": 2499, "h": 51 },
   "scale": "1",
   "frameTags": [
    { "name": "playBrawlerAIdle", "from": 0, "to": 0, "direction": "forward" },
@@ -403,7 +411,8 @@
    { "name": "playTinyGrass", "from": 38, "to": 41, "direction": "forward" },
    { "name": "playTargetIdle", "from": 42, "to": 42, "direction": "forward" },
    { "name": "playTargetDeath", "from": 43, "to": 47, "direction": "forward" },
-   { "name": "playTargetDamaged", "from": 43, "to": 43, "direction": "forward" }
+   { "name": "playTargetDamaged", "from": 43, "to": 43, "direction": "forward" },
+   { "name": "playHand", "from": 48, "to": 48, "direction": "forward" }
   ],
   "layers": [
    { "name": "Main", "opacity": 255, "blendMode": "normal" },

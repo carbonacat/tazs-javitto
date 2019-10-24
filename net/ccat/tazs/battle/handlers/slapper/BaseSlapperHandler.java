@@ -3,9 +3,7 @@ package net.ccat.tazs.battle.handlers.slapper;
 import femto.mode.HiRes16Color;
 import femto.Sprite;
 
-import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
@@ -99,7 +97,6 @@ public class BaseSlapperHandler
     {
         drawStandingSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
                             system.everythingSprite, baseFrameForTeam(unitTeam),
-                            system.handSprite,
                             screen);
     }
     
@@ -113,12 +110,12 @@ public class BaseSlapperHandler
     public static int baseFrameForTeam(int unitTeam)
     {
         if (unitTeam == Teams.PLAYER)
-            return VideoConstants.EVERYTHING_FRAME_SLAPPERBODY_A;
+            return VideoConstants.EVERYTHING_SLAPPERBODY_A_FRAME;
         if (unitTeam == Teams.ENEMY)
-            return VideoConstants.EVERYTHING_FRAME_SLAPPERBODY_B;
+            return VideoConstants.EVERYTHING_SLAPPERBODY_B_FRAME;
         // Shouldn't happen!
         while (true);
-        return VideoConstants.EVERYTHING_FRAME_SLAPPERBODY_A;
+        return VideoConstants.EVERYTHING_SLAPPERBODY_A_FRAME;
     }
     
     
@@ -138,7 +135,7 @@ public class BaseSlapperHandler
         
         drawStandingSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
                             system.everythingSprite, baseFrameForTeam(unitTeam),
-                            system.handSprite, screen);
+                            screen);
     }
     
     
@@ -181,7 +178,7 @@ public class BaseSlapperHandler
         
         drawStandingSlapper(unitX, unitY, unitAngle, handDistance,
                             system.everythingSprite, baseFrameForTeam(unitTeam),
-                            system.handSprite, screen);
+                            screen);
     }
     
     /**
@@ -193,22 +190,20 @@ public class BaseSlapperHandler
      * @param handDistance
      * @param everythingSprite
      * @param baseFrame
-     * @param handSprite
      * @param screen
      */
     public static void drawStandingSlapper(float unitX, float unitY, float unitAngle,
                                            float handDistance,
                                            NonAnimatedSprite everythingSprite, int baseFrame,
-                                           HandSprite handSprite,
                                            HiRes16Color screen)
     {
         // Is the hand above?
         if (unitAngle < 0)
-            drawHand(unitX, unitY, unitAngle, handDistance, handSprite, screen);
+            drawHand(unitX, unitY, unitAngle, handDistance, everythingSprite, screen);
         drawStandingSlapperBody(unitX, unitY, unitAngle, everythingSprite, baseFrame, screen);
         // Is the hand below?
         if (unitAngle >= 0)
-            drawHand(unitX, unitY, unitAngle, handDistance, handSprite, screen);
+            drawHand(unitX, unitY, unitAngle, handDistance, everythingSprite, screen);
     }
     
     /**
@@ -217,17 +212,19 @@ public class BaseSlapperHandler
      * @param unitY
      * @param unitAngle
      * @param handDistance
-     * @param handSprite
+     * @param everythingSprite
      * @param screen
      */
     public static void drawHand(float unitX, float unitY, float unitAngle,
                                 float handDistance,
-                                HandSprite handSprite,
+                                NonAnimatedSprite everythingSprite,
                                 HiRes16Color screen)
     {
-        handSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_X,
-                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.SLAPPERBODY_HAND_OFFSET_Y);
-        handSprite.draw(screen);
+        everythingSprite.setMirrored(false);
+        everythingSprite.selectFrame(VideoConstants.EVERYTHING_HAND_FRAME);
+        everythingSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.EVERYTHING_ORIGIN_X,
+                                     handY(unitY, unitAngle, handDistance) - VideoConstants.EVERYTHING_ORIGIN_Y - VideoConstants.SLAPPERBODY_HAND_OFFSET_Y);
+        everythingSprite.draw(screen);
     }
     
     /**

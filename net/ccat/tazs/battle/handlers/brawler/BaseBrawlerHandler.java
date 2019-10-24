@@ -3,8 +3,6 @@ package net.ccat.tazs.battle.handlers.brawler;
 import femto.mode.HiRes16Color;
 import femto.Sprite;
 
-import net.ccat.tazs.resources.Colors;
-import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
@@ -99,7 +97,6 @@ public class BaseBrawlerHandler
     {
         drawStandingBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
                             system.everythingSprite, baseFrameForTeam(unitTeam),
-                            system.handSprite,
                             screen);
     }
     
@@ -113,12 +110,12 @@ public class BaseBrawlerHandler
     public static int baseFrameForTeam(int unitTeam)
     {
         if (unitTeam == Teams.PLAYER)
-            return VideoConstants.EVERYTHING_FRAME_BRAWLERBODY_A;
+            return VideoConstants.EVERYTHING_BRAWLERBODY_A_FRAME;
         if (unitTeam == Teams.ENEMY)
-            return VideoConstants.EVERYTHING_FRAME_BRAWLERBODY_B;
+            return VideoConstants.EVERYTHING_BRAWLERBODY_B_FRAME;
         // Shouldn't happen!
         while (true);
-        return VideoConstants.EVERYTHING_FRAME_BRAWLERBODY_A;
+        return VideoConstants.EVERYTHING_BRAWLERBODY_A_FRAME;
     }
     
     /**
@@ -137,7 +134,7 @@ public class BaseBrawlerHandler
         
         drawStandingBrawler(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
                             system.everythingSprite, baseFrameForTeam(unitTeam),
-                            system.handSprite, screen);
+                            screen);
     }
     
     /**
@@ -179,7 +176,7 @@ public class BaseBrawlerHandler
         
         drawStandingBrawler(unitX, unitY, unitAngle, handDistance,
                             system.everythingSprite, baseFrameForTeam(unitTeam),
-                            system.handSprite, screen);
+                            screen);
     }
     
     /**
@@ -191,22 +188,20 @@ public class BaseBrawlerHandler
      * @param handDistance
      * @param everythingSprite
      * @param baseFrame
-     * @param handSprite
      * @param screen
      */
     public static void drawStandingBrawler(float unitX, float unitY, float unitAngle,
                                            float handDistance,
                                            NonAnimatedSprite everythingSprite, int baseFrame,
-                                           HandSprite handSprite,
                                            HiRes16Color screen)
     {
         // Is the hand above?
         if (unitAngle < 0)
-            drawHand(unitX, unitY, unitAngle, handDistance, handSprite, screen);
+            drawHand(unitX, unitY, unitAngle, handDistance, everythingSprite, screen);
         drawStandingBrawlerBody(unitX, unitY, unitAngle, everythingSprite, baseFrame, screen);
         // Is the hand below?
         if (unitAngle >= 0)
-            drawHand(unitX, unitY, unitAngle, handDistance, handSprite, screen);
+            drawHand(unitX, unitY, unitAngle, handDistance, everythingSprite, screen);
     }
     
     /**
@@ -215,17 +210,19 @@ public class BaseBrawlerHandler
      * @param unitY
      * @param unitAngle
      * @param handDistance
-     * @param handSprite
+     * @param everythingSprite
      * @param screen
      */
     public static void drawHand(float unitX, float unitY, float unitAngle,
                                 float handDistance,
-                                HandSprite handSprite,
+                                NonAnimatedSprite everythingSprite,
                                 HiRes16Color screen)
     {
-        handSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_X,
-                               handY(unitY, unitAngle, handDistance) - VideoConstants.HAND_ORIGIN_Y - VideoConstants.BRAWLERBODY_HAND_OFFSET_Y);
-        handSprite.draw(screen);
+        everythingSprite.setMirrored(false);
+        everythingSprite.selectFrame(VideoConstants.EVERYTHING_HAND_FRAME);
+        everythingSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.EVERYTHING_ORIGIN_X,
+                                     handY(unitY, unitAngle, handDistance) - VideoConstants.EVERYTHING_ORIGIN_Y - VideoConstants.BRAWLERBODY_HAND_OFFSET_Y);
+        everythingSprite.draw(screen);
     }
     
     /**

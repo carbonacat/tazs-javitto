@@ -26,18 +26,13 @@ class VideoConstants
     
     public static final float EVERYTHING_ORIGIN_X = 25;
     public static final float EVERYTHING_ORIGIN_Y = 25;
-    public static final int EVERYTHING_FRAME_BRAWLERBODY_A = 0;
-    public static final int EVERYTHING_FRAME_BRAWLERBODY_B = 7;
-    public static final int EVERYTHING_FRAME_SLAPPERBODY_A = 14;
-    public static final int EVERYTHING_FRAME_SLAPPERBODY_B = 26;
-    public static final int EVERYTHING_FRAME_TINYGRASS = 38;
-    public static final int EVERYTHING_FRAME_TARGET = 42;
-    
-    
-    /***** HAND *****/
-    
-    public static final float HAND_ORIGIN_X = 1;
-    public static final float HAND_ORIGIN_Y = 1;
+    public static final int EVERYTHING_BRAWLERBODY_A_FRAME = 0;
+    public static final int EVERYTHING_BRAWLERBODY_B_FRAME = 7;
+    public static final int EVERYTHING_SLAPPERBODY_A_FRAME = 14;
+    public static final int EVERYTHING_SLAPPERBODY_B_FRAME = 26;
+    public static final int EVERYTHING_TINYGRASS_FRAME = 38;
+    public static final int EVERYTHING_TARGET_FRAME = 42;
+    public static final int EVERYTHING_HAND_FRAME = 49; // TODO: Should be 48, as Aseprite says it's 49. I'm not sure what's happening.
     
     
     /***** MENU CURSOR *****/

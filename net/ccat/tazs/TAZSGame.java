@@ -81,7 +81,7 @@ class TAZSGame
             frameBase -= SCENE_GRASS_FRAME_DELAY;
         else
             frameBase = 0;
-        frameBase += VideoConstants.EVERYTHING_FRAME_TINYGRASS;
+        frameBase += VideoConstants.EVERYTHING_TINYGRASS_FRAME;
         everythingSprite.setMirrored(false);
         everythingSprite.setFlipped(false);
         everythingSprite.selectFrame(frameBase);

@@ -111,7 +111,7 @@ public class BaseTargetHandler
                                   HiRes16Color screen)
     {
         boolean isDamaged = unitHealth <= HEALTH_DAMAGED;
-        int frame = VideoConstants.EVERYTHING_FRAME_TARGET + (isDamaged ? VideoConstants.TARGET_FRAME_DAMAGED : VideoConstants.TARGET_FRAME_IDLE);
+        int frame = VideoConstants.EVERYTHING_TARGET_FRAME + (isDamaged ? VideoConstants.TARGET_FRAME_DAMAGED : VideoConstants.TARGET_FRAME_IDLE);
         
         everythingSprite.setMirrored(false);
         everythingSprite.selectFrame(frame);
@@ -125,7 +125,7 @@ public class BaseTargetHandler
                                        HiRes16Color screen)
     {
         int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.TARGET_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.TARGET_FRAME_DEAD_START);
-        int frame = VideoConstants.EVERYTHING_FRAME_TARGET + MathTools.clampi(rawFrame, VideoConstants.TARGET_FRAME_DEAD_START, VideoConstants.TARGET_FRAME_DEAD_LAST);
+        int frame = VideoConstants.EVERYTHING_TARGET_FRAME + MathTools.clampi(rawFrame, VideoConstants.TARGET_FRAME_DEAD_START, VideoConstants.TARGET_FRAME_DEAD_LAST);
         
         everythingSprite.setMirrored(false);
         everythingSprite.selectFrame(frame);

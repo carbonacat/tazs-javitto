@@ -5,7 +5,6 @@ import femto.mode.HiRes16Color;
 import net.ccat.tazs.battle.handlers.HandlersTools;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.sprites.shield.ShieldSprite;
-import net.ccat.tazs.resources.sprites.sword.SwordSprite;
 
 import net.ccat.tazs.tools.MathTools;
 
@@ -462,7 +461,6 @@ class UnitsSystem
     /***** RENDERING *****/
     
     public NonAnimatedSprite everythingSprite;
-    public final SwordSprite swordSprite = new SwordSprite();
     public final ShieldSprite shieldSprite = new ShieldSprite();
     
     /**

@@ -100,7 +100,7 @@ public class BaseSworderHandler
         drawStandingSworder(unitX, unitY, unitAngle,
                             HAND_IDLE_DISTANCE,
                             system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
-                            system.swordSprite, VideoConstants.SWORD_FRAME_VERTICAL,
+                            VideoConstants.EVERYTHING_SWORD_FRAME + VideoConstants.SWORD_FRAME_VERTICAL,
                             screen);
     }
     
@@ -124,7 +124,7 @@ public class BaseSworderHandler
         drawStandingSworder(unitX, unitY, unitAngle,
                             HAND_IDLE_DISTANCE,
                             system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
-                            system.swordSprite, VideoConstants.SWORD_FRAME_VERTICAL,
+                            VideoConstants.EVERYTHING_SWORD_FRAME + VideoConstants.SWORD_FRAME_VERTICAL,
                             screen);
     }
     
@@ -147,7 +147,7 @@ public class BaseSworderHandler
         if (unitAngle < 0)
             drawSword(unitX, unitY + swordYOffsetForDeathTimer(unitTimer), unitAngle,
                       HAND_IDLE_DISTANCE,
-                      system.swordSprite, swordFrameForDeathTimer(unitTimer),
+                      system.everythingSprite, VideoConstants.EVERYTHING_SWORD_FRAME + swordFrameForDeathTimer(unitTimer),
                       screen);
         BaseBrawlerHandler.drawDyingBrawlerBody(unitX, unitY, unitAngle,
                                                 unitTimer,
@@ -157,7 +157,7 @@ public class BaseSworderHandler
         if (unitAngle >= 0)
             drawSword(unitX, unitY + swordYOffsetForDeathTimer(unitTimer), unitAngle,
                       HAND_IDLE_DISTANCE,
-                      system.swordSprite, swordFrameForDeathTimer(unitTimer),
+                      system.everythingSprite, VideoConstants.EVERYTHING_SWORD_FRAME + swordFrameForDeathTimer(unitTimer),
                       screen);
     }
     
@@ -173,7 +173,7 @@ public class BaseSworderHandler
         drawStandingSworder(unitX, unitY, unitAngle,
                             handDistance,
                             system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
-                            system.swordSprite, swordFrameForAttackTimer(unitTimer),
+                            VideoConstants.EVERYTHING_SWORD_FRAME + swordFrameForAttackTimer(unitTimer),
                             screen);
     }
     
@@ -186,21 +186,20 @@ public class BaseSworderHandler
      * @param handDistance
      * @param everythingSprite
      * @param baseFrame
-     * @param swordSprite
      * @param swordFrame
      * @param screen
      */
     public static void drawStandingSworder(float unitX, float unitY, float unitAngle,
                                            float handDistance,
                                            NonAnimatedSprite everythingSprite, int baseFrame,
-                                           NonAnimatedSprite swordSprite, int swordFrame,
+                                           int swordFrame,
                                            HiRes16Color screen)
     {
         // Is the hand above?
         if (unitAngle < 0)
             drawSword(unitX, unitY, unitAngle,
                       handDistance,
-                      swordSprite, swordFrame,
+                      everythingSprite, swordFrame,
                       screen);
         BaseBrawlerHandler.drawStandingBrawlerBody(unitX, unitY, unitAngle,
                                                    everythingSprite, baseFrame,
@@ -209,7 +208,7 @@ public class BaseSworderHandler
         if (unitAngle >= 0)
             drawSword(unitX, unitY, unitAngle,
                       handDistance,
-                      swordSprite, swordFrame,
+                      everythingSprite, swordFrame,
                       screen);
     }
     
@@ -219,23 +218,23 @@ public class BaseSworderHandler
      * @param unitY
      * @param unitAngle
      * @param handDistance
-     * @param swordSprite
+     * @param everythingSprite
      * @param swordFrame
      * @param screen
      */
     public static void drawSword(float unitX, float unitY, float unitAngle,
                                  float handDistance,
-                                 NonAnimatedSprite swordSprite, int swordFrame,
+                                 NonAnimatedSprite everythingSprite, int swordFrame,
                                  HiRes16Color screen)
     {
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
         
-        swordSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_X,
-                                handY(unitY, unitAngle, handDistance) - VideoConstants.SWORD_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_OFFSET_Y);
-        swordSprite.selectFrame(swordFrame);
-        swordSprite.setMirrored(mirrored);
+        everythingSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.EVERYTHING_ORIGIN_X,
+                                handY(unitY, unitAngle, handDistance) - VideoConstants.EVERYTHING_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_OFFSET_Y);
+        everythingSprite.selectFrame(swordFrame);
+        everythingSprite.setMirrored(mirrored);
         
-        swordSprite.draw(screen);
+        everythingSprite.draw(screen);
     }
     
     

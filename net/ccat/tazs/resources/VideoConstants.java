@@ -33,6 +33,7 @@ class VideoConstants
     public static final int EVERYTHING_TINYGRASS_FRAME = 38;
     public static final int EVERYTHING_TARGET_FRAME = 42;
     public static final int EVERYTHING_HAND_FRAME = 49; // TODO: Should be 48, as Aseprite says it's 49. I'm not sure what's happening.
+    public static final int EVERYTHING_SWORD_FRAME = 50; // TODO: Should be 49, as Aseprite says it's 50. I'm not sure what's happening.
     
     
     /***** MENU CURSOR *****/
@@ -67,8 +68,6 @@ class VideoConstants
     
     /***** SWORD *****/
     
-    public static final int SWORD_ORIGIN_X = 5;
-    public static final int SWORD_ORIGIN_Y = 5;
     public static final int SWORD_FRAME_VERTICAL = 0;
     public static final int SWORD_FRAME_HORIZONTAL = 4;
     

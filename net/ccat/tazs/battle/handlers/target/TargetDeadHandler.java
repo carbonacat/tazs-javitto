@@ -43,6 +43,6 @@ public class TargetDeadHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawDeadUnit(system, unitIdentifier, screen);
+        drawDyingTargetUnit(system, unitIdentifier, screen);
     }
 }

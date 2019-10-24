@@ -29,6 +29,6 @@ public class TargetIdleHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawUnit(system, unitIdentifier, screen);
+        drawTargetUnit(system, unitIdentifier, screen);
     }
 }

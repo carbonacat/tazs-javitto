@@ -31,6 +31,7 @@ class VideoConstants
     public static final int EVERYTHING_FRAME_SLAPPERBODY_A = 14;
     public static final int EVERYTHING_FRAME_SLAPPERBODY_B = 26;
     public static final int EVERYTHING_FRAME_TINYGRASS = 38;
+    public static final int EVERYTHING_FRAME_TARGET = 42;
     
     
     /***** HAND *****/
@@ -79,8 +80,6 @@ class VideoConstants
     
     /***** TARGET *****/
     
-    public static final float TARGET_ORIGIN_X = 3;
-    public static final float TARGET_ORIGIN_Y = 8;
     public static final int TARGET_FRAME_IDLE = 0;
     public static final int TARGET_FRAME_DAMAGED = 1;
     public static final int TARGET_FRAME_DEAD_START = 1;

@@ -1,10 +1,8 @@
 package net.ccat.tazs.battle.handlers.target;
 
 import femto.mode.HiRes16Color;
-import femto.Sprite;
 
 import net.ccat.tazs.resources.Colors;
-import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
@@ -80,42 +78,58 @@ public class BaseTargetHandler
                          HiRes16Color screen)
     {
         drawTarget(unitX, unitY, HEALTH_INITIAL,
-                   system.targetSprite,
+                   system.everythingSprite,
                    screen);
     }
     
-    protected void drawUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    
+    /***** RENDERING TOOLS *****/
+    
+    public static void drawTargetUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         int unitHealth = system.unitsHealths[unitIdentifier];
         
-        drawTarget(unitX, unitY, unitHealth, system.targetSprite, screen);
+        drawTarget(unitX, unitY, unitHealth, system.everythingSprite, screen);
     }
     
-    protected void drawDeadUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawDyingTargetUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
-        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.TARGET_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.TARGET_FRAME_DEAD_START);
-        int frame = MathTools.clampi(rawFrame, VideoConstants.TARGET_FRAME_DEAD_START, VideoConstants.TARGET_FRAME_DEAD_LAST);
-        NonAnimatedSprite bodySprite = system.targetSprite;
         
-        bodySprite.selectFrame(frame);
-        bodySprite.setPosition(unitX - VideoConstants.TARGET_ORIGIN_X, unitY - VideoConstants.TARGET_ORIGIN_Y);
-        bodySprite.draw(screen);
+        drawDyingTarget(unitX, unitY,
+                        unitTimer,
+                        system.everythingSprite,
+                        screen);
     }
     
-    
-    protected void drawTarget(float unitX, float unitY, int unitHealth,
-                               NonAnimatedSprite targetSprite,
-                               HiRes16Color screen)
+    public static void drawTarget(float unitX, float unitY, int unitHealth,
+                                  NonAnimatedSprite everythingSprite,
+                                  HiRes16Color screen)
     {
         boolean isDamaged = unitHealth <= HEALTH_DAMAGED;
+        int frame = VideoConstants.EVERYTHING_FRAME_TARGET + (isDamaged ? VideoConstants.TARGET_FRAME_DAMAGED : VideoConstants.TARGET_FRAME_IDLE);
         
-        targetSprite.selectFrame(isDamaged ? VideoConstants.TARGET_FRAME_DAMAGED : VideoConstants.TARGET_FRAME_IDLE);
-        targetSprite.setPosition(unitX - VideoConstants.TARGET_ORIGIN_X, unitY - VideoConstants.TARGET_ORIGIN_Y);
-        targetSprite.draw(screen);
+        everythingSprite.setMirrored(false);
+        everythingSprite.selectFrame(frame);
+        everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
+        everythingSprite.draw(screen);
+    }
+    
+    public static void drawDyingTarget(float unitX, float unitY,
+                                       int unitTimer,
+                                       NonAnimatedSprite everythingSprite,
+                                       HiRes16Color screen)
+    {
+        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.TARGET_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.TARGET_FRAME_DEAD_START);
+        int frame = VideoConstants.EVERYTHING_FRAME_TARGET + MathTools.clampi(rawFrame, VideoConstants.TARGET_FRAME_DEAD_START, VideoConstants.TARGET_FRAME_DEAD_LAST);
+        
+        everythingSprite.setMirrored(false);
+        everythingSprite.selectFrame(frame);
+        everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
+        everythingSprite.draw(screen);
     }
 }

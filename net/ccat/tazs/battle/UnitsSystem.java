@@ -1,14 +1,12 @@
 package net.ccat.tazs.battle;
 
 import femto.mode.HiRes16Color;
-import femto.Sprite;
 
 import net.ccat.tazs.battle.handlers.HandlersTools;
 import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.sprites.shield.ShieldSprite;
 import net.ccat.tazs.resources.sprites.sword.SwordSprite;
-import net.ccat.tazs.resources.sprites.target.TargetSprite;
 
 import net.ccat.tazs.tools.MathTools;
 
@@ -468,7 +466,6 @@ class UnitsSystem
     public final HandSprite handSprite = new HandSprite();
     public final SwordSprite swordSprite = new SwordSprite();
     public final ShieldSprite shieldSprite = new ShieldSprite();
-    public final TargetSprite targetSprite = new TargetSprite();
     
     /**
      * Renders all the Units.

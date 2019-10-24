@@ -334,6 +334,54 @@
     "spriteSourceSize": { "x": 23, "y": 22, "w": 5, "h": 5 },
     "sourceSize": { "w": 51, "h": 51 },
     "duration": 100
+   },
+   "EverythingSprite 42.aseprite": {
+    "frame": { "x": 286, "y": 0, "w": 7, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 17, "w": 7, "h": 10 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 43.aseprite": {
+    "frame": { "x": 293, "y": 0, "w": 7, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 17, "w": 7, "h": 10 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 44.aseprite": {
+    "frame": { "x": 300, "y": 0, "w": 7, "h": 9 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 18, "w": 7, "h": 9 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 45.aseprite": {
+    "frame": { "x": 307, "y": 0, "w": 7, "h": 8 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 19, "w": 7, "h": 8 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 46.aseprite": {
+    "frame": { "x": 314, "y": 0, "w": 7, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 20, "w": 7, "h": 7 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 47.aseprite": {
+    "frame": { "x": 321, "y": 0, "w": 7, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 20, "w": 7, "h": 7 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
    }
  },
  "meta": {
@@ -341,7 +389,7 @@
   "version": "1.2.15-x64",
   "image": "EverythingRawSprite.png",
   "format": "I8",
-  "size": { "w": 2142, "h": 51 },
+  "size": { "w": 2448, "h": 51 },
   "scale": "1",
   "frameTags": [
    { "name": "playBrawlerAIdle", "from": 0, "to": 0, "direction": "forward" },
@@ -352,7 +400,10 @@
    { "name": "playSlapperADeath", "from": 15, "to": 25, "direction": "forward" },
    { "name": "playSlapperBIdle", "from": 26, "to": 26, "direction": "forward" },
    { "name": "playSlapperBDeath", "from": 27, "to": 37, "direction": "forward" },
-   { "name": "playTinyGrass", "from": 38, "to": 41, "direction": "forward" }
+   { "name": "playTinyGrass", "from": 38, "to": 41, "direction": "forward" },
+   { "name": "playTargetIdle", "from": 42, "to": 42, "direction": "forward" },
+   { "name": "playTargetDeath", "from": 43, "to": 47, "direction": "forward" },
+   { "name": "playTargetDamaged", "from": 43, "to": 43, "direction": "forward" }
   ],
   "layers": [
    { "name": "Main", "opacity": 255, "blendMode": "normal" },

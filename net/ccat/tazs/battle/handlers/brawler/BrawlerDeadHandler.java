@@ -43,6 +43,6 @@ public class BrawlerDeadHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawDeadUnit(system, unitIdentifier, screen);
+        drawDyingBrawler(system, unitIdentifier, screen);
     }
 }

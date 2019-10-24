@@ -8,8 +8,6 @@ class VideoConstants
 {
     /***** BRAWLER *****/
     
-    public static final float BRAWLERBODY_ORIGIN_X = 3;
-    public static final float BRAWLERBODY_ORIGIN_Y = 9;
     public static final float BRAWLERBODY_HAND_ORIGIN_Y = 5;
     public static final float BRAWLERBODY_WEAPON_ORIGIN_Y = 3;
     public static final float BRAWLERBODY_SHIELD_ORIGIN_Y = 1;
@@ -22,6 +20,14 @@ class VideoConstants
     
     public static final float CURSOR_ORIGIN_X = 3;
     public static final float CURSOR_ORIGIN_Y = 3;
+    
+    
+    /***** EVERYTHING *****/
+    
+    public static final float EVERYTHING_ORIGIN_X = 25;
+    public static final float EVERYTHING_ORIGIN_Y = 25;
+    public static final int EVERYTHING_FRAME_BRAWLERBODY_A = 0;
+    public static final int EVERYTHING_FRAME_BRAWLERBODY_B = EVERYTHING_FRAME_BRAWLERBODY_A + BRAWLERBODY_FRAME_DEAD_LAST + 1;
     
     
     /***** HAND *****/

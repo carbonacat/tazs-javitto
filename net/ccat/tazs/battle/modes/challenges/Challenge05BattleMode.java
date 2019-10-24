@@ -15,26 +15,11 @@ public class Challenge05BattleMode
     
     public void onPreparationInit(TAZSGame game)
     {
-        game.unitsSystem.addUnit(75, -25,
-                                 Math.PI,
-                                 BrawlerIdleHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(75, 25,
-                                 Math.PI,
-                                 BrawlerIdleHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(50, 0,
-                                 Math.PI,
-                                 SworderSeekHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(25, -25,
-                                 Math.PI,
-                                 BrawlerIdleHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(25, 25,
-                                 Math.PI,
-                                 BrawlerIdleHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+        game.unitsSystem.addUnit(75, -25, UnitTypes.BRAWLER, Teams.ENEMY);
+        game.unitsSystem.addUnit(75, 25, UnitTypes.BRAWLER, Teams.ENEMY);
+        game.unitsSystem.addUnit(50, 0, UnitTypes.SWORDER, Teams.ENEMY);
+        game.unitsSystem.addUnit(25, -25, UnitTypes.BRAWLER, Teams.ENEMY);
+        game.unitsSystem.addUnit(25, 25, UnitTypes.BRAWLER, Teams.ENEMY);
         super.onPreparationInit(game);
     }
     

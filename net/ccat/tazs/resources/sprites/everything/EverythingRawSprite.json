@@ -1,0 +1,134 @@
+{ "frames": {
+   "EverythingSprite 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 5, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 23, "y": 16, "w": 5, "h": 11 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 1.aseprite": {
+    "frame": { "x": 5, "y": 0, "w": 5, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 23, "y": 16, "w": 5, "h": 11 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 2.aseprite": {
+    "frame": { "x": 10, "y": 0, "w": 6, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 17, "w": 6, "h": 10 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 3.aseprite": {
+    "frame": { "x": 16, "y": 0, "w": 7, "h": 9 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 18, "w": 7, "h": 9 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 4.aseprite": {
+    "frame": { "x": 23, "y": 0, "w": 7, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 20, "w": 7, "h": 7 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 5.aseprite": {
+    "frame": { "x": 30, "y": 0, "w": 7, "h": 6 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 21, "w": 7, "h": 6 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 6.aseprite": {
+    "frame": { "x": 37, "y": 0, "w": 7, "h": 5 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 22, "w": 7, "h": 5 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 7.aseprite": {
+    "frame": { "x": 44, "y": 0, "w": 5, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 23, "y": 16, "w": 5, "h": 11 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 8.aseprite": {
+    "frame": { "x": 49, "y": 0, "w": 5, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 23, "y": 16, "w": 5, "h": 11 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 9.aseprite": {
+    "frame": { "x": 54, "y": 0, "w": 6, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 17, "w": 6, "h": 10 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 10.aseprite": {
+    "frame": { "x": 60, "y": 0, "w": 7, "h": 9 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 18, "w": 7, "h": 9 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 11.aseprite": {
+    "frame": { "x": 67, "y": 0, "w": 7, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 20, "w": 7, "h": 7 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 12.aseprite": {
+    "frame": { "x": 74, "y": 0, "w": 7, "h": 6 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 21, "w": 7, "h": 6 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   },
+   "EverythingSprite 13.aseprite": {
+    "frame": { "x": 81, "y": 0, "w": 7, "h": 5 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 22, "w": 7, "h": 5 },
+    "sourceSize": { "w": 51, "h": 51 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.15-x64",
+  "image": "EverythingRawSprite.png",
+  "format": "I8",
+  "size": { "w": 714, "h": 51 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "playBrawlerBodyAIdle", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "playBrawlerBodyADeath", "from": 1, "to": 6, "direction": "forward" },
+   { "name": "playBrawlerBodyBIdle", "from": 7, "to": 7, "direction": "forward" },
+   { "name": "playBrawlerBodyBDeath", "from": 8, "to": 13, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Main", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

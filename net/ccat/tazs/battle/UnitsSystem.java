@@ -6,6 +6,7 @@ import femto.Sprite;
 import net.ccat.tazs.battle.handlers.HandlersTools;
 import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyASprite;
 import net.ccat.tazs.resources.sprites.brawler.BrawlerBodyBSprite;
+import net.ccat.tazs.resources.sprites.everything.EverythingSprite;
 import net.ccat.tazs.resources.sprites.HandSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.sprites.shield.ShieldSprite;
@@ -28,8 +29,6 @@ class UnitsSystem
     
     public UnitsSystem()
     {
-        brawlerBodySpriteByTeam[Teams.PLAYER] = new BrawlerBodyASprite();
-        brawlerBodySpriteByTeam[Teams.ENEMY] = new BrawlerBodyBSprite();
         slapperBodySpriteByTeam[Teams.PLAYER] = new SlapperBodyASprite();
         slapperBodySpriteByTeam[Teams.ENEMY] = new SlapperBodyBSprite();
     }
@@ -89,33 +88,33 @@ class UnitsSystem
      * 
      * @param x The X coordinate.
      * @param y The Y coordinate.
-     * @param angle Where the units is looking at, in Radiants.
+     * @param type The type for this Unit.
      * @param team The unit's team.
-     * @param handler The Handler for this unit.
      * @return the unit's identifier, or IDENTIFIER_NONE if a Unit couldn't be created.
      */
-    public int addUnit(float x, float y, float angle,
-                       UnitHandler handler, char team)
+    public int addUnit(float x, float y,
+                       int type, char team)
     {
         if (mCount >= UNITS_MAX)
             return IDENTIFIER_NONE;
 
         int unitIdentifier = mCount;
+        UnitHandler unitHandler = UnitTypes.idleHandlerForType(type);
         
         mCount++;
         unitsXs[unitIdentifier] = x;
         unitsYs[unitIdentifier] = y;
-        unitsAngles[unitIdentifier] = MathTools.wrapAngle(angle);
-        unitsHealths[unitIdentifier] = handler.startingHealth();
+        unitsAngles[unitIdentifier] = defaultAngleForTeam(team);
+        unitsHealths[unitIdentifier] = unitHandler.startingHealth();
         unitsTimers[unitIdentifier] = 0;
         unitsTargetIdentifiers[unitIdentifier] = IDENTIFIER_NONE;
-        unitsHandlers[unitIdentifier] = handler;
+        unitsHandlers[unitIdentifier] = unitHandler;
         unitsTeams[unitIdentifier] = team;
         
         mStats[STATS_COUNT_OFFSET + team]++;
-        mStats[STATS_COST_OFFSET + team] += handler.cost();
-        mStats[STATS_HP_CURRENT_OFFSET + team] += handler.startingHealth();
-        mStats[STATS_HP_MAX_OFFSET + team] += handler.startingHealth();
+        mStats[STATS_COST_OFFSET + team] += unitHandler.cost();
+        mStats[STATS_HP_CURRENT_OFFSET + team] += unitHandler.startingHealth();
+        mStats[STATS_HP_MAX_OFFSET + team] += unitHandler.startingHealth();
         return unitIdentifier;
     }
     
@@ -291,13 +290,11 @@ class UnitsSystem
             int unitType = ((info & SAVE_UNIT_INFO_TYPE_MASK) >> SAVE_UNIT_INFO_TYPE_SHIFT);
             float unitX = mSave[saveIndex + SAVE_UNIT_X_OFFSET];
             float unitY = mSave[saveIndex + SAVE_UNIT_Y_OFFSET];
-            float unitAngle = (unitTeam == Teams.ENEMY) ? Math.PI : 0;
-            UnitHandler unitHandler = UnitTypes.idleHandlerForType(unitType);
             
-            int actualUnitIdentifier = addUnit(unitX, unitY, unitAngle, unitHandler, unitTeam);
+            int actualUnitIdentifier = addUnit(unitX, unitY, unitType, unitTeam);
             
             if ((info & SAVE_UNIT_INFO_CONTROLLED_MASK) == SAVE_UNIT_INFO_CONTROLLED_MASK)
-                unitHandler.onPlayerControl(this, actualUnitIdentifier, true);
+                UnitTypes.idleHandlerForType(unitType).onPlayerControl(this, actualUnitIdentifier, true);
             saveIndex += SAVE_UNIT_SIZE;
         }
         mTicks = 0;
@@ -473,7 +470,7 @@ class UnitsSystem
     
     /***** RENDERING *****/
     
-    public final NonAnimatedSprite[] brawlerBodySpriteByTeam = new NonAnimatedSprite[TEAM_MAX];
+    public final NonAnimatedSprite everythingSprite = new EverythingSprite();
     public final NonAnimatedSprite[] slapperBodySpriteByTeam = new NonAnimatedSprite[TEAM_MAX];
     public final HandSprite handSprite = new HandSprite();
     public final SwordSprite swordSprite = new SwordSprite();
@@ -492,6 +489,22 @@ class UnitsSystem
     
     
     /***** PRIVATE *****/
+    
+    /**
+     * @param unitTeam
+     * @return The default angle that Units of this team faces.
+     */
+    private static float defaultAngleForTeam(int unitTeam)
+    {
+        if (unitTeam == Teams.PLAYER)
+            return 0;
+        if (unitTeam == Teams.ENEMY)
+            return Math.PI;
+        // Not supposed to happen.
+        while (true);
+        return 0;
+    }
+    
     
     private int mCount = 0;
     private int[] mStats = new int[STATS_MAX];

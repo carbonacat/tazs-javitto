@@ -178,7 +178,7 @@ public class BaseShieldBearerHandler
         
         drawShieldBearer(unitX, unitY, unitAngle,
                          HAND_IDLE_DISTANCE, shieldFrameForIdle(facingFront),
-                         system.brawlerBodySpriteByTeam[unitTeam], system.shieldSprite,
+                         system.slapperBodySpriteByTeam[unitTeam], system.shieldSprite,
                          screen);
     }
     
@@ -192,7 +192,7 @@ public class BaseShieldBearerHandler
         
         drawShieldBearer(unitX, unitY, unitAngle,
                          HAND_IDLE_DISTANCE, shieldFrameForIdle(facingFront),
-                         system.brawlerBodySpriteByTeam[unitTeam], system.shieldSprite,
+                         system.slapperBodySpriteByTeam[unitTeam], system.shieldSprite,
                          screen);
     }
     
@@ -203,9 +203,9 @@ public class BaseShieldBearerHandler
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
-        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.BRAWLERBODY_FRAME_DEAD_START);
-        int frame = MathTools.clampi(rawFrame, VideoConstants.BRAWLERBODY_FRAME_DEAD_START, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST);
-        NonAnimatedSprite bodySprite = system.brawlerBodySpriteByTeam[unitTeam];
+        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.SLAPPERBODY_FRAME_DEAD_START);
+        int frame = MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_FRAME_DEAD_START, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST);
+        NonAnimatedSprite bodySprite = system.slapperBodySpriteByTeam[unitTeam];
         ShieldSprite shieldSprite = system.shieldSprite;
         boolean facingFront = unitAngle >= 0;
         int shieldFrame = shieldFrameForDeathTimer(unitTimer, facingFront);
@@ -221,7 +221,7 @@ public class BaseShieldBearerHandler
             shieldSprite.draw(screen);
 
         bodySprite.selectFrame(frame);
-        bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
+        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
         bodySprite.setMirrored(mirrored);
         bodySprite.draw(screen);
         
@@ -243,7 +243,7 @@ public class BaseShieldBearerHandler
         
         drawShieldBearer(unitX, unitY, unitAngle,
                          handDistance, shieldFrame,
-                         system.brawlerBodySpriteByTeam[unitTeam], system.shieldSprite,
+                         system.slapperBodySpriteByTeam[unitTeam], system.shieldSprite,
                          screen);
     }
     
@@ -266,7 +266,7 @@ public class BaseShieldBearerHandler
             shieldSprite.draw(screen);
             
         bodySprite.selectFrame(VideoConstants.BRAWLERBODY_FRAME_IDLE);
-        bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
+        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
         bodySprite.setMirrored(mirrored);
         bodySprite.draw(screen);
 

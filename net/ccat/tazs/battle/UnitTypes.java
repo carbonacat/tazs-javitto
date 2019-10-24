@@ -1,6 +1,6 @@
 package net.ccat.tazs.battle;
 
-import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
+import net.ccat.tazs.battle.handlers.brawler.BrawlerSeekHandler;
 import net.ccat.tazs.battle.handlers.shieldbearer.ShieldBearerSeekHandler;
 import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.battle.handlers.sworder.SworderSeekHandler;
@@ -40,7 +40,7 @@ public class UnitTypes
     static UnitHandler idleHandlerForType(int unitType)
     {
         if (unitType == BRAWLER)
-            return BrawlerIdleHandler.instance;
+            return BrawlerSeekHandler.instance;
         if (unitType == SLAPPER)
             return SlapperIdleHandler.instance;
         if (unitType == SWORDER)
@@ -51,6 +51,6 @@ public class UnitTypes
             return TargetIdleHandler.instance;
         // Not supposed to happen.
         while (true);
-        return BrawlerIdleHandler.instance;
+        return TargetIdleHandler.instance;
     }
 }

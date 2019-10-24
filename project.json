@@ -869,6 +869,35 @@
 		"\\net\\ccat\\tazs\\resources\\sprites\\life\\LifeSprite.png": {
 			"sdcard": false,
 			"implements": ""
+		},
+		"\\bin\\2019-10-23 - Last Death Camera.gif": {
+			"sdcard": false
+		},
+		"\\bin\\2019-10-23 - LifeBar.gif": {
+			"sdcard": false
+		},
+		"\\bin\\2019-10-23 - Locking Direction.gif": {
+			"sdcard": false
+		},
+		"\\bin\\2019-10-23 - Exploring in battle.gif": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everything": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everything\\EverythingRawSprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everything\\EverythingRawSprite.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everything/EverythingSprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everything\\EverythingSprite.java": {
+			"sdcard": false
 		}
 	}
 }

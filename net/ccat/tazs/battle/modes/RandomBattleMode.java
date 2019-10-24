@@ -43,9 +43,7 @@ public class RandomBattleMode
             while (clusterCost > 0)
             {
                 game.unitsSystem.addUnit(clusterX + Math.random(-10, 10), clusterY + Math.random(-10, 10),
-                                          Math.PI,
-                                          clusterUnitHandler,
-                                          Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+                                         clusterUnitType, Teams.ENEMY);
                 clusterCost -= clusterUnitHandler.cost();
             }
         }

@@ -6,15 +6,14 @@ import net.ccat.tazs.tools.MathTools;
 
 
 /**
- * Handles the Idle state of a Brawler.
+ * Handles the Seek state of a Brawler.
  * - Seeks the closest Enemy.
  * - Switch to BrawlerPunch when close enough to punch them.
- * TODO: Actually not being Idle, as it seeks Enemies.
  */
-public class BrawlerIdleHandler
+public class BrawlerSeekHandler
     extends BaseBrawlerHandler
 {
-    static final BrawlerIdleHandler instance = new BrawlerIdleHandler();
+    static final BrawlerSeekHandler instance = new BrawlerSeekHandler();
     
     
     /***** LIFECYCLE *****/
@@ -30,6 +29,6 @@ public class BrawlerIdleHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawUnit(system, unitIdentifier, screen);
+        drawIdleBrawler(system, unitIdentifier, screen);
     }
 }

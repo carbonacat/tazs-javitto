@@ -26,12 +26,12 @@ public class BrawlerPunchHandler
         if (targetIdentifier == UnitsSystem.IDENTIFIER_NONE)
         {
             system.unitsTimers[unitIdentifier] = 0;
-            system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance;
+            system.unitsHandlers[unitIdentifier] = BrawlerSeekHandler.instance;
         }
         else if (system.unitsTimers[unitIdentifier] == 0)
             startAttack(system, unitIdentifier);
         else if (!handleAttack(system, unitIdentifier))
-            system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance;
+            system.unitsHandlers[unitIdentifier] = BrawlerSeekHandler.instance;
     }
     
     
@@ -39,6 +39,6 @@ public class BrawlerPunchHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        drawAttackingUnit(system, unitIdentifier, screen);
+        drawAttackingBrawler(system, unitIdentifier, screen);
     }
 }

@@ -58,13 +58,8 @@ public class SandboxBattleMode
             {
                 if (Button.A.isPressed())
                 {
-                    // That'll be good until we have to move the area someplace else.
-                    float angle = (teamUnderCursor == Teams.PLAYER) ? 0 : Math.PI;
-                    UnitHandler initialHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
-                    
-                    if (game.unitsSystem.addUnit(game.cursorX, game.cursorY, angle,
-                                                 initialHandler,
-                                                 teamUnderCursor) != UnitsSystem.IDENTIFIER_NONE)
+                    if (game.unitsSystem.addUnit(game.cursorX, game.cursorY,
+                                                 game.currentUnitType, teamUnderCursor) != UnitsSystem.IDENTIFIER_NONE)
                     {
                         updateTopBarUI(game);
                         // Resets the animation.

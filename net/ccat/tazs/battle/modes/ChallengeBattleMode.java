@@ -61,14 +61,13 @@ public abstract class ChallengeBattleMode
             
             if (teamUnderCursor == Teams.PLAYER)
             {
-                UnitHandler unitHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
-                boolean tooExpensive = isTooExpensive(game, unitHandler);
+                boolean tooExpensive = isTooExpensive(game, UnitTypes.idleHandlerForType(game.currentUnitType));
     
                 if (!tooExpensive && Button.A.isPressed())
                 {
                     
-                    if (game.unitsSystem.addUnit(game.cursorX, game.cursorY, 0,
-                                                 unitHandler, Teams.PLAYER) != UnitsSystem.IDENTIFIER_NONE)
+                    if (game.unitsSystem.addUnit(game.cursorX, game.cursorY,
+                                                 game.currentUnitType, Teams.PLAYER) != UnitsSystem.IDENTIFIER_NONE)
                     {
                         updateTopBarUI(game);
                         // Resets the animation.

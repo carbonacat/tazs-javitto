@@ -16,10 +16,7 @@ public class ChallengeZ01BattleMode
     
     public void onPreparationInit(TAZSGame game)
     {
-        game.unitsSystem.addUnit(40, 0,
-                                 Math.PI,
-                                 BrawlerIdleHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+        game.unitsSystem.addUnit(40, 0, UnitTypes.BRAWLER, Teams.ENEMY);
         super.onPreparationInit(game);
     }
     

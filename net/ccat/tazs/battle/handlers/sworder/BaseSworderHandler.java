@@ -167,8 +167,9 @@ public class BaseSworderHandler
                          HiRes16Color screen)
     {
         drawSworder(unitX, unitY, unitAngle,
-                    HAND_IDLE_DISTANCE, 0,
-                    system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
+                    HAND_IDLE_DISTANCE,
+                    system.slapperBodySpriteByTeam[unitTeam],
+                    system.swordSprite, 0,
                     screen);
     }
     
@@ -180,8 +181,9 @@ public class BaseSworderHandler
         char unitTeam = system.unitsTeams[unitIdentifier];
         
         drawSworder(unitX, unitY, unitAngle,
-                    HAND_IDLE_DISTANCE, 0,
-                    system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
+                    HAND_IDLE_DISTANCE,
+                    system.slapperBodySpriteByTeam[unitTeam],
+                    system.swordSprite, 0,
                     screen);
     }
     
@@ -194,7 +196,7 @@ public class BaseSworderHandler
         int unitTimer = system.unitsTimers[unitIdentifier];
         int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.BRAWLERBODY_FRAME_DEAD_START);
         int frame = MathTools.clampi(rawFrame, VideoConstants.BRAWLERBODY_FRAME_DEAD_START, VideoConstants.BRAWLERBODY_FRAME_DEAD_LAST);
-        NonAnimatedSprite bodySprite = system.brawlerBodySpriteByTeam[unitTeam];
+        NonAnimatedSprite bodySprite = system.slapperBodySpriteByTeam[unitTeam];
         SwordSprite swordSprite = system.swordSprite;
         int swordFrame = swordFrameForDeathTimer(unitTimer);
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
@@ -209,7 +211,7 @@ public class BaseSworderHandler
             swordSprite.draw(screen);
 
         bodySprite.selectFrame(frame);
-        bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
+        bodySprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
         bodySprite.setMirrored(mirrored);
         bodySprite.draw(screen);
         
@@ -228,15 +230,17 @@ public class BaseSworderHandler
         float handDistance = handDistanceForAttackTimer(unitTimer);
         
         drawSworder(unitX, unitY, unitAngle,
-                    handDistance, swordFrameForAttackTimer(unitTimer),
-                    system.brawlerBodySpriteByTeam[unitTeam], system.swordSprite,
+                    handDistance,
+                    system.slapperBodySpriteByTeam[unitTeam],
+                    system.swordSprite, swordFrameForAttackTimer(unitTimer),
                     screen);
     }
     
     
     protected void drawSworder(float unitX, float unitY, float unitAngle,
-                               float handDistance, int swordFrame,
-                               NonAnimatedSprite bodySprite, SwordSprite swordSprite,
+                               float handDistance,
+                               NonAnimatedSprite everythingSprite,
+                               SwordSprite swordSprite, int swordFrame,
                                HiRes16Color screen)
     {
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
@@ -250,10 +254,10 @@ public class BaseSworderHandler
         if (unitAngle < 0)
             swordSprite.draw(screen);
             
-        bodySprite.selectFrame(VideoConstants.BRAWLERBODY_FRAME_IDLE);
-        bodySprite.setPosition(unitX - VideoConstants.BRAWLERBODY_ORIGIN_X, unitY - VideoConstants.BRAWLERBODY_ORIGIN_Y);
-        bodySprite.setMirrored(mirrored);
-        bodySprite.draw(screen);
+        everythingSprite.selectFrame(VideoConstants.BRAWLERBODY_FRAME_IDLE);
+        everythingSprite.setPosition(unitX - VideoConstants.SLAPPERBODY_ORIGIN_X, unitY - VideoConstants.SLAPPERBODY_ORIGIN_Y);
+        everythingSprite.setMirrored(mirrored);
+        everythingSprite.draw(screen);
 
         // Is the hand below?
         if (unitAngle >= 0)

@@ -25,7 +25,7 @@ public class BrawlerControlledHandler
     {
         if (control)
             return false;
-        system.unitsHandlers[unitIdentifier] = BrawlerIdleHandler.instance;
+        system.unitsHandlers[unitIdentifier] = BrawlerSeekHandler.instance;
         return true;
     }
     
@@ -51,6 +51,6 @@ public class BrawlerControlledHandler
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         HandlersTools.drawControlCircle(system, unitIdentifier, screen);
-        drawAttackingUnit(system, unitIdentifier, screen);
+        drawAttackingBrawler(system, unitIdentifier, screen);
     }
 }

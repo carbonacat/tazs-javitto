@@ -1,7 +1,5 @@
 package net.ccat.tazs.battle.modes.challenges;
 
-import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
-import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.resources.Texts;
 
 
@@ -15,22 +13,10 @@ public class Challenge03BattleMode
     
     public void onPreparationInit(TAZSGame game)
     {
-        game.unitsSystem.addUnit(40, -30,
-                                 Math.PI,
-                                 BrawlerIdleHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(40, 30,
-                                 Math.PI,
-                                 BrawlerIdleHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(100, -30,
-                                 Math.PI,
-                                 BrawlerIdleHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
-        game.unitsSystem.addUnit(100, 30,
-                                 Math.PI,
-                                 BrawlerIdleHandler.instance,
-                                 Teams.ENEMY) != battle.UnitsSystem.IDENTIFIER_NONE;
+        game.unitsSystem.addUnit(40, -30, UnitTypes.BRAWLER, Teams.ENEMY);
+        game.unitsSystem.addUnit(40, 30, UnitTypes.BRAWLER, Teams.ENEMY);
+        game.unitsSystem.addUnit(100, -30, UnitTypes.BRAWLER, Teams.ENEMY);
+        game.unitsSystem.addUnit(100, 30, UnitTypes.BRAWLER, Teams.ENEMY);
         super.onPreparationInit(game);
     }
     

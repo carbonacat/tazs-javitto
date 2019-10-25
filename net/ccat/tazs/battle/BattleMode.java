@@ -182,6 +182,20 @@ public class BattleMode
     }
     
     /**
+     * Called when the Player uses the PadMenu in the Results.
+     * 
+     * Default implementation does nothing and returns false.
+     * 
+     * @param game The Game.
+     * @param selectedChoice Which choice they made.
+     * @return true if choice was handled, false otherwise.
+     */
+    public boolean onResultMenuChoice(TAZSGame game, int selectedChoice)
+    {
+        return false;
+    }
+    
+    /**
      * Called when going to render the UnitBox's previewed Unit.
      * 
      * Default implementation always returns the Player's team.

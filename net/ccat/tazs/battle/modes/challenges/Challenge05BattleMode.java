@@ -11,6 +11,12 @@ import net.ccat.tazs.resources.Texts;
 public class Challenge05BattleMode
     extends ChallengeBattleMode
 {
+    public Challenge05BattleMode(int identifier)
+    {
+        super(identifier);
+    }
+    
+    
     /***** PREPARATION *****/
     
     public void onPreparationInit(TAZSGame game)

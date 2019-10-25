@@ -18,6 +18,12 @@ import net.ccat.tazs.ui.UIModes;
 public class RandomBattleMode
     extends ChallengeBattleMode
 {
+    public RandomBattleMode()
+    {
+        super(-1);
+    }
+    
+    
     /***** PREPARATION *****/
     
     public void onPreparationInit(TAZSGame game)

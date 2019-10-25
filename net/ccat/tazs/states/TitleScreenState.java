@@ -61,7 +61,7 @@ class TitleScreenState
                 mGame.battleMode.onLaunch(mGame);
             }
             else if (mCurrentMenuIdentifier == MENU_ENTRIES_CHALLENGES)
-                Game.changeState(new ChallengesListState(mGame));
+                Game.changeState(new ChallengesListState(mGame, 0));
         }
         if (Button.Up.justPressed())
         {

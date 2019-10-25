@@ -19,6 +19,20 @@ import net.ccat.tazs.ui.UIModes;
 public abstract class ChallengeBattleMode
     extends BattleMode
 {
+    public ChallengeBattleMode(int identifier)
+    {
+        this.mIdentifier = identifier;
+    }
+    
+    
+    /***** INFORMATION *****/
+    
+    public int getIdentifier()
+    {
+        return mIdentifier;
+    }
+    
+    
     /***** PREPARATION *****/
     
     public void onPreparationInit(TAZSGame game)
@@ -91,7 +105,7 @@ public abstract class ChallengeBattleMode
     
     public void onPreparationExit(TAZSGame game)
     {
-        Game.changeState(new ChallengesListState(game));
+        Game.changeState(new ChallengesListState(game, getIdentifier()));
     }
     
     
@@ -99,7 +113,7 @@ public abstract class ChallengeBattleMode
     
     public void onBattleExit(TAZSGame game)
     {
-        Game.changeState(new ChallengesListState(game));
+        Game.changeState(new ChallengesListState(game, getIdentifier()));
     }
     
     
@@ -111,9 +125,19 @@ public abstract class ChallengeBattleMode
             game.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, Texts.RESULT_NEXT_CHALLENGE);
     }
     
+    public boolean onResultMenuChoice(TAZSGame game, int selectedChoice)
+    {
+        if (selectedChoice == PadMenuUI.CHOICE_RIGHT)
+        {
+            Game.changeState(new ChallengesListState(game, getIdentifier() + 1));
+            return true;
+        }
+        return false;
+    }
+    
     public void onResultExit(TAZSGame game)
     {
-        Game.changeState(new ChallengesListState(game));
+        Game.changeState(new ChallengesListState(game, getIdentifier()));
     }
     
     
@@ -153,4 +177,6 @@ public abstract class ChallengeBattleMode
         game.topBarUI.setRightNameAndSummary(name(), summary());
         updateTopBarsWithHealth(game);
     }
+    
+    private int mIdentifier;
 }

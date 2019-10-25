@@ -27,18 +27,20 @@ import femto.State;
 class ChallengesListState
     extends State
 {
-    public ChallengesListState(TAZSGame game)
+    public ChallengesListState(TAZSGame game, int identifier)
     {
         mGame = game;
         mChallenges = new ChallengeBattleMode[]
         {
-            new Challenge01BattleMode(),
-            new Challenge02BattleMode(),
-            new Challenge03BattleMode(),
-            new Challenge04BattleMode(),
-            new Challenge05BattleMode(),
-            new ChallengeZ01BattleMode()
+            new Challenge01BattleMode(0),
+            new Challenge02BattleMode(1),
+            new Challenge03BattleMode(2),
+            new Challenge04BattleMode(3),
+            new Challenge05BattleMode(4),
+            new ChallengeZ01BattleMode(5)
         };
+        if (identifier < mChallenges.length)
+            mCurrentMenuIdentifier = identifier;
     }
     
     
@@ -48,7 +50,9 @@ class ChallengesListState
     {
         Performances.onInit();
         
-        mGame.menuCursorSprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CURSOR_X, Dimensions.TITLE_MENU_ENTRY_Y_START - VideoConstants.MENU_CURSOR_ORIGIN_Y);
+        int cursorY = Dimensions.TITLE_MENU_ENTRY_Y_START + mCurrentMenuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
+        
+        mGame.menuCursorSprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CURSOR_X, cursorY - VideoConstants.MENU_CURSOR_ORIGIN_Y);
     }
     
     public void update()

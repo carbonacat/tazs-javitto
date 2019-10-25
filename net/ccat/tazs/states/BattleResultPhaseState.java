@@ -99,18 +99,22 @@ public class BattleResultPhaseState
         {
             int selectedChoice = game.padMenuUI.selectedChoice();
             
-            if (selectedChoice == PadMenuUI.CHOICE_UP)
+            if (!game.battleMode.onResultMenuChoice(game, selectedChoice))
             {
-                game.cursorCancelSound.play();
-                game.battleMode.onResultRetry(game);
-                game.padMenuUI.hideUntilNextPress();
+                if (selectedChoice == PadMenuUI.CHOICE_UP)
+                {
+                    game.cursorCancelSound.play();
+                    game.battleMode.onResultRetry(game);
+                    game.padMenuUI.hideUntilNextPress();
+                }
+                else if (selectedChoice == PadMenuUI.CHOICE_DOWN)
+                {
+                    game.cursorCancelSound.play();
+                    game.battleMode.onResultExit(game);
+                    game.padMenuUI.hideUntilNextPress();
+                }
             }
-            else if (selectedChoice == PadMenuUI.CHOICE_DOWN)
-            {
-                game.cursorCancelSound.play();
-                game.battleMode.onResultExit(game);
-                game.padMenuUI.hideUntilNextPress();
-            }
+                
             game.battleMode.onPreparationMenuUpdate(game);
         }
         else if (game.moveCameraWithPad())

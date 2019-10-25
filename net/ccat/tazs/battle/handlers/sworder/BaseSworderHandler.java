@@ -342,7 +342,7 @@ public class BaseSworderHandler
             return MathTools.lerpi(unitTimer,
                                    0, VideoConstants.SWORD_FRAME_HORIZONTAL,
                                    BaseBrawlerHandler.DEATH_TICKS, VideoConstants.SWORD_FRAME_VERTICAL);
-        return VideoConstants.SWORD_FRAME_HORIZONTAL;
+        return VideoConstants.SWORD_FRAME_FADEDOUT;
     }
     
     public static float swordYOffsetForDeathTimer(int unitTimer)

@@ -35,6 +35,6 @@ public class Challenge02BattleMode
     
     public int allowedCost()
     {
-        return 120;
+        return 24;
     }
 }

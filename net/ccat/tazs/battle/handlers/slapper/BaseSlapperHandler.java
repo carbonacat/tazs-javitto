@@ -30,7 +30,7 @@ public class BaseSlapperHandler
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + HAND_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
-    public static final int COST = 25;
+    public static final int COST = 5;
     public static final float INVERSE_WEIGHT = 1.00;
     public static final int DEATH_TICKS = 32;
     public static final int RECONSIDER_TICKS = 128;

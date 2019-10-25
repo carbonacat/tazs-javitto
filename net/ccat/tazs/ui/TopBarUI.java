@@ -4,6 +4,7 @@ import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
+import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.tools.MathTools;
 
@@ -24,7 +25,8 @@ public class TopBarUI
     public void setLeftCountAndCost(String teamName, int count, int cost)
     {
         mLeftTopString = teamName + Texts.MISC_SEPARATOR + count + (count == 1 ? Texts.UNIT_K_UNIT : Texts.UNIT_K_UNITS);
-        mLeftBottomString = "" + cost + Texts.MISC_DOLLAR;
+        mLeftBottomString = "" + cost;
+        mLeftBottomEndsWithBean = true;
     }
     /**
      * Sets the Left Team's bar.
@@ -45,7 +47,8 @@ public class TopBarUI
     public void setRightCountAndCost(String teamName, int count, int cost)
     {
         mRightTopString = teamName + Texts.MISC_SEPARATOR + count + (count == 1 ? Texts.UNIT_K_UNIT : Texts.UNIT_K_UNITS);
-        mRightBottomString = "" + cost + Texts.MISC_DOLLAR;
+        mRightBottomString = "" + cost;
+        mRightBottomEndsWithBean = true;
     }
     
     /**
@@ -67,12 +70,13 @@ public class TopBarUI
     {
         mRightTopString = teamName;
         mRightBottomString = summary;
+        mRightBottomEndsWithBean = false;
     }
     
     
     /***** RENDERING *****/
     
-    public void draw(HiRes16Color screen)
+    public void draw(NonAnimatedSprite everyUISprite, HiRes16Color screen)
     {
         int x = 0;
         int y = 0;
@@ -95,12 +99,18 @@ public class TopBarUI
         screen.print(mLeftTopString);
         screen.setTextPosition(leftX, y + Dimensions.TOPBAR_SECONDARYLINE_Y_OFFSET);
         screen.print(mLeftBottomString);
+        if (mLeftBottomEndsWithBean)
+            UITools.printBean(everyUISprite, screen);
         
         screen.setTextPosition(rightX - screen.textWidth(mRightTopString), y + Dimensions.TOPBAR_PRIMARYLINE_Y_OFFSET);
         screen.setTextColor(Colors.WINDOW_TEXT);
         screen.print(mRightTopString);
         screen.setTextPosition(rightX - screen.textWidth(mRightBottomString), y + Dimensions.TOPBAR_SECONDARYLINE_Y_OFFSET);
+        if (mRightBottomEndsWithBean)
+            UITools.anticipateBean(screen);
         screen.print(mRightBottomString);
+        if (mRightBottomEndsWithBean)
+            UITools.printBean(everyUISprite, screen);
     }
     
     
@@ -117,7 +127,9 @@ public class TopBarUI
     private String mLeftTopString = "";
     private int mLeftBarLength = 0;
     private String mLeftBottomString = "";
+    private boolean mLeftBottomEndsWithBean = false;
     private int mRightBarLength = 0;
     private String mRightTopString = "";
     private String mRightBottomString = "";
+    private boolean mRightBottomEndsWithBean = false;
 }

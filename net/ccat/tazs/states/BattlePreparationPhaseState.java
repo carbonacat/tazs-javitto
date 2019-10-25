@@ -277,12 +277,12 @@ public class BattlePreparationPhaseState
             screen.setTextColor(Colors.WINDOW_TEXT_DISABLED);
         screen.setTextPosition(Dimensions.UNITBOX_X + 2, Dimensions.UNITBOX_Y + 2);
         screen.print(unitHandler.cost());
-        screen.print(Texts.MISC_DOLLAR);
+        UITools.printBean(game.everyUISprite, screen);
         unitHandler.drawAsUI(game.unitsSystem,
                              screen.cameraX + Dimensions.UNITBOX_UNIT_X, screen.cameraY + Dimensions.UNITBOX_UNIT_Y, Math.PI, unitTeam,
                              screen);
         
-        game.topBarUI.draw(screen);
+        game.topBarUI.draw(game.everyUISprite, screen);
         game.padMenuUI.draw(screen);
         game.drawUnitUI(game.unitsSystem.findControlledUnitIdentifier());
     }

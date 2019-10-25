@@ -47,7 +47,6 @@ class Texts
     public static final String MISC_ERROR = "<error>";
     public static final String MISC_SEPARATOR = " - ";
     public static final String MISC_UNKNOWN = "???";
-    public static final String MISC_DOLLAR = "$";
 
 
     /***** PREPARATION *****/

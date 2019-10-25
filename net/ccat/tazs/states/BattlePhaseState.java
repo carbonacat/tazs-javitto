@@ -207,7 +207,7 @@ public class BattlePhaseState
         }
 
         game.padMenuUI.draw(screen);
-        game.topBarUI.draw(screen);
+        game.topBarUI.draw(game.everyUISprite, screen);
         game.drawUnitUI(game.unitsSystem.controlledUnitIdentifier);
     }
     

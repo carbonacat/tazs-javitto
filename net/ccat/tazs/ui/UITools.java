@@ -4,6 +4,8 @@ import femto.input.Button;
 import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
+import net.ccat.tazs.resources.VideoConstants;
 
 
 /**
@@ -214,6 +216,34 @@ class UITools
     public static boolean blinkingValue()
     {
         return (System.currentTimeMillis() & BLINK_MASK) == BLINK_MASK;
+    }
+    
+    /**
+     * Prints a Bean into the screen, at the screen's text position.
+     * Takes care of going back to the line if exceeding the boundaries and advancing the position, like printing regular characters would do.
+     * @param everyUISprite
+     * @param screen
+     */
+    public static void printBean(NonAnimatedSprite everyUISprite, HiRes16Color screen)
+    {
+        if (screen.textX + VideoConstants.BEAN_WIDTH >= screen.textRightLimit)
+        {
+            screen.textX = screen.textLeftLimit;
+            screen.textY += screen.textHeight();
+        }
+        everyUISprite.selectFrame(VideoConstants.EVERYUI_BEAN_NORMAL_FRAME);
+        everyUISprite.setPosition(screen.textX + 3 - VideoConstants.EVERYUI_ORIGIN_X, screen.textY + 2 - VideoConstants.EVERYUI_ORIGIN_X);
+        everyUISprite.draw(screen);
+        screen.textX += VideoConstants.BEAN_WIDTH + screen.charSpacing;
+    }
+    
+    /**
+     * Removes a Bean from the screen's text position.
+     * @param screen
+     */
+    public static void anticipateBean(HiRes16Color screen)
+    {
+        screen.textX -= VideoConstants.BEAN_WIDTH + screen.charSpacing;
     }
     
     

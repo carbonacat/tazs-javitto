@@ -904,6 +904,32 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\slapper\\SlapperSeekHandler.java": {
 			"sdcard": false
+		},
+		"\\bin\\2019-10-25 - Zombies Vs Humans.gif": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everyui": {},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everyui\\EveryUISprite.json": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everyui\\EveryUISprite.png": {
+			"sdcard": false,
+			"implements": ""
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everyui/EveryUISprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everyui\\EveryUISprite.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everyui\\EveryUIRawSprite.json": {
+			"implements": "",
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sprites\\everyui\\EveryUIRawSprite.png": {
+			"implements": "",
+			"sdcard": false
 		}
 	}
 }

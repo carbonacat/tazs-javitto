@@ -6,6 +6,11 @@ package net.ccat.tazs.resources;
  */
 class VideoConstants
 {
+    /***** BEAN *****/
+    
+    public static final int BEAN_WIDTH = 7;
+    
+    
     /***** BRAWLER *****/
     
     public static final float BRAWLERBODY_HAND_OFFSET_Y = 5;
@@ -35,6 +40,14 @@ class VideoConstants
     public static final int EVERYTHING_HAND_FRAME = 49; // TODO: Should be 48, as Aseprite says it's 49. I'm not sure what's happening.
     public static final int EVERYTHING_SWORD_FRAME = 50; // TODO: Should be 49, as Aseprite says it's 50. I'm not sure what's happening.
     public static final int EVERYTHING_SHIELD_FRAME = 56; // TODO: Should be 55, as Aseprite says it's 56. I'm not sure what's happening.
+    
+    
+    /***** EVERYUI *****/
+    
+    public static final float EVERYUI_ORIGIN_X = 9;
+    public static final float EVERYUI_ORIGIN_Y = 9;
+    public static final int EVERYUI_BEAN_NORMAL_FRAME = 0;
+    public static final int EVERYUI_BEAN_GOLDEN_FRAME = 1;
     
     
     /***** MENU CURSOR *****/

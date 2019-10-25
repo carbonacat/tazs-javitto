@@ -18,6 +18,7 @@ import net.ccat.tazs.resources.sounds.CursorMoveSound;
 import net.ccat.tazs.resources.sounds.CursorSelectSound;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.sprites.everything.EverythingSprite;
+import net.ccat.tazs.resources.sprites.everyui.EveryUISprite;
 import net.ccat.tazs.resources.sprites.life.LifeSprite;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
@@ -45,6 +46,7 @@ class TAZSGame
         lifeSprite.setStatic(true);
         lifeSprite.playDefault();
         lifeSprite.setPosition(Dimensions.CONTROLLED_UNIT_LIFE_X, Dimensions.CONTROLLED_UNIT_LIFE_Y);
+        everyUISprite.setStatic(true);
 
         // Something went wrong if that went havoc!
         while (mAreaCoords.length != AREA_TEAMS_MAX * AREA_SIZE);
@@ -268,6 +270,7 @@ class TAZSGame
     /***** COMMON RESOURCES *****/
     
     public final NonAnimatedSprite everythingSprite = new EverythingSprite();
+    public final NonAnimatedSprite everyUISprite = new EveryUISprite();
     public CursorSprite cursorSprite = new CursorSprite();
     public MenuCursorSprite menuCursorSprite = new MenuCursorSprite();
     public LifeSprite lifeSprite = new LifeSprite();

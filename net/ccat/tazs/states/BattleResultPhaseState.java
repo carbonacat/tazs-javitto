@@ -134,7 +134,7 @@ public class BattleResultPhaseState
         screen.fillRect(Dimensions.RESULT_LOGO_X + 1, mLogoY + 1, Dimensions.RESULT_LOGO_WIDTH - 1, Dimensions.RESULT_LOGO_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
         mSummarySprite.draw(screen, Dimensions.RESULT_LOGO_X + 2, mLogoY + 2);
         
-        game.topBarUI.draw(screen);
+        game.topBarUI.draw(game.everyUISprite, screen);
         
         // Stats screen.
         
@@ -153,13 +153,13 @@ public class BattleResultPhaseState
                       Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, Dimensions.RESULT_STATS_TEAMS_FIRST_X_LAST, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET,
                         Colors.TEAM_PLAYER_STAT, screen);
         screen.print(mPlayerUnitsCost);
-        screen.print(Texts.MISC_DOLLAR);
+        UITools.printBean(game.everyUISprite, screen);
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
         renderStatBar(mEnemyUnitsCost, mPlayerUnitsCost + mEnemyUnitsCost,
                       Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, Dimensions.RESULT_STATS_TEAMS_SECOND_X_LAST, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET,
                         Colors.TEAM_ENEMY_STAT, screen);
         screen.print(mEnemyUnitsCost);
-        screen.print(Texts.MISC_DOLLAR);
+        UITools.printBean(game.everyUISprite, screen);
         
         screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.RESULT_DESTRUCTIONS_);

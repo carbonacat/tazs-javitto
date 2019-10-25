@@ -55,6 +55,9 @@ public class BattleResultPhaseState
         game.padMenuUI.clearChoices();
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.RESULT_RETRY);
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.RESULT_EXIT);
+        
+        mGame.battleMode.onResultInit(mGame, mWinnerTeam);
+        
         mStatsAreShown = true;
         mLastLosingDyingUnitIdentifier = game.unitsSystem.findUnitThatJustDied(Teams.oppositeTeam(mWinnerTeam));
     }

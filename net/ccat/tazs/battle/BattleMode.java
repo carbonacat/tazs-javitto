@@ -146,6 +146,18 @@ public class BattleMode
     /***** RESULT *****/
     
     /**
+     * Called in Result' init() method.
+     * 
+     * Default does nothing.
+     * 
+     * @param game The Game.
+     * @param winnerTeam The winning team.
+     */
+    public void onResultInit(TAZSGame game, int winnerTeam)
+    {
+    }
+    
+    /**
      * Called when the Player wants to exit the Result Screen.
      * 
      * Default implementation switches to the TitleScreenState.

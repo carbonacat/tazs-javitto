@@ -8,6 +8,7 @@ import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.states.BattlePreparationPhaseState;
 import net.ccat.tazs.states.ChallengesListState;
+import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.UIModes;
 
 
@@ -103,6 +104,12 @@ public abstract class ChallengeBattleMode
     
     
     /***** RESULT *****/
+    
+    public void onResultInit(TAZSGame game, int winnerTeam)
+    {
+        if (winnerTeam == Teams.PLAYER)
+            game.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, Texts.RESULT_NEXT_CHALLENGE);
+    }
     
     public void onResultExit(TAZSGame game)
     {

@@ -20,7 +20,8 @@ public class SlapperSeekHandler
     
     public void onTick(UnitsSystem system, int unitIdentifier) 
     {
-        if (HandlersTools.seekAnEnemy(system, unitIdentifier, WALK_SPEED, ANGLE_ROTATION_BY_TICK, CLOSE_DISTANCE_SQUARED, RECONSIDER_TICKS))
+        if (HandlersTools.seekAnEnemy(system, unitIdentifier, WALK_SPEED, ANGLE_ROTATION_BY_TICK, CLOSE_DISTANCE_SQUARED, RECONSIDER_TICKS,
+                                      ATTACK_ANGLE_MAX))
             system.unitsHandlers[unitIdentifier] = SlapperSlapHandler.instance;
     }
     

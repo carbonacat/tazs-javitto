@@ -29,6 +29,7 @@ public class BaseSworderHandler
     public static final int ATTACK_TIMER_MAX = 8;
     public static final int ATTACK_TIMER_RETREATED = 16;
     public static final int ATTACK_TIMER_RESTED = 32;
+    public static final float ATTACK_ANGLE_MAX = Math.PI * 0.125f;
     
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE * SWORD_RANGE_RATIO + SWORD_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;

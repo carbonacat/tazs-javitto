@@ -16,7 +16,6 @@ public class HandlersTools
     public static final float POWER_HP_RATIO = 3.f;
     public static final float SEEK_DISTANCE_MAX = 250.f;
     public static final float UNIT_RADIUS = 3.f;
-    public static final float UNIT_ATTACK_ANGLE = Math.PI * 0.125f;
     
     
     /***** RENDERING *****/
@@ -87,12 +86,14 @@ public class HandlersTools
      * @param rotationSpeed How fast per tick the Unit rotates.
      * @param closeEnoughDistanceSquared The distance where the Unit is close enough to attack, but squared.
      * @param ticksUntilChangingTarget Ticks before the Unit consider another target.
+     * @param attackAngleMax The maximum difference between the current Unit's angle and it's Opponent relative one.
      * @return True if an enemy is close enough -
      */
     public static boolean seekAnEnemy(UnitsSystem system, int unitIdentifier,
                                       float walkSpeed, float rotationSpeed,
                                       float closeEnoughDistanceSquared,
-                                      int ticksUntilChangingTarget)
+                                      int ticksUntilChangingTarget,
+                                      float attackAngleMax)
     {
         int unitTimer = system.unitsTimers[unitIdentifier];
         float unitX = system.unitsXs[unitIdentifier];
@@ -130,7 +131,7 @@ public class HandlersTools
                 unitX += Math.cos(unitAngle) * walkSpeed;
                 unitY += Math.sin(unitAngle) * walkSpeed;
             }
-            else if (MathTools.abs(MathTools.wrapAngle(targetAngle - unitAngle)) < UNIT_ATTACK_ANGLE)
+            else if (MathTools.abs(MathTools.wrapAngle(targetAngle - unitAngle)) <= attackAngleMax)
             {
                  // Let's punch them!
                 unitTimer = 0;

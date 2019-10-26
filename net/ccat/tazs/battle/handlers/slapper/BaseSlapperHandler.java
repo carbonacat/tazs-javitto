@@ -240,7 +240,7 @@ public class BaseSlapperHandler
                                                NonAnimatedSprite everythingSprite, int baseFrame,
                                                HiRes16Color screen)
     {
-        everythingSprite.selectFrame(baseFrame + VideoConstants.SLAPPERBODY_FRAME_IDLE);
+        everythingSprite.selectFrame(baseFrame + VideoConstants.SLAPPERBODY_IDLE_FRAME);
         everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
         everythingSprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
         everythingSprite.draw(screen);
@@ -261,8 +261,8 @@ public class BaseSlapperHandler
                                             NonAnimatedSprite everythingSprite, int baseFrame,
                                             HiRes16Color screen)
     {
-        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST, DEATH_TICKS, VideoConstants.SLAPPERBODY_FRAME_DEAD_START);
-        int frame = baseFrame + MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_FRAME_DEAD_START, VideoConstants.SLAPPERBODY_FRAME_DEAD_LAST);
+        int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.SLAPPERBODY_DEAD_FRAMES_LAST, DEATH_TICKS, VideoConstants.SLAPPERBODY_DEAD_FRAMES_START);
+        int frame = baseFrame + MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_DEAD_FRAMES_START, VideoConstants.SLAPPERBODY_DEAD_FRAMES_LAST);
         
         everythingSprite.selectFrame(frame);
         everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);

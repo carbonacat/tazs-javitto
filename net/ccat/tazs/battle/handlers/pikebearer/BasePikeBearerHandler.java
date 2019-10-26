@@ -1,4 +1,4 @@
-package net.ccat.tazs.battle.handlers.sworder;
+package net.ccat.tazs.battle.handlers.pikebearer;
 
 import femto.mode.HiRes16Color;
 import femto.Sprite;
@@ -12,28 +12,30 @@ import net.ccat.tazs.tools.MathTools;
 
 
 /**
- * Base Handler for all Handlers related to the Sworder.
+ * Base Handler for all Handlers related to the PikeBearer.
  */
-public class BaseSworderHandler
+public class BasePikeBearerHandler
     implements UnitHandler
 {
-    public static final short HEALTH_INITIAL = 150;
+    public static final short HEALTH_INITIAL = 125;
     public static final float WALK_SPEED = 0.200f;
     public static final float ANGLE_ROTATION_BY_TICK = 24.f / 256.f;
-    public static final float HAND_IDLE_DISTANCE = 2.f;
-    public static final float HAND_MAX_DISTANCE = 6.f;
-    public static final float SWORD_RADIUS = 2.f;
-    public static final float SWORD_POWER = 10.f;
-    public static final float SWORD_RANGE_RATIO = 1.5f;
+    public static final float HAND_IDLE_DISTANCE = -3.f;
+    public static final float HAND_MAX_DISTANCE = 5.f;
+    public static final float PIKE_RADIUS = 2.f;
+    public static final float PIKE_END_RANGE = 10.f;
+    public static final float PIKE_END_POWER = 7.5f;
+    public static final float PIKE_MIDDLE_RANGE = 6.f;
+    public static final float PIKE_MIDDLE_POWER = 5.f;
     public static final int ATTACK_TIMER_INIT = 0;
     public static final int ATTACK_TIMER_MAX = 8;
     public static final int ATTACK_TIMER_RETREATED = 16;
     public static final int ATTACK_TIMER_RESTED = 32;
     
-    public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE * SWORD_RANGE_RATIO + SWORD_RADIUS + HandlersTools.UNIT_RADIUS - 2;
+    public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + PIKE_END_RANGE + PIKE_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
-    public static final int COST = 10;
+    public static final int COST = 15;
     public static final float INVERSE_WEIGHT = 1.25;
     public static final int RECONSIDER_TICKS = 128;
     
@@ -42,12 +44,12 @@ public class BaseSworderHandler
     
     public int unitType()
     {
-        return UnitTypes.SWORDER;
+        return UnitTypes.PIKEBEARER;
     }
     
     public String name()
     {
-        return Texts.UNIT_SWORDER;
+        return Texts.UNIT_PIKEBEARER;
     }
     
     public int startingHealth()
@@ -77,7 +79,7 @@ public class BaseSworderHandler
     {
         if (control)
         {
-            system.unitsHandlers[unitIdentifier] = SworderControlledHandler.instance;
+            system.unitsHandlers[unitIdentifier] = PikeBearerControlledHandler.instance;
             return true;
         }
         return false;
@@ -87,7 +89,7 @@ public class BaseSworderHandler
                       float powerX, float powerY, float power)
     {
         if (HandlersTools.hitAndCheckIfBecameDead(system, unitIdentifier, powerX, powerY, power))
-            system.unitsHandlers[unitIdentifier] = SworderDeadHandler.instance;
+            system.unitsHandlers[unitIdentifier] = PikeBearerDeathHandler.instance;
     }
     
     
@@ -97,10 +99,9 @@ public class BaseSworderHandler
                          float unitX, float unitY, float unitAngle, int unitTeam,
                          HiRes16Color screen)
     {
-        drawStandingSworder(unitX, unitY, unitAngle,
+        drawStandingPikeBearer(unitX, unitY, unitAngle,
                             HAND_IDLE_DISTANCE,
                             system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
-                            VideoConstants.EVERYTHING_SWORD_FRAME + VideoConstants.SWORD_VERTICAL_FRAME,
                             screen);
     }
     
@@ -108,34 +109,33 @@ public class BaseSworderHandler
     /***** RENDERING TOOLS *****/
     
     /**
-     * Renders an Idle Sworder.
+     * Renders an Idle PikeBearer.
      * 
      * @param system
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawIdleSworderUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawIdlePikeBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
         
-        drawStandingSworder(unitX, unitY, unitAngle,
-                            HAND_IDLE_DISTANCE,
-                            system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
-                            VideoConstants.EVERYTHING_SWORD_FRAME + VideoConstants.SWORD_VERTICAL_FRAME,
-                            screen);
+        drawStandingPikeBearer(unitX, unitY, unitAngle,
+                               HAND_IDLE_DISTANCE,
+                               system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
+                               screen);
     }
     
     /**
-     * Renders a Dying Sworder.
+     * Renders a Dying PikeBearer.
      * 
      * @param system
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawDyingSworderUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawDyingPikeBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -145,9 +145,9 @@ public class BaseSworderHandler
         
         // Is the hand above?
         if (unitAngle < 0)
-            drawSword(unitX, unitY + swordYOffsetForDeathTimer(unitTimer), unitAngle,
+            drawPike(unitX, unitY + pikeYOffsetForDeathTimer(unitTimer), unitAngle,
                       HAND_IDLE_DISTANCE,
-                      system.everythingSprite, VideoConstants.EVERYTHING_SWORD_FRAME + swordFrameForDeathTimer(unitTimer),
+                      system.everythingSprite,
                       screen);
         BaseBrawlerHandler.drawDyingBrawlerBody(unitX, unitY, unitAngle,
                                                 unitTimer,
@@ -155,13 +155,13 @@ public class BaseSworderHandler
                                                 screen);
         // Is the hand below?
         if (unitAngle >= 0)
-            drawSword(unitX, unitY + swordYOffsetForDeathTimer(unitTimer), unitAngle,
+            drawPike(unitX, unitY + pikeYOffsetForDeathTimer(unitTimer), unitAngle,
                       HAND_IDLE_DISTANCE,
-                      system.everythingSprite, VideoConstants.EVERYTHING_SWORD_FRAME + swordFrameForDeathTimer(unitTimer),
+                      system.everythingSprite,
                       screen);
     }
     
-    public static void drawAttackingSworderUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawAttackingPikeBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -170,15 +170,14 @@ public class BaseSworderHandler
         int unitTimer = system.unitsTimers[unitIdentifier];
         float handDistance = handDistanceForAttackTimer(unitTimer);
         
-        drawStandingSworder(unitX, unitY, unitAngle,
-                            handDistance,
-                            system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
-                            VideoConstants.EVERYTHING_SWORD_FRAME + swordFrameForAttackTimer(unitTimer),
-                            screen);
+        drawStandingPikeBearer(unitX, unitY, unitAngle,
+                               handDistance,
+                               system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
+                               screen);
     }
     
     /**
-     * Renders a Sworder with its weapon at a given distance.
+     * Renders a PikeBearer with its weapon at a given distance.
      * 
      * @param unitX
      * @param unitY
@@ -186,55 +185,55 @@ public class BaseSworderHandler
      * @param handDistance
      * @param everythingSprite
      * @param baseFrame
-     * @param swordFrame
+     * @param pikeFrame
      * @param screen
      */
-    public static void drawStandingSworder(float unitX, float unitY, float unitAngle,
-                                           float handDistance,
-                                           NonAnimatedSprite everythingSprite, int baseFrame,
-                                           int swordFrame,
-                                           HiRes16Color screen)
+    public static void drawStandingPikeBearer(float unitX, float unitY, float unitAngle,
+                                              float handDistance,
+                                              NonAnimatedSprite everythingSprite, int baseFrame,
+                                              HiRes16Color screen)
     {
         // Is the hand above?
         if (unitAngle < 0)
-            drawSword(unitX, unitY, unitAngle,
-                      handDistance,
-                      everythingSprite, swordFrame,
-                      screen);
+            drawPike(unitX, unitY, unitAngle,
+                     handDistance,
+                     everythingSprite,
+                     screen);
         BaseBrawlerHandler.drawStandingBrawlerBody(unitX, unitY, unitAngle,
                                                    everythingSprite, baseFrame,
                                                    screen);
         // Is the hand below?
         if (unitAngle >= 0)
-            drawSword(unitX, unitY, unitAngle,
-                      handDistance,
-                      everythingSprite, swordFrame,
-                      screen);
+            drawPike(unitX, unitY, unitAngle,
+                     handDistance,
+                     everythingSprite,
+                     screen);
     }
     
     /**
-     * Renders the Sworder's Weapon.
+     * Renders the PikeBearer's Weapon.
      * @param unitX
      * @param unitY
      * @param unitAngle
      * @param handDistance
      * @param everythingSprite
-     * @param swordFrame
+     * @param pikeFrame
      * @param screen
      */
-    public static void drawSword(float unitX, float unitY, float unitAngle,
-                                 float handDistance,
-                                 NonAnimatedSprite everythingSprite, int swordFrame,
-                                 HiRes16Color screen)
+    public static void drawPike(float unitX, float unitY, float unitAngle,
+                                float handDistance,
+                                NonAnimatedSprite everythingSprite,
+                                HiRes16Color screen)
     {
-        boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
-        
+        prepareSpriteForPikeWithAngle(everythingSprite, unitAngle);
+
         everythingSprite.setPosition(handX(unitX, unitAngle, handDistance) - VideoConstants.EVERYTHING_ORIGIN_X,
-                                handY(unitY, unitAngle, handDistance) - VideoConstants.EVERYTHING_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_OFFSET_Y);
-        everythingSprite.selectFrame(swordFrame);
-        everythingSprite.setMirrored(mirrored);
-        
+                                     handY(unitY, unitAngle, handDistance) - VideoConstants.EVERYTHING_ORIGIN_Y - VideoConstants.BRAWLERBODY_WEAPON_OFFSET_Y);
+
         everythingSprite.draw(screen);
+        
+        // Everyone expects flipper to be reset.
+        everythingSprite.setFlipped(false);
     }
     
     
@@ -272,18 +271,18 @@ public class BaseSworderHandler
             float unitY = system.unitsYs[unitIdentifier];
             float unitAngle = system.unitsAngles[unitIdentifier];
             char unitTeam = system.unitsTeams[unitIdentifier];
-            float swordDistance = handDistance * SWORD_RANGE_RATIO;
-            float weaponX = handX(unitX, unitAngle, swordDistance);
-            float weaponY = handY(unitY, unitAngle, swordDistance);
+            float pikeDistance = handDistance + PIKE_END_RANGE;
+            float weaponX = handX(unitX, unitAngle, pikeDistance);
+            float weaponY = handY(unitY, unitAngle, pikeDistance);
             
             int hitUnitIdentifier = system.findClosestLivingUnit(weaponX, weaponY, Teams.oppositeTeam(unitTeam),
-                                                                 SWORD_RADIUS + HandlersTools.UNIT_RADIUS);
+                                                                 PIKE_RADIUS + HandlersTools.UNIT_RADIUS);
             
             if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
             {
                 system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
-                                                              SWORD_POWER * Math.cos(unitAngle), SWORD_POWER * Math.sin(unitAngle),
-                                                              SWORD_POWER);
+                                                              PIKE_END_POWER * Math.cos(unitAngle), PIKE_END_POWER * Math.sin(unitAngle),
+                                                              PIKE_END_POWER);
                 // Interpolating to find the equivalent withdrawal position.
                 unitTimer = MathTools.lerpi(unitTimer, ATTACK_TIMER_INIT, ATTACK_TIMER_RETREATED, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX);
             }
@@ -323,34 +322,51 @@ public class BaseSworderHandler
         return HAND_IDLE_DISTANCE;
     }
     
-    public static int swordFrameForAttackTimer(int unitTimer)
-    {
-        if (unitTimer < ATTACK_TIMER_MAX)
-            return MathTools.lerpi(unitTimer,
-                                   ATTACK_TIMER_INIT, VideoConstants.SWORD_VERTICAL_FRAME,
-                                   ATTACK_TIMER_MAX, VideoConstants.SWORD_HORIZONTAL_FRAME);
-        else if (unitTimer < ATTACK_TIMER_RETREATED)
-            return MathTools.lerpi(unitTimer,
-                                   ATTACK_TIMER_MAX, VideoConstants.SWORD_HORIZONTAL_FRAME,
-                                   ATTACK_TIMER_RETREATED, VideoConstants.SWORD_VERTICAL_FRAME);
-        return VideoConstants.SWORD_VERTICAL_FRAME;
-    }
-    
-    public static int swordFrameForDeathTimer(int unitTimer)
-    {
-        if ((unitTimer > 0) && (unitTimer <= BaseBrawlerHandler.DEATH_TICKS))
-            return MathTools.lerpi(unitTimer,
-                                   0, VideoConstants.SWORD_HORIZONTAL_FRAME,
-                                   BaseBrawlerHandler.DEATH_TICKS, VideoConstants.SWORD_VERTICAL_FRAME);
-        return VideoConstants.SWORD_FADED_FRAME;
-    }
-    
-    public static float swordYOffsetForDeathTimer(int unitTimer)
+    public static float pikeYOffsetForDeathTimer(int unitTimer)
     {
         if ((unitTimer > 0) && (unitTimer <= BaseBrawlerHandler.DEATH_TICKS))
             return MathTools.lerp(unitTimer,
                                   0, VideoConstants.BRAWLERBODY_WEAPON_OFFSET_Y,
                                   BaseBrawlerHandler.DEATH_TICKS, 0);
         return VideoConstants.BRAWLERBODY_WEAPON_OFFSET_Y;
+    }
+    
+    public static void prepareSpriteForPikeWithAngle(NonAnimatedSprite everythingSprite, float angle)
+    {
+        int roughFrame = MathTools.clampi((int)Math.round((8.f * angle) / Math.PI), -8, 8);
+        int subFrame = 0;
+        
+        if (roughFrame < -4) // && (roughFrame >= -8)
+        {
+            everythingSprite.setMirrored(true);
+            // -8 gives 0 = HORIZONTAL
+            // -4 gives 4 = VERTICAL
+            subFrame = 8 + roughFrame;
+        }
+        else if (roughFrame > 4) // && (roughFrame <= 8)
+        {
+            everythingSprite.setMirrored(true);
+            everythingSprite.setFlipped(true);
+            // 8 gives 0 = HORIZONTAL
+            // 4 gives 4 = VERTICAL
+            subFrame = 8 - roughFrame;
+        }
+        else if (roughFrame > 0) // && (roughFrame <= 4)
+        {
+            everythingSprite.setMirrored(false);
+            everythingSprite.setFlipped(true);
+            // 0 gives 0 = HORIZONTAL
+            // 4 gives 4 = VERTICAL
+            subFrame = roughFrame;
+        }
+        else // (roughFrame <= 0) && (roughFrame >= -4)
+        {
+            everythingSprite.setMirrored(false);
+            everythingSprite.setFlipped(false);
+            // -4 gives 4 = VERTICAL
+            // 0 gives -4 = HORIZONTAL
+            subFrame = -roughFrame;
+        }
+        everythingSprite.selectFrame(VideoConstants.EVERYTHING_PIKE_FRAME + subFrame);
     }
 }

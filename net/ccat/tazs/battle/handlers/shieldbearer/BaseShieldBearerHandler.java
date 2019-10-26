@@ -344,12 +344,12 @@ public class BaseShieldBearerHandler
     
     public static int shieldFrameForIdle(boolean facingFront)
     {
-        return facingFront ? VideoConstants.SHIELD_FRAME_FRONT : VideoConstants.SHIELD_FRAME_BACK;
+        return facingFront ? VideoConstants.SHIELD_FRONT_FRAME : VideoConstants.SHIELD_BACK_FRAME;
     }
     
     public static int shieldFrameForAttackTimer(int unitTimer, boolean facingFront)
     {
-        final int standingFrame = facingFront ? VideoConstants.SHIELD_FRAME_FRONT : VideoConstants.SHIELD_FRAME_BACK;
+        final int standingFrame = facingFront ? VideoConstants.SHIELD_FRONT_FRAME : VideoConstants.SHIELD_BACK_FRAME;
         final int bashingFrame = standingFrame + 1;
         
         if (unitTimer < ATTACK_TIMER_MAX)
@@ -365,8 +365,8 @@ public class BaseShieldBearerHandler
     
     public static int shieldFrameForDeathTimer(int unitTimer, boolean facingFront)
     {
-        final int standingFrame = facingFront ? VideoConstants.SHIELD_FRAME_FRONT : VideoConstants.SHIELD_FRAME_BACK;
-        final int fallenFrame = standingFrame + VideoConstants.SHIELD_FRAME_FALLEN_INCREMENT;
+        final int standingFrame = facingFront ? VideoConstants.SHIELD_FRONT_FRAME : VideoConstants.SHIELD_BACK_FRAME;
+        final int fallenFrame = standingFrame + VideoConstants.SHIELD_FALLEN_FRAME_INCREMENT;
         
         if ((unitTimer > 0) && (unitTimer <= BaseBrawlerHandler.DEATH_TICKS))
             return MathTools.lerpi(unitTimer,

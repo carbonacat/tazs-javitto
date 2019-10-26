@@ -95,6 +95,7 @@ class Texts
     public static final String UNIT_K_UNIT = " unit";
     public static final String UNIT_K_UNITS = " units";
     public static final String UNIT_BRAWLER = "Brawler";
+    public static final String UNIT_PIKEBEARER = "Pike Bearer";
     public static final String UNIT_SHIELDBEARER = "Shield Bearer";
     public static final String UNIT_SLAPPER = "Slapper";
     public static final String UNIT_SWORDER = "Sworder";

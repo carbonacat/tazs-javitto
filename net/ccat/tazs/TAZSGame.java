@@ -77,7 +77,7 @@ class TAZSGame
         
         screen.fillRect(0, drawY, drawWidth, drawHeight, Colors.SCENE_BG, true);
         
-        int frameBase = (System.currentTimeMillis() / SCENE_GRASS_MILLIS) % (VideoConstants.TINYGRASS_FRAME_COUNT + SCENE_GRASS_FRAME_DELAY);
+        int frameBase = (System.currentTimeMillis() / SCENE_GRASS_MILLIS) % (VideoConstants.TINYGRASS_FRAMES_COUNT + SCENE_GRASS_FRAME_DELAY);
         
         if (frameBase > SCENE_GRASS_FRAME_DELAY)
             frameBase -= SCENE_GRASS_FRAME_DELAY;

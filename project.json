@@ -930,6 +930,55 @@
 		"\\net\\ccat\\tazs\\resources\\sprites\\everyui\\EveryUIRawSprite.png": {
 			"implements": "",
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer": {},
+		"\\net\\ccat\\tazs\\battle\\handlers\\pikebearer": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer/BasePikeBearerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer\\BasePikeBearerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer/PikeBearerSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer\\PikeBearerSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer/PikeBearerDeathHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer\\PikeBearerDeathHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer/PikeBearerControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer\\PikeBearerControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer/PikeBearerAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/pikebearer\\PikeBearerAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\pikebearer\\BasePikeBearerHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\pikebearer\\PikeBearerAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\pikebearer\\PikeBearerControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\pikebearer\\PikeBearerDeathHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\pikebearer\\PikeBearerSeekHandler.java": {
+			"sdcard": false
 		}
 	}
 }

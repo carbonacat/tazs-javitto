@@ -1,6 +1,7 @@
 package net.ccat.tazs.battle;
 
 import net.ccat.tazs.battle.handlers.brawler.BrawlerSeekHandler;
+import net.ccat.tazs.battle.handlers.pikebearer.PikeBearerSeekHandler;
 import net.ccat.tazs.battle.handlers.shieldbearer.ShieldBearerSeekHandler;
 import net.ccat.tazs.battle.handlers.slapper.SlapperSeekHandler;
 import net.ccat.tazs.battle.handlers.sworder.SworderSeekHandler;
@@ -29,9 +30,13 @@ public class UnitTypes
      */
     static final int SHIELDBEARER = SWORDER + 1;
     /**
+     * @see ccat.tazs.battle.handlers.pikebearer
+     */
+    static final int PIKEBEARER = SHIELDBEARER + 1;
+    /**
      * @see ccat.tazs.battle.handlers.target
      */
-    static final int TARGET = SHIELDBEARER + 1;
+    static final int TARGET = PIKEBEARER + 1;
     static final int END = TARGET + 1;
     
     
@@ -47,6 +52,8 @@ public class UnitTypes
             return SworderSeekHandler.instance;
         if (unitType == SHIELDBEARER)
             return ShieldBearerSeekHandler.instance;
+        if (unitType == PIKEBEARER)
+            return PikeBearerSeekHandler.instance;
         if (unitType == TARGET)
             return TargetIdleHandler.instance;
         // Not supposed to happen.

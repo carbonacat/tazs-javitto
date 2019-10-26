@@ -111,20 +111,14 @@ public class Performances
      */
     public static void onUpdateEnd()
     {
-        boolean aboveFPS = true;
         long nowMillis = System.currentTimeMillis();
         int frameMillis = 0;
+        long frameEndMillis = mStartMillis + FRAME_MILLIS;
         
-        while (aboveFPS)
-        {
-            frameMillis = nowMillis - mStartMillis;
-            if (frameMillis * FPS_LIMIT >= 1000)
-                aboveFPS = false;
-            else
-                nowMillis = System.currentTimeMillis();
-        }
+        while (nowMillis < frameEndMillis)
+            nowMillis = System.currentTimeMillis();
         // Smoothing out that stat.
-        mFrameMillis = (mFrameMillis * STATS_SMOOTHING_MULTIPLIER + frameMillis * STATS_MILLIS_MULTIPLIER + STATS_SMOOTHING_MULTIPLIER) / STATS_SMOOTHING_DIVIDER;
+        mFrameMillis = (mFrameMillis * STATS_SMOOTHING_MULTIPLIER + (nowMillis - mStartMillis) * STATS_MILLIS_MULTIPLIER + STATS_SMOOTHING_MULTIPLIER) / STATS_SMOOTHING_DIVIDER;
         mStartMillis = nowMillis;
         mLastMeasureMillis = nowMillis;
     }
@@ -231,7 +225,8 @@ public class Performances
     private static short mScreenFlushingMillis;
     private static short mFrameMillis;
     
-    private static final int FPS_LIMIT = 32;
+    private static final int FPS_LIMIT = 50;
+    private static final int FRAME_MILLIS = 1000 / FPS_LIMIT;
     private static final int STATS_COUNT = 10;
     // Helps smoothing things.
     private static final int STATS_MILLIS_MULTIPLIER = FPS_LIMIT;

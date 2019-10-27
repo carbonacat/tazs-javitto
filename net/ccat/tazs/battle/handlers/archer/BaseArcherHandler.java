@@ -23,7 +23,7 @@ public class BaseArcherHandler
     public static final float HAND_DISTANCE = 2.f;
     
     public static final float ATTACK_RANGE_MIN = 0.f;
-    public static final float ATTACK_RANGE_MAX = 50.f;
+    public static final float ATTACK_RANGE_MAX = 100.f;
     
     public static final int ATTACK_TIMER_RANGE_MIN = 0; // If released here, the arrow will travel 0 pixels.
     public static final int ATTACK_TIMER_RANGE_MAX = 31; // If released here, the arrow will travel 50 pixels.
@@ -147,7 +147,7 @@ public class BaseArcherHandler
         
         // Is the hand above?
         if (unitAngle < 0)
-            drawBow(unitX, unitY + bowYOffsetForDeathTimer(unitTimer), unitAngle,
+            drawBow(unitX, unitY - bowYOriginForDeathTimer(unitTimer), unitAngle,
                     system.everythingSprite, VideoConstants.EVERYTHING_BOW_FRAME + bowFrameForDeathTimer(unitTimer),
                     screen);
         BaseSlapperHandler.drawDyingSlapperBody(unitX, unitY, unitAngle,
@@ -156,7 +156,7 @@ public class BaseArcherHandler
                                                 screen);
         // Is the hand below?
         if (unitAngle >= 0)
-            drawBow(unitX, unitY + bowYOffsetForDeathTimer(unitTimer), unitAngle,
+            drawBow(unitX, unitY - bowYOriginForDeathTimer(unitTimer), unitAngle,
                     system.everythingSprite, VideoConstants.EVERYTHING_BOW_FRAME + bowFrameForDeathTimer(unitTimer),
                     screen);
     }
@@ -172,7 +172,7 @@ public class BaseArcherHandler
         drawStandingArcher(unitX, unitY, unitAngle,
                            system.everythingSprite, BaseSlapperHandler.baseFrameForTeam(unitTeam),
                            VideoConstants.EVERYTHING_BOW_FRAME + bowFrameForAttackTimer(unitTimer),
-                           bowYOffsetForAttackTimer(unitTimer),
+                           bowYOriginForAttackTimer(unitTimer),
                            screen);
     }
     
@@ -315,7 +315,7 @@ public class BaseArcherHandler
         return VideoConstants.BOW_LOAD_FRAMES_START;
     }
     
-    public static float bowYOffsetForAttackTimer(int unitTimer)
+    public static float bowYOriginForAttackTimer(int unitTimer)
     {
         // TODO: Do it.
         return VideoConstants.SLAPPERBODY_WEAPON_OFFSET_Y;
@@ -330,12 +330,12 @@ public class BaseArcherHandler
         return VideoConstants.BOW_FADED_FRAME;
     }
     
-    public static float bowYOffsetForDeathTimer(int unitTimer)
+    public static float bowYOriginForDeathTimer(int unitTimer)
     {
-        if ((unitTimer > 0) && (unitTimer <= BaseSlapperHandler.DEATH_TICKS))
+        if ((unitTimer >= 0) && (unitTimer <= BaseSlapperHandler.DEATH_TICKS))
             return MathTools.lerp(unitTimer,
-                                  0, VideoConstants.SLAPPERBODY_WEAPON_OFFSET_Y,
-                                  BaseSlapperHandler.DEATH_TICKS, 0);
-        return VideoConstants.SLAPPERBODY_AIM_OFFSET_Y;
+                                  0, 0,
+                                  BaseSlapperHandler.DEATH_TICKS, VideoConstants.SLAPPERBODY_WEAPON_OFFSET_Y);
+        return 0;
     }
 }

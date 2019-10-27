@@ -2,7 +2,7 @@ package net.ccat.tazs.battle.handlers.archer;
 
 import femto.mode.HiRes16Color;
 
-import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
+import net.ccat.tazs.battle.handlers.slapper.BaseSlapperHandler;
 
 
 /**
@@ -30,7 +30,7 @@ public class ArcherDeathHandler
         int unitTimer = system.unitsTimers[unitIdentifier];
         
         if (unitTimer == 0)
-            unitTimer = BaseBrawlerHandler.DEATH_TICKS;
+            unitTimer = BaseSlapperHandler.DEATH_TICKS;
         else if (unitTimer > 0)
         {
             unitTimer--;

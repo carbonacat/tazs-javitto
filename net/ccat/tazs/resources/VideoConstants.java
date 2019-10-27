@@ -18,7 +18,7 @@ class VideoConstants
     public static final int BOW_LOAD_FRAMES_LAST = 4;
     public static final int BOW_FIRE_FRAMES_START = 5;
     public static final int BOW_FIRE_FRAMES_LAST = 9;
-    public static final int BOW_FADED_FRAME = 8;
+    public static final int BOW_FADED_FRAME = 10;
     
     
     /***** BRAWLER *****/

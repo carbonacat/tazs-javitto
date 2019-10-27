@@ -35,7 +35,7 @@ public class BaseArcherHandler
     public static final int ATTACK_TIMER_FIRING_START = ATTACK_TIMER_DECHARGING_MIN + 1;
     public static final int ATTACK_TIMER_FIRING_END = ATTACK_TIMER_FIRING_START + 32;
     public static final int ATTACK_TIMER_RECOVERED_HALF = ATTACK_TIMER_FIRING_END + 32;
-    public static final int ATTACK_TIMER_RECOVERED = ATTACK_TIMER_RECOVERED_HALF + 64;
+    public static final int ATTACK_TIMER_RECOVERED = ATTACK_TIMER_RECOVERED_HALF + 32;
     public static final float ATTACK_ANGLE_MAX = Math.PI * 0.125f;
     public static final float ATTACK_RADIUS = 3.f;
     public static final float ATTACK_POWER = 20.f;

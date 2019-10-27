@@ -22,17 +22,17 @@ public class BaseShieldBearerHandler
     public static final float HAND_IDLE_DISTANCE = 2.f;
     public static final float HAND_MAX_DISTANCE = 4.f;
     public static final float SHIELDBEARER_RADIUS = 3.f;
-    public static final float SHIELDBEARER_POWER = 5.f;
+    public static final float SHIELDBEARER_POWER = 4.f;
     public static final int ATTACK_TIMER_INIT = 0;
-    public static final int ATTACK_TIMER_MAX = 8;
-    public static final int ATTACK_TIMER_RETREATED = 16;
-    public static final int ATTACK_TIMER_RESTED = 24;
+    public static final int ATTACK_TIMER_MAX = 16;
+    public static final int ATTACK_TIMER_RETREATED = 32;
+    public static final int ATTACK_TIMER_RESTED = 40;
     public static final float ATTACK_ANGLE_MAX = Math.PI * 0.0625f;
     
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + SHIELDBEARER_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
-    public static final int COST = 20;
+    public static final int COST = 25;
     public static final float INVERSE_WEIGHT = 1.5;
     public static final int RECONSIDER_TICKS = 128;
     

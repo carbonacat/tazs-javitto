@@ -22,16 +22,17 @@ public class BaseSlapperHandler
     public static final float HAND_MAX_DISTANCE = 6.f;
     public static final float HAND_RADIUS = 1.f;
     public static final float HAND_POWER = 5.f;
+    public static final float HAND_ANGLE_INCREMENT = Math.PI * 0.25f;
     public static final int ATTACK_TIMER_INIT = 0;
     public static final int ATTACK_TIMER_MAX = 4;
     public static final int ATTACK_TIMER_RETREATED = 8;
     public static final int ATTACK_TIMER_RESTED = 16;
-    public static final float ATTACK_ANGLE_MAX = Math.PI * 0.25f;
+    public static final float ATTACK_ANGLE_MAX = Math.PI * 0.03125f;
     
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + HAND_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
-    public static final int COST = 5;
+    public static final int COST = 15;
     public static final float INVERSE_WEIGHT = 2.00;
     public static final int DEATH_TICKS = 50;
     public static final int RECONSIDER_TICKS = 128;
@@ -319,8 +320,16 @@ public class BaseSlapperHandler
             if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
             {
                 system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
-                                                              HAND_POWER * Math.sin(unitAngle), HAND_POWER * -Math.cos(unitAngle),
+                                                              HAND_POWER * Math.cos(unitAngle), HAND_POWER * Math.sin(unitAngle),
                                                               HAND_POWER);
+                
+                // Rotates the Enemy a bit, depending on its (inverse) weight.
+                float enemyAngle = system.unitsAngles[hitUnitIdentifier];
+                float enemyInverseWeight = system.unitsHandlers[hitUnitIdentifier].inverseWeight();
+                
+                enemyAngle = MathTools.wrapAngle(enemyAngle + HAND_ANGLE_INCREMENT * enemyInverseWeight);
+                system.unitsAngles[hitUnitIdentifier] = enemyAngle;
+                
                 // Interpolating to find the equivalent withdrawal position.
                 unitTimer = MathTools.lerpi(unitTimer, ATTACK_TIMER_INIT, ATTACK_TIMER_RETREATED, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX);
             }

@@ -16,6 +16,7 @@ public class HandlersTools
     public static final float POWER_HP_RATIO = 3.f;
     public static final float SEEK_DISTANCE_MAX = 250.f;
     public static final float UNIT_RADIUS = 3.f;
+    public static final int RADIUS_FREQUENCY = 256;
     
     
     /***** RENDERING *****/
@@ -33,13 +34,19 @@ public class HandlersTools
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
         char unitTeam = system.unitsTeams[unitIdentifier];
-        float radius = MathTools.lerp(System.currentTimeMillis() % 512, 0, Dimensions.UNIT_CONTROL_DIRECTION_LENGTH, 512, Dimensions.UNIT_CONTROL_RADIUS);
         
-        screen.drawCircle(unitX, unitY, radius + 1.f, Teams.colorForTeam(unitTeam), false);
-        screen.drawCircle(unitX, unitY, radius, Teams.darkerColorForTeam(unitTeam), false);
-        screen.drawLine(unitX, unitY,
-                        unitX + Math.cos(unitAngle) * Dimensions.UNIT_CONTROL_DIRECTION_LENGTH, unitY + Math.sin(unitAngle) * Dimensions.UNIT_CONTROL_DIRECTION_LENGTH,
-                        Teams.colorForTeam(unitTeam), false);
+        if (system.unitsHealths[unitIdentifier] == 0)
+            screen.drawCircle(unitX, unitY, Dimensions.UNIT_CONTROL_RADIUS, Teams.darkerColorForTeam(unitTeam), false);
+        else
+        {
+            float radius = MathTools.lerp(System.currentTimeMillis() % RADIUS_FREQUENCY, 0, Dimensions.UNIT_CONTROL_DIRECTION_LENGTH, RADIUS_FREQUENCY, Dimensions.UNIT_CONTROL_RADIUS);
+            
+            screen.drawCircle(unitX, unitY, radius + 1.f, Teams.colorForTeam(unitTeam), false);
+            screen.drawCircle(unitX, unitY, radius, Teams.darkerColorForTeam(unitTeam), false);
+            screen.drawLine(unitX + Math.cos(unitAngle) * Dimensions.UNIT_CONTROL_RADIUS, unitY + Math.sin(unitAngle) * Dimensions.UNIT_CONTROL_RADIUS,
+                            unitX + Math.cos(unitAngle) * Dimensions.UNIT_CONTROL_DIRECTION_LENGTH, unitY + Math.sin(unitAngle) * Dimensions.UNIT_CONTROL_DIRECTION_LENGTH,
+                            Teams.colorForTeam(unitTeam), false);
+        }
     }
     
     

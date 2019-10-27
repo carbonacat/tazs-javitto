@@ -61,6 +61,8 @@ class VideoConstants
     public static final float EVERYUI_ORIGIN_Y = 9;
     public static final int EVERYUI_BEAN_NORMAL_FRAME = 0;
     public static final int EVERYUI_BEAN_GOLDEN_FRAME = 1;
+    public static final int EVERYUI_TARGET_FRAMES_START = 2;
+    public static final int EVERYUI_TARGET_FRAMES_END = 3;
     
     
     /***** MENU CURSOR *****/

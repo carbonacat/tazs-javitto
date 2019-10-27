@@ -50,7 +50,6 @@ public class ShieldBearerControlledHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        HandlersTools.drawControlCircle(system, unitIdentifier, screen);
         drawAttackingShieldBearerUnit(system, unitIdentifier, screen);
     }
 }

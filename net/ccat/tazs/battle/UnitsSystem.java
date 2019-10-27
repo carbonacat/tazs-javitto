@@ -469,6 +469,8 @@ class UnitsSystem
     {
         for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
             unitsHandlers[unitIdentifier].draw(this, unitIdentifier, screen);
+        if (controlledUnitIdentifier != IDENTIFIER_NONE)
+            unitsHandlers[controlledUnitIdentifier].drawControlUI(this, controlledUnitIdentifier, screen);
     }
     
     

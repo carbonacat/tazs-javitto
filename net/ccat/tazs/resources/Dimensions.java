@@ -79,8 +79,8 @@ public class Dimensions
     
     /***** UNITS *****/
     
-    public static final int UNIT_CONTROL_RADIUS = 5;
-    public static final float UNIT_CONTROL_DIRECTION_LENGTH = 7.5f;
+    public static final int UNIT_CONTROL_RADIUS = 10;
+    public static final float UNIT_CONTROL_DIRECTION_LENGTH = 12.5f;
     
     
     /***** TOP BAR *****/

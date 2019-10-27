@@ -50,7 +50,6 @@ public class ArcherControlledHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        HandlersTools.drawControlCircle(system, unitIdentifier, screen);
         drawAttackingArcherUnit(system, unitIdentifier, screen);
     }
 }

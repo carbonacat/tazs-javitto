@@ -82,8 +82,17 @@ public interface UnitHandler
      * Renders a given Unit inside the UnitsSystem.
      * @param system The system the Unit belongs to.
      * @param unitIdentifier Identifies the Unit inside the system.
+     * @param screen The target screen.
      */
     public abstract void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen);
+    
+    /**
+     * Renders a special UI for a Controlled unit.
+     * @param system The system the Unit belongs to.
+     * @param unitIdentifier Identifies the Unit inside the system.
+     * @param screen The target screen.
+     */
+    public abstract void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen);
     
     /**
      * Renders the given Unit inside the UnitsSystem.
@@ -93,6 +102,7 @@ public interface UnitHandler
      * @param angle
      * @param team The team.
      * @param unitIdentifier Identifies the Unit inside the system.
+     * @param screen The target screen.
      */
     public abstract void drawAsUI(UnitsSystem system,
                                   float x, float y, float angle, int team,

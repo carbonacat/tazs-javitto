@@ -109,6 +109,11 @@ public class BaseArcherHandler
                            screen);
     }
     
+    public void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        HandlersTools.drawControlCircle(system, unitIdentifier, screen);
+    }
+    
     
     /***** RENDERING TOOLS *****/
     

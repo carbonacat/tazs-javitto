@@ -62,16 +62,20 @@ public class BattlePreparationPhaseState
     
     public void update()
     {
+        TAZSGame game = mGame;
+        
         Performances.onUpdateStart();
         
-        HiRes16Color screen = mGame.screen;
+        HiRes16Color screen = game.screen;
         
         updateInput();
         
-        mGame.drawSceneBackground();
+        game.drawSceneBackground();
         renderArea(Teams.PLAYER, Colors.TEAM_PLAYER_AREA_BORDER, Colors.TEAM_PLAYER_AREA_INSIDE);
         renderArea(Teams.ENEMY, Colors.TEAM_ENEMY_AREA_BORDER, Colors.TEAM_ENEMY_AREA_INSIDE);
-        mGame.unitsSystem.draw(screen);
+        game.unitsSystem.controlledUnitIdentifier = game.unitsSystem.findControlledUnitIdentifier();
+        game.unitsSystem.draw(screen);
+        game.unitsSystem.controlledUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
         renderUI();
         
         screen.flush();

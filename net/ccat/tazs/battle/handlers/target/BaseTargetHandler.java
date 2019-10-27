@@ -82,6 +82,12 @@ public class BaseTargetHandler
                    screen);
     }
     
+    public void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        // Not controllable.
+        while (true);
+    }
+    
     
     /***** RENDERING TOOLS *****/
     

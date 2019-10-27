@@ -50,7 +50,6 @@ public class BrawlerControlledHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
-        HandlersTools.drawControlCircle(system, unitIdentifier, screen);
         drawAttackingBrawlerUnit(system, unitIdentifier, screen);
     }
 }

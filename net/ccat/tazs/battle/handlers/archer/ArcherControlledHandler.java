@@ -59,7 +59,8 @@ public class ArcherControlledHandler
         
         int unitTimer = system.unitsTimers[unitIdentifier];
 
-        if ((unitTimer >= ATTACK_TIMER_CHARGING_MIN) && (unitTimer <= ATTACK_TIMER_CHARGING_MAX))
+        if (((unitTimer >= ATTACK_TIMER_CHARGING_MIN) && (unitTimer <= ATTACK_TIMER_CHARGING_MAX))
+            || ((unitTimer >= ATTACK_TIMER_DECHARGING_MAX) && (unitTimer <= ATTACK_TIMER_DECHARGING_MIN)))
         {
             float unitX = system.unitsXs[unitIdentifier];
             float unitY = system.unitsYs[unitIdentifier];

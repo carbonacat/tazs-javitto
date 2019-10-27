@@ -28,13 +28,17 @@ public class BaseArcherHandler
     
     public static final int ATTACK_TIMER_START = 1;
     public static final int ATTACK_TIMER_PREPARED = ATTACK_TIMER_START + 8;
-    public static final int ATTACK_TIMER_CHARGING_MIN = ATTACK_TIMER_PREPARED; // If released here, the arrow will travel 0 pixels.
-    public static final int ATTACK_TIMER_CHARGING_MAX = ATTACK_TIMER_CHARGING_MIN + 128; // If released here, the arrow will travel 50 pixels.
-    public static final int ATTACK_TIMER_FIRING_START = ATTACK_TIMER_CHARGING_MAX + 1;
-    public static final int ATTACK_TIMER_FIRING_END = ATTACK_TIMER_FIRING_START + 32;
-    public static final int ATTACK_TIMER_RECOVERED_HALF = ATTACK_TIMER_FIRING_END + 32;
-    public static final int ATTACK_TIMER_RECOVERED = ATTACK_TIMER_RECOVERED_HALF + 32;
+    public static final int ATTACK_TIMER_CHARGING_MIN = ATTACK_TIMER_PREPARED; // If released here, the arrow will travel ATTACK_RANGE_MIN pixels.
+    public static final int ATTACK_TIMER_CHARGING_MAX = ATTACK_TIMER_CHARGING_MIN + 64; // If released here, the arrow will travel ATTACK_RANGE_MAX pixels.
+    public static final int ATTACK_TIMER_DECHARGING_MAX = ATTACK_TIMER_CHARGING_MAX; // If released here, the arrow will travel ATTACK_RANGE_MAX pixels.
+    public static final int ATTACK_TIMER_DECHARGING_MIN = ATTACK_TIMER_DECHARGING_MAX + 128; // If released here, the arrow will travel ATTACK_RANGE_MIN pixels.
+    public static final int ATTACK_TIMER_FIRING_START = ATTACK_TIMER_DECHARGING_MIN + 1;
+    public static final int ATTACK_TIMER_FIRING_END = ATTACK_TIMER_FIRING_START + 16;
+    public static final int ATTACK_TIMER_RECOVERED_HALF = ATTACK_TIMER_FIRING_END + 16;
+    public static final int ATTACK_TIMER_RECOVERED = ATTACK_TIMER_RECOVERED_HALF + 16;
     public static final float ATTACK_ANGLE_MAX = Math.PI * 0.125f;
+    public static final float ATTACK_RADIUS = 3.f;
+    public static final float ATTACK_POWER = 25.f;
     
     public static final float CLOSE_DISTANCE = HAND_DISTANCE + ATTACK_RANGE_MAX + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
@@ -267,13 +271,31 @@ public class BaseArcherHandler
     {
         int unitTimer = system.unitsTimers[unitIdentifier];
         
-        if ((unitTimer >= ATTACK_TIMER_CHARGING_MIN) && (unitTimer <= ATTACK_TIMER_CHARGING_MAX))
+        if ((unitTimer >= ATTACK_TIMER_CHARGING_MIN) && (unitTimer <= ATTACK_TIMER_DECHARGING_MIN))
         {
             if (keepCharging)
-                unitTimer = Math.min(unitTimer + 1, ATTACK_TIMER_CHARGING_MAX);
+            {
+                unitTimer++;
+                if (unitTimer >= ATTACK_TIMER_DECHARGING_MIN)
+                    unitTimer = ATTACK_TIMER_CHARGING_MIN;
+            }
             else
             {
-                // TODO: Throw arrow here. Arrow's target is lerped against current position and distance is angle'd with ATTACK_RANGE_MIN-ATTACK_RANGE_MIN corresponding to unitTimer on ATTACK_TIMER_CHARGING_MIN-ATTACK_TIMER_CHARGING_MIN.
+                float targetDistance = targetDistanceWhenCharging(unitTimer);
+                float unitX = system.unitsXs[unitIdentifier];
+                float unitY = system.unitsYs[unitIdentifier];
+                float unitAngle = system.unitsAngles[unitIdentifier];
+                char unitTeam = system.unitsTeams[unitIdentifier];
+                float targetX = unitX + Math.cos(unitAngle) * targetDistance;
+                float targetY = unitY + Math.sin(unitAngle) * targetDistance;
+                int hitUnitIdentifier = system.findClosestLivingUnit(targetX, targetY, Teams.oppositeTeam(unitTeam),
+                                                                     ATTACK_RADIUS + HandlersTools.UNIT_RADIUS);
+                
+                // TODO: Throw an actual arrow instead of instant hit.
+                if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+                    system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
+                                                                  ATTACK_POWER * Math.cos(unitAngle), ATTACK_POWER * Math.sin(unitAngle),
+                                                                  ATTACK_POWER);
                 unitTimer = ATTACK_TIMER_FIRING_START;
             }
         }
@@ -291,7 +313,11 @@ public class BaseArcherHandler
      */
     public static float targetDistanceWhenCharging(int unitTimer)
     {
-        return MathTools.lerp(unitTimer, ATTACK_TIMER_CHARGING_MIN, ATTACK_RANGE_MIN, ATTACK_TIMER_CHARGING_MAX, ATTACK_RANGE_MAX);
+        if ((unitTimer >= ATTACK_TIMER_CHARGING_MIN) && (unitTimer <= ATTACK_TIMER_CHARGING_MAX))
+            return MathTools.lerp(unitTimer, ATTACK_TIMER_CHARGING_MIN, ATTACK_RANGE_MIN, ATTACK_TIMER_CHARGING_MAX, ATTACK_RANGE_MAX);
+        if ((unitTimer >= ATTACK_TIMER_DECHARGING_MAX) && (unitTimer <= ATTACK_TIMER_DECHARGING_MIN))
+            return MathTools.lerp(unitTimer, ATTACK_TIMER_DECHARGING_MIN, ATTACK_RANGE_MIN, ATTACK_TIMER_DECHARGING_MAX, ATTACK_RANGE_MAX);
+        return ATTACK_RANGE_MIN;
     }
     
     
@@ -316,6 +342,10 @@ public class BaseArcherHandler
             return MathTools.lerpi(unitTimer,
                                    ATTACK_TIMER_CHARGING_MIN, VideoConstants.BOW_LOAD_FRAMES_START,
                                    ATTACK_TIMER_CHARGING_MAX, VideoConstants.BOW_LOAD_FRAMES_LAST);
+        if (unitTimer <= ATTACK_TIMER_DECHARGING_MIN)
+            return MathTools.lerpi(unitTimer,
+                                   ATTACK_TIMER_DECHARGING_MIN, VideoConstants.BOW_LOAD_FRAMES_START,
+                                   ATTACK_TIMER_DECHARGING_MAX, VideoConstants.BOW_LOAD_FRAMES_LAST);
         if (unitTimer <= ATTACK_TIMER_FIRING_END)
             return MathTools.lerpi(unitTimer,
                                    ATTACK_TIMER_FIRING_START, VideoConstants.BOW_FIRE_FRAMES_START,

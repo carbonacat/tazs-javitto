@@ -26,7 +26,7 @@ public class ArcherAttackHandler
         }
         else if (system.unitsTimers[unitIdentifier] == 0)
             startAttack(system, unitIdentifier);
-        else if (!handleAttack(system, unitIdentifier))
+        else if (!handleAttack(system, unitIdentifier, true))
             system.unitsHandlers[unitIdentifier] = ArcherSeekHandler.instance;
     }
     

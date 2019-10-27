@@ -42,7 +42,7 @@ public class ArcherControlledHandler
                 startAttack(system, unitIdentifier);
         }
         else
-            handleAttack(system, unitIdentifier);
+            handleAttack(system, unitIdentifier, system.playerPrimaryAction);
     }
     
     

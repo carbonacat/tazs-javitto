@@ -26,13 +26,13 @@ public class BaseArcherHandler
     public static final float ATTACK_RANGE_MAX = 100.f;
     
     public static final int ATTACK_TIMER_START = 1;
-    public static final int ATTACK_TIMER_PREPARED = 8;
+    public static final int ATTACK_TIMER_PREPARED = ATTACK_TIMER_START + 8;
     public static final int ATTACK_TIMER_CHARGING_MIN = ATTACK_TIMER_PREPARED; // If released here, the arrow will travel 0 pixels.
-    public static final int ATTACK_TIMER_CHARGING_MAX = 40; // If released here, the arrow will travel 50 pixels.
-    public static final int ATTACK_TIMER_FIRING_START = 41;
-    public static final int ATTACK_TIMER_FIRING_END = 73;
-    public static final int ATTACK_TIMER_RECOVERED_HALF = 89;
-    public static final int ATTACK_TIMER_RECOVERED = 105;
+    public static final int ATTACK_TIMER_CHARGING_MAX = ATTACK_TIMER_CHARGING_MIN + 128; // If released here, the arrow will travel 50 pixels.
+    public static final int ATTACK_TIMER_FIRING_START = ATTACK_TIMER_CHARGING_MAX + 1;
+    public static final int ATTACK_TIMER_FIRING_END = ATTACK_TIMER_FIRING_START + 32;
+    public static final int ATTACK_TIMER_RECOVERED_HALF = ATTACK_TIMER_FIRING_END + 32;
+    public static final int ATTACK_TIMER_RECOVERED = ATTACK_TIMER_RECOVERED_HALF + 32;
     public static final float ATTACK_ANGLE_MAX = Math.PI * 0.125f;
     
     public static final float CLOSE_DISTANCE = HAND_DISTANCE + ATTACK_RANGE_MAX + HandlersTools.UNIT_RADIUS - 2;
@@ -254,34 +254,25 @@ public class BaseArcherHandler
      * 
      * @param system
      * @param unitIdentifier
+     * @param keepCharging When charging only - If false, immediately release.
      * @return False if the attack ended.
      */
-    public static boolean handleAttack(UnitsSystem system, int unitIdentifier)
+    public static boolean handleAttack(UnitsSystem system, int unitIdentifier, boolean keepCharging)
     {
-        int unitTimer = system.unitsTimers[unitIdentifier] + 1;
+        int unitTimer = system.unitsTimers[unitIdentifier];
         
-        /*if (unitTimer < ATTACK_TIMER_MAX)
+        if ((unitTimer >= ATTACK_TIMER_CHARGING_MIN) && (unitTimer <= ATTACK_TIMER_CHARGING_MAX))
         {
-            float unitX = system.unitsXs[unitIdentifier];
-            float unitY = system.unitsYs[unitIdentifier];
-            float unitAngle = system.unitsAngles[unitIdentifier];
-            char unitTeam = system.unitsTeams[unitIdentifier];
-            float bowDistance = HAND_DISTANCE * BOW_RANGE_RATIO;
-            float weaponX = handX(unitX, unitAngle, bowDistance);
-            float weaponY = handY(unitY, unitAngle, bowDistance);
-            
-            int hitUnitIdentifier = system.findClosestLivingUnit(weaponX, weaponY, Teams.oppositeTeam(unitTeam),
-                                                                 BOW_RADIUS + HandlersTools.UNIT_RADIUS);
-            
-            if (hitUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
+            if (keepCharging)
+                unitTimer = Math.min(unitTimer + 1, ATTACK_TIMER_CHARGING_MAX);
+            else
             {
-                system.unitsHandlers[hitUnitIdentifier].onHit(system, hitUnitIdentifier,
-                                                              BOW_POWER * Math.cos(unitAngle), BOW_POWER * Math.sin(unitAngle),
-                                                              BOW_POWER);
-                // Interpolating to find the equivalent withdrawal position.
-                unitTimer = MathTools.lerpi(unitTimer, ATTACK_TIMER_INIT, ATTACK_TIMER_RETREATED, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX);
+                // TODO: Throw arrow here. Arrow's target is lerped against current position and distance is angle'd with ATTACK_RANGE_MIN-ATTACK_RANGE_MIN corresponding to unitTimer on ATTACK_TIMER_CHARGING_MIN-ATTACK_TIMER_CHARGING_MIN.
+                unitTimer = ATTACK_TIMER_FIRING_START;
             }
-        }*/
+        }
+        else
+            unitTimer++;
         if (unitTimer == ATTACK_TIMER_RECOVERED)
             unitTimer = 0;
         system.unitsTimers[unitIdentifier] = unitTimer;

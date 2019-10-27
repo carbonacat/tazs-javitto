@@ -52,4 +52,23 @@ public class ArcherControlledHandler
     {
         drawAttackingArcherUnit(system, unitIdentifier, screen);
     }
+    
+    public void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    {
+        super.drawControlUI(system, unitIdentifier, screen);
+        
+        int unitTimer = system.unitsTimers[unitIdentifier];
+
+        if ((unitTimer >= ATTACK_TIMER_CHARGING_MIN) && (unitTimer <= ATTACK_TIMER_CHARGING_MAX))
+        {
+            float unitX = system.unitsXs[unitIdentifier];
+            float unitY = system.unitsYs[unitIdentifier];
+            float unitAngle = system.unitsAngles[unitIdentifier];
+            float distance = targetDistanceWhenCharging(unitTimer);
+            float targetX = unitX + Math.cos(unitAngle) * distance;
+            float targetY = unitY + Math.sin(unitAngle) * distance;
+            
+            HandlersTools.drawControlTarget(system.everyUISprite, targetX, targetY, screen);
+        }
+    }
 }

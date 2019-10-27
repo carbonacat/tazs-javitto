@@ -17,9 +17,10 @@ class UnitsSystem
     public static final int IDENTIFIER_NONE = -1;
     
     
-    public UnitsSystem(NonAnimatedSprite everythingSprite)
+    public UnitsSystem(NonAnimatedSprite everythingSprite, NonAnimatedSprite everyUISprite)
     {
         this.everythingSprite = everythingSprite;
+        this.everyUISprite = everyUISprite;
     }
     
     
@@ -460,6 +461,7 @@ class UnitsSystem
     /***** RENDERING *****/
     
     public NonAnimatedSprite everythingSprite;
+    public NonAnimatedSprite everyUISprite;
     
     /**
      * Renders all the Units.

@@ -4,6 +4,8 @@ import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
+import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
+import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.UITools;
 
@@ -49,6 +51,21 @@ public class HandlersTools
         }
     }
     
+    /**
+     * Renders the Control Target at the given position.
+     * @param everyUISprite
+     * @param targetX
+     * @param targetY
+     * @param screen
+     */
+    public static void drawControlTarget(NonAnimatedSprite everyUISprite, float targetX, float targetY,
+                                         HiRes16Color screen)
+    {
+        everyUISprite.setMirrored(false);
+        everyUISprite.setPosition(targetX - VideoConstants.EVERYUI_ORIGIN_X - screen.cameraX, targetY - VideoConstants.EVERYUI_ORIGIN_Y - screen.cameraY);
+        everyUISprite.selectFrame(UITools.blinkingValue() ? VideoConstants.EVERYUI_TARGET_FRAMES_START : VideoConstants.EVERYUI_TARGET_FRAMES_END);
+        everyUISprite.draw(screen);
+    }   
     
     /***** STANDARD BEHAVIOR *****/
     

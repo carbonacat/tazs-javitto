@@ -9,6 +9,7 @@ import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.UITools;
 
 
 /**
@@ -282,6 +283,15 @@ public class BaseArcherHandler
             unitTimer = 0;
         system.unitsTimers[unitIdentifier] = unitTimer;
         return unitTimer != 0;
+    }
+    
+    /**
+     * @param unitTimer
+     * @return The distance from the Unit of the target, when the Archer is charging.
+     */
+    public static float targetDistanceWhenCharging(int unitTimer)
+    {
+        return MathTools.lerp(unitTimer, ATTACK_TIMER_CHARGING_MIN, ATTACK_RANGE_MIN, ATTACK_TIMER_CHARGING_MAX, ATTACK_RANGE_MAX);
     }
     
     

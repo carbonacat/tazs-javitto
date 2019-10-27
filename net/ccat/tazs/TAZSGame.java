@@ -40,7 +40,7 @@ class TAZSGame
     public TAZSGame()
     {
         screen = new HiRes16Color(ModifiedNAJI16.palette(), TIC80.font());
-        unitsSystem = new UnitsSystem(everythingSprite);
+        unitsSystem = new UnitsSystem(everythingSprite, everyUISprite);
         menuCursorSprite.playDefault();
         menuCursorSprite.setStatic(true);
         lifeSprite.setStatic(true);

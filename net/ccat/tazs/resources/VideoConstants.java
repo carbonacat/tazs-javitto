@@ -11,9 +11,20 @@ class VideoConstants
     public static final int BEAN_WIDTH = 7;
     
     
+    /***** BOW *****/
+    
+    public static final int BOW_IDLE_FRAME = 0;
+    public static final int BOW_LOAD_FRAMES_START = 1;
+    public static final int BOW_LOAD_FRAMES_LAST = 4;
+    public static final int BOW_FIRE_FRAMES_START = 5;
+    public static final int BOW_FIRE_FRAMES_LAST = 9;
+    public static final int BOW_FADED_FRAME = 8;
+    
+    
     /***** BRAWLER *****/
     
     public static final float BRAWLERBODY_HAND_OFFSET_Y = 5;
+    public static final float BRAWLERBODY_AIM_OFFSET_Y = 7;
     public static final float BRAWLERBODY_WEAPON_OFFSET_Y = 3;
     public static final float BRAWLERBODY_SHIELD_OFFSET_Y = 1;
     public static final int BRAWLERBODY_IDLE_FRAME = 0;
@@ -31,6 +42,7 @@ class VideoConstants
     
     public static final float EVERYTHING_ORIGIN_X = 15;
     public static final float EVERYTHING_ORIGIN_Y = 15;
+    public static final int EVERYTHING_BOW_FRAME = 69; // TODO: Should be 68, as Aseprite says it's 69. I'm not sure what's happening.
     public static final int EVERYTHING_BRAWLERBODY_A_FRAME = 0;
     public static final int EVERYTHING_BRAWLERBODY_B_FRAME = 7;
     public static final int EVERYTHING_HAND_FRAME = 49; // TODO: Should be 48, as Aseprite says it's 49. I'm not sure what's happening.
@@ -67,7 +79,6 @@ class VideoConstants
     
     public static final int PIKE_0DEG_FRAME = 0;
     public static final int PIKE_90DEG_FRAME = 4;
-    public static final int PIKE_FADED_FRAME = 5;
     
     
     /***** SHIELD *****/
@@ -81,6 +92,9 @@ class VideoConstants
     /***** SLAPPER *****/
     
     public static final float SLAPPERBODY_HAND_OFFSET_Y = 5;
+    public static final float SLAPPERBODY_AIM_OFFSET_Y = 7;
+    public static final float SLAPPERBODY_WEAPON_OFFSET_Y = 3;
+    public static final float SLAPPERBODY_SHIELD_OFFSET_Y = 1;
     public static final int SLAPPERBODY_IDLE_FRAME = 0;
     public static final int SLAPPERBODY_DEAD_FRAMES_START = 1;
     public static final int SLAPPERBODY_DEAD_FRAMES_LAST = 11;

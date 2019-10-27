@@ -544,14 +544,94 @@
     "duration": 100
    },
    "EverythingSprite 68.aseprite": {
-    "frame": { "x": 523, "y": 0, "w": 13, "h": 3 },
+    "frame": { "x": 523, "y": 0, "w": 4, "h": 11 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 14, "y": 14, "w": 13, "h": 3 },
+    "spriteSourceSize": { "x": 13, "y": 10, "w": 4, "h": 11 },
     "sourceSize": { "w": 31, "h": 31 },
     "duration": 100
    },
    "EverythingSprite 69.aseprite": {
+    "frame": { "x": 527, "y": 0, "w": 10, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 11, "w": 10, "h": 10 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 70.aseprite": {
+    "frame": { "x": 537, "y": 0, "w": 10, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 11, "w": 10, "h": 10 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 71.aseprite": {
+    "frame": { "x": 547, "y": 0, "w": 10, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 12, "w": 10, "h": 10 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 72.aseprite": {
+    "frame": { "x": 557, "y": 0, "w": 9, "h": 9 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 13, "w": 9, "h": 9 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 73.aseprite": {
+    "frame": { "x": 566, "y": 0, "w": 10, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 11, "w": 10, "h": 10 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 74.aseprite": {
+    "frame": { "x": 576, "y": 0, "w": 10, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 11, "w": 10, "h": 10 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 75.aseprite": {
+    "frame": { "x": 586, "y": 0, "w": 10, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 11, "w": 10, "h": 10 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 76.aseprite": {
+    "frame": { "x": 596, "y": 0, "w": 10, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 11, "w": 10, "h": 10 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 77.aseprite": {
+    "frame": { "x": 606, "y": 0, "w": 10, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 11, "w": 10, "h": 10 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 78.aseprite": {
+    "frame": { "x": 616, "y": 0, "w": 9, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 12, "w": 9, "h": 7 },
+    "sourceSize": { "w": 31, "h": 31 },
+    "duration": 100
+   },
+   "EverythingSprite 79.aseprite": {
     "frame": { "x": 0, "y": 0, "w": 0, "h": 0 },
     "rotated": false,
     "trimmed": true,
@@ -565,7 +645,7 @@
   "version": "1.2.15-x64",
   "image": "EverythingRawSprite.png",
   "format": "I8",
-  "size": { "w": 2170, "h": 31 },
+  "size": { "w": 2480, "h": 31 },
   "scale": "1",
   "frameTags": [
    { "name": "playBrawlerAIdle", "from": 0, "to": 0, "direction": "forward" },
@@ -586,7 +666,9 @@
    { "name": "playFallingShieldBack", "from": 55, "to": 58, "direction": "forward" },
    { "name": "playFallingShieldFront", "from": 59, "to": 62, "direction": "forward" },
    { "name": "playPike", "from": 63, "to": 67, "direction": "forward" },
-   { "name": "playFallenPike", "from": 68, "to": 68, "direction": "forward" }
+   { "name": "playBowIdle", "from": 68, "to": 68, "direction": "forward" },
+   { "name": "playLoadFireBow", "from": 69, "to": 77, "direction": "forward" },
+   { "name": "playBowFaded", "from": 78, "to": 78, "direction": "forward" }
   ],
   "layers": [
    { "name": "Main", "opacity": 255, "blendMode": "normal" },

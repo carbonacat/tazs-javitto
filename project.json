@@ -985,6 +985,55 @@
 		},
 		"\\bin\\2019-10-26 - Formations.gif": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer": {},
+		"\\net\\ccat\\tazs\\battle\\handlers\\archer": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer/BaseArcherHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer\\BaseArcherHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer/ArcherAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer\\ArcherAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer/ArcherControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer\\ArcherControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer/ArcherDeathHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer\\ArcherDeathHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer/ArcherSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/archer\\ArcherSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\archer\\ArcherAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\archer\\ArcherControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\archer\\ArcherDeathHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\archer\\ArcherSeekHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\archer\\BaseArcherHandler.java": {
+			"sdcard": false
 		}
 	}
 }

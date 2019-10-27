@@ -25,11 +25,14 @@ public class BaseArcherHandler
     public static final float ATTACK_RANGE_MIN = 0.f;
     public static final float ATTACK_RANGE_MAX = 100.f;
     
-    public static final int ATTACK_TIMER_RANGE_MIN = 0; // If released here, the arrow will travel 0 pixels.
-    public static final int ATTACK_TIMER_RANGE_MAX = 31; // If released here, the arrow will travel 50 pixels.
-    public static final int ATTACK_TIMER_FIRING_START = 32;
-    public static final int ATTACK_TIMER_FIRING_END = 64;
-    public static final int ATTACK_TIMER_RECOVERED = 96;
+    public static final int ATTACK_TIMER_START = 1;
+    public static final int ATTACK_TIMER_PREPARED = 8;
+    public static final int ATTACK_TIMER_CHARGING_MIN = ATTACK_TIMER_PREPARED; // If released here, the arrow will travel 0 pixels.
+    public static final int ATTACK_TIMER_CHARGING_MAX = 40; // If released here, the arrow will travel 50 pixels.
+    public static final int ATTACK_TIMER_FIRING_START = 41;
+    public static final int ATTACK_TIMER_FIRING_END = 73;
+    public static final int ATTACK_TIMER_RECOVERED_HALF = 89;
+    public static final int ATTACK_TIMER_RECOVERED = 105;
     public static final float ATTACK_ANGLE_MAX = Math.PI * 0.125f;
     
     public static final float CLOSE_DISTANCE = HAND_DISTANCE + ATTACK_RANGE_MAX + HandlersTools.UNIT_RADIUS - 2;
@@ -243,7 +246,7 @@ public class BaseArcherHandler
      */
     public static void startAttack(UnitsSystem system, int unitIdentifier)
     {
-        system.unitsTimers[unitIdentifier] = 1;
+        system.unitsTimers[unitIdentifier] = ATTACK_TIMER_START;
     }
     
     /**
@@ -255,11 +258,9 @@ public class BaseArcherHandler
      */
     public static boolean handleAttack(UnitsSystem system, int unitIdentifier)
     {
-        return false;
-        // TODO: Do it.
-        /*int unitTimer = system.unitsTimers[unitIdentifier] + 1;
+        int unitTimer = system.unitsTimers[unitIdentifier] + 1;
         
-        if (unitTimer < ATTACK_TIMER_MAX)
+        /*if (unitTimer < ATTACK_TIMER_MAX)
         {
             float unitX = system.unitsXs[unitIdentifier];
             float unitY = system.unitsYs[unitIdentifier];
@@ -280,11 +281,11 @@ public class BaseArcherHandler
                 // Interpolating to find the equivalent withdrawal position.
                 unitTimer = MathTools.lerpi(unitTimer, ATTACK_TIMER_INIT, ATTACK_TIMER_RETREATED, ATTACK_TIMER_MAX, ATTACK_TIMER_MAX);
             }
-        }
-        if (unitTimer == ATTACK_TIMER_RESTED)
+        }*/
+        if (unitTimer == ATTACK_TIMER_RECOVERED)
             unitTimer = 0;
         system.unitsTimers[unitIdentifier] = unitTimer;
-        return unitTimer != 0;*/
+        return unitTimer != 0;
     }
     
     
@@ -301,23 +302,37 @@ public class BaseArcherHandler
     
     public static int bowFrameForAttackTimer(int unitTimer)
     {
-        // TODO: Do it.
-        /*if (unitTimer < ATTACK_TIMER_MAX)
+        if (unitTimer <= ATTACK_TIMER_PREPARED)
             return MathTools.lerpi(unitTimer,
-                                   ATTACK_TIMER_INIT, VideoConstants.BOW_LOAD_FRAMES_START,
-                                   ATTACK_TIMER_MAX, VideoConstants.BOW_RECOVER_FRAMES_LAST);
-        else if (unitTimer < ATTACK_TIMER_RETREATED)
+                                   ATTACK_TIMER_START, VideoConstants.BOW_IDLE_FRAME,
+                                   ATTACK_TIMER_PREPARED, VideoConstants.BOW_LOAD_FRAMES_START);
+        if (unitTimer <= ATTACK_TIMER_CHARGING_MAX)
             return MathTools.lerpi(unitTimer,
-                                   ATTACK_TIMER_MAX, VideoConstants.BOW_RECOVER_FRAMES_LAST,
-                                   ATTACK_TIMER_RETREATED, VideoConstants.BOW_LOAD_FRAMES_START);
-        return VideoConstants.BOW_LOAD_FRAMES_START;
-        */
-        return VideoConstants.BOW_LOAD_FRAMES_START;
+                                   ATTACK_TIMER_CHARGING_MIN, VideoConstants.BOW_LOAD_FRAMES_START,
+                                   ATTACK_TIMER_CHARGING_MAX, VideoConstants.BOW_LOAD_FRAMES_LAST);
+        if (unitTimer <= ATTACK_TIMER_FIRING_END)
+            return MathTools.lerpi(unitTimer,
+                                   ATTACK_TIMER_FIRING_START, VideoConstants.BOW_FIRE_FRAMES_START,
+                                   ATTACK_TIMER_FIRING_END, VideoConstants.BOW_FIRE_FRAMES_LAST);
+        if (unitTimer <= ATTACK_TIMER_RECOVERED_HALF)
+            return MathTools.lerpi(unitTimer,
+                                   ATTACK_TIMER_FIRING_END, VideoConstants.BOW_FIRE_FRAMES_LAST,
+                                   ATTACK_TIMER_RECOVERED_HALF, VideoConstants.BOW_IDLE_FRAME);
+        return VideoConstants.BOW_IDLE_FRAME;
     }
     
     public static float bowYOriginForAttackTimer(int unitTimer)
     {
-        // TODO: Do it.
+        if (unitTimer <= ATTACK_TIMER_PREPARED)
+            return MathTools.lerp(unitTimer,
+                                  ATTACK_TIMER_START, VideoConstants.SLAPPERBODY_WEAPON_OFFSET_Y,
+                                  ATTACK_TIMER_PREPARED, VideoConstants.SLAPPERBODY_AIM_OFFSET_Y);
+        if (unitTimer <= ATTACK_TIMER_FIRING_END)
+            return VideoConstants.SLAPPERBODY_AIM_OFFSET_Y;
+        if (unitTimer <= ATTACK_TIMER_RECOVERED_HALF)
+            return MathTools.lerp(unitTimer,
+                                  ATTACK_TIMER_FIRING_END, VideoConstants.SLAPPERBODY_AIM_OFFSET_Y,
+                                  ATTACK_TIMER_RECOVERED_HALF, VideoConstants.SLAPPERBODY_WEAPON_OFFSET_Y);
         return VideoConstants.SLAPPERBODY_WEAPON_OFFSET_Y;
     }
     

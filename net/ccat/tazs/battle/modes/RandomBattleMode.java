@@ -8,6 +8,7 @@ import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.states.BattlePreparationPhaseState;
 import net.ccat.tazs.states.TitleScreenState;
+import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.UIModes;
 
 
@@ -63,6 +64,22 @@ public class RandomBattleMode
     
     
     /***** RESULT *****/
+    
+    public void onResultInit(TAZSGame game, int winnerTeam)
+    {
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, Texts.RESULT_ANOTHER_BATTLE);
+    }
+    
+    public boolean onResultMenuChoice(TAZSGame game, int selectedChoice)
+    {
+        if (selectedChoice == PadMenuUI.CHOICE_RIGHT)
+        {
+            Game.changeState(new BattlePreparationPhaseState(game, false));
+            game.cursorSelectSound.play();
+            return true;
+        }
+        return false;
+    }
     
     public void onResultExit(TAZSGame game)
     {

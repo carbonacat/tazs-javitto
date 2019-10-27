@@ -130,6 +130,7 @@ public abstract class ChallengeBattleMode
         if (selectedChoice == PadMenuUI.CHOICE_RIGHT)
         {
             Game.changeState(new ChallengesListState(game, getIdentifier() + 1));
+            game.cursorSelectSound.play();
             return true;
         }
         return false;

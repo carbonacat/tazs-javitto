@@ -71,6 +71,7 @@ class Texts
     public static final String RESULT_RETRY = "Retry";
     public static final String RESULT_STATS = "Stats";
     public static final String RESULT_NEXT_CHALLENGE = "Next Challenge";
+    public static final String RESULT_ANOTHER_BATTLE = "Another One";
     
     
     /***** TEAMS *****/

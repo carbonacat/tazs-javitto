@@ -37,7 +37,7 @@ public class BasePikeBearerHandler
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
     public static final int COST = 15;
-    public static final float INVERSE_WEIGHT = 1.25;
+    public static final float INVERSE_WEIGHT = 1.5;
     public static final int RECONSIDER_TICKS = 128;
     
     

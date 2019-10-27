@@ -18,7 +18,7 @@ import net.ccat.tazs.ui.UITools;
 public class BaseArcherHandler
     implements UnitHandler
 {
-    public static final short HEALTH_INITIAL = 75;
+    public static final short HEALTH_INITIAL = 50;
     public static final float WALK_SPEED = 0.200f;
     public static final float ANGLE_ROTATION_BY_TICK = 24.f / 256.f;
     public static final float HAND_DISTANCE = 2.f;
@@ -29,22 +29,22 @@ public class BaseArcherHandler
     public static final int ATTACK_TIMER_START = 1;
     public static final int ATTACK_TIMER_PREPARED = ATTACK_TIMER_START + 8;
     public static final int ATTACK_TIMER_CHARGING_MIN = ATTACK_TIMER_PREPARED; // If released here, the arrow will travel ATTACK_RANGE_MIN pixels.
-    public static final int ATTACK_TIMER_CHARGING_MAX = ATTACK_TIMER_CHARGING_MIN + 64; // If released here, the arrow will travel ATTACK_RANGE_MAX pixels.
+    public static final int ATTACK_TIMER_CHARGING_MAX = ATTACK_TIMER_CHARGING_MIN + 32; // If released here, the arrow will travel ATTACK_RANGE_MAX pixels.
     public static final int ATTACK_TIMER_DECHARGING_MAX = ATTACK_TIMER_CHARGING_MAX; // If released here, the arrow will travel ATTACK_RANGE_MAX pixels.
-    public static final int ATTACK_TIMER_DECHARGING_MIN = ATTACK_TIMER_DECHARGING_MAX + 128; // If released here, the arrow will travel ATTACK_RANGE_MIN pixels.
+    public static final int ATTACK_TIMER_DECHARGING_MIN = ATTACK_TIMER_DECHARGING_MAX + 32; // If released here, the arrow will travel ATTACK_RANGE_MIN pixels.
     public static final int ATTACK_TIMER_FIRING_START = ATTACK_TIMER_DECHARGING_MIN + 1;
-    public static final int ATTACK_TIMER_FIRING_END = ATTACK_TIMER_FIRING_START + 16;
-    public static final int ATTACK_TIMER_RECOVERED_HALF = ATTACK_TIMER_FIRING_END + 16;
-    public static final int ATTACK_TIMER_RECOVERED = ATTACK_TIMER_RECOVERED_HALF + 16;
+    public static final int ATTACK_TIMER_FIRING_END = ATTACK_TIMER_FIRING_START + 32;
+    public static final int ATTACK_TIMER_RECOVERED_HALF = ATTACK_TIMER_FIRING_END + 32;
+    public static final int ATTACK_TIMER_RECOVERED = ATTACK_TIMER_RECOVERED_HALF + 32;
     public static final float ATTACK_ANGLE_MAX = Math.PI * 0.125f;
     public static final float ATTACK_RADIUS = 3.f;
-    public static final float ATTACK_POWER = 25.f;
+    public static final float ATTACK_POWER = 20.f;
     
     public static final float CLOSE_DISTANCE = HAND_DISTANCE + ATTACK_RANGE_MAX + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
-    public static final int COST = 10;
-    public static final float INVERSE_WEIGHT = 1.5;
+    public static final int COST = 20;
+    public static final float INVERSE_WEIGHT = 2.5;
     public static final int RECONSIDER_TICKS = 128;
     
     

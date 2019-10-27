@@ -19,6 +19,7 @@ public class HandlersTools
     public static final float SEEK_DISTANCE_MAX = 250.f;
     public static final float UNIT_RADIUS = 3.f;
     public static final int RADIUS_FREQUENCY = 256;
+    public static final float POWER_TO_FORCE = 0.25f;
     
     
     /***** RENDERING *****/
@@ -188,8 +189,8 @@ public class HandlersTools
         float inverseWeight = system.unitsHandlers[unitIdentifier].inverseWeight();
         
         // TODO: Do a proper pushback. [011]
-        system.unitsXs[unitIdentifier] += powerX * inverseWeight;
-        system.unitsYs[unitIdentifier] += powerY * inverseWeight;
+        system.unitsXs[unitIdentifier] += powerX * POWER_TO_FORCE * inverseWeight;
+        system.unitsYs[unitIdentifier] += powerY * POWER_TO_FORCE * inverseWeight;
         if (health > 0)
         {
             float lostHealth = power * POWER_HP_RATIO;

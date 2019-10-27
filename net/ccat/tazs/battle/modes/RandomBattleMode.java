@@ -44,7 +44,7 @@ public class RandomBattleMode
             }
             while (clusterUnitHandler.cost() == 0);
             
-            int clusterCost = Math.random(clusterUnitHandler.cost(), clusterUnitHandler.cost() * 2 + 100);
+            int clusterCost = Math.random(clusterUnitHandler.cost(), clusterUnitHandler.cost() * 2 + 20);
             
             while (clusterCost > 0)
             {

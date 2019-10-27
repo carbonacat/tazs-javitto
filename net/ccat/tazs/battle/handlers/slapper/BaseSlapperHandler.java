@@ -33,7 +33,7 @@ public class BaseSlapperHandler
     
     public static final int COST = 5;
     public static final float INVERSE_WEIGHT = 1.00;
-    public static final int DEATH_TICKS = 32;
+    public static final int DEATH_TICKS = 50;
     public static final int RECONSIDER_TICKS = 128;
     
     

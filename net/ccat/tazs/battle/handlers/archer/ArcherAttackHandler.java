@@ -21,13 +21,18 @@ public class ArcherAttackHandler
     {
         int targetIdentifier = system.unitsTargetIdentifiers[unitIdentifier];
         
-        if ((targetIdentifier == UnitsSystem.IDENTIFIER_NONE) || (system.unitsHealths[targetIdentifier] == 0))
+        if (targetIdentifier == UnitsSystem.IDENTIFIER_NONE)
         {
             system.unitsTimers[unitIdentifier] = 0;
             system.unitsHandlers[unitIdentifier] = ArcherSeekHandler.instance;
         }
         else if (system.unitsTimers[unitIdentifier] == 0)
-            startAttack(system, unitIdentifier);
+        {
+            if (system.unitsHealths[targetIdentifier] != 0)
+                startAttack(system, unitIdentifier);
+            else
+                system.unitsHandlers[unitIdentifier] = ArcherSeekHandler.instance;
+        }
         else
         {
             int unitTimer = system.unitsTimers[unitIdentifier];

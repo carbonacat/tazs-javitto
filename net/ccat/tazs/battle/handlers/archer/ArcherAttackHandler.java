@@ -26,13 +26,13 @@ public class ArcherAttackHandler
             system.unitsTimers[unitIdentifier] = 0;
             system.unitsHandlers[unitIdentifier] = ArcherSeekHandler.instance;
         }
-        else if (system.unitsTimers[unitIdentifier] == 0)
+        else if ((system.unitsTimers[unitIdentifier] <= ATTACK_TIMER_DECHARGING_MIN) && (system.unitsHealths[targetIdentifier] == 0))
         {
-            if (system.unitsHealths[targetIdentifier] != 0)
-                startAttack(system, unitIdentifier);
-            else
-                system.unitsHandlers[unitIdentifier] = ArcherSeekHandler.instance;
+            system.unitsTimers[unitIdentifier] = 0;
+            system.unitsHandlers[unitIdentifier] = ArcherSeekHandler.instance;
         }
+        else if (system.unitsTimers[unitIdentifier] == 0)
+                startAttack(system, unitIdentifier);
         else
         {
             int unitTimer = system.unitsTimers[unitIdentifier];
@@ -73,5 +73,19 @@ public class ArcherAttackHandler
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         drawAttackingArcherUnit(system, unitIdentifier, screen);
+        int unitTimer = system.unitsTimers[unitIdentifier];
+
+        if (((unitTimer >= ATTACK_TIMER_CHARGING_MIN) && (unitTimer <= ATTACK_TIMER_CHARGING_MAX))
+            || ((unitTimer >= ATTACK_TIMER_DECHARGING_MAX) && (unitTimer <= ATTACK_TIMER_DECHARGING_MIN)))
+        {
+            float unitX = system.unitsXs[unitIdentifier];
+            float unitY = system.unitsYs[unitIdentifier];
+            float unitAngle = system.unitsAngles[unitIdentifier];
+            float distance = targetDistanceWhenCharging(unitTimer);
+            float targetX = unitX + Math.cos(unitAngle) * distance;
+            float targetY = unitY + Math.sin(unitAngle) * distance;
+            
+            HandlersTools.drawControlTarget(system.everyUISprite, targetX, targetY, screen);
+        }
     }
 }

@@ -40,6 +40,11 @@ public abstract class ChallengeBattleMode
         updateTopBarUI(game);
     }
     
+    public boolean isUnitTypeAllowed(TAZSGame game, int type)
+    {
+        return (type != UnitTypes.TARGET);
+    }
+    
     public void onPreparationCursorUpdate(TAZSGame game)
     {
         // Finding a Unit that is hovered.

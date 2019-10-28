@@ -57,6 +57,8 @@ public class BattlePreparationPhaseState
             game.battleMode.onPreparationRetry(game);
         else
             game.battleMode.onPreparationInit(game);
+        // Adjusts the type so it's valid.
+        game.currentUnitType = game.battleMode.placeableUnitType(game, 0);
         updatePadMenuUnitChoices();
     }
     
@@ -123,12 +125,14 @@ public class BattlePreparationPhaseState
             else if (selectedChoice == PadMenuUI.CHOICE_RIGHT)
             {
                 game.cursorMoveSound.play();
-                changeCurrentUnit(1);
+                mGame.currentUnitType = mGame.battleMode.placeableUnitType(mGame, 1);
+                updatePadMenuUnitChoices();
             }
             else if (selectedChoice == PadMenuUI.CHOICE_LEFT)
             {
                 game.cursorMoveSound.play();
-                changeCurrentUnit(-1);
+                mGame.currentUnitType = mGame.battleMode.placeableUnitType(mGame, -1);
+                updatePadMenuUnitChoices();
             }
             game.battleMode.onPreparationMenuUpdate(game);
         }
@@ -291,16 +295,10 @@ public class BattlePreparationPhaseState
         game.drawUnitUI(game.unitsSystem.findControlledUnitIdentifier());
     }
     
-    private void changeCurrentUnit(int delta)
-    {
-        mGame.currentUnitType = (mGame.currentUnitType + delta + UnitTypes.END) % UnitTypes.END;
-        updatePadMenuUnitChoices();
-    }
-    
     private void updatePadMenuUnitChoices()
     {
-        int previousUnitType = (mGame.currentUnitType - 1 + UnitTypes.END) % UnitTypes.END;
-        int nextUnitType = (mGame.currentUnitType + 1 + UnitTypes.END) % UnitTypes.END;
+        int previousUnitType = mGame.battleMode.placeableUnitType(mGame, -1);
+        int nextUnitType = mGame.battleMode.placeableUnitType(mGame, 1);
         
         mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, UnitTypes.idleHandlerForType(nextUnitType).name());
         mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_LEFT, UnitTypes.idleHandlerForType(previousUnitType).name());

@@ -44,6 +44,44 @@ public class BattleMode
     }
     
     /**
+     * Returns the Type of a Unit that can be Placed in Preparation, using the Game's currentUnitType.
+     * 
+     * Default implementation will add currentUnitType and delta, wrap it around so it remains correct, and check isUnitTypeAllowed() with the resulting type until it's allowed.
+     * If delta is 0 or positive, it'll try the next Unit Type.
+     * If delta is negative, it'll try the previous Unit Type.
+     * 
+     * Delta isn't expected to be different than -1, 0 and 1.
+     * 
+     * @param game The Game.
+     * @param delta A reference type.
+     * @return The Type of a Unit.
+     */
+    public int placeableUnitType(TAZSGame game, int delta)
+    {
+        int newCurrentUnitType = (game.currentUnitType + delta + UnitTypes.END) % UnitTypes.END;
+        
+        // Checks the previous or next unit depending on delta until we find a correct one.
+        while (!isUnitTypeAllowed(game, newCurrentUnitType))
+            if (delta >= 0)
+                newCurrentUnitType = (newCurrentUnitType + 1) % UnitTypes.END;
+            else
+                newCurrentUnitType = (newCurrentUnitType + UnitTypes.END - 1) % UnitTypes.END;
+        return newCurrentUnitType;
+    }
+    
+    /**
+     * Checks if the given type is allowed.
+     * 
+     * Default implementation returns true whatever the given type.
+     * 
+     * @return true if the type is allowed, false if not.
+     */
+    public boolean isUnitTypeAllowed(TAZSGame game, int type)
+    {
+        return true;
+    }
+    
+    /**
      * Called when the BattlePreparationPhase is initialized, but from a Retry.
      * 
      * Default implementation will restore units.

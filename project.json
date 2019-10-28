@@ -1109,6 +1109,21 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\MISC_UNKNOWN.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TITLE.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TITLE_MENU_CHALLENGES.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TITLE_MENU_QUICKBATTLE.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TITLE_VERSION.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TITLE_MENU_SANDBOX.bin": {
+			"sdcard": false
 		}
 	}
 }

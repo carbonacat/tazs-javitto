@@ -18,6 +18,7 @@ import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.texts.CHALLENGES_TITLE;
 import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
+import net.ccat.tazs.resources.texts.TITLE;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -112,9 +113,9 @@ class ChallengesListState
         // TODO: Proper title screen. [015]
         screen.clear(Colors.TITLE_BG);
         
-        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.textWidth(Texts.TITLE)) / 2, Dimensions.TITLE_TITLE_Y);
+        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(TITLE.bin())) / 2, Dimensions.TITLE_TITLE_Y);
         screen.setTextColor(Colors.TITLE_TEXT);
-        screen.print(Texts.TITLE);
+        screen.printPText(TITLE.bin());
         
         screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(CHALLENGES_TITLE.bin())) / 2, Dimensions.TITLE_SUBTITLE_Y);
         screen.setTextColor(Colors.TITLE_SUBTEXT);

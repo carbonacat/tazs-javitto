@@ -7,9 +7,14 @@ import femto.State;
 import net.ccat.tazs.battle.modes.RandomBattleMode;
 import net.ccat.tazs.battle.modes.SandboxBattleMode;
 import net.ccat.tazs.resources.Colors;
+import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
-import net.ccat.tazs.resources.Dimensions;
+import net.ccat.tazs.resources.texts.TITLE;
+import net.ccat.tazs.resources.texts.TITLE_VERSION;
+import net.ccat.tazs.resources.texts.TITLE_MENU_CHALLENGES;
+import net.ccat.tazs.resources.texts.TITLE_MENU_QUICKBATTLE;
+import net.ccat.tazs.resources.texts.TITLE_MENU_SANDBOX;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -95,23 +100,23 @@ class TitleScreenState
         // TODO: Proper title screen. [015]
         screen.clear(Colors.TITLE_BG);
         
-        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.textWidth(Texts.TITLE)) / 2, Dimensions.TITLE_TITLE_Y);
+        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(TITLE.bin())) / 2, Dimensions.TITLE_TITLE_Y);
         screen.setTextColor(Colors.TITLE_TEXT);
-        screen.print(Texts.TITLE);
+        screen.printPText(TITLE.bin());
         screen.setTextPosition(Dimensions.TITLE_VERSION_X, Dimensions.TITLE_VERSION_Y);
         screen.setTextColor(Colors.TITLE_VERSION);
-        screen.print(Texts.TITLE_VERSION);
+        screen.printPText(TITLE_VERSION.bin());
 
-        drawMenuChoice(MENU_ENTRIES_QUICKBATTLE, Texts.TITLE_MENU_QUICKBATTLE, screen);
-        drawMenuChoice(MENU_ENTRIES_SANDBOX, Texts.TITLE_MENU_SANDBOX, screen);
-        drawMenuChoice(MENU_ENTRIES_CHALLENGES, Texts.TITLE_MENU_CHALLENGES, screen);
+        drawMenuChoice(MENU_ENTRIES_QUICKBATTLE, TITLE_MENU_QUICKBATTLE.bin(), screen);
+        drawMenuChoice(MENU_ENTRIES_SANDBOX, TITLE_MENU_SANDBOX.bin(), screen);
+        drawMenuChoice(MENU_ENTRIES_CHALLENGES, TITLE_MENU_CHALLENGES.bin(), screen);
         
         screen.flush();
         Performances.onFlushedScreen();
     }
     
     
-    private void drawMenuChoice(int menuIdentifier, String title, AdvancedHiRes16Color screen)
+    private void drawMenuChoice(int menuIdentifier, pointer title, AdvancedHiRes16Color screen)
     {
         int y = Dimensions.TITLE_MENU_ENTRY_Y_START + menuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
         boolean menuIsCurrent = (menuIdentifier == mCurrentMenuIdentifier);
@@ -132,7 +137,7 @@ class TitleScreenState
         }
         screen.setTextPosition(Dimensions.TITLE_MENU_ENTRY_X, y);
         screen.setTextColor(entryColor);
-        screen.print(title);
+        screen.printPText(title);
     }
     
     private TAZSGame mGame;

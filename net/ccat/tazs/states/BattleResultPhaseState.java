@@ -14,6 +14,9 @@ import net.ccat.tazs.resources.texts.BUTTON_C;
 import net.ccat.tazs.resources.texts.BUTTON_PAD;
 import net.ccat.tazs.resources.texts.MENU;
 import net.ccat.tazs.resources.texts.MENU_COMMANDS_HELP;
+import net.ccat.tazs.resources.texts.MISC_BIG_SEPARATOR;
+import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
+import net.ccat.tazs.resources.texts.MISC_UNKNOWN;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.resources.sprites.ResultSummarySprite;
 import net.ccat.tazs.tools.MathTools;
@@ -176,9 +179,9 @@ public class BattleResultPhaseState
         screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.RESULT_DESTRUCTIONS_);
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
-        screen.print(Texts.MISC_UNKNOWN);
+        screen.printPText(MISC_UNKNOWN.bin());
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
-        screen.print(Texts.MISC_UNKNOWN);
+        screen.printPText(MISC_UNKNOWN.bin());
         
         screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET);
         screen.print(Texts.RESULT_LOSSES_);
@@ -200,18 +203,18 @@ public class BattleResultPhaseState
         {
             screen.setTextColor(Colors.HELP_ACTIVE);
             screen.printPText(BUTTON_PAD.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.printPText(MENU_COMMANDS_HELP.bin());
         }
         else
         {
             screen.setTextColor(Colors.HELP_ACTIVE);
             screen.printPText(BUTTON_B.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.print(Texts.RESULT_STATS);
-            screen.print(Texts.MISC_BIG_SEPARATOR);
+            screen.printPText(MISC_BIG_SEPARATOR.bin());
             screen.printPText(BUTTON_C.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.printPText(MENU.bin());
         }
         

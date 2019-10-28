@@ -1097,6 +1097,18 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\MENU_COMMANDS_HELP.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\MISC_BIG_SEPARATOR.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\MISC_ERROR.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\MISC_SEPARATOR.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\MISC_UNKNOWN.bin": {
+			"sdcard": false
 		}
 	}
 }

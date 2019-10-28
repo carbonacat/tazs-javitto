@@ -23,7 +23,7 @@ public class TopBarUI
      */
     public void setLeftCountAndCost(String teamName, int count, int cost)
     {
-        mLeftTopString = teamName + Texts.MISC_SEPARATOR + count + (count == 1 ? Texts.UNIT_K_UNIT : Texts.UNIT_K_UNITS);
+        mLeftTopString = teamName + Texts.MISC_SEPARATORX + count + (count == 1 ? Texts.UNIT_K_UNIT : Texts.UNIT_K_UNITS);
         mLeftBottomString = "" + cost;
         mLeftBottomEndsWithBean = true;
     }
@@ -45,7 +45,7 @@ public class TopBarUI
      */
     public void setRightCountAndCost(String teamName, int count, int cost)
     {
-        mRightTopString = teamName + Texts.MISC_SEPARATOR + count + (count == 1 ? Texts.UNIT_K_UNIT : Texts.UNIT_K_UNITS);
+        mRightTopString = teamName + Texts.MISC_SEPARATORX + count + (count == 1 ? Texts.UNIT_K_UNIT : Texts.UNIT_K_UNITS);
         mRightBottomString = "" + cost;
         mRightBottomEndsWithBean = true;
     }

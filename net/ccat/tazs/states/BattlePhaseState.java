@@ -13,6 +13,7 @@ import net.ccat.tazs.resources.texts.BUTTON_C;
 import net.ccat.tazs.resources.texts.BUTTON_PAD;
 import net.ccat.tazs.resources.texts.MENU;
 import net.ccat.tazs.resources.texts.MENU_COMMANDS_HELP;
+import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
@@ -198,15 +199,15 @@ public class BattlePhaseState
         if (game.padMenuUI.isShown())
         {
             screen.printPText(BUTTON_PAD.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.printPText(MENU_COMMANDS_HELP.bin());
         }
         else
         {
             screen.printPText(BUTTON_C.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.printPText(MENU.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.print(Runtime.getRuntime().freeMemory());
         }
 

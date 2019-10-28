@@ -17,6 +17,9 @@ import net.ccat.tazs.resources.texts.BUTTON_A;
 import net.ccat.tazs.resources.texts.BUTTON_B;
 import net.ccat.tazs.resources.texts.BUTTON_PAD;
 import net.ccat.tazs.resources.texts.MENU_COMMANDS_HELP;
+import net.ccat.tazs.resources.texts.MISC_BIG_SEPARATOR;
+import net.ccat.tazs.resources.texts.MISC_ERROR;
+import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
@@ -214,7 +217,7 @@ public class BattlePreparationPhaseState
         TAZSGame game = mGame;
         AdvancedHiRes16Color screen = game.screen;
         boolean hasHoveredUnit = (game.focusedUnitIdentifier != UnitsSystem.IDENTIFIER_NONE);
-        String unitName = Texts.MISC_UNKNOWN;
+        String unitName = Texts.MISC_UNKNOWNX;
         
         if (hasHoveredUnit)
             unitName =  game.unitsSystem.unitsHandlers[game.focusedUnitIdentifier].name();
@@ -229,25 +232,25 @@ public class BattlePreparationPhaseState
         {
             screen.setTextColor(Colors.HELP_ACTIVE);
             screen.printPText(BUTTON_PAD.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.printPText(MENU_COMMANDS_HELP.bin());
         }
         else if (game.uiMode == UIModes.REMOVE)
         {
             screen.setTextColor(hasHoveredUnit ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.printPText(BUTTON_B.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.print(Texts.PREPARATION_COMMANDS_REMOVE);
-            screen.print(Texts.MISC_BIG_SEPARATOR);
+            screen.printPText(MISC_BIG_SEPARATOR.bin());
             screen.printPText(BUTTON_A.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.print(Texts.PREPARATION_COMMANDS_CONTROL);
         }
         else if ((game.uiMode == UIModes.PLACE) || (game.uiMode == UIModes.NO_MORE_UNITS) || (game.uiMode == UIModes.TOO_EXPENSIVE))
         {
             screen.setTextColor((game.uiMode == UIModes.PLACE) ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.printPText(BUTTON_A.bin());
-            screen.print(Texts.MISC_SEPARATOR);
+            screen.printPText(MISC_SEPARATOR.bin());
             screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_K);
             if (game.uiMode == UIModes.NO_MORE_UNITS)
                 screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS);
@@ -266,14 +269,14 @@ public class BattlePreparationPhaseState
                 if (hasHoveredUnit)
                 {
                     screen.print(Texts.TEAMS_ENEMY);
-                    screen.print(Texts.MISC_SEPARATOR);
+                    screen.printPText(MISC_SEPARATOR.bin());
                     screen.print(unitName);
                 }
                 else
                     screen.print(Texts.PREPARATION_ENEMY_SIDE);
             }
             else
-                screen.print(Texts.MISC_ERROR);
+                screen.printPText(MISC_ERROR.bin());
         }
         
         int unitTeam = game.battleMode.teamForUnitBox(game);

@@ -17,6 +17,7 @@ import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.texts.CHALLENGES_TITLE;
+import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -149,7 +150,7 @@ class ChallengesListState
         screen.setTextPosition(Dimensions.TITLE_MENU_ENTRY_X, y);
         screen.setTextColor(entryColor);
         screen.print(menuIdentifier + 1);
-        screen.print(Texts.MISC_SEPARATOR);
+        screen.printPText(MISC_SEPARATOR.bin());
         screen.print(mChallenges[menuIdentifier].name());
     }
     

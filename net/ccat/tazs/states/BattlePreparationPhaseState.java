@@ -13,6 +13,9 @@ import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.BUTTON_A;
+import net.ccat.tazs.resources.texts.BUTTON_B;
+import net.ccat.tazs.resources.texts.BUTTON_PAD;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
@@ -224,25 +227,25 @@ public class BattlePreparationPhaseState
         if (game.uiMode == UIModes.MENU)
         {
             screen.setTextColor(Colors.HELP_ACTIVE);
-            screen.print(Texts.BUTTON_PAD);
+            screen.printText(BUTTON_PAD.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU_COMMANDS_HELP);
         }
         else if (game.uiMode == UIModes.REMOVE)
         {
             screen.setTextColor(hasHoveredUnit ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
-            screen.print(Texts.BUTTON_B);
+            screen.printText(BUTTON_B.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_REMOVE);
             screen.print(Texts.MISC_BIG_SEPARATOR);
-            screen.print(Texts.BUTTON_A);
+            screen.printText(BUTTON_A.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_CONTROL);
         }
         else if ((game.uiMode == UIModes.PLACE) || (game.uiMode == UIModes.NO_MORE_UNITS) || (game.uiMode == UIModes.TOO_EXPENSIVE))
         {
             screen.setTextColor((game.uiMode == UIModes.PLACE) ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
-            screen.print(Texts.BUTTON_A);
+            screen.printText(BUTTON_A.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_K);
             if (game.uiMode == UIModes.NO_MORE_UNITS)

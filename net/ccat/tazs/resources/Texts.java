@@ -12,14 +12,6 @@ class Texts
     public static final String BATTLE_RETRY = "Retry";
     
     
-    /***** BUTTONS *****/
-    
-    public static final String BUTTON_A = "(A)";
-    public static final String BUTTON_B = "(B)";
-    public static final String BUTTON_C = "(C)";
-    public static final String BUTTON_PAD = "(PAD)";
-    
-    
     /***** CHALLENGES *****/
     
     public static final String CHALLENGES_TITLE = "Challenges";

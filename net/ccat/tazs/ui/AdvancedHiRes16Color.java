@@ -208,14 +208,15 @@ public class AdvancedHiRes16Color
      * Prints the text stored in the given pointer, up to the next 0.
      * @param textPointer
      */
-    public void printPointerText(pointer textPointer)
+    public void printText(pointer textPointer)
     {
         int textByte = System.memory.LDRB(textPointer);
         
         while (textByte != 0)
         {
             putchar(textByte);
-            textByte = System.memory.LDRB(textPointer++);
+            textPointer++;
+            textByte = System.memory.LDRB(textPointer);
         }
     }
     

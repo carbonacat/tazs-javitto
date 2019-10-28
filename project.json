@@ -1070,6 +1070,24 @@
 		},
 		"\\net\\ccat\\tazs\\ui\\AdvancedHiRes16Color.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\BATTLE_EXIT.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\BATTLE_RETRY.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\BUTTON_A.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\BUTTON_B.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\BUTTON_PAD.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\BUTTON_C.bin": {
+			"sdcard": false
 		}
 	}
 }

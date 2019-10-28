@@ -9,6 +9,8 @@ import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.BUTTON_C;
+import net.ccat.tazs.resources.texts.BUTTON_PAD;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
@@ -193,13 +195,13 @@ public class BattlePhaseState
         screen.setTextPosition(Dimensions.HELPBAR_X, Dimensions.HELPBAR_Y);
         if (game.padMenuUI.isShown())
         {
-            screen.print(Texts.BUTTON_PAD);
+            screen.printText(BUTTON_PAD.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU_COMMANDS_HELP);
         }
         else
         {
-            screen.print(Texts.BUTTON_C);
+            screen.printText(BUTTON_C.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU);
             screen.print(Texts.MISC_SEPARATOR);

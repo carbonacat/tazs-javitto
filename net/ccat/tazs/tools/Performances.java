@@ -1,9 +1,8 @@
 package net.ccat.tazs.tools;
 
-import femto.mode.HiRes16Color;
-
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -149,7 +148,7 @@ public class Performances
     /**
      * Renders the Performances as a bar on the bottom of the screen.
      */
-    public static void renderPerfBar(HiRes16Color screen)
+    public static void renderPerfBar(AdvancedHiRes16Color screen)
     {
         if (mFrameMillis > 0)
         {
@@ -198,7 +197,7 @@ public class Performances
      * @return The next value for x.
      */
     private static int renderStatBar(int x, short statMillis, int barColor,
-                                     HiRes16Color screen)
+                                     AdvancedHiRes16Color screen)
     {
         final int y = Dimensions.SCREEN_HEIGHT - 1;
         final int availableWidth = Dimensions.SCREEN_WIDTH - STATS_COUNT;

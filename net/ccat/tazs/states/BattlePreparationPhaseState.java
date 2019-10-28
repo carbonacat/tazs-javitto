@@ -2,7 +2,6 @@ package net.ccat.tazs.states;
 
 import femto.Game;
 import femto.input.Button;
-import femto.mode.HiRes16Color;
 import femto.State;
 
 import net.ccat.tazs.battle.BattleMode;
@@ -17,6 +16,7 @@ import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.UIModes;
 import net.ccat.tazs.ui.UITools;
@@ -68,7 +68,7 @@ public class BattlePreparationPhaseState
         
         Performances.onUpdateStart();
         
-        HiRes16Color screen = game.screen;
+        AdvancedHiRes16Color screen = game.screen;
         
         updateInput();
         
@@ -171,7 +171,7 @@ public class BattlePreparationPhaseState
     private void renderArea(int team, int borderColor, int insideColor)
     {
         TAZSGame game = mGame;
-        HiRes16Color screen = game.screen;
+        AdvancedHiRes16Color screen = game.screen;
         int minX = game.areaMinX(team) + 1;
         int minY = game.areaMinY(team) + 1;
         int maxX = game.areaMaxX(team) - 1;
@@ -208,7 +208,7 @@ public class BattlePreparationPhaseState
     private void renderUI()
     {
         TAZSGame game = mGame;
-        HiRes16Color screen = game.screen;
+        AdvancedHiRes16Color screen = game.screen;
         boolean hasHoveredUnit = (game.focusedUnitIdentifier != UnitsSystem.IDENTIFIER_NONE);
         String unitName = Texts.MISC_UNKNOWN;
         
@@ -276,7 +276,7 @@ public class BattlePreparationPhaseState
         
         UnitHandler unitHandler = UnitTypes.idleHandlerForType(game.currentUnitType);
         
-        UITools.drawWindow(Dimensions.UNITBOX_X, Dimensions.UNITBOX_Y, Dimensions.UNITBOX_WIDTH, Dimensions.UNITBOX_HEIGHT, screen);
+        screen.drawWindow(Dimensions.UNITBOX_X, Dimensions.UNITBOX_Y, Dimensions.UNITBOX_WIDTH, Dimensions.UNITBOX_HEIGHT);
         if (game.uiMode == UIModes.TOO_EXPENSIVE)
             screen.setTextColor(Colors.WINDOW_TEXT_ERROR);
         else if (game.uiMode == UIModes.PLACE)
@@ -285,7 +285,7 @@ public class BattlePreparationPhaseState
             screen.setTextColor(Colors.WINDOW_TEXT_DISABLED);
         screen.setTextPosition(Dimensions.UNITBOX_X + 2, Dimensions.UNITBOX_Y + 2);
         screen.print(unitHandler.cost());
-        UITools.printBean(game.everyUISprite, screen);
+        screen.printBean(game.everyUISprite);
         unitHandler.drawAsUI(game.unitsSystem,
                              screen.cameraX + Dimensions.UNITBOX_UNIT_X, screen.cameraY + Dimensions.UNITBOX_UNIT_Y, Math.PI, unitTeam,
                              screen);

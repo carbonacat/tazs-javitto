@@ -1,8 +1,7 @@
 package net.ccat.tazs.battle.handlers.target;
 
-import femto.mode.HiRes16Color;
-
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -27,7 +26,7 @@ public class TargetIdleHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawTargetUnit(system, unitIdentifier, screen);
     }

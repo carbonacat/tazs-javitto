@@ -1,6 +1,6 @@
 package net.ccat.tazs.battle.handlers.target;
 
-import femto.mode.HiRes16Color;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -41,7 +41,7 @@ public class TargetDeadHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawDyingTargetUnit(system, unitIdentifier, screen);
     }

@@ -1,12 +1,11 @@
 package net.ccat.tazs.battle.handlers;
 
-import femto.mode.HiRes16Color;
-
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.UITools;
 
 
@@ -31,7 +30,7 @@ public class HandlersTools
      * @param unitIdentifier
      * @param screen.
      */
-    public static void drawControlCircle(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawControlCircle(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -60,7 +59,7 @@ public class HandlersTools
      * @param screen
      */
     public static void drawControlTarget(NonAnimatedSprite everyUISprite, float targetX, float targetY,
-                                         HiRes16Color screen)
+                                         AdvancedHiRes16Color screen)
     {
         everyUISprite.setMirrored(false);
         everyUISprite.setPosition(targetX - VideoConstants.EVERYUI_ORIGIN_X - screen.cameraX, targetY - VideoConstants.EVERYUI_ORIGIN_Y - screen.cameraY);

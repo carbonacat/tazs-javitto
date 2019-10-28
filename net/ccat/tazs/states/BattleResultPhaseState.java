@@ -2,7 +2,6 @@ package net.ccat.tazs.states;
 
 import femto.Game;
 import femto.input.Button;
-import femto.mode.HiRes16Color;
 import femto.State;
 
 import net.ccat.tazs.battle.Teams;
@@ -14,6 +13,7 @@ import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.resources.sprites.ResultSummarySprite;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.UITools;
 
@@ -66,7 +66,7 @@ public class BattleResultPhaseState
     {
         Performances.onUpdateStart();
         
-        HiRes16Color screen = mGame.screen;
+        AdvancedHiRes16Color screen = mGame.screen;
         
         mGame.unitsSystem.onTick();
         updateUI();
@@ -134,7 +134,7 @@ public class BattleResultPhaseState
     private void renderUI()
     {
         TAZSGame game = mGame;
-        HiRes16Color screen = game.screen;
+        AdvancedHiRes16Color screen = game.screen;
 
         // Summary logo
         screen.drawRect(Dimensions.RESULT_LOGO_X, mLogoY, Dimensions.RESULT_LOGO_WIDTH, Dimensions.RESULT_LOGO_HEIGHT, Colors.WINDOW_BORDER);
@@ -160,13 +160,13 @@ public class BattleResultPhaseState
                       Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, Dimensions.RESULT_STATS_TEAMS_FIRST_X_LAST, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET,
                         Colors.TEAM_PLAYER_STAT, screen);
         screen.print(mPlayerUnitsCost);
-        UITools.printBean(game.everyUISprite, screen);
+        screen.printBean(game.everyUISprite);
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
         renderStatBar(mEnemyUnitsCost, mPlayerUnitsCost + mEnemyUnitsCost,
                       Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, Dimensions.RESULT_STATS_TEAMS_SECOND_X_LAST, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET,
                         Colors.TEAM_ENEMY_STAT, screen);
         screen.print(mEnemyUnitsCost);
-        UITools.printBean(game.everyUISprite, screen);
+        screen.printBean(game.everyUISprite);
         
         screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
         screen.print(Texts.RESULT_DESTRUCTIONS_);
@@ -218,7 +218,7 @@ public class BattleResultPhaseState
     private void renderStatBar(int value, int valueMax,
                                int xMin, int xMax, int y,
                                int color,
-                               HiRes16Color screen)
+                               AdvancedHiRes16Color screen)
     {
         int barXMax = MathTools.lerpi(value, 0, xMin, valueMax, xMax);
         

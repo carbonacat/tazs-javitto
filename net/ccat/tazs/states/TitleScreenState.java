@@ -1,5 +1,9 @@
 package net.ccat.tazs.states;
 
+import femto.Game;
+import femto.input.Button;
+import femto.State;
+
 import net.ccat.tazs.battle.modes.RandomBattleMode;
 import net.ccat.tazs.battle.modes.SandboxBattleMode;
 import net.ccat.tazs.resources.Colors;
@@ -8,12 +12,8 @@ import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.Performances;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.UITools;
-
-import femto.Game;
-import femto.input.Button;
-import femto.mode.HiRes16Color;
-import femto.State;
 
 
 /**
@@ -45,7 +45,7 @@ class TitleScreenState
     {
         Performances.onUpdateStart();
         
-        HiRes16Color screen = mGame.screen;
+        AdvancedHiRes16Color screen = mGame.screen;
         
         if (Button.A.justPressed())
         {
@@ -90,7 +90,7 @@ class TitleScreenState
     
     /***** PRIVATE STUFF *****/
     
-    private void draw(HiRes16Color screen)
+    private void draw(AdvancedHiRes16Color screen)
     {
         // TODO: Proper title screen. [015]
         screen.clear(Colors.TITLE_BG);
@@ -111,7 +111,7 @@ class TitleScreenState
     }
     
     
-    private void drawMenuChoice(int menuIdentifier, String title, HiRes16Color screen)
+    private void drawMenuChoice(int menuIdentifier, String title, AdvancedHiRes16Color screen)
     {
         int y = Dimensions.TITLE_MENU_ENTRY_Y_START + menuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
         boolean menuIsCurrent = (menuIdentifier == mCurrentMenuIdentifier);

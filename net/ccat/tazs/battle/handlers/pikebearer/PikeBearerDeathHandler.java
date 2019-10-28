@@ -1,8 +1,7 @@
 package net.ccat.tazs.battle.handlers.pikebearer;
 
-import femto.mode.HiRes16Color;
-
 import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -43,7 +42,7 @@ public class PikeBearerDeathHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawDyingPikeBearerUnit(system, unitIdentifier, screen);
     }

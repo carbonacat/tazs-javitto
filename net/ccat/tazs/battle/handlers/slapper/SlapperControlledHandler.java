@@ -1,6 +1,6 @@
 package net.ccat.tazs.battle.handlers.slapper;
 
-import femto.mode.HiRes16Color;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -48,7 +48,7 @@ public class SlapperControlledHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawAttackingSlapperUnit(system, unitIdentifier, screen);
     }

@@ -2,7 +2,6 @@ package net.ccat.tazs.states;
 
 import femto.Game;
 import femto.input.Button;
-import femto.mode.HiRes16Color;
 import femto.State;
 
 import net.ccat.tazs.battle.Teams;
@@ -13,6 +12,7 @@ import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.UITools;
 
@@ -51,7 +51,7 @@ public class BattlePhaseState
     {
         Performances.onUpdateStart();
         
-        HiRes16Color screen = mGame.screen;
+        AdvancedHiRes16Color screen = mGame.screen;
         TAZSGame game = mGame;
         
         updatePlayerControl();
@@ -186,7 +186,7 @@ public class BattlePhaseState
     private void renderUI()
     {
         TAZSGame game = mGame;
-        HiRes16Color screen = game.screen;
+        AdvancedHiRes16Color screen = game.screen;
         
         screen.fillRect(0, Dimensions.HELPBAR_BOX_MIN_Y, Dimensions.SCREEN_WIDTH, Dimensions.SCREEN_HEIGHT - Dimensions.HELPBAR_BOX_MIN_Y, Colors.HELP_BG);
         screen.setTextColor(Colors.HELP_ACTIVE);

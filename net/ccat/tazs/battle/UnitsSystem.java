@@ -1,11 +1,10 @@
 package net.ccat.tazs.battle;
 
-import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.battle.handlers.HandlersTools;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -477,7 +476,7 @@ class UnitsSystem
      * Renders all the Units.
      * @param screen The screen to render into.
      */
-    public void draw(HiRes16Color screen)
+    public void draw(AdvancedHiRes16Color screen)
     {
         reorderRenderingList();
         for (int renderingI = 0; renderingI < mCount; renderingI++)

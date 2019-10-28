@@ -1043,6 +1043,33 @@
 		},
 		"\\net\\ccat\\tazs\\tools\\MiscTools.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\New folder": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\bins": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\challenges": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\challenges\\Challenge01.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\MY_AMAZING_TEXT.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui/AdvancedHiRes10Color.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui\\AdvancedHiRes10Color.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\ui\\AdvancedHiRes16Color.java": {
+			"sdcard": false
 		}
 	}
 }

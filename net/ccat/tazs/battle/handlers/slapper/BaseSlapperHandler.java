@@ -1,12 +1,12 @@
 package net.ccat.tazs.battle.handlers.slapper;
 
-import femto.mode.HiRes16Color;
 import femto.Sprite;
 
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -95,14 +95,14 @@ public class BaseSlapperHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
-                         HiRes16Color screen)
+                         AdvancedHiRes16Color screen)
     {
         drawStandingSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
                             system.everythingSprite, baseFrameForTeam(unitTeam),
                             screen);
     }
     
-    public void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void drawControlUI(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         HandlersTools.drawControlCircle(system, unitIdentifier, screen);
     }
@@ -133,7 +133,7 @@ public class BaseSlapperHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawIdleSlapperUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawIdleSlapperUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -153,7 +153,7 @@ public class BaseSlapperHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawDyingSlapperUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawDyingSlapperUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -174,7 +174,7 @@ public class BaseSlapperHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawAttackingSlapperUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawAttackingSlapperUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -202,7 +202,7 @@ public class BaseSlapperHandler
     public static void drawStandingSlapper(float unitX, float unitY, float unitAngle,
                                            float handDistance,
                                            NonAnimatedSprite everythingSprite, int baseFrame,
-                                           HiRes16Color screen)
+                                           AdvancedHiRes16Color screen)
     {
         // Is the hand above?
         if (unitAngle < 0)
@@ -225,7 +225,7 @@ public class BaseSlapperHandler
     public static void drawHand(float unitX, float unitY, float unitAngle,
                                 float handDistance,
                                 NonAnimatedSprite everythingSprite,
-                                HiRes16Color screen)
+                                AdvancedHiRes16Color screen)
     {
         everythingSprite.setMirrored(false);
         everythingSprite.selectFrame(VideoConstants.EVERYTHING_HAND_FRAME);
@@ -245,7 +245,7 @@ public class BaseSlapperHandler
      */
     public static void drawStandingSlapperBody(float unitX, float unitY, float unitAngle,
                                                NonAnimatedSprite everythingSprite, int baseFrame,
-                                               HiRes16Color screen)
+                                               AdvancedHiRes16Color screen)
     {
         everythingSprite.selectFrame(baseFrame + VideoConstants.SLAPPERBODY_IDLE_FRAME);
         everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
@@ -266,7 +266,7 @@ public class BaseSlapperHandler
     public static void drawDyingSlapperBody(float unitX, float unitY, float unitAngle,
                                             int unitTimer,
                                             NonAnimatedSprite everythingSprite, int baseFrame,
-                                            HiRes16Color screen)
+                                            AdvancedHiRes16Color screen)
     {
         int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.SLAPPERBODY_DEAD_FRAMES_LAST, DEATH_TICKS, VideoConstants.SLAPPERBODY_DEAD_FRAMES_START);
         int frame = baseFrame + MathTools.clampi(rawFrame, VideoConstants.SLAPPERBODY_DEAD_FRAMES_START, VideoConstants.SLAPPERBODY_DEAD_FRAMES_LAST);

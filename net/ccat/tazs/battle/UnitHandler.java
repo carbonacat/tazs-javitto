@@ -1,6 +1,6 @@
 package net.ccat.tazs.battle.handlers;
 
-import femto.mode.HiRes16Color;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -84,7 +84,7 @@ public interface UnitHandler
      * @param unitIdentifier Identifies the Unit inside the system.
      * @param screen The target screen.
      */
-    public abstract void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen);
+    public abstract void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen);
     
     /**
      * Renders a special UI for a Controlled unit.
@@ -92,7 +92,7 @@ public interface UnitHandler
      * @param unitIdentifier Identifies the Unit inside the system.
      * @param screen The target screen.
      */
-    public abstract void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen);
+    public abstract void drawControlUI(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen);
     
     /**
      * Renders the given Unit inside the UnitsSystem.
@@ -106,5 +106,5 @@ public interface UnitHandler
      */
     public abstract void drawAsUI(UnitsSystem system,
                                   float x, float y, float angle, int team,
-                                  HiRes16Color screen);
+                                  AdvancedHiRes16Color screen);
 }

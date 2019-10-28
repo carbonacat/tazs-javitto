@@ -2,7 +2,6 @@ package net.ccat.tazs;
 
 import femto.font.TIC80;
 import femto.input.Button;
-import femto.mode.HiRes16Color;
 import femto.sound.Mixer;
 
 import net.ccat.tazs.battle.BattleMode;
@@ -24,6 +23,7 @@ import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.TopBarUI;
 import net.ccat.tazs.ui.UIModes;
@@ -39,7 +39,7 @@ class TAZSGame
     
     public TAZSGame()
     {
-        screen = new HiRes16Color(ModifiedNAJI16.palette(), TIC80.font());
+        screen = new AdvancedHiRes16Color(ModifiedNAJI16.palette(), TIC80.font());
         unitsSystem = new UnitsSystem(everythingSprite, everyUISprite);
         menuCursorSprite.playDefault();
         menuCursorSprite.setStatic(true);
@@ -57,7 +57,7 @@ class TAZSGame
     
     /***** RENDERING *****/
     
-    public HiRes16Color screen;
+    public AdvancedHiRes16Color screen;
     
     /**
      * Renders the scene's background.

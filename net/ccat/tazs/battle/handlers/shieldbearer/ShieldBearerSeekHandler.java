@@ -1,8 +1,7 @@
 package net.ccat.tazs.battle.handlers.shieldbearer;
 
-import femto.mode.HiRes16Color;
-
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -28,7 +27,7 @@ public class ShieldBearerSeekHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawIdleShieldBearerUnit(system, unitIdentifier, screen);
     }

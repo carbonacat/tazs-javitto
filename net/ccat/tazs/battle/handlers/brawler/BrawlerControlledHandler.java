@@ -1,6 +1,6 @@
 package net.ccat.tazs.battle.handlers.brawler;
 
-import femto.mode.HiRes16Color;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -48,7 +48,7 @@ public class BrawlerControlledHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawAttackingBrawlerUnit(system, unitIdentifier, screen);
     }

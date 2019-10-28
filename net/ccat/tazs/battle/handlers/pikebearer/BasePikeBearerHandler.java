@@ -1,6 +1,5 @@
 package net.ccat.tazs.battle.handlers.pikebearer;
 
-import femto.mode.HiRes16Color;
 import femto.Sprite;
 
 import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
@@ -9,6 +8,7 @@ import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -98,7 +98,7 @@ public class BasePikeBearerHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
-                         HiRes16Color screen)
+                         AdvancedHiRes16Color screen)
     {
         drawStandingPikeBearer(unitX, unitY, unitAngle,
                             HAND_IDLE_DISTANCE,
@@ -106,7 +106,7 @@ public class BasePikeBearerHandler
                             screen);
     }
     
-    public void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void drawControlUI(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         HandlersTools.drawControlCircle(system, unitIdentifier, screen);
     }
@@ -121,7 +121,7 @@ public class BasePikeBearerHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawIdlePikeBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawIdlePikeBearerUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -141,7 +141,7 @@ public class BasePikeBearerHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawDyingPikeBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawDyingPikeBearerUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -167,7 +167,7 @@ public class BasePikeBearerHandler
                       screen);
     }
     
-    public static void drawAttackingPikeBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawAttackingPikeBearerUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -197,7 +197,7 @@ public class BasePikeBearerHandler
     public static void drawStandingPikeBearer(float unitX, float unitY, float unitAngle,
                                               float handDistance,
                                               NonAnimatedSprite everythingSprite, int baseFrame,
-                                              HiRes16Color screen)
+                                              AdvancedHiRes16Color screen)
     {
         // Is the hand above?
         if (unitAngle < 0)
@@ -229,7 +229,7 @@ public class BasePikeBearerHandler
     public static void drawPike(float unitX, float unitY, float unitAngle,
                                 float handDistance,
                                 NonAnimatedSprite everythingSprite,
-                                HiRes16Color screen)
+                                AdvancedHiRes16Color screen)
     {
         prepareSpriteForPikeWithAngle(everythingSprite, unitAngle);
 

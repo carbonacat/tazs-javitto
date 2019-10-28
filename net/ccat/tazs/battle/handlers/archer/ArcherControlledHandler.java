@@ -1,6 +1,6 @@
 package net.ccat.tazs.battle.handlers.archer;
 
-import femto.mode.HiRes16Color;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -48,12 +48,12 @@ public class ArcherControlledHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawAttackingArcherUnit(system, unitIdentifier, screen);
     }
     
-    public void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void drawControlUI(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         super.drawControlUI(system, unitIdentifier, screen);
         

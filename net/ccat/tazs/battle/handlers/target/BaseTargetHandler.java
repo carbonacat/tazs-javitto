@@ -1,12 +1,11 @@
 package net.ccat.tazs.battle.handlers.target;
 
-import femto.mode.HiRes16Color;
-
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -75,14 +74,14 @@ public class BaseTargetHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
-                         HiRes16Color screen)
+                         AdvancedHiRes16Color screen)
     {
         drawTarget(unitX, unitY, HEALTH_INITIAL,
                    system.everythingSprite,
                    screen);
     }
     
-    public void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void drawControlUI(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         // Not controllable.
         while (true);
@@ -91,7 +90,7 @@ public class BaseTargetHandler
     
     /***** RENDERING TOOLS *****/
     
-    public static void drawTargetUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawTargetUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -100,7 +99,7 @@ public class BaseTargetHandler
         drawTarget(unitX, unitY, unitHealth, system.everythingSprite, screen);
     }
     
-    public static void drawDyingTargetUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawDyingTargetUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -114,7 +113,7 @@ public class BaseTargetHandler
     
     public static void drawTarget(float unitX, float unitY, int unitHealth,
                                   NonAnimatedSprite everythingSprite,
-                                  HiRes16Color screen)
+                                  AdvancedHiRes16Color screen)
     {
         boolean isDamaged = unitHealth <= HEALTH_DAMAGED;
         int frame = VideoConstants.EVERYTHING_TARGET_FRAME + (isDamaged ? VideoConstants.TARGET_DAMAGED_FRAME : VideoConstants.TARGET_IDLE_FRAME);
@@ -128,7 +127,7 @@ public class BaseTargetHandler
     public static void drawDyingTarget(float unitX, float unitY,
                                        int unitTimer,
                                        NonAnimatedSprite everythingSprite,
-                                       HiRes16Color screen)
+                                       AdvancedHiRes16Color screen)
     {
         int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.TARGET_DEAD_FRAMES_LAST, DEATH_TICKS, VideoConstants.TARGET_DEAD_FRAMES_START);
         int frame = VideoConstants.EVERYTHING_TARGET_FRAME + MathTools.clampi(rawFrame, VideoConstants.TARGET_DEAD_FRAMES_START, VideoConstants.TARGET_DEAD_FRAMES_LAST);

@@ -1,5 +1,9 @@
 package net.ccat.tazs.states;
 
+import femto.Game;
+import femto.input.Button;
+import femto.State;
+
 import net.ccat.tazs.battle.modes.ChallengeBattleMode;
 import net.ccat.tazs.battle.modes.challenges.Challenge01BattleMode;
 import net.ccat.tazs.battle.modes.challenges.Challenge02BattleMode;
@@ -7,18 +11,16 @@ import net.ccat.tazs.battle.modes.challenges.Challenge03BattleMode;
 import net.ccat.tazs.battle.modes.challenges.Challenge04BattleMode;
 import net.ccat.tazs.battle.modes.challenges.Challenge05BattleMode;
 import net.ccat.tazs.battle.modes.challenges.ChallengeZ01BattleMode;
+import net.ccat.tazs.resources.challenges.Challenge01;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.Performances;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.UITools;
 
-import femto.Game;
-import femto.input.Button;
-import femto.mode.HiRes16Color;
-import femto.State;
 
 
 /**
@@ -59,7 +61,7 @@ class ChallengesListState
     {
         Performances.onUpdateStart();
         
-        HiRes16Color screen = mGame.screen;
+        AdvancedHiRes16Color screen = mGame.screen;
         
         if (Button.A.justPressed())
         {
@@ -103,7 +105,7 @@ class ChallengesListState
     
     /***** PRIVATE STUFF *****/
     
-    private void draw(HiRes16Color screen)
+    private void draw(AdvancedHiRes16Color screen)
     {
         // TODO: Proper title screen. [015]
         screen.clear(Colors.TITLE_BG);
@@ -124,7 +126,7 @@ class ChallengesListState
     }
     
     
-    private void drawMenuChoice(int menuIdentifier, HiRes16Color screen)
+    private void drawMenuChoice(int menuIdentifier, AdvancedHiRes16Color screen)
     {
         int y = Dimensions.TITLE_MENU_ENTRY_Y_START + menuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
         boolean menuIsCurrent = (menuIdentifier == mCurrentMenuIdentifier);

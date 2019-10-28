@@ -1,6 +1,5 @@
 package net.ccat.tazs.battle.handlers.shieldbearer;
 
-import femto.mode.HiRes16Color;
 import femto.Sprite;
 
 import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
@@ -8,6 +7,7 @@ import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -104,7 +104,7 @@ public class BaseShieldBearerHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
-                         HiRes16Color screen)
+                         AdvancedHiRes16Color screen)
     {
         boolean facingFront = unitAngle >= 0;
         
@@ -115,7 +115,7 @@ public class BaseShieldBearerHandler
                                  screen);
     }
     
-    public void drawControlUI(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void drawControlUI(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         HandlersTools.drawControlCircle(system, unitIdentifier, screen);
     }
@@ -130,7 +130,7 @@ public class BaseShieldBearerHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawIdleShieldBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawIdleShieldBearerUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -152,7 +152,7 @@ public class BaseShieldBearerHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawDyingShieldBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawDyingShieldBearerUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {       
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -186,7 +186,7 @@ public class BaseShieldBearerHandler
      * @param unitIdentifier
      * @param screen
      */
-    public static void drawAttackingShieldBearerUnit(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public static void drawAttackingShieldBearerUnit(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
@@ -219,7 +219,7 @@ public class BaseShieldBearerHandler
                                                 float handDistance,
                                                 NonAnimatedSprite everythingSprite, int baseFrame,
                                                 int shieldFrame,
-                                                HiRes16Color screen)
+                                                AdvancedHiRes16Color screen)
     {
         // Is the hand above?
         if (unitAngle < 0)
@@ -251,7 +251,7 @@ public class BaseShieldBearerHandler
     public static void drawShield(float unitX, float unitY, float unitAngle,
                                   float handDistance,
                                   NonAnimatedSprite everythingSprite, int shieldFrame,
-                                  HiRes16Color screen)
+                                  AdvancedHiRes16Color screen)
     {
         boolean mirrored = unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2;
         

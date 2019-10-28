@@ -1,10 +1,9 @@
 package net.ccat.tazs.battle.handlers.brawler;
 
-import femto.mode.HiRes16Color;
-
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -37,7 +36,7 @@ public class BrawlerPunchHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawAttackingBrawlerUnit(system, unitIdentifier, screen);
     }

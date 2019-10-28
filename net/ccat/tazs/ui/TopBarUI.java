@@ -1,12 +1,11 @@
 package net.ccat.tazs.ui;
 
-import femto.mode.HiRes16Color;
-
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.tools.MathTools;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -76,13 +75,13 @@ public class TopBarUI
     
     /***** RENDERING *****/
     
-    public void draw(NonAnimatedSprite everyUISprite, HiRes16Color screen)
+    public void draw(NonAnimatedSprite everyUISprite, AdvancedHiRes16Color screen)
     {
         int x = 0;
         int y = 0;
         
         // Background and border.
-        UITools.drawWindow(x, y, Dimensions.SCREEN_WIDTH, Dimensions.TOPBAR_HEIGHT, screen);
+        screen.drawWindow(x, y, Dimensions.SCREEN_WIDTH, Dimensions.TOPBAR_HEIGHT);
         
         int leftX = x + Dimensions.TOPBAR_MARGIN;
         int rightX = x + Dimensions.SCREEN_WIDTH - Dimensions.TOPBAR_MARGIN;
@@ -100,17 +99,17 @@ public class TopBarUI
         screen.setTextPosition(leftX, y + Dimensions.TOPBAR_SECONDARYLINE_Y_OFFSET);
         screen.print(mLeftBottomString);
         if (mLeftBottomEndsWithBean)
-            UITools.printBean(everyUISprite, screen);
+            screen.printBean(everyUISprite);
         
         screen.setTextPosition(rightX - screen.textWidth(mRightTopString), y + Dimensions.TOPBAR_PRIMARYLINE_Y_OFFSET);
         screen.setTextColor(Colors.WINDOW_TEXT);
         screen.print(mRightTopString);
         screen.setTextPosition(rightX - screen.textWidth(mRightBottomString), y + Dimensions.TOPBAR_SECONDARYLINE_Y_OFFSET);
         if (mRightBottomEndsWithBean)
-            UITools.anticipateBean(screen);
+            screen.anticipateBean();
         screen.print(mRightBottomString);
         if (mRightBottomEndsWithBean)
-            UITools.printBean(everyUISprite, screen);
+            screen.printBean(everyUISprite);
     }
     
     

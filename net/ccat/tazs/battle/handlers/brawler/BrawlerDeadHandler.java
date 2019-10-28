@@ -1,6 +1,6 @@
 package net.ccat.tazs.battle.handlers.brawler;
 
-import femto.mode.HiRes16Color;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -41,7 +41,7 @@ public class BrawlerDeadHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawDyingBrawlerUnit(system, unitIdentifier, screen);
     }

@@ -1,6 +1,6 @@
 package net.ccat.tazs.battle.handlers.archer;
 
-import femto.mode.HiRes16Color;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 import net.ccat.tazs.battle.handlers.slapper.BaseSlapperHandler;
 
@@ -43,7 +43,7 @@ public class ArcherDeathHandler
     
     /***** RENDERING *****/
     
-    public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
+    public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
         drawDyingArcherUnit(system, unitIdentifier, screen);
     }

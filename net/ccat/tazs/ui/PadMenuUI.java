@@ -1,12 +1,12 @@
 package net.ccat.tazs.ui;
 
 import femto.input.Button;
-import femto.mode.HiRes16Color;
 
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.PadMenuSprite;
 import net.ccat.tazs.resources.VideoConstants;
+import net.ccat.tazs.ui.AdvancedHiRes16Color;
 
 
 /**
@@ -211,14 +211,13 @@ class PadMenuUI
      * Renders this UI into the given screen.
      * @param screen The target.
      */
-    public void draw(HiRes16Color screen)
+    public void draw(AdvancedHiRes16Color screen)
     {
         if (mFocused && !mHideUntilNextPress)
         {
-            UITools.fillRectBlended(0, 0, Dimensions.SCREEN_WIDTH, Dimensions.HELPBAR_BOX_MIN_Y - 1,
-                                    Colors.PADMENU_OVERLAY, 0,
-                                    UITools.PATTERN_25_75_HEX,
-                                    screen);
+            screen.fillRectBlended(0, 0, Dimensions.SCREEN_WIDTH, Dimensions.HELPBAR_BOX_MIN_Y - 1,
+                                   Colors.PADMENU_OVERLAY, 0,
+                                   AdvancedHiRes16Color.PATTERN_25_75_HEX);
             mPadMenuSprite.draw(screen, mX - VideoConstants.PAD_MENU_ORIGIN_X, mY - VideoConstants.PAD_MENU_ORIGIN_X);
             if (mRightTitle != null)
                 drawChoice(CHOICE_RIGHT, mRightTitle, mRightIsEnabled, screen);
@@ -234,7 +233,7 @@ class PadMenuUI
     
     /***** PRIVATE *****/
     
-    private void drawChoice(int choice, String title, boolean enabled, HiRes16Color screen)
+    private void drawChoice(int choice, String title, boolean enabled, AdvancedHiRes16Color screen)
     {
         int horizontalAlignment = UITools.ALIGNMENT_CENTER;
         int verticalAlignment = UITools.ALIGNMENT_CENTER;
@@ -264,11 +263,10 @@ class PadMenuUI
             break ;
         }
         screen.setTextColor(enabled ? Colors.PADMENU_TEXT : Colors.PADMENU_TEXT_DISABLED);
-        UITools.drawLabel(title,
-                          borderColor, enabled ? Colors.PADMENU_BACKGROUND : Colors.PADMENU_BACKGROUND_DISABLED,
-                          LABEL_PADDING,
-                          choiceX, choiceY, horizontalAlignment, verticalAlignment,
-                          screen);
+        screen.drawLabel(title,
+                         borderColor, enabled ? Colors.PADMENU_BACKGROUND : Colors.PADMENU_BACKGROUND_DISABLED,
+                         LABEL_PADDING,
+                         choiceX, choiceY, horizontalAlignment, verticalAlignment);
     }
     
     

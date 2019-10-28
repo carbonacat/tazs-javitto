@@ -26,12 +26,6 @@ class Texts
     public static final String CHALLENGES_05_SUMMARY = "Hehehe";
     
     
-    /***** MENU *****/
-    
-    public static final String MENU = "Menu";
-    public static final String MENU_COMMANDS_HELP = "Select Choice";
-    
-    
     /***** MISC *****/
     
     public static final String MISC_BIG_SEPARATOR = " | ";

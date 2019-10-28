@@ -1091,6 +1091,12 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\CHALLENGES_TITLE.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\MENU.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\MENU_COMMANDS_HELP.bin": {
+			"sdcard": false
 		}
 	}
 }

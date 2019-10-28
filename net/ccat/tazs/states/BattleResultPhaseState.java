@@ -12,6 +12,8 @@ import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.texts.BUTTON_B;
 import net.ccat.tazs.resources.texts.BUTTON_C;
 import net.ccat.tazs.resources.texts.BUTTON_PAD;
+import net.ccat.tazs.resources.texts.MENU;
+import net.ccat.tazs.resources.texts.MENU_COMMANDS_HELP;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.resources.sprites.ResultSummarySprite;
 import net.ccat.tazs.tools.MathTools;
@@ -199,7 +201,7 @@ public class BattleResultPhaseState
             screen.setTextColor(Colors.HELP_ACTIVE);
             screen.printPText(BUTTON_PAD.bin());
             screen.print(Texts.MISC_SEPARATOR);
-            screen.print(Texts.MENU_COMMANDS_HELP);
+            screen.printPText(MENU_COMMANDS_HELP.bin());
         }
         else
         {
@@ -210,7 +212,7 @@ public class BattleResultPhaseState
             screen.print(Texts.MISC_BIG_SEPARATOR);
             screen.printPText(BUTTON_C.bin());
             screen.print(Texts.MISC_SEPARATOR);
-            screen.print(Texts.MENU);
+            screen.printPText(MENU.bin());
         }
         
         game.padMenuUI.draw(screen);

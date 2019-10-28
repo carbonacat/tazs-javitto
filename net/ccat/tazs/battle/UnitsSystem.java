@@ -479,6 +479,7 @@ class UnitsSystem
      */
     public void draw(HiRes16Color screen)
     {
+        reorderRenderingList();
         for (int renderingI = 0; renderingI < mCount; renderingI++)
         {
             int unitIdentifier = mRenderingIdentifiers[renderingI];
@@ -487,6 +488,27 @@ class UnitsSystem
         }
         if (controlledUnitIdentifier != IDENTIFIER_NONE)
             unitsHandlers[controlledUnitIdentifier].drawControlUI(this, controlledUnitIdentifier, screen);
+    }
+    
+    public void reorderRenderingList()
+    {
+        /*for (int k = 1; k < mCount; k++)
+            if (unitsYs[mRenderingIdentifiers[k]] < unitsYs[mRenderingIdentifiers[k - 1]])
+            {
+                int swappedIdentifier = mRenderingIdentifiers[k - 1];
+                
+                mRenderingIdentifiers[k - 1] = mRenderingIdentifiers[k];
+                mRenderingIdentifiers[k] = swappedIdentifier;
+            }*/
+        // Insertion sort.
+        for (int i = 1; i < mCount; i++)
+            for (int k = i; (k > 1) && (unitsYs[mRenderingIdentifiers[k]] < unitsYs[mRenderingIdentifiers[k - 1]]); k--)
+            {
+                int swappedIdentifier = mRenderingIdentifiers[k - 1];
+                
+                mRenderingIdentifiers[k - 1] = mRenderingIdentifiers[k];
+                mRenderingIdentifiers[k] = swappedIdentifier;
+            }
     }
     
     

@@ -126,7 +126,7 @@ public class BasePikeBearerHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         
         drawStandingPikeBearer(unitX, unitY, unitAngle,
                                HAND_IDLE_DISTANCE,
@@ -146,7 +146,7 @@ public class BasePikeBearerHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
         
         // Is the hand above?
@@ -172,7 +172,7 @@ public class BasePikeBearerHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
         float handDistance = handDistanceForAttackTimer(unitTimer);
         
@@ -276,7 +276,7 @@ public class BasePikeBearerHandler
             float unitX = system.unitsXs[unitIdentifier];
             float unitY = system.unitsYs[unitIdentifier];
             float unitAngle = system.unitsAngles[unitIdentifier];
-            char unitTeam = system.unitsTeams[unitIdentifier];
+            byte unitTeam = system.unitsTeams[unitIdentifier];
             float pikeDistance = handDistance + PIKE_END_RANGE;
             float weaponX = handX(unitX, unitAngle, pikeDistance);
             float weaponY = handY(unitY, unitAngle, pikeDistance);

@@ -50,7 +50,7 @@ class UnitsSystem
     /**
      * Targets for all Units.
      */
-    public int[] unitsTargetIdentifiers = new int[UNITS_MAX];
+    public byte[] unitsTargetIdentifiers = new byte[UNITS_MAX];
     /**
      * Handlers for all Units.
      */
@@ -58,7 +58,7 @@ class UnitsSystem
     /**
      * Allegiences for all Units.
      */
-    public char[] unitsTeams = new char[UNITS_MAX];
+    public byte[] unitsTeams = new byte[UNITS_MAX];
     
     /**
      * Clears any stored Units.
@@ -83,7 +83,7 @@ class UnitsSystem
      * @return the unit's identifier, or IDENTIFIER_NONE if a Unit couldn't be created.
      */
     public int addUnit(float x, float y,
-                       int type, char team)
+                       int type, byte team)
     {
         if (mCount >= UNITS_MAX)
             return IDENTIFIER_NONE;
@@ -105,6 +105,9 @@ class UnitsSystem
         mStats[STATS_COST_OFFSET + team] += unitHandler.cost();
         mStats[STATS_HP_CURRENT_OFFSET + team] += unitHandler.startingHealth();
         mStats[STATS_HP_MAX_OFFSET + team] += unitHandler.startingHealth();
+        
+        // Adding it to the rendering list.
+        mRenderingIdentifiers[unitIdentifier] = unitIdentifier;
         return unitIdentifier;
     }
     
@@ -147,6 +150,13 @@ class UnitsSystem
             unitsHandlers[unitIdentifier] = unitsHandlers[lastUnitIdentifier];
             unitsTeams[unitIdentifier] = unitsTeams[lastUnitIdentifier];
         }
+        
+        // TODO: Smartly swap away the removed unit's identifier and update the shifted, still-there identifiers.
+        // Because that'll cause a sort. Shouldn't be much of an issue tho, until BattlePhase requires removing a unit while in game.
+        for (int renderingI = 0; renderingI < mCount; renderingI++)
+            mRenderingIdentifiers[renderingI] = renderingI;
+        
+        // TODO: Smartly update this identifier depending on the actual operation.
         controlledUnitIdentifier = IDENTIFIER_NONE;
         return true;
     }
@@ -186,7 +196,7 @@ class UnitsSystem
      * @param maxDistance The max distance the closest unit can have.
      * @return the found Unit's identifier, or IDENTIFIER_NONE if none found.
      */
-    public int findClosestLivingUnit(float x, float y, char team, float maxDistance)
+    public int findClosestLivingUnit(float x, float y, byte team, float maxDistance)
     {
         int closestUnitIdentifier = IDENTIFIER_NONE;
         float closestUnitDistanceSquared = maxDistance * maxDistance;
@@ -212,7 +222,7 @@ class UnitsSystem
      * @param team The team the Unit must belongs too.
      * @return The unit's identifier, or IDENTIFIER_NONE if none matched.
      */
-    public int findUnitThatJustDied(char team)
+    public int findUnitThatJustDied(byte team)
     {
         int bestTimer = -1;
         int bestIdentifier = IDENTIFIER_NONE;
@@ -469,8 +479,12 @@ class UnitsSystem
      */
     public void draw(HiRes16Color screen)
     {
-        for (int unitIdentifier = 0; unitIdentifier < mCount; unitIdentifier++)
+        for (int renderingI = 0; renderingI < mCount; renderingI++)
+        {
+            int unitIdentifier = mRenderingIdentifiers[renderingI];
+            
             unitsHandlers[unitIdentifier].draw(this, unitIdentifier, screen);
+        }
         if (controlledUnitIdentifier != IDENTIFIER_NONE)
             unitsHandlers[controlledUnitIdentifier].drawControlUI(this, controlledUnitIdentifier, screen);
     }
@@ -493,6 +507,9 @@ class UnitsSystem
         return 0;
     }
     
+    // Rendering list of objects' identifiers, sorted by objects' Y coordinates.
+    // Size is mCount (will change if this list contains other kind of objects than Units).
+    private byte[] mRenderingIdentifiers = new byte[UNITS_MAX];
     
     private int mCount = 0;
     private int[] mStats = new int[STATS_MAX];
@@ -509,7 +526,7 @@ class UnitsSystem
     
     private static final int TEAM_MAX = 2;
     private static final int STATS_COUNT_OFFSET = 0;
-    private static final int STATS_COST_OFFSET = TEAM_MAX;
+    private static final int STATS_COST_OFFSET = STATS_COUNT_OFFSET + TEAM_MAX;
     private static final int STATS_HP_MAX_OFFSET = STATS_COST_OFFSET + TEAM_MAX;
     private static final int STATS_HP_CURRENT_OFFSET = STATS_HP_MAX_OFFSET + TEAM_MAX;
     private static final int STATS_MAX = STATS_HP_CURRENT_OFFSET + TEAM_MAX;

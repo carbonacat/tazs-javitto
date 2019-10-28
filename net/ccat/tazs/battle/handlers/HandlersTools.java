@@ -36,7 +36,7 @@ public class HandlersTools
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         
         if (system.unitsHealths[unitIdentifier] == 0)
             screen.drawCircle(unitX, unitY, Dimensions.UNIT_CONTROL_RADIUS, Teams.darkerColorForTeam(unitTeam), false);
@@ -124,7 +124,7 @@ public class HandlersTools
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         int targetIdentifier = system.unitsTargetIdentifiers[unitIdentifier];
         boolean closeEnough = false;
         

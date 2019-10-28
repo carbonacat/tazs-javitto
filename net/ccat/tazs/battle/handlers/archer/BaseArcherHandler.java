@@ -134,7 +134,7 @@ public class BaseArcherHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         
         drawStandingArcher(unitX, unitY, unitAngle,
                            system.everythingSprite, BaseSlapperHandler.baseFrameForTeam(unitTeam),
@@ -155,7 +155,7 @@ public class BaseArcherHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
         
         // Is the hand above?
@@ -179,7 +179,7 @@ public class BaseArcherHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
 
         drawStandingArcher(unitX, unitY, unitAngle,
@@ -285,7 +285,7 @@ public class BaseArcherHandler
                 float unitX = system.unitsXs[unitIdentifier];
                 float unitY = system.unitsYs[unitIdentifier];
                 float unitAngle = system.unitsAngles[unitIdentifier];
-                char unitTeam = system.unitsTeams[unitIdentifier];
+                byte unitTeam = system.unitsTeams[unitIdentifier];
                 float targetX = unitX + Math.cos(unitAngle) * targetDistance;
                 float targetY = unitY + Math.sin(unitAngle) * targetDistance;
                 int hitUnitIdentifier = system.findClosestLivingUnit(targetX, targetY, Teams.oppositeTeam(unitTeam),

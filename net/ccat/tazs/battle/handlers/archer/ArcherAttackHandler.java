@@ -39,7 +39,7 @@ public class ArcherAttackHandler
             float unitX = system.unitsXs[unitIdentifier];
             float unitY = system.unitsYs[unitIdentifier];
             float unitAngle = system.unitsAngles[unitIdentifier];
-            char unitTeam = system.unitsTeams[unitIdentifier];
+            byte unitTeam = system.unitsTeams[unitIdentifier];
             float targetDistance = targetDistanceWhenCharging(unitTimer);
             
             // Adjusting the angle toward the target.
@@ -73,19 +73,5 @@ public class ArcherAttackHandler
     public void draw(UnitsSystem system, int unitIdentifier, HiRes16Color screen)
     {
         drawAttackingArcherUnit(system, unitIdentifier, screen);
-        int unitTimer = system.unitsTimers[unitIdentifier];
-
-        if (((unitTimer >= ATTACK_TIMER_CHARGING_MIN) && (unitTimer <= ATTACK_TIMER_CHARGING_MAX))
-            || ((unitTimer >= ATTACK_TIMER_DECHARGING_MAX) && (unitTimer <= ATTACK_TIMER_DECHARGING_MIN)))
-        {
-            float unitX = system.unitsXs[unitIdentifier];
-            float unitY = system.unitsYs[unitIdentifier];
-            float unitAngle = system.unitsAngles[unitIdentifier];
-            float distance = targetDistanceWhenCharging(unitTimer);
-            float targetX = unitX + Math.cos(unitAngle) * distance;
-            float targetY = unitY + Math.sin(unitAngle) * distance;
-            
-            HandlersTools.drawControlTarget(system.everyUISprite, targetX, targetY, screen);
-        }
     }
 }

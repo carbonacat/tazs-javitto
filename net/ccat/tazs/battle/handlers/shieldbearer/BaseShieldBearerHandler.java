@@ -32,7 +32,7 @@ public class BaseShieldBearerHandler
     public static final float CLOSE_DISTANCE = HAND_MAX_DISTANCE + SHIELDBEARER_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
-    public static final int COST = 25;
+    public static final int COST = 30;
     public static final float INVERSE_WEIGHT = 1.5;
     public static final int RECONSIDER_TICKS = 128;
     
@@ -135,7 +135,7 @@ public class BaseShieldBearerHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         boolean facingFront = unitAngle >= 0;
         
         drawStandingShieldBearer(unitX, unitY, unitAngle,
@@ -157,7 +157,7 @@ public class BaseShieldBearerHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
         boolean facingFront = unitAngle >= 0;
         
@@ -191,7 +191,7 @@ public class BaseShieldBearerHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
         float handDistance = handDistanceForAttackTimer(unitTimer);
         boolean facingFront = unitAngle >= 0;
@@ -297,7 +297,7 @@ public class BaseShieldBearerHandler
             float unitX = system.unitsXs[unitIdentifier];
             float unitY = system.unitsYs[unitIdentifier];
             float unitAngle = system.unitsAngles[unitIdentifier];
-            char unitTeam = system.unitsTeams[unitIdentifier];
+            byte unitTeam = system.unitsTeams[unitIdentifier];
             float weaponX = handX(unitX, unitAngle, handDistance);
             float weaponY = handY(unitY, unitAngle, handDistance);
             

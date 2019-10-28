@@ -138,7 +138,7 @@ public class BaseSlapperHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         
         drawStandingSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
                             system.everythingSprite, baseFrameForTeam(unitTeam),
@@ -158,7 +158,7 @@ public class BaseSlapperHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
 
         drawDyingSlapperBody(unitX, unitY, unitAngle,
@@ -179,7 +179,7 @@ public class BaseSlapperHandler
         float unitX = system.unitsXs[unitIdentifier];
         float unitY = system.unitsYs[unitIdentifier];
         float unitAngle = system.unitsAngles[unitIdentifier];
-        char unitTeam = system.unitsTeams[unitIdentifier];
+        byte unitTeam = system.unitsTeams[unitIdentifier];
         int unitTimer = system.unitsTimers[unitIdentifier];
         float handDistance = handDistanceForAttackTimer(unitTimer);
         
@@ -310,7 +310,7 @@ public class BaseSlapperHandler
             float unitX = system.unitsXs[unitIdentifier];
             float unitY = system.unitsYs[unitIdentifier];
             float unitAngle = system.unitsAngles[unitIdentifier];
-            char unitTeam = system.unitsTeams[unitIdentifier];
+            byte unitTeam = system.unitsTeams[unitIdentifier];
             float weaponX = handX(unitX, unitAngle, handDistance);
             float weaponY = handY(unitY, unitAngle, handDistance);
             

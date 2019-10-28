@@ -195,13 +195,13 @@ public class BattlePhaseState
         screen.setTextPosition(Dimensions.HELPBAR_X, Dimensions.HELPBAR_Y);
         if (game.padMenuUI.isShown())
         {
-            screen.printText(BUTTON_PAD.bin());
+            screen.printPText(BUTTON_PAD.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU_COMMANDS_HELP);
         }
         else
         {
-            screen.printText(BUTTON_C.bin());
+            screen.printPText(BUTTON_C.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU);
             screen.print(Texts.MISC_SEPARATOR);

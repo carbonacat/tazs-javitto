@@ -227,25 +227,25 @@ public class BattlePreparationPhaseState
         if (game.uiMode == UIModes.MENU)
         {
             screen.setTextColor(Colors.HELP_ACTIVE);
-            screen.printText(BUTTON_PAD.bin());
+            screen.printPText(BUTTON_PAD.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU_COMMANDS_HELP);
         }
         else if (game.uiMode == UIModes.REMOVE)
         {
             screen.setTextColor(hasHoveredUnit ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
-            screen.printText(BUTTON_B.bin());
+            screen.printPText(BUTTON_B.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_REMOVE);
             screen.print(Texts.MISC_BIG_SEPARATOR);
-            screen.printText(BUTTON_A.bin());
+            screen.printPText(BUTTON_A.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_CONTROL);
         }
         else if ((game.uiMode == UIModes.PLACE) || (game.uiMode == UIModes.NO_MORE_UNITS) || (game.uiMode == UIModes.TOO_EXPENSIVE))
         {
             screen.setTextColor((game.uiMode == UIModes.PLACE) ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
-            screen.printText(BUTTON_A.bin());
+            screen.printPText(BUTTON_A.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_K);
             if (game.uiMode == UIModes.NO_MORE_UNITS)

@@ -197,18 +197,18 @@ public class BattleResultPhaseState
         if (game.padMenuUI.isShown())
         {
             screen.setTextColor(Colors.HELP_ACTIVE);
-            screen.printText(BUTTON_PAD.bin());
+            screen.printPText(BUTTON_PAD.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU_COMMANDS_HELP);
         }
         else
         {
             screen.setTextColor(Colors.HELP_ACTIVE);
-            screen.printText(BUTTON_B.bin());
+            screen.printPText(BUTTON_B.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.RESULT_STATS);
             screen.print(Texts.MISC_BIG_SEPARATOR);
-            screen.printText(BUTTON_C.bin());
+            screen.printPText(BUTTON_C.bin());
             screen.print(Texts.MISC_SEPARATOR);
             screen.print(Texts.MENU);
         }

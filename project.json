@@ -1088,6 +1088,9 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\BUTTON_C.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\CHALLENGES_TITLE.bin": {
+			"sdcard": false
 		}
 	}
 }

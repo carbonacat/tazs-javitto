@@ -16,6 +16,7 @@ import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.CHALLENGES_TITLE;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -114,9 +115,9 @@ class ChallengesListState
         screen.setTextColor(Colors.TITLE_TEXT);
         screen.print(Texts.TITLE);
         
-        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.textWidth(Texts.CHALLENGES_TITLE)) / 2, Dimensions.TITLE_SUBTITLE_Y);
+        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(CHALLENGES_TITLE.bin())) / 2, Dimensions.TITLE_SUBTITLE_Y);
         screen.setTextColor(Colors.TITLE_SUBTEXT);
-        screen.print(Texts.CHALLENGES_TITLE);
+        screen.printPText(CHALLENGES_TITLE.bin());
 
         for (int entry = 0; entry != mChallenges.length; entry++)
             drawMenuChoice(entry, screen);

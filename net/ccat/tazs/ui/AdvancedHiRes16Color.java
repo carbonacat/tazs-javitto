@@ -208,7 +208,7 @@ public class AdvancedHiRes16Color
      * Prints the text stored in the given pointer, up to the next 0.
      * @param textPointer
      */
-    public void printText(pointer textPointer)
+    public void printPText(pointer textPointer)
     {
         int textByte = System.memory.LDRB(textPointer);
         
@@ -218,6 +218,33 @@ public class AdvancedHiRes16Color
             textPointer++;
             textByte = System.memory.LDRB(textPointer);
         }
+    }
+    
+    /**
+     * Same than textWidth(String), but for null-terminated pointers.
+     */
+    public int pTextWidth(pointer textPointer)
+    {
+		if (font == null)
+			return 0L;
+
+		int total = 0L;
+		uint w = System.memory.LDRB(font);
+		uint h = System.memory.LDRB(font + 1L);
+		char index = 0;
+		
+		while ((index = (char)System.memory.LDRB(textPointer)) != 0)
+		{
+			index -= (char)System.memory.LDRB(font + 2L);
+			uint extra = (((h!=8L) && (h!=16L)) ? 1L : 0L);
+			uint hbytes = (h>>3L) + extra;
+			pointer bitmap = font + 4L + index * (w * hbytes + 1L);
+			int numBytes = System.memory.LDRB( bitmap );
+			
+			total += numBytes + charSpacing;
+		    textPointer++;
+		}
+		return total;
     }
     
     /**

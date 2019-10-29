@@ -1245,6 +1245,12 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\challenges\\ChallengesPack.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\challenges/ChallengePackReader.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\challenges\\ChallengePackReader.java": {
+			"sdcard": false
 		}
 	}
 }

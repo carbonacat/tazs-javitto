@@ -6,12 +6,12 @@ import femto.State;
 
 import net.ccat.tazs.battle.modes.ChallengeBattleMode;
 import net.ccat.tazs.battle.modes.challenges.ChallengeFromBinaryBattleMode;
-import net.ccat.tazs.resources.challenges.Challenge01;
+import net.ccat.tazs.resources.challenges.ChallengesPack;
+import net.ccat.tazs.resources.challenges.ChallengePackReader;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
-import net.ccat.tazs.resources.texts.CHALLENGES_TITLE;
 import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
 import net.ccat.tazs.resources.texts.TITLE;
 import net.ccat.tazs.resources.VideoConstants;
@@ -30,17 +30,22 @@ class ChallengesListState
     public ChallengesListState(TAZSGame game, int identifier)
     {
         mGame = game;
-        mChallenges = new ChallengeBattleMode[]
+        
+        mPackTitle = ChallengePackReader.titleFromPack(ChallengesPack.bin());
+        mPackDescription = ChallengePackReader.descriptionFromPack(ChallengesPack.bin());
+        
+        // TODO:
+        /*mChallenges = new ChallengeBattleMode[]
         {
-            new ChallengeFromBinaryBattleMode(0, Challenge01.bin())/*,
+            new ChallengeFromBinaryBattleMode(0, Challenge01.bin()),
             new Challenge02BattleMode(1),
             new Challenge03BattleMode(2),
             new Challenge04BattleMode(3),
             new Challenge05BattleMode(4),
-            new ChallengeZ01BattleMode(5)*/
+            new ChallengeZ01BattleMode(5)
         };
         if (identifier < mChallenges.length)
-            mCurrentMenuIdentifier = identifier;
+            mCurrentMenuIdentifier = identifier;*/
     }
     
     
@@ -50,9 +55,9 @@ class ChallengesListState
     {
         Performances.onInit();
         
-        int cursorY = Dimensions.TITLE_MENU_ENTRY_Y_START + mCurrentMenuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
-        
-        mGame.menuCursorSprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CURSOR_X, cursorY - VideoConstants.MENU_CURSOR_ORIGIN_Y);
+        // TODO:
+        // int cursorY = Dimensions.TITLE_MENU_ENTRY_Y_START + mCurrentMenuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
+        // mGame.menuCursorSprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CURSOR_X, cursorY - VideoConstants.MENU_CURSOR_ORIGIN_Y);
     }
     
     public void update()
@@ -61,17 +66,18 @@ class ChallengesListState
         
         AdvancedHiRes16Color screen = mGame.screen;
         
-        if (Button.A.justPressed())
+        if (Button.B.justPressed())
+        {
+            mGame.cursorCancelSound.play();
+            Game.changeState(new TitleScreenState(mGame));
+        }
+        // TODO
+        /*else if (Button.A.justPressed())
         {
             mGame.cursorSelectSound.play();
             
             mGame.battleMode = mChallenges[mCurrentMenuIdentifier];
             mGame.battleMode.onLaunch(mGame);
-        }
-        else if (Button.B.justPressed())
-        {
-            mGame.cursorCancelSound.play();
-            Game.changeState(new TitleScreenState(mGame));
         }
         else
         {
@@ -86,7 +92,7 @@ class ChallengesListState
                 mGame.cursorMoveSound.play();
             }
             mCurrentMenuIdentifier = (mCurrentMenuIdentifier + mChallenges.length) % mChallenges.length;
-        }
+        }*/
         
         draw(screen);
         
@@ -112,19 +118,20 @@ class ChallengesListState
         screen.setTextColor(Colors.TITLE_TEXT);
         screen.printPText(TITLE.bin());
         
-        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(CHALLENGES_TITLE.bin())) / 2, Dimensions.TITLE_SUBTITLE_Y);
+        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(mPackTitle)) / 2, Dimensions.TITLE_SUBTITLE_Y);
         screen.setTextColor(Colors.TITLE_SUBTEXT);
-        screen.printPText(CHALLENGES_TITLE.bin());
+        screen.printPText(mPackTitle);
 
-        for (int entry = 0; entry != mChallenges.length; entry++)
-            drawMenuChoice(entry, screen);
+        /*for (int entry = 0; entry != mChallenges.length; entry++)
+            drawMenuChoice(entry, screen);*/
         
         screen.flush();
         Performances.onFlushedScreen();
     }
     
     
-    private void drawMenuChoice(int menuIdentifier, AdvancedHiRes16Color screen)
+    // TODO: 
+    /*private void drawMenuChoice(int menuIdentifier, AdvancedHiRes16Color screen)
     {
         int y = Dimensions.TITLE_MENU_ENTRY_Y_START + menuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
         boolean menuIsCurrent = (menuIdentifier == mCurrentMenuIdentifier);
@@ -148,9 +155,11 @@ class ChallengesListState
         screen.print(menuIdentifier + 1);
         screen.printPText(MISC_SEPARATOR.bin());
         screen.printPText(mChallenges[menuIdentifier].name());
-    }
+    }*/
     
     private TAZSGame mGame;
+    private pointer mPackTitle;
+    private pointer mPackDescription;
+    
     private int mCurrentMenuIdentifier = 0;
-    private ChallengeBattleMode[] mChallenges;
 }

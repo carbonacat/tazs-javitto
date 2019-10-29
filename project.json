@@ -1217,6 +1217,34 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\challenges\\Challenge01.bin.bak": {
 			"sdcard": false
+		},
+		"/scripts": {},
+		"\\scripts": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\challenges\\ChallengeFromBinaryBattleMode.java": {
+			"sdcard": false
+		},
+		"\\scripts/create-challenges.js": {
+			"sdcard": false
+		},
+		"\\scripts\\create-challenges.js": {
+			"sdcard": false
+		},
+		"\\scripts/test.bin": {
+			"sdcard": false
+		},
+		"\\scripts\\test.bin": {
+			"sdcard": false
+		},
+		"\\scripts\\create-levels.js": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\challengesChallengesPack.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\challenges\\ChallengesPack.bin": {
+			"sdcard": false
 		}
 	}
 }

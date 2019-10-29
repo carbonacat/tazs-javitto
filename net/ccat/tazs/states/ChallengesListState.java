@@ -31,10 +31,9 @@ class ChallengesListState
     {
         mGame = game;
         
-        mPackTitle = ChallengePackReader.titleFromPack(ChallengesPack.bin());
-        mPackDescription = ChallengePackReader.descriptionFromPack(ChallengesPack.bin());
-        mChallenges = ChallengePackReader.challengesFromPack(ChallengesPack.bin());
-        mChallengesCount = ChallengePackReader.countFromChallenges(mChallenges);
+        mPackTitle = ChallengePackReader.titlePointerFromPack(ChallengesPack.bin());
+        mPackDescription = ChallengePackReader.descriptionPointerFromPack(ChallengesPack.bin());
+        mChallengesCount = ChallengePackReader.challengesCountFromPack(ChallengesPack.bin());
         
         if (identifier < mChallengesCount)
             mCurrentMenuIdentifier = identifier;
@@ -126,6 +125,7 @@ class ChallengesListState
         int y = Dimensions.TITLE_MENU_ENTRY_Y_START + menuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
         boolean menuIsCurrent = (menuIdentifier == mCurrentMenuIdentifier);
         int entryColor = Colors.TITLE_MENU_ENTRY;
+        pointer challengePointer = ChallengePackReader.challengePointerFromPack(ChallengesPack.bin(), menuIdentifier);
         
         if (menuIsCurrent)
         {
@@ -144,6 +144,7 @@ class ChallengesListState
         screen.setTextColor(entryColor);
         screen.print(menuIdentifier + 1);
         screen.printPText(MISC_SEPARATOR.bin());
+        screen.printPText(ChallengePackReader.titlePointerFromChallenge(challengePointer));
         // TODO:
         //screen.printPText(mChallenges[menuIdentifier].name());
     }

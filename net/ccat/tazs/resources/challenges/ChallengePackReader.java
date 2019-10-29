@@ -10,41 +10,63 @@ public class ChallengePackReader
      * @param packPointer
      * @return A pointer at the pack's title.
      */
-    public static final pointer titleFromPack(pointer packPointer)
+    public static final pointer titlePointerFromPack(pointer packPointer)
     {
-        return packPointer + (int)System.memory.LDRH(packPointer + PACK_TITLE_ADDRESS_OFFSET);
+        return packPointer + readH(packPointer + PACK_TITLE_ADDRESS_OFFSET);
     }
     
     /**
      * @param packPointer
      * @return A pointer at the pack's title.
      */
-    public static final pointer descriptionFromPack(pointer packPointer)
+    public static final pointer descriptionPointerFromPack(pointer packPointer)
     {
-        return packPointer + (int)System.memory.LDRH(packPointer + PACK_DESCRIPTION_ADDRESS_OFFSET);
+        return packPointer + readH(packPointer + PACK_DESCRIPTION_ADDRESS_OFFSET);
     }
     
     /**
      * @param packPointer
-     * @return A pointer at the list of challenges - aka challengesPointer.
+     * @return How many challenges there is inside this pack.
      */
-    public static final pointer challengesFromPack(pointer packPointer)
+    public static final int challengesCountFromPack(pointer packPointer)
     {
-        return packPointer + (int)System.memory.LDRH(packPointer + PACK_CHALLENGES_ADDRESS_OFFSET);
+        return (int)System.memory.LDRB(packPointer + readH(packPointer + PACK_CHALLENGES_ADDRESS_OFFSET));
     }
     
     /**
-     * @param challengesPointer - A pointer got from challengesFromPack().
+     * @param packPointer
+     * @param challengeIndex - 0 means the first challenge in the pack. Unrelated to Challenge's ID.
      * @return How many challenges there is inside this pack.
      */
-    public static final int countFromChallenges(pointer challengesPointer)
+    public static final pointer challengePointerFromPack(pointer packPointer, int challengeIndex)
     {
-        return (int)System.memory.LDRB(challengesPointer);
+        pointer addressTablePointer = packPointer + readH(packPointer + PACK_CHALLENGES_ADDRESS_OFFSET) + 1;
+        pointer challengeAddressPointer = addressTablePointer + challengeIndex * 2;
+
+        return packPointer + readH(challengeAddressPointer);
     }
     
+    /**
+     * @param packPointer
+     * @param challengeIndex - 0 means the first challenge in the pack. Unrelated to Challenge's ID.
+     * @return How many challenges there is inside this pack.
+     */
+    public static final pointer titlePointerFromChallenge(pointer challengePointer)
+    {
+        return challengePointer + readH(challengePointer + CHALLENGE_TITLE_OFFSET_OFFSET);
+    }
+    
+    /**
+     * @return A uint16 read at the given location.
+     */
+    public static final int readH(pointer pointer)
+    {
+        return ((int)System.memory.LDRB(pointer)) + ((int)System.memory.LDRB(pointer + 1) << 8);
+    }
     
     
     private static final int PACK_TITLE_ADDRESS_OFFSET = 16;
     private static final int PACK_DESCRIPTION_ADDRESS_OFFSET = 18;
     private static final int PACK_CHALLENGES_ADDRESS_OFFSET = 20;
+    private static final int CHALLENGE_TITLE_OFFSET_OFFSET = 1;
 }

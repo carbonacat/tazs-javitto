@@ -17,6 +17,7 @@ public abstract class ChallengeFromPackBattleMode
         mChallengeName = ChallengePackReader.titlePointerFromChallenge(challengePointer);
         mChallengeDescription = ChallengePackReader.descriptionPointerFromChallenge(challengePointer);
         mAllowedCost = ChallengePackReader.allowedResourcesFromChallenge(challengePointer);
+        mAllowedUnitTypes = ChallengePackReader.allowedUnitTypesFromChallenge(challengePointer);
     }
     
     
@@ -42,7 +43,9 @@ public abstract class ChallengeFromPackBattleMode
     
     public boolean isUnitTypeAllowed(TAZSGame game, int type)
     {
-        return (type != UnitTypes.TARGET);
+        int expectedMask = 1 << type;
+        
+        return (mAllowedUnitTypes & expectedMask) == expectedMask;
     }
     
     
@@ -70,4 +73,5 @@ public abstract class ChallengeFromPackBattleMode
     private pointer mChallengeName;
     private pointer mChallengeDescription;
     private int mAllowedCost;
+    private int mAllowedUnitTypes;
 }

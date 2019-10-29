@@ -90,14 +90,14 @@ public class RandomBattleMode
     
     /***** INFORMATION *****/
     
-    public String name()
+    public pointer name()
     {
-        return "";
+        return null;
     }
     
-    public String summary()
+    public pointer summary()
     {
-        return "";
+        return null;
     }
     
     public int allowedCost()

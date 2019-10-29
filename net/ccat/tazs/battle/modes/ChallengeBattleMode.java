@@ -153,11 +153,11 @@ public abstract class ChallengeBattleMode
     /**
      * @return The name of this Challenge.
      */
-    public abstract String name();
+    public abstract pointer name();
     /**
      * @return The summary of this Challenge.
      */
-    public abstract String summary();
+    public abstract pointer summary();
     
     /**
      * @return the maximal cost.
@@ -181,7 +181,8 @@ public abstract class ChallengeBattleMode
         int enemyCost = game.unitsSystem.unitsCost(Teams.ENEMY);
         
         game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYERX, game.unitsSystem.unitsCount(Teams.PLAYER), allowedCost() - playerCost);
-        game.topBarUI.setRightNameAndSummary(name(), summary());
+        // TODO: Convert.
+        //game.topBarUI.setRightNameAndSummary(name(), summary());
         updateTopBarsWithHealth(game);
     }
     

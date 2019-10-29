@@ -5,12 +5,7 @@ import femto.input.Button;
 import femto.State;
 
 import net.ccat.tazs.battle.modes.ChallengeBattleMode;
-import net.ccat.tazs.battle.modes.challenges.Challenge01BattleMode;
-import net.ccat.tazs.battle.modes.challenges.Challenge02BattleMode;
-import net.ccat.tazs.battle.modes.challenges.Challenge03BattleMode;
-import net.ccat.tazs.battle.modes.challenges.Challenge04BattleMode;
-import net.ccat.tazs.battle.modes.challenges.Challenge05BattleMode;
-import net.ccat.tazs.battle.modes.challenges.ChallengeZ01BattleMode;
+import net.ccat.tazs.battle.modes.challenges.ChallengeFromBinaryBattleMode;
 import net.ccat.tazs.resources.challenges.Challenge01;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
@@ -37,12 +32,12 @@ class ChallengesListState
         mGame = game;
         mChallenges = new ChallengeBattleMode[]
         {
-            new Challenge01BattleMode(0),
+            new ChallengeFromBinaryBattleMode(0, Challenge01.bin())/*,
             new Challenge02BattleMode(1),
             new Challenge03BattleMode(2),
             new Challenge04BattleMode(3),
             new Challenge05BattleMode(4),
-            new ChallengeZ01BattleMode(5)
+            new ChallengeZ01BattleMode(5)*/
         };
         if (identifier < mChallenges.length)
             mCurrentMenuIdentifier = identifier;
@@ -152,7 +147,7 @@ class ChallengesListState
         screen.setTextColor(entryColor);
         screen.print(menuIdentifier + 1);
         screen.printPText(MISC_SEPARATOR.bin());
-        screen.print(mChallenges[menuIdentifier].name());
+        screen.printPText(mChallenges[menuIdentifier].name());
     }
     
     private TAZSGame mGame;

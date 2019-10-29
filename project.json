@@ -1214,6 +1214,9 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_NO_MANS_LAND.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\challenges\\Challenge01.bin.bak": {
+			"sdcard": false
 		}
 	}
 }

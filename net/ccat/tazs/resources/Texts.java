@@ -8,8 +8,6 @@ class Texts
 {
     /***** CHALLENGES *****/
     
-    public static final String CHALLENGES_01_NAME = "A Bunch of Guys";
-    public static final String CHALLENGES_01_SUMMARY = "Best be careful.";
     public static final String CHALLENGES_02_NAME = "A Bunch of Guys 2";
     public static final String CHALLENGES_02_SUMMARY = "Best be more careful.";
     public static final String CHALLENGES_03_NAME = "A Bunch of Guys 3";

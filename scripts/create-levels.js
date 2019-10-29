@@ -29,13 +29,27 @@ tazs.NULLSHORT = "\x00\x00";
 tazs.PACK_CONTENT_ADDRESS = 24;
 tazs.CHALLENGE_CONTENT_OFFSET = 11;
 
-tazs.fromUInt16 = function(value)
+tazs.writeUInt16 = function(data, value)
 {
-    return String.fromCharCode(value & 0xFF) + String.fromCharCode((value >> 8) & 0xFF);
+    data.push(value & 0xFF);
+    data.push((value >> 8) & 0xFF);
 }
-tazs.fromUInt8 = function(value)
+tazs.writeString = function(data, value)
 {
-    return String.fromCharCode(value & 0xFF);
+    for (var charI = 0; charI < value.length; charI++)
+        data.push(value.charCodeAt(charI));
+    data.push(0);
+}
+tazs.writeUInt8 = function(data, value)
+{
+    data.push(value & 0xFF);
+}
+tazs.writeInt8 = function(data, value)
+{
+    if (value >= 0)
+        data.push(value & 0xFF);
+    else
+        data.push((256 + value) & 0xFF);
 }
 
 
@@ -49,61 +63,89 @@ tazs.compileChallengePack = function(filename, packSpecifications)
 {
     let targetFilePath = this.challengesDestFolder + filename + ".bin";
     // The full binary, we'll built piece by piece.
-    var packBinary = "";
-    var contentsBinary = "";
+    
+    var packBinary = [];
+    var packLength = 0;
+    var contentsBinary = [];
+    var contentsLength = 0;
     
     {
         // Magic value.
-        packBinary += this.MAGIC_STRING;
-        packBinary += this.NULLCHAR;
+        this.writeString(packBinary, this.MAGIC_STRING);
     }
     
     {
         // Pack's title.
-        packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS);
-        contentsBinary += packSpecifications.title;
-        contentsBinary += this.NULLCHAR;
+        this.writeUInt16(packBinary, this.PACK_CONTENT_ADDRESS);
+        this.writeString(contentsBinary, packSpecifications.title);
     }
     
     {
         // Pack's description.
-        packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS + contentsBinary.length);
-        contentsBinary += packSpecifications.description;
-        contentsBinary += this.NULLCHAR;
+        this.writeUInt16(packBinary, this.PACK_CONTENT_ADDRESS + contentsBinary.length);
+        this.writeString(contentsBinary, packSpecifications.description);
     }
     
     {
         // Pack's Challenges
-        packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS + contentsBinary.length);
-        contentsBinary += this.fromUInt8(packSpecifications.challenges.length);
+        this.writeUInt16(packBinary, this.PACK_CONTENT_ADDRESS + contentsBinary.length);
+        
+        // Number of challenges.
+        this.writeUInt8(contentsBinary, packSpecifications.challenges.length);
+        
         for (var challengeI in packSpecifications.challenges)
         {
-            var challengeContentsBinary = "";
+            var challengeContentsBinary = [];
             var challengeSpecs = packSpecifications.challenges[challengeI];
             
             {
                 // Challenge's Identifier
-                contentsBinary += this.fromUInt8(challengeSpecs.identifier);
+                this.writeUInt8(contentsBinary, challengeSpecs.identifier);
             }
     
             {
                 // Challenge's Title.
-                contentsBinary += this.fromUInt16(this.CHALLENGE_CONTENT_OFFSET);
-                challengeContentsBinary += challengeSpecs.title;
-                challengeContentsBinary += this.NULLCHAR;
+                this.writeUInt16(contentsBinary, this.CHALLENGE_CONTENT_OFFSET);
+                this.writeString(challengeContentsBinary, challengeSpecs.title);
             }
             
             {
                 // Challenge's Description.
-                contentsBinary += this.fromUInt16(this.CHALLENGE_CONTENT_OFFSET + challengeContentsBinary.length);
-                challengeContentsBinary += challengeSpecs.description;
-                challengeContentsBinary += this.NULLCHAR;
+                this.writeUInt16(contentsBinary, this.CHALLENGE_CONTENT_OFFSET + challengeContentsBinary.length);
+                this.writeString(challengeContentsBinary, challengeSpecs.description);
             }
             
             {
                 // Challenge's Units.
-                contentsBinary += this.fromUInt16(this.CHALLENGE_CONTENT_OFFSET + challengeContentsBinary.length);
-                // TODO: Fills the units here.
+                this.writeUInt16(contentsBinary, this.CHALLENGE_CONTENT_OFFSET + challengeContentsBinary.length);
+                
+                // Number of units.
+                this.writeUInt8(challengeContentsBinary, challengeSpecs.units.length);
+                for (var unitI in challengeSpecs.units)
+                {
+                    var unitSpec = challengeSpecs.units[unitI];
+                    
+                    if (unitSpec.length != 4)
+                        throw new Exception("Wrong unit format for unit #" + unitI);
+                    
+                    var unitTeamKey = unitSpec[0];
+                    var unitTypeKey = unitSpec[1];
+                    var unitX = unitSpec[2];
+                    var unitY = unitSpec[3];
+                    var unitTeamId = this.TEAMS[unitTeamKey];
+                    var unitTypeId = this.TEAMS[unitTeamKey];
+                    
+                    if (unitTeamId === undefined)
+                        throw new Exception("Unknow team " + unitTeamKey + " for unit #" + unitI);
+                    if (unitTypeId === undefined)
+                        throw new Exception("Unknown unit type " + unitTypeKey + " for unit #" + unitI);
+                        
+                    var unitInfo = unitTeamId << 6 | unitTypeId;
+                    
+                    this.writeUInt8(challengeContentsBinary, unitInfo);
+                    this.writeUInt8(challengeContentsBinary, unitX);
+                    this.writeUInt8(challengeContentsBinary, unitY);
+                }
             }
             
             {
@@ -119,26 +161,32 @@ tazs.compileChallengePack = function(filename, packSpecifications)
                         throw new Exception("Unknown unit type " + unitKey + ".");
                     allowedUnits = allowedUnits | (1 << unitId);
                 }
-                contentsBinary += this.fromUInt16(allowedUnits);
+                this.writeUInt16(contentsBinary, allowedUnits);
             }
             
             {
                 // Allowed resources
-                contentsBinary += this.fromUInt16(challengeSpecs.allowedResources);
+                this.writeUInt16(contentsBinary, challengeSpecs.allowedResources);
             }
     
-            contentsBinary += challengeContentsBinary;
+            contentsBinary = contentsBinary.concat(challengeContentsBinary);
         }
     }
     
     // Pack's Extra.
-    packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS + contentsBinary.length);
+    this.writeUInt16(packBinary, this.PACK_CONTENT_ADDRESS + contentsBinary.length);
     // TODO: Fills the extra parts here.
     
-    packBinary += contentsBinary;
+    packBinary = packBinary.concat(contentsBinary);
     
-    write(targetFilePath, packBinary);
-    log("Wrote " + packBinary.length + "B into " + targetFilePath + ".");
+    var finalBinary = new Uint8Array(packBinary.length);
+    
+    for (var byteI = 0; byteI < packBinary.length; byteI++)
+        finalBinary[byteI] = packBinary[byteI];
+
+    write(targetFilePath, finalBinary);
+    
+    log("Wrote " + finalBinary.length + "B into " + targetFilePath + ".");
 };
 
 (function()
@@ -168,13 +216,13 @@ tazs.compileChallengePack = function(filename, packSpecifications)
                 [
                     [
                         // The Unit's team. See `tazs.TEAMS` for possible values.
-                        "player",
+                        "enemy",
                         // The Unit's type. See `tazs.UNITTYPES` for possible values.
                         "brawler",
                         // Coordinates. 0, 0 is usually the center of the scene. Wrapped into [128-127].
                         40, -10
                     ],
-                    ["player", "brawler", 40, -10]
+                    ["enemy", "target", 40, 10]
                 ]
             }
         ]

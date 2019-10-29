@@ -5,7 +5,7 @@ import femto.input.Button;
 import femto.State;
 
 import net.ccat.tazs.battle.modes.ChallengeBattleMode;
-import net.ccat.tazs.battle.modes.challenges.ChallengeFromBinaryBattleMode;
+import net.ccat.tazs.battle.modes.ChallengeFromPackBattleMode;
 import net.ccat.tazs.resources.challenges.ChallengesPack;
 import net.ccat.tazs.resources.challenges.ChallengePackReader;
 import net.ccat.tazs.resources.Colors;
@@ -62,14 +62,14 @@ class ChallengesListState
             mGame.cursorCancelSound.play();
             Game.changeState(new TitleScreenState(mGame));
         }
-        // TODO
-        /*else if (Button.A.justPressed())
+        else if (Button.A.justPressed())
         {
+            pointer challengePointer = ChallengePackReader.challengePointerFromPack(ChallengesPack.bin(), mCurrentMenuIdentifier);
+        
             mGame.cursorSelectSound.play();
-            
-            mGame.battleMode = mChallenges[mCurrentMenuIdentifier];
+            mGame.battleMode = new ChallengeFromPackBattleMode(mCurrentMenuIdentifier, challengePointer);
             mGame.battleMode.onLaunch(mGame);
-        }*/
+        }
         else
         {
             if (Button.Up.justPressed())

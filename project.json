@@ -1251,6 +1251,12 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\challenges\\ChallengePackReader.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes/ChallengeFromPackBattleMode.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\modes\\ChallengeFromPackBattleMode.java": {
+			"sdcard": false
 		}
 	}
 }

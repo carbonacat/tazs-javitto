@@ -153,11 +153,11 @@ public abstract class ChallengeBattleMode
     /**
      * @return The name of this Challenge.
      */
-    public abstract pointer name();
+    public abstract pointer battleTitle();
     /**
      * @return The summary of this Challenge.
      */
-    public abstract pointer summary();
+    public abstract pointer battleSummary();
     
     /**
      * @return the maximal cost.

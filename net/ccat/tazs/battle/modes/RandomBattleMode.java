@@ -90,12 +90,12 @@ public class RandomBattleMode
     
     /***** INFORMATION *****/
     
-    public pointer name()
+    public pointer battleTitle()
     {
         return null;
     }
     
-    public pointer summary()
+    public pointer battleSummary()
     {
         return null;
     }

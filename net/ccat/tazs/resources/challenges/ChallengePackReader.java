@@ -47,13 +47,29 @@ public class ChallengePackReader
     }
     
     /**
-     * @param packPointer
-     * @param challengeIndex - 0 means the first challenge in the pack. Unrelated to Challenge's ID.
-     * @return How many challenges there is inside this pack.
+     * @param challengePointer
+     * @return The title for this Challenge.
      */
     public static final pointer titlePointerFromChallenge(pointer challengePointer)
     {
         return challengePointer + readH(challengePointer + CHALLENGE_TITLE_OFFSET_OFFSET);
+    }
+    
+    /**
+     * @param challengePointer
+     * @return The description for this Challenge.
+     */
+    public static final pointer descriptionPointerFromChallenge(pointer challengePointer)
+    {
+        return challengePointer + readH(challengePointer + CHALLENGE_DESCRIPTION_OFFSET_OFFSET);
+    }
+    
+    /**
+     * @return The allowed resources for that challenge.
+     */
+    public static final int allowedResourcesFromChallenge(pointer challengePointer)
+    {
+        return readH(challengePointer + CHALLENGE_ALLOWED_RESOURCES_OFFSET_OFFSET);
     }
     
     /**
@@ -69,4 +85,6 @@ public class ChallengePackReader
     private static final int PACK_DESCRIPTION_ADDRESS_OFFSET = 18;
     private static final int PACK_CHALLENGES_ADDRESS_OFFSET = 20;
     private static final int CHALLENGE_TITLE_OFFSET_OFFSET = 1;
+    private static final int CHALLENGE_DESCRIPTION_OFFSET_OFFSET = 3;
+    private static final int CHALLENGE_ALLOWED_RESOURCES_OFFSET_OFFSET = 9;
 }

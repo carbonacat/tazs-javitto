@@ -1124,6 +1124,18 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\TITLE_MENU_SANDBOX.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TEAMS_ENEMY.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TEAMS_LEFT.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TEAMS_PLAYER.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TEAMS_RIGHT.bin": {
+			"sdcard": false
 		}
 	}
 }

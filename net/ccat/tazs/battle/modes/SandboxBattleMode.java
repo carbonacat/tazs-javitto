@@ -88,9 +88,9 @@ public class SandboxBattleMode
     
     private void updateTopBarUI(TAZSGame game)
     {
-        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_LEFT,
+        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_LEFTX,
                                           game.unitsSystem.unitsCount(Teams.PLAYER), game.unitsSystem.unitsCost(Teams.PLAYER));
-        game.topBarUI.setRightCountAndCost(Texts.TEAMS_RIGHT, game.unitsSystem.unitsCount(Teams.ENEMY), game.unitsSystem.unitsCost(Teams.ENEMY));
+        game.topBarUI.setRightCountAndCost(Texts.TEAMS_RIGHTX, game.unitsSystem.unitsCount(Teams.ENEMY), game.unitsSystem.unitsCost(Teams.ENEMY));
         updateTopBarsWithHealth(game);
     }
 }

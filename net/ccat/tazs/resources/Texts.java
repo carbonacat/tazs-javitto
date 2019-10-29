@@ -59,10 +59,10 @@ class Texts
     
     /***** TEAMS *****/
     
-    public static final String TEAMS_ENEMY = "Enemy";
-    public static final String TEAMS_LEFT = "Left";
-    public static final String TEAMS_PLAYER = "Player";
-    public static final String TEAMS_RIGHT = "Right";
+    public static final String TEAMS_ENEMYX = "Enemy";
+    public static final String TEAMS_LEFTX = "Left";
+    public static final String TEAMS_PLAYERX = "Player";
+    public static final String TEAMS_RIGHTX = "Right";
     
     
     /***** UNIT *****/

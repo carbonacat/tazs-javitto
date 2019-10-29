@@ -17,6 +17,8 @@ import net.ccat.tazs.resources.texts.MENU_COMMANDS_HELP;
 import net.ccat.tazs.resources.texts.MISC_BIG_SEPARATOR;
 import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
 import net.ccat.tazs.resources.texts.MISC_UNKNOWN;
+import net.ccat.tazs.resources.texts.TEAMS_ENEMY;
+import net.ccat.tazs.resources.texts.TEAMS_PLAYER;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.resources.sprites.ResultSummarySprite;
 import net.ccat.tazs.tools.MathTools;
@@ -157,9 +159,9 @@ public class BattleResultPhaseState
         screen.fillRect(Dimensions.RESULT_STATS_X + 1, mStatsY + 1, Dimensions.RESULT_STATS_WIDTH - 1, Dimensions.RESULT_STATS_HEIGHT - 1, Colors.WINDOW_BACKGROUND);
         screen.setTextColor(Colors.WINDOW_TEXT);
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_TEAMNAME_Y_OFFSET);
-        screen.print(Texts.TEAMS_PLAYER);
+        screen.printPText(TEAMS_PLAYER.bin());
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_TEAMNAME_Y_OFFSET);
-        screen.print(Texts.TEAMS_ENEMY);
+        screen.printPText(TEAMS_ENEMY.bin());
         
         screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
         screen.print(Texts.RESULT_COST_);

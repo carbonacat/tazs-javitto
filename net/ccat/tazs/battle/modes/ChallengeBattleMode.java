@@ -179,7 +179,7 @@ public abstract class ChallengeBattleMode
         int playerCost = game.unitsSystem.unitsCost(Teams.PLAYER);
         int enemyCost = game.unitsSystem.unitsCost(Teams.ENEMY);
         
-        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYER, game.unitsSystem.unitsCount(Teams.PLAYER), allowedCost() - playerCost);
+        game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYERX, game.unitsSystem.unitsCount(Teams.PLAYER), allowedCost() - playerCost);
         game.topBarUI.setRightNameAndSummary(name(), summary());
         updateTopBarsWithHealth(game);
     }

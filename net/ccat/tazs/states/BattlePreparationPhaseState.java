@@ -20,6 +20,7 @@ import net.ccat.tazs.resources.texts.MENU_COMMANDS_HELP;
 import net.ccat.tazs.resources.texts.MISC_BIG_SEPARATOR;
 import net.ccat.tazs.resources.texts.MISC_ERROR;
 import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
+import net.ccat.tazs.resources.texts.TEAMS_ENEMY;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
@@ -268,7 +269,7 @@ public class BattlePreparationPhaseState
             {
                 if (hasHoveredUnit)
                 {
-                    screen.print(Texts.TEAMS_ENEMY);
+                    screen.printPText(TEAMS_ENEMY.bin());
                     screen.printPText(MISC_SEPARATOR.bin());
                     screen.print(unitName);
                 }

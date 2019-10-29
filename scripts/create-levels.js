@@ -64,63 +64,78 @@ tazs.compileChallengePack = function(filename, packSpecifications)
     let targetFilePath = this.challengesDestFolder + filename + ".bin";
     // The full binary, we'll built piece by piece.
     
-    var packBinary = [];
-    var packLength = 0;
-    var contentsBinary = [];
-    var contentsLength = 0;
+    // Contains the magic value, and the 4 initial addresses.
+    var headerBinary = [];
+    // Contains the Title and the Description
+    var infoBinary = [];
+    // Contains the Challenges, including their address table.
+    var challengesContentsBinary = [];
+    // Contains the Extra.
+    var extraContentsBinary = [];
     
     {
         // Magic value.
-        this.writeString(packBinary, this.MAGIC_STRING);
+        this.writeString(headerBinary, this.MAGIC_STRING);
     }
     
     {
         // Pack's title.
-        this.writeUInt16(packBinary, this.PACK_CONTENT_ADDRESS);
-        this.writeString(contentsBinary, packSpecifications.title);
+        this.writeUInt16(headerBinary, this.PACK_CONTENT_ADDRESS);
+        this.writeString(infoBinary, packSpecifications.title);
     }
     
     {
         // Pack's description.
-        this.writeUInt16(packBinary, this.PACK_CONTENT_ADDRESS + contentsBinary.length);
-        this.writeString(contentsBinary, packSpecifications.description);
+        this.writeUInt16(headerBinary, this.PACK_CONTENT_ADDRESS + infoBinary.length);
+        this.writeString(infoBinary, packSpecifications.description);
     }
     
     {
+        var baseAddress = this.PACK_CONTENT_ADDRESS + infoBinary.length;
+        var addressTableBinary = [];
+        var challengesBinary = [];
+    
         // Pack's Challenges
-        this.writeUInt16(packBinary, this.PACK_CONTENT_ADDRESS + contentsBinary.length);
+        this.writeUInt16(headerBinary, baseAddress);
         
         // Number of challenges.
-        this.writeUInt8(contentsBinary, packSpecifications.challenges.length);
+        this.writeUInt8(addressTableBinary, packSpecifications.challenges.length);
+        
+        var addressTableSize = 1 + packSpecifications.challenges.length * 2;
         
         for (var challengeI in packSpecifications.challenges)
         {
-            var challengeContentsBinary = [];
+            var challengeBinary = [];
             var challengeSpecs = packSpecifications.challenges[challengeI];
             
             {
+                // Adding this Challenge to the table.
+                this.writeUInt16(addressTableBinary, baseAddress + addressTableSize + challengesBinary.length);
+            }
+            
+            {
                 // Challenge's Identifier
-                this.writeUInt8(contentsBinary, challengeSpecs.identifier);
+                this.writeUInt8(challengesBinary, challengeSpecs.identifier);
             }
     
             {
                 // Challenge's Title.
-                this.writeUInt16(contentsBinary, this.CHALLENGE_CONTENT_OFFSET);
-                this.writeString(challengeContentsBinary, challengeSpecs.title);
+                this.writeUInt16(challengesBinary, this.CHALLENGE_CONTENT_OFFSET);
+                this.writeString(challengeBinary, challengeSpecs.title);
             }
             
             {
                 // Challenge's Description.
-                this.writeUInt16(contentsBinary, this.CHALLENGE_CONTENT_OFFSET + challengeContentsBinary.length);
-                this.writeString(challengeContentsBinary, challengeSpecs.description);
+                this.writeUInt16(challengesBinary, this.CHALLENGE_CONTENT_OFFSET + challengeBinary.length);
+                this.writeString(challengeBinary, challengeSpecs.description);
             }
             
             {
                 // Challenge's Units.
-                this.writeUInt16(contentsBinary, this.CHALLENGE_CONTENT_OFFSET + challengeContentsBinary.length);
+                this.writeUInt16(challengesBinary, this.CHALLENGE_CONTENT_OFFSET + challengeBinary.length);
                 
                 // Number of units.
-                this.writeUInt8(challengeContentsBinary, challengeSpecs.units.length);
+                this.writeUInt8(challengeBinary, challengeSpecs.units.length);
                 for (var unitI in challengeSpecs.units)
                 {
                     var unitSpec = challengeSpecs.units[unitI];
@@ -142,9 +157,9 @@ tazs.compileChallengePack = function(filename, packSpecifications)
                         
                     var unitInfo = unitTeamId << 6 | unitTypeId;
                     
-                    this.writeUInt8(challengeContentsBinary, unitInfo);
-                    this.writeUInt8(challengeContentsBinary, unitX);
-                    this.writeUInt8(challengeContentsBinary, unitY);
+                    this.writeUInt8(challengeBinary, unitInfo);
+                    this.writeUInt8(challengeBinary, unitX);
+                    this.writeUInt8(challengeBinary, unitY);
                 }
             }
             
@@ -161,24 +176,27 @@ tazs.compileChallengePack = function(filename, packSpecifications)
                         throw new Exception("Unknown unit type " + unitKey + ".");
                     allowedUnits = allowedUnits | (1 << unitId);
                 }
-                this.writeUInt16(contentsBinary, allowedUnits);
+                this.writeUInt16(challengesBinary, allowedUnits);
             }
             
             {
                 // Allowed resources
-                this.writeUInt16(contentsBinary, challengeSpecs.allowedResources);
+                this.writeUInt16(challengesBinary, challengeSpecs.allowedResources);
             }
     
-            contentsBinary = contentsBinary.concat(challengeContentsBinary);
+            challengesBinary = challengesBinary.concat(challengeBinary);
         }
+        challengesContentsBinary = addressTableBinary.concat(challengesBinary);
     }
     
-    // Pack's Extra.
-    this.writeUInt16(packBinary, this.PACK_CONTENT_ADDRESS + contentsBinary.length);
-    // TODO: Fills the extra parts here.
+    {
+        // Pack's Extra.
+        this.writeUInt16(headerBinary, this.PACK_CONTENT_ADDRESS + infoBinary.length + challengesContentsBinary.length);
+        // TODO: Fills the extra parts here.
+        this.writeString(extraContentsBinary, "ORLY?");
+    }
     
-    packBinary = packBinary.concat(contentsBinary);
-    
+    var packBinary = headerBinary.concat(infoBinary, challengesContentsBinary, extraContentsBinary);
     var finalBinary = new Uint8Array(packBinary.length);
     
     for (var byteI = 0; byteI < packBinary.length; byteI++)

@@ -68,8 +68,8 @@ public class BattlePreparationPhaseState
         game.cursorSprite.playInvalid();
         game.padMenuUI.setPosition(Dimensions.PADMENU_X, Dimensions.PADMENU_Y);
         game.padMenuUI.clearChoices();
-        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_UP, PREPARATION_MENU_LAUNCH.bin());
-        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_DOWN, PREPARATION_MENU_EXIT.bin());
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, PREPARATION_MENU_LAUNCH.bin());
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, PREPARATION_MENU_EXIT.bin());
         
         if (mFromRetry)
             game.battleMode.onPreparationRetry(game);
@@ -318,8 +318,8 @@ public class BattlePreparationPhaseState
         int previousUnitType = mGame.battleMode.placeableUnitType(mGame, -1);
         int nextUnitType = mGame.battleMode.placeableUnitType(mGame, 1);
         
-        mGame.padMenuUI.setChoiceX(PadMenuUI.CHOICE_RIGHT, UnitTypes.idleHandlerForType(nextUnitType).name());
-        mGame.padMenuUI.setChoiceX(PadMenuUI.CHOICE_LEFT, UnitTypes.idleHandlerForType(previousUnitType).name());
+        mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, UnitTypes.idleHandlerForType(nextUnitType).name());
+        mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_LEFT, UnitTypes.idleHandlerForType(previousUnitType).name());
     }
     
     

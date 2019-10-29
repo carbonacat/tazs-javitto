@@ -46,8 +46,8 @@ public class BattlePhaseState
         
         game.centerCameraOn(0, 0);
         game.padMenuUI.clearChoices();
-        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_UP, BATTLE_RETRY.bin());
-        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_DOWN, BATTLE_EXIT.bin());
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, BATTLE_RETRY.bin());
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, BATTLE_EXIT.bin());
         game.unitsSystem.playerPadAngle = 0;
         game.unitsSystem.playerPadLength = 0;
         game.unitsSystem.playerPrimaryAction = false;

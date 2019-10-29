@@ -69,8 +69,8 @@ public class BattleResultPhaseState
         else
             mSummarySprite.playDraw();
         game.padMenuUI.clearChoices();
-        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_UP, RESULT_RETRY.bin());
-        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_DOWN, RESULT_EXIT.bin());
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, RESULT_RETRY.bin());
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, RESULT_EXIT.bin());
         
         mGame.battleMode.onResultInit(mGame, mWinnerTeam);
         

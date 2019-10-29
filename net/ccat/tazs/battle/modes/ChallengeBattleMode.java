@@ -128,7 +128,7 @@ public abstract class ChallengeBattleMode
     public void onResultInit(TAZSGame game, int winnerTeam)
     {
         if (winnerTeam == Teams.PLAYER)
-            game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_RIGHT, RESULT_NEXT_CHALLENGE.bin());
+            game.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, RESULT_NEXT_CHALLENGE.bin());
     }
     
     public boolean onResultMenuChoice(TAZSGame game, int selectedChoice)

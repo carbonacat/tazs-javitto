@@ -88,7 +88,7 @@ class PadMenuUI
      * @param choice The choice's identifier.
      * @param title The text to show.
      */
-    public void setChoiceX(int choice, pointer title)
+    public void setChoice(int choice, pointer title)
     {
         switch (choice)
         {
@@ -142,7 +142,7 @@ class PadMenuUI
      */
     public void unsetChoice(int choice)
     {
-        setChoiceX(choice, null);
+        setChoice(choice, null);
     }
     
     /**

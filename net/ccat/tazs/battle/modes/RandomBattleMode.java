@@ -68,7 +68,7 @@ public class RandomBattleMode
     
     public void onResultInit(TAZSGame game, int winnerTeam)
     {
-        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_RIGHT, RESULT_ANOTHER_BATTLE.bin());
+        game.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, RESULT_ANOTHER_BATTLE.bin());
     }
     
     public boolean onResultMenuChoice(TAZSGame game, int selectedChoice)

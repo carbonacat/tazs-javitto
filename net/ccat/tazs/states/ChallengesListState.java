@@ -33,6 +33,7 @@ class ChallengesListState
         
         mPackTitle = ChallengePackReader.titleFromPack(ChallengesPack.bin());
         mPackDescription = ChallengePackReader.descriptionFromPack(ChallengesPack.bin());
+        mChallenges = ChallengePackReader.challengesFromPack(ChallengesPack.bin());
         
         // TODO:
         /*mChallenges = new ChallengeBattleMode[]
@@ -160,6 +161,7 @@ class ChallengesListState
     private TAZSGame mGame;
     private pointer mPackTitle;
     private pointer mPackDescription;
+    private pointer mChallenges;
     
     private int mCurrentMenuIdentifier = 0;
 }

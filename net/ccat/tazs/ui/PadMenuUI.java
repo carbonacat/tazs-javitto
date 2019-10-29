@@ -88,7 +88,7 @@ class PadMenuUI
      * @param choice The choice's identifier.
      * @param title The text to show.
      */
-    public void setChoice(int choice, String title)
+    public void setChoiceX(int choice, pointer title)
     {
         switch (choice)
         {
@@ -142,7 +142,7 @@ class PadMenuUI
      */
     public void unsetChoice(int choice)
     {
-        setChoice(choice, null);
+        setChoiceX(choice, null);
     }
     
     /**
@@ -233,7 +233,7 @@ class PadMenuUI
     
     /***** PRIVATE *****/
     
-    private void drawChoice(int choice, String title, boolean enabled, AdvancedHiRes16Color screen)
+    private void drawChoice(int choice, pointer title, boolean enabled, AdvancedHiRes16Color screen)
     {
         int horizontalAlignment = UITools.ALIGNMENT_CENTER;
         int verticalAlignment = UITools.ALIGNMENT_CENTER;
@@ -263,10 +263,10 @@ class PadMenuUI
             break ;
         }
         screen.setTextColor(enabled ? Colors.PADMENU_TEXT : Colors.PADMENU_TEXT_DISABLED);
-        screen.drawLabel(title,
-                         borderColor, enabled ? Colors.PADMENU_BACKGROUND : Colors.PADMENU_BACKGROUND_DISABLED,
-                         LABEL_PADDING,
-                         choiceX, choiceY, horizontalAlignment, verticalAlignment);
+        screen.drawLabelP(title,
+                          borderColor, enabled ? Colors.PADMENU_BACKGROUND : Colors.PADMENU_BACKGROUND_DISABLED,
+                          LABEL_PADDING,
+                          choiceX, choiceY, horizontalAlignment, verticalAlignment);
     }
     
     
@@ -276,13 +276,13 @@ class PadMenuUI
     private boolean mHideUntilNextPress;
     private PadMenuSprite mPadMenuSprite;
     // I miss C++
-    private String mRightTitle;
+    private pointer mRightTitle;
     private boolean mRightIsEnabled;
-    private String mDownTitle;
+    private pointer mDownTitle;
     private boolean mDownIsEnabled;
-    private String mLeftTitle;
+    private pointer mLeftTitle;
     private boolean mLeftIsEnabled;
-    private String mUpTitle;
+    private pointer mUpTitle;
     private boolean mUpIsEnabled;
 
     private int mSelectedChoice = CHOICE_NONE;

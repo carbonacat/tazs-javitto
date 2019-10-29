@@ -3,7 +3,7 @@ package net.ccat.tazs.battle.handlers.slapper;
 import femto.Sprite;
 
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.UNIT_SLAPPER;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -45,9 +45,9 @@ public class BaseSlapperHandler
         return UnitTypes.SLAPPER;
     }
     
-    public String name()
+    public pointer name()
     {
-        return Texts.UNIT_SLAPPER;
+        return UNIT_SLAPPER.bin();
     }
     
     public int startingHealth()

@@ -20,6 +20,16 @@ import net.ccat.tazs.resources.texts.MENU_COMMANDS_HELP;
 import net.ccat.tazs.resources.texts.MISC_BIG_SEPARATOR;
 import net.ccat.tazs.resources.texts.MISC_ERROR;
 import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
+import net.ccat.tazs.resources.texts.MISC_UNKNOWN;
+import net.ccat.tazs.resources.texts.PREPARATION_COMMANDS_CONTROL;
+import net.ccat.tazs.resources.texts.PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS;
+import net.ccat.tazs.resources.texts.PREPARATION_COMMANDS_PLACE_INVALID_TOO_EXPENSIVE;
+import net.ccat.tazs.resources.texts.PREPARATION_COMMANDS_PLACE_UNIT_K;
+import net.ccat.tazs.resources.texts.PREPARATION_COMMANDS_REMOVE;
+import net.ccat.tazs.resources.texts.PREPARATION_ENEMY_SIDE;
+import net.ccat.tazs.resources.texts.PREPARATION_MENU_EXIT;
+import net.ccat.tazs.resources.texts.PREPARATION_MENU_LAUNCH;
+import net.ccat.tazs.resources.texts.PREPARATION_NO_MANS_LAND;
 import net.ccat.tazs.resources.texts.TEAMS_ENEMY;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
@@ -58,8 +68,8 @@ public class BattlePreparationPhaseState
         game.cursorSprite.playInvalid();
         game.padMenuUI.setPosition(Dimensions.PADMENU_X, Dimensions.PADMENU_Y);
         game.padMenuUI.clearChoices();
-        game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.PREPARATION_MENU_LAUNCH);
-        game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.PREPARATION_MENU_EXIT);
+        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_UP, PREPARATION_MENU_LAUNCH.bin());
+        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_DOWN, PREPARATION_MENU_EXIT.bin());
         
         if (mFromRetry)
             game.battleMode.onPreparationRetry(game);
@@ -218,7 +228,7 @@ public class BattlePreparationPhaseState
         TAZSGame game = mGame;
         AdvancedHiRes16Color screen = game.screen;
         boolean hasHoveredUnit = (game.focusedUnitIdentifier != UnitsSystem.IDENTIFIER_NONE);
-        String unitName = Texts.MISC_UNKNOWNX;
+        pointer unitName = MISC_UNKNOWN.bin();
         
         if (hasHoveredUnit)
             unitName =  game.unitsSystem.unitsHandlers[game.focusedUnitIdentifier].name();
@@ -241,40 +251,40 @@ public class BattlePreparationPhaseState
             screen.setTextColor(hasHoveredUnit ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.printPText(BUTTON_B.bin());
             screen.printPText(MISC_SEPARATOR.bin());
-            screen.print(Texts.PREPARATION_COMMANDS_REMOVE);
+            screen.printPText(PREPARATION_COMMANDS_REMOVE.bin());
             screen.printPText(MISC_BIG_SEPARATOR.bin());
             screen.printPText(BUTTON_A.bin());
             screen.printPText(MISC_SEPARATOR.bin());
-            screen.print(Texts.PREPARATION_COMMANDS_CONTROL);
+            screen.printPText(PREPARATION_COMMANDS_CONTROL.bin());
         }
         else if ((game.uiMode == UIModes.PLACE) || (game.uiMode == UIModes.NO_MORE_UNITS) || (game.uiMode == UIModes.TOO_EXPENSIVE))
         {
             screen.setTextColor((game.uiMode == UIModes.PLACE) ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
             screen.printPText(BUTTON_A.bin());
             screen.printPText(MISC_SEPARATOR.bin());
-            screen.print(Texts.PREPARATION_COMMANDS_PLACE_UNIT_K);
+            screen.printPText(PREPARATION_COMMANDS_PLACE_UNIT_K.bin());
             if (game.uiMode == UIModes.NO_MORE_UNITS)
-                screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS);
+                screen.printPText(PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS.bin());
             else if (game.uiMode == UIModes.TOO_EXPENSIVE)
-                screen.print(Texts.PREPARATION_COMMANDS_PLACE_INVALID_TOO_EXPENSIVE);
+                screen.printPText(PREPARATION_COMMANDS_PLACE_INVALID_TOO_EXPENSIVE.bin());
             else
-                screen.print(UnitTypes.idleHandlerForType(game.currentUnitType).name());
+                screen.printPText(UnitTypes.idleHandlerForType(game.currentUnitType).name());
         }
         else
         {
             screen.setTextColor(Colors.HELP_INACTIVE);
             if (game.uiMode == UIModes.NOMANSLAND)
-                screen.print(Texts.PREPARATION_NO_MANS_LAND);
+                screen.printPText(PREPARATION_NO_MANS_LAND.bin());
             else if (game.uiMode == UIModes.ENEMY_TERRITORY)
             {
                 if (hasHoveredUnit)
                 {
                     screen.printPText(TEAMS_ENEMY.bin());
                     screen.printPText(MISC_SEPARATOR.bin());
-                    screen.print(unitName);
+                    screen.printPText(unitName);
                 }
                 else
-                    screen.print(Texts.PREPARATION_ENEMY_SIDE);
+                    screen.printPText(PREPARATION_ENEMY_SIDE.bin());
             }
             else
                 screen.printPText(MISC_ERROR.bin());
@@ -308,8 +318,8 @@ public class BattlePreparationPhaseState
         int previousUnitType = mGame.battleMode.placeableUnitType(mGame, -1);
         int nextUnitType = mGame.battleMode.placeableUnitType(mGame, 1);
         
-        mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, UnitTypes.idleHandlerForType(nextUnitType).name());
-        mGame.padMenuUI.setChoice(PadMenuUI.CHOICE_LEFT, UnitTypes.idleHandlerForType(previousUnitType).name());
+        mGame.padMenuUI.setChoiceX(PadMenuUI.CHOICE_RIGHT, UnitTypes.idleHandlerForType(nextUnitType).name());
+        mGame.padMenuUI.setChoiceX(PadMenuUI.CHOICE_LEFT, UnitTypes.idleHandlerForType(previousUnitType).name());
     }
     
     

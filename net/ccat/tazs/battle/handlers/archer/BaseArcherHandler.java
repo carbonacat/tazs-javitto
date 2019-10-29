@@ -5,7 +5,7 @@ import femto.Sprite;
 import net.ccat.tazs.battle.handlers.slapper.BaseSlapperHandler;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.UNIT_ARCHER;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -55,9 +55,9 @@ public class BaseArcherHandler
         return UnitTypes.ARCHER;
     }
     
-    public String name()
+    public pointer name()
     {
-        return Texts.UNIT_ARCHER;
+        return UNIT_ARCHER.bin();
     }
     
     public int startingHealth()

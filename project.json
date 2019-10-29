@@ -1136,6 +1136,84 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\TEAMS_RIGHT.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_ARCHER.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_BRAWLER.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_K_UNIT.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_K_UNITS.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_PIKEBEARER.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_SHIELDBEARER.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_SLAPPER.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_SWORDER.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_TARGET.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\RESULT_STATS.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\RESULT_ANOTHER_BATTLE.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\RESULT_COST_.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\RESULT_DESTRUCTIONS_.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\RESULT_EXIT.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\RESULT_LOSSES_.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\RESULT_NEXT_CHALLENGE.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\RESULT_RETRY.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_COMMANDS_CONTROL.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_COMMANDS_PLACE_INVALID_TOO_EXPENSIVE.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_COMMANDS_PLACE_UNIT_K.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_COMMANDS_REMOVE.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_ENEMY_SIDE.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_MENU_EXIT.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_MENU_LAUNCH.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_NO_MANS_LAND.bin": {
+			"sdcard": false
 		}
 	}
 }

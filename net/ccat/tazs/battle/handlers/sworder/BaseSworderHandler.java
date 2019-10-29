@@ -5,7 +5,7 @@ import femto.Sprite;
 import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.UNIT_SWORDER;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -46,9 +46,9 @@ public class BaseSworderHandler
         return UnitTypes.SWORDER;
     }
     
-    public String name()
+    public pointer name()
     {
-        return Texts.UNIT_SWORDER;
+        return UNIT_SWORDER.bin();
     }
     
     public int startingHealth()

@@ -2,7 +2,7 @@ package net.ccat.tazs.battle.handlers.target;
 
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.UNIT_TARGET;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -29,9 +29,9 @@ public class BaseTargetHandler
         return UnitTypes.TARGET;
     }
     
-    public String name()
+    public pointer name()
     {
-        return Texts.UNIT_TARGET;
+        return UNIT_TARGET.bin();
     }
     
     public int startingHealth()

@@ -4,7 +4,7 @@ import femto.Sprite;
 
 import net.ccat.tazs.battle.handlers.brawler.BaseBrawlerHandler;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.UNIT_SHIELDBEARER;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -44,9 +44,9 @@ public class BaseShieldBearerHandler
         return UnitTypes.SHIELDBEARER;
     }
     
-    public String name()
+    public pointer name()
     {
-        return Texts.UNIT_SHIELDBEARER;
+        return UNIT_SHIELDBEARER.bin();
     }
     
     public int startingHealth()

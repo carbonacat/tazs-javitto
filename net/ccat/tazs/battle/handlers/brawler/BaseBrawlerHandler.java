@@ -3,7 +3,7 @@ package net.ccat.tazs.battle.handlers.brawler;
 import femto.Sprite;
 
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
-import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.UNIT_BRAWLER;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
@@ -44,9 +44,9 @@ public class BaseBrawlerHandler
         return UnitTypes.BRAWLER;
     }
     
-    public String name()
+    public pointer name()
     {
-        return Texts.UNIT_BRAWLER;
+        return UNIT_BRAWLER.bin();
     }
     
     public int startingHealth()

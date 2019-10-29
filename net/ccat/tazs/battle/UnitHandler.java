@@ -21,7 +21,7 @@ public interface UnitHandler
     /**
      * @return the usual name.
      */
-    public abstract String name();
+    public abstract pointer name();
     
     /**
      * @return How many health a Unit of this type should have.

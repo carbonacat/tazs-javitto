@@ -6,6 +6,7 @@ import femto.input.Button;
 import net.ccat.tazs.battle.handlers.brawler.BrawlerIdleHandler;
 import net.ccat.tazs.battle.handlers.slapper.SlapperIdleHandler;
 import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.RESULT_ANOTHER_BATTLE;
 import net.ccat.tazs.states.BattlePreparationPhaseState;
 import net.ccat.tazs.states.TitleScreenState;
 import net.ccat.tazs.ui.PadMenuUI;
@@ -67,7 +68,7 @@ public class RandomBattleMode
     
     public void onResultInit(TAZSGame game, int winnerTeam)
     {
-        game.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, Texts.RESULT_ANOTHER_BATTLE);
+        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_RIGHT, RESULT_ANOTHER_BATTLE.bin());
     }
     
     public boolean onResultMenuChoice(TAZSGame game, int selectedChoice)

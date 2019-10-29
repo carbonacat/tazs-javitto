@@ -17,6 +17,12 @@ import net.ccat.tazs.resources.texts.MENU_COMMANDS_HELP;
 import net.ccat.tazs.resources.texts.MISC_BIG_SEPARATOR;
 import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
 import net.ccat.tazs.resources.texts.MISC_UNKNOWN;
+import net.ccat.tazs.resources.texts.RESULT_COST_;
+import net.ccat.tazs.resources.texts.RESULT_DESTRUCTIONS_;
+import net.ccat.tazs.resources.texts.RESULT_EXIT;
+import net.ccat.tazs.resources.texts.RESULT_LOSSES_;
+import net.ccat.tazs.resources.texts.RESULT_RETRY;
+import net.ccat.tazs.resources.texts.RESULT_STATS;
 import net.ccat.tazs.resources.texts.TEAMS_ENEMY;
 import net.ccat.tazs.resources.texts.TEAMS_PLAYER;
 import net.ccat.tazs.resources.VideoConstants;
@@ -63,8 +69,8 @@ public class BattleResultPhaseState
         else
             mSummarySprite.playDraw();
         game.padMenuUI.clearChoices();
-        game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.RESULT_RETRY);
-        game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.RESULT_EXIT);
+        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_UP, RESULT_RETRY.bin());
+        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_DOWN, RESULT_EXIT.bin());
         
         mGame.battleMode.onResultInit(mGame, mWinnerTeam);
         
@@ -164,7 +170,7 @@ public class BattleResultPhaseState
         screen.printPText(TEAMS_ENEMY.bin());
         
         screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
-        screen.print(Texts.RESULT_COST_);
+        screen.printPText(RESULT_COST_.bin());
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET);
         renderStatBar(mPlayerUnitsCost, mPlayerUnitsCost + mEnemyUnitsCost,
                       Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, Dimensions.RESULT_STATS_TEAMS_FIRST_X_LAST, mStatsY + Dimensions.RESULT_STATS_COST_Y_OFFSET,
@@ -179,14 +185,14 @@ public class BattleResultPhaseState
         screen.printBean(game.everyUISprite);
         
         screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
-        screen.print(Texts.RESULT_DESTRUCTIONS_);
+        screen.printPText(RESULT_DESTRUCTIONS_.bin());
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
         screen.printPText(MISC_UNKNOWN.bin());
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_SECOND_X_START, mStatsY + Dimensions.RESULT_STATS_DESTRUCTIONS_Y_OFFSET);
         screen.printPText(MISC_UNKNOWN.bin());
         
         screen.setTextPosition(Dimensions.RESULT_STATS_LABEL_X, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET);
-        screen.print(Texts.RESULT_LOSSES_);
+        screen.printPText(RESULT_LOSSES_.bin());
         screen.setTextPosition(Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET);
         renderStatBar(mPlayerLosses, mPlayerLosses + mEnemyLosses,
                       Dimensions.RESULT_STATS_TEAMS_FIRST_X_START, Dimensions.RESULT_STATS_TEAMS_FIRST_X_LAST, mStatsY + Dimensions.RESULT_STATS_LOSSES_Y_OFFSET,
@@ -213,7 +219,7 @@ public class BattleResultPhaseState
             screen.setTextColor(Colors.HELP_ACTIVE);
             screen.printPText(BUTTON_B.bin());
             screen.printPText(MISC_SEPARATOR.bin());
-            screen.print(Texts.RESULT_STATS);
+            screen.printPText(RESULT_STATS.bin());
             screen.printPText(MISC_BIG_SEPARATOR.bin());
             screen.printPText(BUTTON_C.bin());
             screen.printPText(MISC_SEPARATOR.bin());

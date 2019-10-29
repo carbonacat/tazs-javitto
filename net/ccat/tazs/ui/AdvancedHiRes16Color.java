@@ -117,6 +117,72 @@ public class AdvancedHiRes16Color
      * @param y The Y coordinate.
      * @param alignment From which point this label will be drawn. (See ORIGIN_* constants).
      */
+    public void drawLabelP(pointer title,
+                           int borderColor, int backgroundColor,
+                           int padding,
+                           int x, int y, int horizontalAlignment, int verticalAlignment)
+    {
+        int titleWidth = pTextWidth(title);
+        int choiceWidth = 1 + padding + titleWidth + padding + 1;
+        int choiceHeight = 1 + padding + textHeight() - 1 + padding + 1;
+        int choiceX = 0;
+        int choiceY = 0;
+        
+        switch (horizontalAlignment)
+        {
+        case UITools.ALIGNMENT_START:
+            choiceX = x;
+            break ;
+        case UITools.ALIGNMENT_END:
+            choiceX = x - choiceWidth + 1;
+            break ;
+        default:
+        case UITools.ALIGNMENT_CENTER:
+            choiceX = x - (choiceWidth - 1) / 2;
+            break ;
+        }
+        switch (verticalAlignment)
+        {
+        case UITools.ALIGNMENT_START:
+            choiceY = y;
+            break ;
+        case UITools.ALIGNMENT_END:
+            choiceY = y - choiceHeight + 1;
+            break ;
+        default:
+        case UITools.ALIGNMENT_CENTER:
+            choiceY = y - (choiceHeight - 1) / 2;
+            break ;
+        }
+        
+        int fillX = choiceX + 1;
+        int fillY = choiceY + 1;
+        int fillWidth = choiceWidth - 2;
+        int fillHeight = choiceHeight - 2;
+
+        if (borderColor != 0)
+        {
+            drawHLine(fillX, choiceY, fillWidth, borderColor);
+            drawHLine(fillX, choiceY + choiceHeight - 1, fillWidth, borderColor);
+            drawVLine(choiceX, fillY, fillHeight, borderColor);
+            drawVLine(choiceX + choiceWidth - 1, fillY, fillHeight, borderColor);
+        }
+        if (backgroundColor != 0)
+            fillRect(fillX, fillY, fillWidth, fillHeight, backgroundColor);
+        setTextPosition(fillX + padding, fillY + padding);
+        printPText(title);
+    }
+    
+    /**
+     * Draws a label for a text.
+     * @param title The label's title.
+     * @param borderColor The color for the border. 0 for transparent.
+     * @param backgroundColor The color for under the text. 0 for transparent.
+     * @param padding The padding between the border and the text.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @param alignment From which point this label will be drawn. (See ORIGIN_* constants).
+     */
     public void drawLabel(String title,
                           int borderColor, int backgroundColor,
                           int padding,

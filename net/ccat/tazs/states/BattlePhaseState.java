@@ -9,6 +9,8 @@ import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
 import net.ccat.tazs.resources.Texts;
+import net.ccat.tazs.resources.texts.BATTLE_EXIT;
+import net.ccat.tazs.resources.texts.BATTLE_RETRY;
 import net.ccat.tazs.resources.texts.BUTTON_C;
 import net.ccat.tazs.resources.texts.BUTTON_PAD;
 import net.ccat.tazs.resources.texts.MENU;
@@ -44,8 +46,8 @@ public class BattlePhaseState
         
         game.centerCameraOn(0, 0);
         game.padMenuUI.clearChoices();
-        game.padMenuUI.setChoice(PadMenuUI.CHOICE_UP, Texts.BATTLE_RETRY);
-        game.padMenuUI.setChoice(PadMenuUI.CHOICE_DOWN, Texts.BATTLE_EXIT);
+        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_UP, BATTLE_RETRY.bin());
+        game.padMenuUI.setChoiceX(PadMenuUI.CHOICE_DOWN, BATTLE_EXIT.bin());
         game.unitsSystem.playerPadAngle = 0;
         game.unitsSystem.playerPadLength = 0;
         game.unitsSystem.playerPrimaryAction = false;

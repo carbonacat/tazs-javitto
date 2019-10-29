@@ -148,7 +148,7 @@ tazs.compileChallengePack = function(filename, packSpecifications)
                     var unitX = unitSpec[2];
                     var unitY = unitSpec[3];
                     var unitTeamId = this.TEAMS[unitTeamKey];
-                    var unitTypeId = this.TEAMS[unitTeamKey];
+                    var unitTypeId = this.UNITTYPES[unitTypeKey];
                     
                     if (unitTeamId === undefined)
                         throw new Exception("Unknow team " + unitTeamKey + " for unit #" + unitI);

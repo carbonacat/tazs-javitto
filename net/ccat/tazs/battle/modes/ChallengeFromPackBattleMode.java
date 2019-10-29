@@ -24,6 +24,19 @@ public abstract class ChallengeFromPackBattleMode
     
     public void onPreparationInit(TAZSGame game)
     {
+        pointer challengeUnitsPointer = ChallengePackReader.unitsPointerFromChallenge(mChallengePointer);
+        int unitsCount = ChallengePackReader.countFromChallengeUnits(challengeUnitsPointer);
+        
+        for (int unitI = 0; unitI < unitsCount; unitI++)
+        {
+            int unitX = ChallengePackReader.xFromChallengeUnit(challengeUnitsPointer, unitI);
+            int unitY = ChallengePackReader.yFromChallengeUnit(challengeUnitsPointer, unitI);
+            int unitTeam = ChallengePackReader.teamFromChallengeUnit(challengeUnitsPointer, unitI);
+            int unitType = ChallengePackReader.typeFromChallengeUnit(challengeUnitsPointer, unitI);
+            
+            game.unitsSystem.addUnit(unitX, unitY, unitType, unitTeam);
+        }
+        
         updateTopBarUI(game);
     }
     

@@ -27,10 +27,15 @@ tazs.NULLCHAR = "\x00";
 tazs.NULLSHORT = "\x00\x00";
 
 tazs.PACK_CONTENT_ADDRESS = 24;
+tazs.CHALLENGE_CONTENT_OFFSET = 11;
 
 tazs.fromUInt16 = function(value)
 {
     return String.fromCharCode(value & 0xFF) + String.fromCharCode((value >> 8) & 0xFF);
+}
+tazs.fromUInt8 = function(value)
+{
+    return String.fromCharCode(value & 0xFF);
 }
 
 
@@ -47,22 +52,84 @@ tazs.compileChallengePack = function(filename, packSpecifications)
     var packBinary = "";
     var contentsBinary = "";
     
-    packBinary += this.MAGIC_STRING;
-    packBinary += this.NULLCHAR;
+    {
+        // Magic value.
+        packBinary += this.MAGIC_STRING;
+        packBinary += this.NULLCHAR;
+    }
     
-    // Pack's title.
-    packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS);
-    contentsBinary += packSpecifications.title;
-    contentsBinary += this.NULLCHAR;
+    {
+        // Pack's title.
+        packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS);
+        contentsBinary += packSpecifications.title;
+        contentsBinary += this.NULLCHAR;
+    }
     
-    // Pack's description.
-    packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS + contentsBinary.length);
-    contentsBinary += packSpecifications.description;
-    contentsBinary += this.NULLCHAR;
+    {
+        // Pack's description.
+        packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS + contentsBinary.length);
+        contentsBinary += packSpecifications.description;
+        contentsBinary += this.NULLCHAR;
+    }
     
-    // Pack's Challenges
-    packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS + contentsBinary.length);
-    // TODO: Fills the challenges parts here.
+    {
+        // Pack's Challenges
+        packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS + contentsBinary.length);
+        contentsBinary += this.fromUInt8(packSpecifications.challenges.length);
+        for (var challengeI in packSpecifications.challenges)
+        {
+            var challengeContentsBinary = "";
+            var challengeSpecs = packSpecifications.challenges[challengeI];
+            
+            {
+                // Challenge's Identifier
+                contentsBinary += this.fromUInt8(challengeSpecs.identifier);
+            }
+    
+            {
+                // Challenge's Title.
+                contentsBinary += this.fromUInt16(this.CHALLENGE_CONTENT_OFFSET);
+                challengeContentsBinary += challengeSpecs.title;
+                challengeContentsBinary += this.NULLCHAR;
+            }
+            
+            {
+                // Challenge's Description.
+                contentsBinary += this.fromUInt16(this.CHALLENGE_CONTENT_OFFSET + challengeContentsBinary.length);
+                challengeContentsBinary += challengeSpecs.description;
+                challengeContentsBinary += this.NULLCHAR;
+            }
+            
+            {
+                // Challenge's Units.
+                contentsBinary += this.fromUInt16(this.CHALLENGE_CONTENT_OFFSET + challengeContentsBinary.length);
+                // TODO: Fills the units here.
+            }
+            
+            {
+                // Allowed Units.
+                var allowedUnits = 0;
+                
+                for (var unitI in challengeSpecs.allowedUnits)
+                {
+                    var unitKey = challengeSpecs.allowedUnits[unitI];
+                    var unitId = this.UNITTYPES[unitKey];
+                    
+                    if (unitId === undefined)
+                        throw new Exception("Unknown unit type " + unitKey + ".");
+                    allowedUnits = allowedUnits | (1 << unitId);
+                }
+                contentsBinary += this.fromUInt16(allowedUnits);
+            }
+            
+            {
+                // Allowed resources
+                contentsBinary += this.fromUInt16(challengeSpecs.allowedResources);
+            }
+    
+            contentsBinary += challengeContentsBinary;
+        }
+    }
     
     // Pack's Extra.
     packBinary += this.fromUInt16(this.PACK_CONTENT_ADDRESS + contentsBinary.length);
@@ -87,15 +154,15 @@ tazs.compileChallengePack = function(filename, packSpecifications)
         [
             {
                 // Identifies a challenge. Will be crucial later for saving their done state.
-                "identifier": 1,
+                "identifier": 99,
                 // Title of said challenge.
                 "title": "A Bunch of Guys",
                 // Flavor text.
                 "description": "Best be careful.",
                 // How much beans can be used for that challenge.
-                "resources": 60,
+                "allowedResources": 60,
                 // The units the Player can add. See `tazs.UNITTYPES` for the possible values.
-                "allowed": ["brawler"],
+                "allowedUnits": ["brawler", "target"],
                 // The pre-positionned unit.
                 "units":
                 [

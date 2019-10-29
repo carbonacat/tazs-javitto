@@ -224,7 +224,7 @@ public class Performances
     private static short mScreenFlushingMillis;
     private static short mFrameMillis;
     
-    private static final int FPS_LIMIT = 50;
+    private static final int FPS_LIMIT = 30;
     private static final int FRAME_MILLIS = 1000 / FPS_LIMIT;
     private static final int STATS_COUNT = 10;
     // Helps smoothing things.

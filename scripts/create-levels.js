@@ -202,7 +202,7 @@ tazs.compileChallengePack = function(filename, packSpecifications)
         [
             {
                 // Identifies a challenge. Will be crucial later for saving their done state.
-                "identifier": 99,
+                "identifier": 1,
                 // Title of said challenge.
                 "title": "A Bunch of Guys",
                 // Flavor text.
@@ -210,7 +210,7 @@ tazs.compileChallengePack = function(filename, packSpecifications)
                 // How much beans can be used for that challenge.
                 "allowedResources": 60,
                 // The units the Player can add. See `tazs.UNITTYPES` for the possible values.
-                "allowedUnits": ["brawler", "target"],
+                "allowedUnits": ["brawler", "slapper"],
                 // The pre-positionned unit.
                 "units":
                 [
@@ -223,6 +223,67 @@ tazs.compileChallengePack = function(filename, packSpecifications)
                         40, -10
                     ],
                     ["enemy", "target", 40, 10]
+                ]
+            },
+            {
+                "identifier": 2,
+                "title": "A Bunch of Guys 2",
+                "description": "Hmm.",
+                "allowedResources": 40,
+                "allowedUnits": ["brawler", "slapper"],
+                "units":
+                [
+                    ["enemy", "brawler", 40, -20],
+                    ["enemy", "brawler", 40, 20],
+                    ["enemy", "brawler", 80, -20],
+                    ["enemy", "brawler", 80, 20]
+                ]
+            },
+            {
+                "identifier": 3,
+                "title": "A Bunch of Guys 3",
+                "description": "Hmm.",
+                "allowedResources": 30,
+                "allowedUnits": ["brawler", "slapper"],
+                "units":
+                [
+                    ["enemy", "brawler", 40, -30],
+                    ["enemy", "brawler", 40, 30],
+                    ["enemy", "brawler", 100, -30],
+                    ["enemy", "brawler", 100, 30]
+                ]
+            },
+            {
+                "identifier": 4,
+                "title": "A Bunch of Guys 4",
+                "description": "Hmm.",
+                "allowedResources": 60,
+                "allowedUnits": ["brawler", "slapper", "sworder"],
+                "units":
+                [
+                    ["enemy", "brawler", 40, -30],
+                    ["enemy", "brawler", 40, -30],
+                    ["enemy", "brawler", 40, 30],
+                    ["enemy", "brawler", 40, 30],
+                    ["enemy", "brawler", 100, -30],
+                    ["enemy", "brawler", 100, -30],
+                    ["enemy", "brawler", 100, 30],
+                    ["enemy", "brawler", 100, 30]
+                ]
+            },
+            {
+                "identifier": 5,
+                "title": "Party",
+                "description": "Hehe",
+                "allowedResources": 50,
+                "allowedUnits": ["brawler", "slapper", "sworder", "shieldbearer"],
+                "units":
+                [
+                    ["enemy", "brawler", 75, -25],
+                    ["enemy", "brawler", 75, 25],
+                    ["enemy", "sworder", 50, 0],
+                    ["enemy", "brawler", 25, -25],
+                    ["enemy", "brawler", 25, 25]
                 ]
             }
         ]

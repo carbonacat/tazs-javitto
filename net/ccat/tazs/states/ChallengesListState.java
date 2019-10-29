@@ -34,19 +34,10 @@ class ChallengesListState
         mPackTitle = ChallengePackReader.titleFromPack(ChallengesPack.bin());
         mPackDescription = ChallengePackReader.descriptionFromPack(ChallengesPack.bin());
         mChallenges = ChallengePackReader.challengesFromPack(ChallengesPack.bin());
+        mChallengesCount = ChallengePackReader.countFromChallenges(mChallenges);
         
-        // TODO:
-        /*mChallenges = new ChallengeBattleMode[]
-        {
-            new ChallengeFromBinaryBattleMode(0, Challenge01.bin()),
-            new Challenge02BattleMode(1),
-            new Challenge03BattleMode(2),
-            new Challenge04BattleMode(3),
-            new Challenge05BattleMode(4),
-            new ChallengeZ01BattleMode(5)
-        };
-        if (identifier < mChallenges.length)
-            mCurrentMenuIdentifier = identifier;*/
+        if (identifier < mChallengesCount)
+            mCurrentMenuIdentifier = identifier;
     }
     
     
@@ -56,9 +47,9 @@ class ChallengesListState
     {
         Performances.onInit();
         
-        // TODO:
-        // int cursorY = Dimensions.TITLE_MENU_ENTRY_Y_START + mCurrentMenuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
-        // mGame.menuCursorSprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CURSOR_X, cursorY - VideoConstants.MENU_CURSOR_ORIGIN_Y);
+        int cursorY = Dimensions.TITLE_MENU_ENTRY_Y_START + mCurrentMenuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
+        
+        mGame.menuCursorSprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CURSOR_X, cursorY - VideoConstants.MENU_CURSOR_ORIGIN_Y);
     }
     
     public void update()
@@ -79,7 +70,7 @@ class ChallengesListState
             
             mGame.battleMode = mChallenges[mCurrentMenuIdentifier];
             mGame.battleMode.onLaunch(mGame);
-        }
+        }*/
         else
         {
             if (Button.Up.justPressed())
@@ -92,8 +83,8 @@ class ChallengesListState
                 mCurrentMenuIdentifier++;
                 mGame.cursorMoveSound.play();
             }
-            mCurrentMenuIdentifier = (mCurrentMenuIdentifier + mChallenges.length) % mChallenges.length;
-        }*/
+            mCurrentMenuIdentifier = (mCurrentMenuIdentifier + mChallengesCount) % mChallengesCount;
+        }
         
         draw(screen);
         
@@ -123,16 +114,14 @@ class ChallengesListState
         screen.setTextColor(Colors.TITLE_SUBTEXT);
         screen.printPText(mPackTitle);
 
-        /*for (int entry = 0; entry != mChallenges.length; entry++)
-            drawMenuChoice(entry, screen);*/
+        for (int entry = 0; entry != mChallengesCount; entry++)
+            drawMenuChoice(entry, screen);
         
         screen.flush();
         Performances.onFlushedScreen();
     }
     
-    
-    // TODO: 
-    /*private void drawMenuChoice(int menuIdentifier, AdvancedHiRes16Color screen)
+    private void drawMenuChoice(int menuIdentifier, AdvancedHiRes16Color screen)
     {
         int y = Dimensions.TITLE_MENU_ENTRY_Y_START + menuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
         boolean menuIsCurrent = (menuIdentifier == mCurrentMenuIdentifier);
@@ -155,13 +144,15 @@ class ChallengesListState
         screen.setTextColor(entryColor);
         screen.print(menuIdentifier + 1);
         screen.printPText(MISC_SEPARATOR.bin());
-        screen.printPText(mChallenges[menuIdentifier].name());
-    }*/
+        // TODO:
+        //screen.printPText(mChallenges[menuIdentifier].name());
+    }
     
     private TAZSGame mGame;
     private pointer mPackTitle;
     private pointer mPackDescription;
     private pointer mChallenges;
+    private int mChallengesCount;
     
     private int mCurrentMenuIdentifier = 0;
 }

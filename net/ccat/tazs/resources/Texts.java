@@ -6,18 +6,6 @@ package net.ccat.tazs.resources;
  */
 class Texts
 {
-    /***** CHALLENGES *****/
-    
-    public static final String CHALLENGES_02_NAME = "A Bunch of Guys 2";
-    public static final String CHALLENGES_02_SUMMARY = "Best be more careful.";
-    public static final String CHALLENGES_03_NAME = "A Bunch of Guys 3";
-    public static final String CHALLENGES_03_SUMMARY = "CAREFUL";
-    public static final String CHALLENGES_04_NAME = "A Bunch of Guys 4";
-    public static final String CHALLENGES_04_SUMMARY = "CAREFUL!!1";
-    public static final String CHALLENGES_05_NAME = "Party";
-    public static final String CHALLENGES_05_SUMMARY = "Hehehe";
-    
-    
     /***** MISC *****/
     
     public static final String MISC_SEPARATORX = " - ";

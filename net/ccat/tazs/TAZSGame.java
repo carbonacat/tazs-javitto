@@ -15,6 +15,7 @@ import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
 import net.ccat.tazs.resources.sounds.CursorCancelSound;
 import net.ccat.tazs.resources.sounds.CursorMoveSound;
 import net.ccat.tazs.resources.sounds.CursorSelectSound;
+import net.ccat.tazs.resources.sounds.MusicProcedural;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.sprites.everything.EverythingSprite;
 import net.ccat.tazs.resources.sprites.everyui.EveryUISprite;
@@ -52,6 +53,8 @@ class TAZSGame
         while (mAreaCoords.length != AREA_TEAMS_MAX * AREA_SIZE);
         
         Mixer.init(8000);
+        
+        music.play();
     }
     
     
@@ -277,6 +280,7 @@ class TAZSGame
     public CursorMoveSound cursorMoveSound = new CursorMoveSound();
     public CursorSelectSound cursorSelectSound = new CursorSelectSound();
     public CursorCancelSound cursorCancelSound = new CursorCancelSound();
+    public MusicProcedural music = new MusicProcedural(3);
     
     
     /***** PRIVATE *****/

@@ -1257,6 +1257,18 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\modes\\ChallengeFromPackBattleMode.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources/MusicProcedural.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\MusicProcedural.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sounds/MusicProcedural.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sounds\\MusicProcedural.java": {
+			"sdcard": false
 		}
 	}
 }

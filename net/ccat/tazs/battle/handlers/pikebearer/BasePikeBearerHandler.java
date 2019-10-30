@@ -40,6 +40,8 @@ public class BasePikeBearerHandler
     public static final float INVERSE_WEIGHT = 1.5;
     public static final int RECONSIDER_TICKS = 128;
     
+    public static final int UI_TIMER_WRAPPER = 60;
+    
     
     /***** INFORMATION *****/
     
@@ -98,12 +100,13 @@ public class BasePikeBearerHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
+                         int unitTimer,
                          AdvancedHiRes16Color screen)
     {
         drawStandingPikeBearer(unitX, unitY, unitAngle,
-                            HAND_IDLE_DISTANCE,
-                            system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
-                            screen);
+                               handDistanceForAttackTimer(unitTimer % UI_TIMER_WRAPPER),
+                               system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
+                               screen);
     }
     
     public void drawControlUI(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)

@@ -101,10 +101,12 @@ public interface UnitHandler
      * @param y
      * @param angle
      * @param team The team.
+     * @param timer An increased value, once per frame, reset when the unit is changed.
      * @param unitIdentifier Identifies the Unit inside the system.
      * @param screen The target screen.
      */
     public abstract void drawAsUI(UnitsSystem system,
                                   float x, float y, float angle, int team,
+                                  int timer,
                                   AdvancedHiRes16Color screen);
 }

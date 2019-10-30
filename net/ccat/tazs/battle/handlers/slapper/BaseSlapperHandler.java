@@ -37,6 +37,8 @@ public class BaseSlapperHandler
     public static final int DEATH_TICKS = 50;
     public static final int RECONSIDER_TICKS = 128;
     
+    public static final int UI_TIMER_WRAPPER = 60;
+    
     
     /***** INFORMATION *****/
     
@@ -95,9 +97,10 @@ public class BaseSlapperHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
+                         int unitTimer,
                          AdvancedHiRes16Color screen)
     {
-        drawStandingSlapper(unitX, unitY, unitAngle, HAND_IDLE_DISTANCE,
+        drawStandingSlapper(unitX, unitY, unitAngle, handDistanceForAttackTimer(unitTimer % UI_TIMER_WRAPPER),
                             system.everythingSprite, baseFrameForTeam(unitTeam),
                             screen);
     }

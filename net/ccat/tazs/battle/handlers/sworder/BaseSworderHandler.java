@@ -38,6 +38,8 @@ public class BaseSworderHandler
     public static final float INVERSE_WEIGHT = 1.75;
     public static final int RECONSIDER_TICKS = 128;
     
+    public static final int UI_TIMER_WRAPPER = 60;
+    
     
     /***** INFORMATION *****/
     
@@ -96,12 +98,13 @@ public class BaseSworderHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
+                         int unitTimer,
                          AdvancedHiRes16Color screen)
     {
         drawStandingSworder(unitX, unitY, unitAngle,
-                            HAND_IDLE_DISTANCE,
+                            handDistanceForAttackTimer(unitTimer % UI_TIMER_WRAPPER),
                             system.everythingSprite, BaseBrawlerHandler.baseFrameForTeam(unitTeam),
-                            VideoConstants.EVERYTHING_SWORD_FRAME + VideoConstants.SWORD_VERTICAL_FRAME,
+                            VideoConstants.EVERYTHING_SWORD_FRAME + swordFrameForAttackTimer(unitTimer % UI_TIMER_WRAPPER),
                             screen);
     }
     

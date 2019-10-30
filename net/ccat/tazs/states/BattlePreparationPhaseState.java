@@ -119,6 +119,9 @@ public class BattlePreparationPhaseState
         TAZSGame game = mGame;
         int oldUIMode = game.uiMode;
         
+        // For animating the units inside the Unit Box.
+        mUnitTimer++;
+        
         // Updating the mode.
         game.uiMode = UIModes.INVALID;
         
@@ -144,12 +147,14 @@ public class BattlePreparationPhaseState
             {
                 game.cursorMoveSound.play();
                 mGame.currentUnitType = mGame.battleMode.placeableUnitType(mGame, 1);
+                mUnitTimer = 0;
                 updatePadMenuUnitChoices();
             }
             else if (selectedChoice == PadMenuUI.CHOICE_LEFT)
             {
                 game.cursorMoveSound.play();
                 mGame.currentUnitType = mGame.battleMode.placeableUnitType(mGame, -1);
+                mUnitTimer = 0;
                 updatePadMenuUnitChoices();
             }
             game.battleMode.onPreparationMenuUpdate(game);
@@ -306,6 +311,7 @@ public class BattlePreparationPhaseState
         screen.printBean(game.everyUISprite);
         unitHandler.drawAsUI(game.unitsSystem,
                              screen.cameraX + Dimensions.UNITBOX_UNIT_X, screen.cameraY + Dimensions.UNITBOX_UNIT_Y, Math.PI, unitTeam,
+                             mUnitTimer,
                              screen);
         
         game.topBarUI.draw(game.everyUISprite, screen);
@@ -325,6 +331,7 @@ public class BattlePreparationPhaseState
     
     private TAZSGame mGame;
     private boolean mFromRetry;
+    private int mUnitTimer;
 
     private static final float CURSOR_PIXELS_PER_TICK = 2.f;
     private static final int AREA_OFFSET_SHIFT = 7;

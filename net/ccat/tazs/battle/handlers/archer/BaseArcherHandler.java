@@ -47,6 +47,8 @@ public class BaseArcherHandler
     public static final float INVERSE_WEIGHT = 2.5;
     public static final int RECONSIDER_TICKS = 128;
     
+    public static final int UI_TIMER_WRAPPER = ATTACK_TIMER_RECOVERED;
+    
     
     /***** INFORMATION *****/
     
@@ -105,12 +107,17 @@ public class BaseArcherHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
+                         int unitTimer,
                          AdvancedHiRes16Color screen)
     {
+        unitTimer = unitTimer % UI_TIMER_WRAPPER;
+        // Skips the decharging phase.
+        if (unitTimer >= ATTACK_TIMER_DECHARGING_MAX)
+            unitTimer += ATTACK_TIMER_FIRING_START - ATTACK_TIMER_DECHARGING_MAX;
         drawStandingArcher(unitX, unitY, unitAngle,
                            system.everythingSprite, BaseSlapperHandler.baseFrameForTeam(unitTeam),
-                           VideoConstants.EVERYTHING_BOW_FRAME + VideoConstants.BOW_IDLE_FRAME,
-                           VideoConstants.SLAPPERBODY_WEAPON_OFFSET_Y,
+                           VideoConstants.EVERYTHING_BOW_FRAME + bowFrameForAttackTimer(unitTimer),
+                           bowYOriginForAttackTimer(unitTimer),
                            screen);
     }
     

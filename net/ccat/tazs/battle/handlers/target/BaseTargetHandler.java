@@ -74,6 +74,7 @@ public class BaseTargetHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
+                         int unitTimer,
                          AdvancedHiRes16Color screen)
     {
         drawTarget(unitX, unitY, HEALTH_INITIAL,

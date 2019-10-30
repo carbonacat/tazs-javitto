@@ -35,6 +35,8 @@ public class BaseDasherHandler
     public static final int DEATH_TICKS = 30;
     public static final int RECONSIDER_TICKS = 64;
     
+    public static final int UI_TIMER_WRAPPER = RUN_TIMER_CYCLE;
+    
     
     /***** INFORMATION *****/
     
@@ -96,10 +98,11 @@ public class BaseDasherHandler
     
     public void drawAsUI(UnitsSystem system,
                          float unitX, float unitY, float unitAngle, int unitTeam,
+                         int unitTimer,
                          AdvancedHiRes16Color screen)
     {
         // TODO: Draw the conveyor Dasher.
-        drawRunningDasherBody(unitX, unitY, unitAngle, 0,
+        drawRunningDasherBody(unitX, unitY, unitAngle, unitTimer % UI_TIMER_WRAPPER,
                               system.everythingSprite, baseFrameForTeam(unitTeam),
                               screen);
     }

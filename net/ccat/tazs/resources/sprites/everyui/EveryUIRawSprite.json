@@ -32,6 +32,38 @@
     "duration": 250
    },
    "EveryUISprite 4.aseprite": {
+    "frame": { "x": 38, "y": 0, "w": 6, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 6, "w": 6, "h": 7 },
+    "sourceSize": { "w": 19, "h": 19 },
+    "duration": 250
+   },
+   "EveryUISprite 5.aseprite": {
+    "frame": { "x": 44, "y": 0, "w": 6, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 6, "w": 6, "h": 7 },
+    "sourceSize": { "w": 19, "h": 19 },
+    "duration": 250
+   },
+   "EveryUISprite 6.aseprite": {
+    "frame": { "x": 50, "y": 0, "w": 6, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 6, "w": 6, "h": 7 },
+    "sourceSize": { "w": 19, "h": 19 },
+    "duration": 250
+   },
+   "EveryUISprite 7.aseprite": {
+    "frame": { "x": 56, "y": 0, "w": 6, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 6, "w": 6, "h": 7 },
+    "sourceSize": { "w": 19, "h": 19 },
+    "duration": 250
+   },
+   "EveryUISprite 8.aseprite": {
     "frame": { "x": 0, "y": 0, "w": 0, "h": 0 },
     "rotated": false,
     "trimmed": true,
@@ -45,12 +77,14 @@
   "version": "1.2.15-x64",
   "image": "EveryUIRawSprite.png",
   "format": "I8",
-  "size": { "w": 95, "h": 19 },
+  "size": { "w": 171, "h": 19 },
   "scale": "1",
   "frameTags": [
    { "name": "playBeanNormal", "from": 0, "to": 0, "direction": "forward" },
    { "name": "playBeanGolden", "from": 1, "to": 1, "direction": "forward" },
-   { "name": "playTarget", "from": 2, "to": 3, "direction": "forward" }
+   { "name": "playTarget", "from": 2, "to": 3, "direction": "forward" },
+   { "name": "playPlay", "from": 4, "to": 5, "direction": "forward" },
+   { "name": "playPause", "from": 6, "to": 7, "direction": "forward" }
   ],
   "layers": [
    { "name": "Main", "opacity": 255, "blendMode": "normal" }

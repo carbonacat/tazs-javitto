@@ -16,6 +16,7 @@ import net.ccat.tazs.resources.texts.BUTTON_PAD;
 import net.ccat.tazs.resources.texts.MENU;
 import net.ccat.tazs.resources.texts.MENU_COMMANDS_HELP;
 import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
+import net.ccat.tazs.resources.texts.PERCENT;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
@@ -148,10 +149,10 @@ public class BattlePhaseState
             }
             else if ((Button.A.isPressed()) && (Button.B.isPressed()))
             {
-                if (Button.Down.justPressed())
-                    mUpdateRateByFrame = -mUpdateRateByFrame; // This effectively pauses the game.
-                if (Button.Up.justPressed())
-                    mUpdateRateByFrame = UPDATE_RATE_DEFAULT;
+                if ((Button.Down.justPressed()) && (mUpdateRateByFrame > 0))
+                    mUpdateRateByFrame = -mUpdateRateByFrame;
+                if ((Button.Up.justPressed()) && (mUpdateRateByFrame < 0))
+                    mUpdateRateByFrame = -mUpdateRateByFrame;
                 if (Button.Left.justPressed())
                     mUpdateRateByFrame = previousUpdateRate(mUpdateRateByFrame);
                 if (Button.Right.justPressed())
@@ -204,10 +205,7 @@ public class BattlePhaseState
             
         if ((controlledUnitIdentifier != UnitsSystem.IDENTIFIER_NONE)
             && (game.unitsSystem.unitsHealths[controlledUnitIdentifier] > 0))
-        {
-            
             game.centerCameraSmoothlyOn(game.unitsSystem.unitsXs[controlledUnitIdentifier], game.unitsSystem.unitsYs[controlledUnitIdentifier]);
-        }
     }
     
     private void renderUI()
@@ -236,6 +234,25 @@ public class BattlePhaseState
         game.padMenuUI.draw(screen);
         game.topBarUI.draw(game.everyUISprite, screen);
         game.drawUnitUI(game.unitsSystem.controlledUnitIdentifier);
+
+        game.everyUISprite.setPosition(Dimensions.TIME_ICON_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TIME_ICON_Y - VideoConstants.EVERYUI_ORIGIN_Y);
+        if (mUpdateRateByFrame < 0)
+            game.everyUISprite.selectFrame(UITools.blinkingValue() ? VideoConstants.EVERYUI_TIME_PAUSE_FRAMES_START : VideoConstants.EVERYUI_TIME_PAUSE_FRAMES_LAST);
+        else
+            game.everyUISprite.selectFrame(UITools.blinkingValue() ? VideoConstants.EVERYUI_TIME_PLAY_FRAMES_START : VideoConstants.EVERYUI_TIME_PLAY_FRAMES_LAST);
+        game.everyUISprite.draw(screen);
+        if (mUpdateRateByFrame != UPDATE_RATE_DEFAULT)
+        {
+            int updateRateByFrame = Math.abs((int)mUpdateRateByFrame);
+            
+            screen.setTextPosition(Dimensions.TIME_TEXT_X, Dimensions.TIME_TEXT_Y);
+            screen.setTextColor(Colors.TIME_TEXT_COLOR);
+            if (updateRateByFrame > UPDATE_RATE_12)
+                screen.print((updateRateByFrame * 100) / (int)UPDATE_RATE_DEFAULT);
+            else
+                screen.print((float)(100 * updateRateByFrame) / ((float)UPDATE_RATE_DEFAULT));
+            screen.printPText(PERCENT.bin());
+        }
     }
     
     private float angleFromPad(int x, int y)

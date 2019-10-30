@@ -64,6 +64,14 @@ public class Dimensions
     public static final int SCREEN_HEIGHT_2 = SCREEN_HEIGHT / 2;
     
     
+    /***** TIME INDICATOR *****/
+    
+    public static final int TIME_ICON_X = 3;
+    public static final int TIME_ICON_Y = HELPBAR_BOX_MIN_Y - 2 - 5 + 2;
+    public static final int TIME_TEXT_X = TIME_ICON_X + 5;
+    public static final int TIME_TEXT_Y = HELPBAR_BOX_MIN_Y - 2 - 5;
+    
+    
     /***** TITLE *****/
     
     public static final int TITLE_CURSOR_Y_SPEED = 4;

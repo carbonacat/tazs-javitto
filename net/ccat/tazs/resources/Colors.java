@@ -70,6 +70,11 @@ class Colors
     public static final int TEAM_UNKNOWN_DARKER = 5;
     
     
+    /***** TIME *****/
+    
+    public static final int TIME_TEXT_COLOR = 15;
+    
+    
     /***** TITLE SCREEN *****/
     
     public static final int TITLE_BG = 5;

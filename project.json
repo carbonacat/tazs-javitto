@@ -1269,6 +1269,9 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\sounds\\MusicProcedural.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PERCENT.bin": {
+			"sdcard": false
 		}
 	}
 }

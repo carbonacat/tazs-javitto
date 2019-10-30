@@ -63,6 +63,10 @@ class VideoConstants
     public static final int EVERYUI_BEAN_GOLDEN_FRAME = 1;
     public static final int EVERYUI_TARGET_FRAMES_START = 2;
     public static final int EVERYUI_TARGET_FRAMES_END = 3;
+    public static final int EVERYUI_TIME_PLAY_FRAMES_START = 4;
+    public static final int EVERYUI_TIME_PLAY_FRAMES_LAST = 5;
+    public static final int EVERYUI_TIME_PAUSE_FRAMES_START = 6;
+    public static final int EVERYUI_TIME_PAUSE_FRAMES_LAST = 7;
     
     
     /***** MENU CURSOR *****/

@@ -66,6 +66,14 @@ public class RandomBattleMode
     
     /***** RESULT *****/
     
+    public void onBattleExit(TAZSGame game)
+    {
+        Game.changeState(new TitleScreenState(game));
+    }
+    
+    
+    /***** RESULT *****/
+    
     public void onResultInit(TAZSGame game, int winnerTeam)
     {
         game.padMenuUI.setChoice(PadMenuUI.CHOICE_RIGHT, RESULT_ANOTHER_BATTLE.bin());

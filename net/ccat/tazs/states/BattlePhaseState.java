@@ -52,6 +52,7 @@ public class BattlePhaseState
         game.unitsSystem.playerPadLength = 0;
         game.unitsSystem.playerPrimaryAction = false;
         game.unitsSystem.playerSecondaryAction = false;
+        System.gc();
     }
     
     public void update()

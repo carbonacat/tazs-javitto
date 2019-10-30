@@ -20,7 +20,7 @@ public class MusicProcedural
     {
         super(channel);
         // TODO: Can't wait to Binarify this.
-        mNotes = new byte[]
+        /*mNotes = new byte[]
         {
             -5, 2, 32,
             0, 2, 0,
@@ -42,6 +42,52 @@ public class MusicProcedural
             
             0, 4, 32,
             0, 4, 0,
+        };*/
+        /*mNotes = new byte[]
+        {
+            -5, 8, 16,
+            -6, 8, 16,
+            -7, 8, 16,
+            0, 4, 32,
+            -1, 4, 32,
+            
+            -10, 8, 16,
+            -9, 8, 16,
+            -8, 8, 16,
+            0, 4, 32,
+            -1, 4, 32,
+        };*/
+        mNotes = new byte[]
+        {
+            -1, 16, 32,
+            -2, 16, 32,
+            
+            -3, 32, 32,
+            
+            0, 4, 0,
+            -3, 4, 16,
+            0, 4, 0,
+            -3, 4, 8,
+            
+            0, 4, 0,
+            -3, 4, 4,
+            0, 4, 0,
+            0, 8, 0,
+            
+            -3, 16, 32,
+            -2, 16, 32,
+            
+            -1, 32, 32,
+            
+            0, 4, 0,
+            -1, 4, 16,
+            0, 4, 0,
+            -1, 4, 8,
+            
+            0, 4, 0,
+            -1, 4, 4,
+            0, 4, 0,
+            0, 8, 0,
         };
         // So we can start on the first note.
         mCurrentNoteIndex = -1;
@@ -64,25 +110,40 @@ public class MusicProcedural
             mFrequency = frequencyForPitch(mNotes[mCurrentNoteIndex + NOTE_PITCH_OFFSET]);
             mNoteDuration = mNotes[mCurrentNoteIndex + NOTE_DURATION_OFFSET] * NOTE_DURATION_MULTIPLIER;
             mNoteMaxAmplitude = (float)mNotes[mCurrentNoteIndex + NOTE_LOUDNESS_OFFSET];
+            
+            if (mNoteDuration < INSTRUMENT_DURATION_MIN)
+            {
+                // Scaling down the amplitude to avoid increasing the slopes.
+                mNoteMaxAmplitude = mNoteMaxAmplitude * mNoteDuration / INSTRUMENT_DURATION_MIN;
+                mSustainToReleaseTime = 0;
+                mAttackToDecayTime = INSTRUMENT_ATTACK_DURATION * mNoteDuration / INSTRUMENT_DURATION_MIN;
+                mDecayToSustainTime = (INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION) * mNoteDuration / INSTRUMENT_DURATION_MIN;
+                mReleaseToSilenceTime = mNoteDuration * (mNoteDuration - INSTRUMENT_DURATION_MIN) / INSTRUMENT_DURATION_MIN;
+                mSustainToReleaseTime = 0;
+            }
+            else
+            {
+                int sustainTime = mNoteDuration - INSTRUMENT_DURATION_MIN;
+                
+                mAttackToDecayTime = INSTRUMENT_ATTACK_DURATION;
+                mDecayToSustainTime = INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION;
+                mReleaseToSilenceTime = mNoteDuration - INSTRUMENT_DURATION_MIN;
+                mSustainToReleaseTime = mReleaseToSilenceTime - INSTRUMENT_RELEASE_DURATION;
+            }
             mNoteSustainAmplitude = mNoteMaxAmplitude * INSTRUMENT_SUSTAIN_RATIO;
         }
-        
-        final int attackToDecayTime = mNoteDuration * INSTRUMENT_ATTACK_DURATION / INSTRUMENT_DURATION;
-        final int decayToSustainTime = mNoteDuration * (INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION) / INSTRUMENT_DURATION;
-        final int sustainToReleaseTime = mNoteDuration * (INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION + INSTRUMENT_SUSTAIN_DURATION) / INSTRUMENT_DURATION;
-        final int releaseToSilenceTime = mNoteDuration * (INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION + INSTRUMENT_SUSTAIN_DURATION + INSTRUMENT_RELEASE_DURATION) / INSTRUMENT_DURATION;
 
         float signal = ((float)noteT * mFrequency + (float)MIXER_FREQUENCY_2) / (float)MIXER_FREQUENCY;
         float amplitude;
         
-        if (noteT < attackToDecayTime)
-            amplitude = MathTools.lerp(noteT, 0, 0.f, attackToDecayTime, mNoteMaxAmplitude);
-        else if (noteT < decayToSustainTime)
-            amplitude = MathTools.lerp(noteT, attackToDecayTime, mNoteMaxAmplitude, decayToSustainTime, mNoteSustainAmplitude);
-        else if (noteT < sustainToReleaseTime)
+        if (noteT < mAttackToDecayTime)
+            amplitude = MathTools.lerp(noteT, 0, 0.f, mAttackToDecayTime, mNoteMaxAmplitude);
+        else if (noteT < mDecayToSustainTime)
+            amplitude = MathTools.lerp(noteT, mAttackToDecayTime, mNoteMaxAmplitude, mDecayToSustainTime, mNoteSustainAmplitude);
+        else if (noteT < mSustainToReleaseTime)
             amplitude = mNoteSustainAmplitude;
-        else if (noteT < releaseToSilenceTime)
-            amplitude = MathTools.lerp(noteT, sustainToReleaseTime, mNoteSustainAmplitude, releaseToSilenceTime, 0.f);
+        else if (noteT < mReleaseToSilenceTime)
+            amplitude = MathTools.lerp(noteT, mSustainToReleaseTime, mNoteSustainAmplitude, mReleaseToSilenceTime, 0.f);
         else
             amplitude = 0;
         
@@ -92,9 +153,7 @@ public class MusicProcedural
             return 128 + (int)Math.round(amplitude);
         else
             return 128 - (int)Math.round(amplitude);*/
-        return 128 + (int)(Math.sin(signal * 2.f * Math.PI) * amplitude);
-        
-        //return 128 + (int)(Math.round(Math.sin(signal * 2.f * Math.PI) * amplitude)) + (int)(Math.round(Math.sin(signal * 1.f * Math.PI) * amplitude * 0.5f));
+        return 128 + (int)Math.round(Math.sin(signal * 2.f * Math.PI) * amplitude);
     }
     
     
@@ -140,6 +199,10 @@ public class MusicProcedural
     private int mNoteDuration = 0;
     private float mNoteMaxAmplitude = 0;
     private float mNoteSustainAmplitude = 0;
+    private int mAttackToDecayTime;
+    private int mDecayToSustainTime;
+    private int mSustainToReleaseTime;
+    private int mReleaseToSilenceTime;
     
     private int mCurrentNoteIndex = 0;
     private byte[] mNotes;
@@ -155,10 +218,9 @@ public class MusicProcedural
     private static final int NOTE_LOUDNESS_OFFSET = 2;
     
     // Defines the envelop of a standard note.
-    final int INSTRUMENT_ATTACK_DURATION = 200;
-    final int INSTRUMENT_DECAY_DURATION = 50;
-    final int INSTRUMENT_SUSTAIN_DURATION = 50;
-    final int INSTRUMENT_RELEASE_DURATION = 200;
-    final int INSTRUMENT_DURATION = INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION + INSTRUMENT_SUSTAIN_DURATION + INSTRUMENT_RELEASE_DURATION;
+    final int INSTRUMENT_ATTACK_DURATION = 1000;
+    final int INSTRUMENT_DECAY_DURATION = 500;
+    final int INSTRUMENT_RELEASE_DURATION = 2000;
+    final int INSTRUMENT_DURATION_MIN = INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION + INSTRUMENT_RELEASE_DURATION;
     final float INSTRUMENT_SUSTAIN_RATIO = 192.f/256.f;
 }

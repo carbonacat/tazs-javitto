@@ -20,7 +20,7 @@ public class MusicProcedural
     {
         super(channel);
         // TODO: Can't wait to Binarify this.
-        switch (Math.random(0, 2))
+        switch (Math.random(0, 4))
         {
         case 0:
             mNotes = new byte[]
@@ -63,6 +63,7 @@ public class MusicProcedural
                 -1, 4, 32,
             };
             break ;
+        default:
         case 2:
             mNotes = new byte[]
             {

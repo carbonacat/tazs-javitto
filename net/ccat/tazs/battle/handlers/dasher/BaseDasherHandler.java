@@ -21,7 +21,7 @@ public class BaseDasherHandler
     public static final float DASH_SPEED = 2.f;
     public static final float DASH_RADIUS = 5.f;
     public static final float DASH_POWER = 5.f;
-    public static final int DASH_TIMER_INIT = 0;
+    public static final int DASH_TIMER_INIT = 1;
     public static final int DASH_TIMER_END = 30;
     public static final int DASH_TIMER_RESTED = 60;
     public static final int RUN_TIMER_CYCLE = 8;
@@ -246,9 +246,9 @@ public class BaseDasherHandler
      * @param screen
      */
     public static void drawDyingDasherBody(float unitX, float unitY, float unitAngle,
-                                            int unitTimer,
-                                            NonAnimatedSprite everythingSprite, int baseFrame,
-                                            AdvancedHiRes16Color screen)
+                                           int unitTimer,
+                                           NonAnimatedSprite everythingSprite, int baseFrame,
+                                           AdvancedHiRes16Color screen)
     {
         int rawFrame = MathTools.lerpi(unitTimer, 0, VideoConstants.DASHERBODY_DEAD_FRAMES_LAST, DEATH_TICKS, VideoConstants.DASHERBODY_DEAD_FRAMES_START);
         int frame = baseFrame + MathTools.clampi(rawFrame, VideoConstants.DASHERBODY_DEAD_FRAMES_START, VideoConstants.DASHERBODY_DEAD_FRAMES_LAST);
@@ -258,6 +258,10 @@ public class BaseDasherHandler
         everythingSprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
         everythingSprite.draw(screen);
     }
+    
+    
+    /***** ATTACK *****/
+    
     
     
     /***** TOOLS *****/

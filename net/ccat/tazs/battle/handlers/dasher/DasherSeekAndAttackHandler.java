@@ -71,9 +71,10 @@ public class DasherSeekAndAttackHandler
                 
                 unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
             }
-            if ((squaredDistance > CLOSE_DISTANCE_SQUARED) && (MathTools.abs(MathTools.wrapAngle(targetAngle - unitAngle)) <= DASH_ANGLE_MAX))
+            if ((squaredDistance < CLOSE_DISTANCE_SQUARED) && (MathTools.abs(MathTools.wrapAngle(targetAngle - unitAngle)) <= DASH_ANGLE_MAX))
             {
-                // TODO: Dash mode!
+                // Let's start dashing!
+                unitTimer = DASH_TIMER_INIT;
             }
         }
         else
@@ -95,6 +96,56 @@ public class DasherSeekAndAttackHandler
     
     private static void onDashingTick(UnitsSystem system, int unitIdentifier, int unitTimer)
     {
+        float unitX = system.unitsXs[unitIdentifier];
+        float unitY = system.unitsYs[unitIdentifier];
+        float unitAngle = system.unitsAngles[unitIdentifier];
         
+        unitTimer++;
+        if (unitTimer < DASH_TIMER_END)
+        {
+            byte unitTeam = system.unitsTeams[unitIdentifier];
+            
+            // Can't stop!
+            unitX += Math.cos(unitAngle) * DASH_SPEED;
+            unitY += Math.sin(unitAngle) * DASH_SPEED;
+            
+            // Dash attack will hit the closest unit with a pushback.
+            int enemyIdentifier = system.findClosestLivingUnit(unitX, unitY, Teams.oppositeTeam(unitTeam), DASH_RADIUS);
+            
+            if (enemyIdentifier != UnitsSystem.IDENTIFIER_NONE)
+            {
+                float unitToEnemyX = system.unitsXs[enemyIdentifier] - unitX;
+                float unitToEnemyY = system.unitsYs[enemyIdentifier] - unitY;
+                float unitToEnemySquared = unitToEnemyX * unitToEnemyX + unitToEnemyY * unitToEnemyY;
+                float unitToEnemy = 0;
+                
+                if (unitToEnemySquared == 0)
+                {
+                    unitToEnemyX = 1;
+                    unitToEnemyY = 0;
+                    unitToEnemy = 1;
+                }
+                else
+                    unitToEnemy = Math.sqrt(unitToEnemySquared);
+                system.unitsHandlers[enemyIdentifier].onHit(system, enemyIdentifier,
+                                                            unitToEnemyX * DASH_POWER, unitToEnemyY * DASH_POWER, DASH_POWER);
+            }
+        }
+        else 
+        {
+            // Can't stop!
+            unitX += Math.cos(unitAngle) * WALK_SPEED;
+            unitY += Math.sin(unitAngle) * WALK_SPEED;
+            
+            // Go back to seeking.
+            if (unitTimer >= DASH_TIMER_RESTED)
+                unitTimer = 0;
+        }
+        
+        // Updating the changed state.
+        system.unitsTimers[unitIdentifier] = unitTimer;
+        system.unitsXs[unitIdentifier] = unitX;
+        system.unitsYs[unitIdentifier] = unitY;
+        system.unitsAngles[unitIdentifier] = unitAngle;
     }
 }

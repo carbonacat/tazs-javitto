@@ -17,7 +17,7 @@ public class BaseDasherHandler
 {
     public static final short HEALTH_INITIAL = 200;
     public static final float WALK_SPEED = 1.000f;
-    public static final float ANGLE_ROTATION_BY_TICK = 12.f / 256.f;
+    public static final float ANGLE_ROTATION_BY_TICK = 24.f / 256.f;
     public static final float DASH_SPEED = 2.f;
     public static final float DASH_RADIUS = 5.f;
     public static final float DASH_POWER = 5.f;
@@ -33,7 +33,7 @@ public class BaseDasherHandler
     public static final int COST = 50;
     public static final float INVERSE_WEIGHT = 0.50;
     public static final int DEATH_TICKS = 30;
-    public static final int RECONSIDER_TICKS = 64;
+    public static final int RECONSIDER_TICKS = -64;
     
     public static final int UI_TIMER_WRAPPER = RUN_TIMER_CYCLE;
     

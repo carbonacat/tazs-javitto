@@ -115,11 +115,9 @@ public class MusicProcedural
             {
                 // Scaling down the amplitude to avoid increasing the slopes.
                 mNoteMaxAmplitude = mNoteMaxAmplitude * mNoteDuration / INSTRUMENT_DURATION_MIN;
-                mSustainToReleaseTime = 0;
                 mAttackToDecayTime = INSTRUMENT_ATTACK_DURATION * mNoteDuration / INSTRUMENT_DURATION_MIN;
                 mDecayToSustainTime = (INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION) * mNoteDuration / INSTRUMENT_DURATION_MIN;
-                mReleaseToSilenceTime = mNoteDuration * (mNoteDuration - INSTRUMENT_DURATION_MIN) / INSTRUMENT_DURATION_MIN;
-                mSustainToReleaseTime = 0;
+                mSustainToReleaseTime = (INSTRUMENT_DURATION_MIN - INSTRUMENT_RELEASE_DURATION) * mNoteDuration / INSTRUMENT_DURATION_MIN;
             }
             else
             {
@@ -127,8 +125,7 @@ public class MusicProcedural
                 
                 mAttackToDecayTime = INSTRUMENT_ATTACK_DURATION;
                 mDecayToSustainTime = INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION;
-                mReleaseToSilenceTime = mNoteDuration - INSTRUMENT_DURATION_MIN;
-                mSustainToReleaseTime = mReleaseToSilenceTime - INSTRUMENT_RELEASE_DURATION;
+                mSustainToReleaseTime = mDecayToSustainTime + sustainTime;
             }
             mNoteSustainAmplitude = mNoteMaxAmplitude * INSTRUMENT_SUSTAIN_RATIO;
         }
@@ -142,8 +139,8 @@ public class MusicProcedural
             amplitude = MathTools.lerp(noteT, mAttackToDecayTime, mNoteMaxAmplitude, mDecayToSustainTime, mNoteSustainAmplitude);
         else if (noteT < mSustainToReleaseTime)
             amplitude = mNoteSustainAmplitude;
-        else if (noteT < mReleaseToSilenceTime)
-            amplitude = MathTools.lerp(noteT, mSustainToReleaseTime, mNoteSustainAmplitude, mReleaseToSilenceTime, 0.f);
+        else if (noteT < mNoteDuration)
+            amplitude = MathTools.lerp(noteT, mSustainToReleaseTime, mNoteSustainAmplitude, mNoteDuration, 0.f);
         else
             amplitude = 0;
         
@@ -153,7 +150,7 @@ public class MusicProcedural
             return 128 + (int)Math.round(amplitude);
         else
             return 128 - (int)Math.round(amplitude);*/
-        return 128 + (int)Math.round(Math.sin(signal * 2.f * Math.PI) * amplitude);
+        return 128 + (int)Math.round((Math.sin(signal * 2.f * Math.PI)) * amplitude);
     }
     
     
@@ -202,7 +199,6 @@ public class MusicProcedural
     private int mAttackToDecayTime;
     private int mDecayToSustainTime;
     private int mSustainToReleaseTime;
-    private int mReleaseToSilenceTime;
     
     private int mCurrentNoteIndex = 0;
     private byte[] mNotes;
@@ -218,9 +214,9 @@ public class MusicProcedural
     private static final int NOTE_LOUDNESS_OFFSET = 2;
     
     // Defines the envelop of a standard note.
-    final int INSTRUMENT_ATTACK_DURATION = 1000;
+    final int INSTRUMENT_ATTACK_DURATION = 2000;
     final int INSTRUMENT_DECAY_DURATION = 500;
-    final int INSTRUMENT_RELEASE_DURATION = 2000;
+    final int INSTRUMENT_RELEASE_DURATION = 2500;
     final int INSTRUMENT_DURATION_MIN = INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION + INSTRUMENT_RELEASE_DURATION;
-    final float INSTRUMENT_SUSTAIN_RATIO = 192.f/256.f;
+    final float INSTRUMENT_SUSTAIN_RATIO = 0.875f;
 }

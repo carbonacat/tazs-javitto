@@ -65,7 +65,15 @@ public class BattlePhaseState
         updatePlayerControl();
         Performances.onUpdatedPlayerControl();
         
-        game.unitsSystem.onTick();
+        if (mUpdateRateByFrame > 0)
+        {
+            mUpdateCounter += mUpdateRateByFrame;
+            while (mUpdateCounter > UPDATE_RATE_100)
+            {
+                mUpdateCounter -= UPDATE_RATE_100;
+                game.unitsSystem.onTick();
+            }
+        }
         Performances.onTickedUnitsSystem();
         
         checkGameRules();
@@ -137,6 +145,17 @@ public class BattlePhaseState
                 game.unitsSystem.playerPadAngle = padAngle;
                 game.unitsSystem.playerPrimaryAction = Button.A.isPressed();
                 game.unitsSystem.playerSecondaryAction = Button.B.isPressed();
+            }
+            else if ((Button.A.isPressed()) && (Button.B.isPressed()))
+            {
+                if (Button.Down.justPressed())
+                    mUpdateRateByFrame = -mUpdateRateByFrame; // This effectively pauses the game.
+                if (Button.Up.justPressed())
+                    mUpdateRateByFrame = UPDATE_RATE_DEFAULT;
+                if (Button.Left.justPressed())
+                    mUpdateRateByFrame = previousUpdateRate(mUpdateRateByFrame);
+                if (Button.Right.justPressed())
+                    mUpdateRateByFrame = nextUpdateRate(mUpdateRateByFrame);
             }
             else
                 game.moveCameraWithPad();
@@ -250,5 +269,69 @@ public class BattlePhaseState
         }
     }
     
+    private static byte previousUpdateRate(byte updateRate)
+    {
+        if (updateRate < 0)
+            return -previousUpdateRate(-updateRate);
+        switch (updateRate)
+        {
+        case UPDATE_RATE_12:
+            return UPDATE_RATE_12;
+        case UPDATE_RATE_25:
+            return UPDATE_RATE_12;
+        case UPDATE_RATE_50:
+            return UPDATE_RATE_25;
+        case UPDATE_RATE_100:
+            return UPDATE_RATE_50;
+        case UPDATE_RATE_200:
+            return UPDATE_RATE_100;
+        case UPDATE_RATE_400:
+            return UPDATE_RATE_200;
+        case UPDATE_RATE_800:
+            return UPDATE_RATE_400;
+        }
+        return UPDATE_RATE_DEFAULT;
+    }
+    private static byte nextUpdateRate(byte updateRate)
+    {
+        if (updateRate < 0)
+            return -nextUpdateRate(-updateRate);
+        switch (updateRate)
+        {
+        case UPDATE_RATE_12:
+            return UPDATE_RATE_25;
+        case UPDATE_RATE_25:
+            return UPDATE_RATE_50;
+        case UPDATE_RATE_50:
+            return UPDATE_RATE_100;
+        case UPDATE_RATE_100:
+            return UPDATE_RATE_200;
+        case UPDATE_RATE_200:
+            return UPDATE_RATE_400;
+        case UPDATE_RATE_400:
+            return UPDATE_RATE_800;
+        case UPDATE_RATE_800:
+            return UPDATE_RATE_800;
+        }
+        return UPDATE_RATE_DEFAULT;
+    }
+
+    
     private TAZSGame mGame;
+    private byte mUpdateRateByFrame = UPDATE_RATE_DEFAULT;
+    private byte mUpdateCounter = 0;
+    
+    
+    // 1 -> 6.25%
+    // 2 -> 12.5%
+    // 16 -> 100%
+    // 64 -> 400%
+    private static final byte UPDATE_RATE_12 = 1;
+    private static final byte UPDATE_RATE_25 = 2;
+    private static final byte UPDATE_RATE_50 = 4;
+    private static final byte UPDATE_RATE_100 = 8;
+    private static final byte UPDATE_RATE_200 = 16;
+    private static final byte UPDATE_RATE_400 = 32;
+    private static final byte UPDATE_RATE_800 = 64;
+    private static final byte UPDATE_RATE_DEFAULT = UPDATE_RATE_100;
 }

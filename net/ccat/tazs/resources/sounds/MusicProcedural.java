@@ -100,7 +100,7 @@ public class MusicProcedural
             break;
         }
         // So we can start on the first note.
-        mCurrentNoteIndex = -1;
+        mCurrentNoteIndex = mNotes.length;
     }
     
     public ubyte update()

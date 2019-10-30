@@ -32,6 +32,14 @@ class VideoConstants
     public static final int BRAWLERBODY_DEAD_FRAMES_LAST = 6;
     
     
+    /***** DASH GUY *****/
+    
+    public static final int DASHERBODY_RUN_FRAMES_START = 0;
+    public static final int DASHERBODY_RUN_FRAMES_END = 3;
+    public static final int DASHERBODY_DEAD_FRAMES_START = 4;
+    public static final int DASHERBODY_DEAD_FRAMES_LAST = 9;
+    
+    
     /***** CURSOR *****/
     
     public static final float CURSOR_ORIGIN_X = 3;
@@ -45,6 +53,9 @@ class VideoConstants
     public static final int EVERYTHING_BOW_FRAME = 69; // TODO: Should be 68, as Aseprite says it's 69. I'm not sure what's happening.
     public static final int EVERYTHING_BRAWLERBODY_A_FRAME = 0;
     public static final int EVERYTHING_BRAWLERBODY_B_FRAME = 7;
+    public static final int EVERYTHING_DASHCONVEYOR_FRAME = 100; // TODO: Should be 99, as Aseprite says it's 49. I'm not sure what's happening.
+    public static final int EVERYTHING_DASHERBODY_A_FRAME = 80; // TODO: Should be 79, as Aseprite says it's 49. I'm not sure what's happening.
+    public static final int EVERYTHING_DASHERBODY_B_FRAME = 90; // TODO: Should be 89, as Aseprite says it's 49. I'm not sure what's happening.
     public static final int EVERYTHING_HAND_FRAME = 49; // TODO: Should be 48, as Aseprite says it's 49. I'm not sure what's happening.
     public static final int EVERYTHING_PIKE_FRAME = 64; // TODO: Should be 63 as Aseprite says it's 64. I'm not sure what's happening.
     public static final int EVERYTHING_SHIELD_FRAME = 56; // TODO: Should be 55, as Aseprite says it's 56. I'm not sure what's happening.
@@ -53,7 +64,7 @@ class VideoConstants
     public static final int EVERYTHING_SWORD_FRAME = 50; // TODO: Should be 49, as Aseprite says it's 50. I'm not sure what's happening.
     public static final int EVERYTHING_TARGET_FRAME = 42;
     public static final int EVERYTHING_TINYGRASS_FRAME = 38;
-    
+
     
     /***** EVERYUI *****/
     

@@ -1272,6 +1272,31 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\PERCENT.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers/dasher": {},
+		"\\net\\ccat\\tazs\\battle\\handlers\\dasher": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\dasher/BaseDasherHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\dasher\\BaseDasherHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\dasher/DasherSeekAndAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\dasher\\DasherSeekAndAttackHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\dasher/DasherDeathHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\dasher\\DasherDeathHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_DASHER.bin": {
+			"sdcard": false
 		}
 	}
 }

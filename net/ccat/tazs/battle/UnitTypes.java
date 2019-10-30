@@ -2,6 +2,7 @@ package net.ccat.tazs.battle;
 
 import net.ccat.tazs.battle.handlers.archer.ArcherSeekHandler;
 import net.ccat.tazs.battle.handlers.brawler.BrawlerSeekHandler;
+import net.ccat.tazs.battle.handlers.dasher.DasherSeekAndAttackHandler;
 import net.ccat.tazs.battle.handlers.pikebearer.PikeBearerSeekHandler;
 import net.ccat.tazs.battle.handlers.shieldbearer.ShieldBearerSeekHandler;
 import net.ccat.tazs.battle.handlers.slapper.SlapperSeekHandler;
@@ -42,7 +43,11 @@ public class UnitTypes
      * @see ccat.tazs.battle.handlers.target
      */
     static final int TARGET = ARCHER + 1;
-    static final int END = TARGET + 1;
+    /**
+     * @see ccat.tazs.battle.handlers.dasher
+     */
+    static final int DASHER = TARGET + 1;
+    static final int END = DASHER + 1;
     
     
     /***** INFORMATION *****/
@@ -63,6 +68,8 @@ public class UnitTypes
             return ArcherSeekHandler.instance;
         if (unitType == TARGET)
             return TargetIdleHandler.instance;
+        if (unitType == DASHER)
+            return DasherSeekAndAttackHandler.instance;
         // Not supposed to happen.
         while (true);
         return TargetIdleHandler.instance;

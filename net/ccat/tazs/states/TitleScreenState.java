@@ -17,7 +17,6 @@ import net.ccat.tazs.resources.texts.SAVE_COMMANDS_ERASE;
 import net.ccat.tazs.resources.texts.SAVE_ERROR_CORRUPTED;
 import net.ccat.tazs.resources.texts.SAVE_ERROR_EMPTY;
 import net.ccat.tazs.resources.texts.SAVE_ERROR_VERSION;
-import net.ccat.tazs.resources.texts.TITLE;
 import net.ccat.tazs.resources.texts.TITLE_VERSION;
 import net.ccat.tazs.resources.texts.TITLE_MENU_CHALLENGES;
 import net.ccat.tazs.resources.texts.TITLE_MENU_QUICKBATTLE;
@@ -173,10 +172,6 @@ class TitleScreenState
             }
             if (mTimer >= TIMER_END)
             {
-                screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(TITLE.bin())) / 2, Dimensions.TITLE_TITLE_Y);
-                screen.setTextColor(Colors.TITLE_TEXT);
-                screen.printPText(TITLE.bin());
-        
                 drawMenuChoice(MENU_ENTRIES_QUICKBATTLE, TITLE_MENU_QUICKBATTLE.bin(), screen);
                 drawMenuChoice(MENU_ENTRIES_SANDBOX, TITLE_MENU_SANDBOX.bin(), screen);
                 drawMenuChoice(MENU_ENTRIES_CHALLENGES, TITLE_MENU_CHALLENGES.bin(), screen);

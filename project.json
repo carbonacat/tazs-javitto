@@ -1421,6 +1421,9 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\musics\\Silence.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TITLE-x.bin": {
+			"sdcard": false
 		}
 	}
 }

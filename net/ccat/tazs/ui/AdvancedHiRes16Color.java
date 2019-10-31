@@ -300,7 +300,7 @@ public class AdvancedHiRes16Color
             textY += textHeight();
         }
         everyUISprite.selectFrame(VideoConstants.EVERYUI_BEAN_NORMAL_FRAME);
-        everyUISprite.setPosition(textX + 3 - VideoConstants.EVERYUI_ORIGIN_X, textY + 2 - VideoConstants.EVERYUI_ORIGIN_X);
+        everyUISprite.setPosition(textX + 3 - VideoConstants.EVERYUI_ORIGIN_X, textY + 2 - VideoConstants.EVERYUI_ORIGIN_Y);
         everyUISprite.draw(this);
         textX += VideoConstants.BEAN_WIDTH + charSpacing;
     }

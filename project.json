@@ -1375,6 +1375,13 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\SETTINGS_TITLE.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources/musics": {},
+		"\\net\\ccat\\tazs\\resources\\musics": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources/musics\\Music02.bin": {
+			"sdcard": false
 		}
 	}
 }

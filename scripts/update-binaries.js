@@ -1,7 +1,10 @@
+// Actually, it creates Challenges, Musics and other resources.
+
 let tazs = {};
 
 
 tazs.challengesDestFolder = "net/ccat/tazs/resources/challenges/";
+tazs.musicsDestFolder = "net/ccat/tazs/resources/musics/";
 
 tazs.UNITTYPES =
 {
@@ -22,12 +25,21 @@ tazs.TEAMS =
     "right": 1
 };
 
-tazs.MAGIC_STRING = "TAZS-CHALPACK-1";
+tazs.EVENT_JUMP = "jump";
+tazs.EVENT_JUMP_VALUE = -128;
+tazs.EVENT_NOTE_MIN = -36;
+tazs.EVENT_NOTE_MAX = 36;
+
+tazs.CHALLENGEPACK_MAGIC_STRING = "TAZS-CHALPACK-1";
+tazs.PACK_CONTENT_ADDRESS = 24;
+tazs.CHALLENGE_CONTENT_OFFSET = 11;
+
 tazs.NULLCHAR = "\x00";
 tazs.NULLSHORT = "\x00\x00";
 
-tazs.PACK_CONTENT_ADDRESS = 24;
-tazs.CHALLENGE_CONTENT_OFFSET = 11;
+tazs.MUSIC_MAGIC_STRING = "TAZS-MUSICALO-1";
+tazs.MUSIC_CONTENT_ADDRESS = 24;
+
 
 tazs.writeUInt16 = function(data, value)
 {
@@ -56,7 +68,7 @@ tazs.writeInt8 = function(data, value)
 /**
  * Compiles the given challenge specifications into a binary file usable by the game.
  * 
- * @param filename The name of the file, without the folder and the BIN. Usually something like "Challenge01".
+ * @param filename The name of the file, without the folder and the BIN. Usually something like "ChallengesPack".
  * @param packSpecifications A JSON containing the specifications for all the challenges inside this pack.
  */
 tazs.compileChallengePack = function(filename, packSpecifications)
@@ -75,7 +87,7 @@ tazs.compileChallengePack = function(filename, packSpecifications)
     
     {
         // Magic value.
-        this.writeString(headerBinary, this.MAGIC_STRING);
+        this.writeString(headerBinary, this.CHALLENGEPACK_MAGIC_STRING);
     }
     
     {
@@ -207,8 +219,104 @@ tazs.compileChallengePack = function(filename, packSpecifications)
     log("Wrote " + finalBinary.length + "B into " + targetFilePath + ".");
 };
 
+/**
+ * Compiles the given challenge specifications into a binary file usable by the game.
+ * 
+ * @param filename The name of the file, without the folder and the BIN. Usually something like "Music01".
+ * @param musicSpecifications A JSON containing the specifications for all the challenges inside this pack.
+ */
+tazs.compileMusic = function(filename, musicSpecifications)
+{
+    let targetFilePath = this.musicsDestFolder + filename + ".bin";
+    // The full binary, we'll built piece by piece.
+    
+    // Contains the magic value, and the 4 initial addresses.
+    var headerBinary = [];
+    // Contains the Title.
+    var infoBinary = [];
+    // Contains the Instrument values.
+    var instrumentBinary = [];
+    // Contains the Events.
+    var eventsBinary = [];
+    // Contains the Extra.
+    var extraBinary = [];
+    
+    {
+        // Magic value.
+        this.writeString(headerBinary, this.MUSIC_MAGIC_STRING);
+    }
+    
+    {
+        var baseAddress = this.MUSIC_CONTENT_ADDRESS;
+        
+        // Music's title.
+        this.writeUInt16(headerBinary, baseAddress);
+        this.writeString(infoBinary, musicSpecifications.title);
+    }
+    
+    {
+        var baseAddress = this.MUSIC_CONTENT_ADDRESS + infoBinary.length;
+        
+        // Instrument.
+        this.writeUInt16(headerBinary, baseAddress);
+        this.writeUInt16(instrumentBinary, musicSpecifications.instrument.attack);
+        this.writeUInt16(instrumentBinary, musicSpecifications.instrument.decay);
+        this.writeUInt16(instrumentBinary, musicSpecifications.instrument.release);
+        this.writeUInt16(instrumentBinary, Math.round(musicSpecifications.instrument.sustainMaxRatio * 256.));
+    }
+    
+    {
+        var baseAddress = this.MUSIC_CONTENT_ADDRESS + infoBinary.length + instrumentBinary.length;
+        
+        // Events.
+        this.writeUInt16(headerBinary, baseAddress);
+        
+        this.writeUInt16(eventsBinary, musicSpecifications.events.length);
+        for (eventI = 0; eventI < musicSpecifications.events.length; eventI++)
+        {
+            var event = musicSpecifications.events[eventI];
+            var eventCommand = event[0];
+            
+            if (eventCommand == tazs.EVENT_JUMP)
+            {
+                this.writeUInt8(eventsBinary, tazs.EVENT_JUMP_VALUE);
+                this.writeUInt16(eventsBinary, event[1]);
+            }
+            else if ((eventCommand >= tazs.EVENT_NOTE_MIN) && (eventCommand <= tazs.EVENT_NOTE_MAX))
+            {
+                this.writeUInt8(eventsBinary, eventCommand);
+                this.writeUInt8(eventsBinary, event[1]);
+                this.writeUInt8(eventsBinary, event[2]);
+            }
+            else
+                throw new Exception("Unsupported Event #" + eventCommand);
+        }
+    }
+    
+    {
+        var baseAddress = this.MUSIC_CONTENT_ADDRESS + infoBinary.length + instrumentBinary.length + eventsBinary.length;
+        
+        // Pack's Extra.
+        this.writeUInt16(headerBinary, baseAddress);
+        // TODO: Fills the extra parts here.
+        this.writeString(extraBinary, "Ain't you the curious one (^w^ )");
+    }
+    
+    var packBinary = headerBinary.concat(infoBinary, instrumentBinary, eventsBinary, extraBinary);
+    var finalBinary = new Uint8Array(packBinary.length);
+    
+    for (var byteI = 0; byteI < packBinary.length; byteI++)
+        finalBinary[byteI] = packBinary[byteI];
+
+    write(targetFilePath, finalBinary);
+    
+    log("Wrote " + finalBinary.length + "B into " + targetFilePath + ".");
+};
+
 (function()
 {
+    log("Updating challenges-pack.");
+    
     let challengesPackSpecifications =
     {
         // Shown in the top of the screen.
@@ -321,4 +429,143 @@ tazs.compileChallengePack = function(filename, packSpecifications)
     };
     
     tazs.compileChallengePack("ChallengesPack", challengesPackSpecifications);
+})();
+
+(function()
+{
+    log("Updating musics.");
+    
+    /*tazs.compileMusic("Music00",
+    {
+        "title": "Stressed Clown",
+        "events":
+        [
+            -5, 2, 32,
+            0, 2, 0,
+            
+            -5, 2, 32,
+            -4, 2, 32,
+            
+            -3, 2, 32,
+            -2, 2, 32,
+            
+            -1, 2, 32,
+            0, 2, 0,
+            
+            -1, 2, 32,
+            0, 2, 0,
+            
+            -1, 2, 32,
+            0, 2, 0,
+            
+            0, 4, 32,
+            0, 4, 0,
+            
+            "jump", 0
+        ]
+    });
+    tazs.compileMusic("Music01",
+    {
+        "title": "Anxious Guy",
+        "events":
+        [
+            -5, 8, 16,
+            -6, 8, 16,
+            -7, 8, 16,
+            0, 4, 32,
+            -1, 4, 32,
+            
+            -10, 8, 16,
+            -9, 8, 16,
+            -8, 8, 16,
+            0, 4, 32,
+            -1, 4, 32,
+            
+            "jump", 0
+        ]
+    });*/
+    tazs.compileMusic("Music02",
+    {
+        "title": "Operation Room",
+        // Describes the instrument.
+        "instrument":
+        {
+            // Envelop's ATTACK duration.
+            "attack": 250,
+            // Envelop's DECAY duration.
+            "decay": 250,
+            // Envelop's RELEASE duration.
+            "release": 500,
+            // Ratio between Max and Sustain levels. Value above 1.f and below 0 aren't supported.
+            "sustainMaxRatio": 0.875
+        },
+        // The notes.
+        "events":
+        [
+            [-24, 1, 64],
+            [-24, 3, 0],
+            
+            [-24, 1, 64],
+            [-24, 3, 0],
+            
+            [-24, 4, 0],
+            
+            [-24, 1, 64],
+            [-24, 1, 0],
+            [-24, 1, 64],
+            [-24, 1, 0],
+            
+            [-24, 1, 64],
+            [-24, 3, 0],
+            
+            [-24, 4, 0],
+            
+            [-21, 1, 64],
+            [-24, 3, 0],
+            
+            [-24, 4, 0],
+            
+            // Jumps at the event 0 - aka the start of the song.
+            // Without it, the music will just stop.
+            ["jump", 0]
+        ]
+    });
+    /*tazs.compileMusic("Music03",
+    {
+        "title": "Maddening Phone",
+        "events":
+        [
+            -1, 16, 32,
+            -2, 16, 32,
+            
+            -3, 32, 32,
+            
+            0, 4, 0,
+            -3, 4, 16,
+            0, 4, 0,
+            -3, 4, 8,
+            
+            0, 4, 0,
+            -3, 4, 4,
+            0, 4, 0,
+            0, 8, 0,
+            
+            -3, 16, 32,
+            -2, 16, 32,
+            
+            -1, 32, 32,
+            
+            0, 4, 0,
+            -1, 4, 16,
+            0, 4, 0,
+            -1, 4, 8,
+            
+            0, 4, 0,
+            -1, 4, 4,
+            0, 4, 0,
+            0, 8, 0,
+            
+            "jump", 0
+        ]
+    });*/
 })();

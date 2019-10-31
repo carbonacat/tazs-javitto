@@ -104,6 +104,14 @@ public class Dimensions
     public static final int TITLE_LOGO_ZOMBIE_WIDTH = 134;
     public static final int TITLE_LOGO_ZOMBIE_HEIGHT = 46;
     
+    public static final int TITLE_LOGO_TOTALLY_X = 93;
+    public static final int TITLE_LOGO_TOTALLY_Y_START = -50;
+    public static final int TITLE_LOGO_TOTALLY_Y_FINAL = 16;
+    
+    public static final int TITLE_LOGO_SIMULATOR_Y = 69;
+    public static final int TITLE_LOGO_SIMULATOR_X_START = 300;
+    public static final int TITLE_LOGO_SIMULATOR_X_FINAL = 134;
+    
     
     /***** TOP BAR *****/
     

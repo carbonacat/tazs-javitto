@@ -143,7 +143,34 @@ class TitleScreenState
                     screen.fillRectBlended(Dimensions.TITLE_LOGO_ZOMBIE_XMIN, Dimensions.TITLE_LOGO_ZOMBIE_YMIN, Dimensions.TITLE_LOGO_ZOMBIE_WIDTH, Dimensions.TITLE_LOGO_ZOMBIE_HEIGHT,
                                            0, Colors.TITLE_BG, patternForFadein(mTimer, TIMER_INIT, TIMER_STEP1));
             }
-            
+            if (mTimer >= TIMER_STEP1)
+            {
+                // Totally Accurate
+                mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_TOTALLY_FRAME);
+                if (mTimer <= TIMER_STEP2)
+                {
+                    int totallyY = MathTools.lerpi(mTimer, TIMER_STEP1, Dimensions.TITLE_LOGO_TOTALLY_Y_START, TIMER_STEP2, Dimensions.TITLE_LOGO_TOTALLY_Y_FINAL);
+                    
+                    mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_TOTALLY_X - VideoConstants.EVERYUI_ORIGIN_X,
+                                                    totallyY - VideoConstants.EVERYUI_ORIGIN_Y);
+                }
+                else
+                    mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_TOTALLY_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_TOTALLY_Y_FINAL - VideoConstants.EVERYUI_ORIGIN_Y);
+                mGame.everyUISprite.draw(screen);
+                
+                // Simulator
+                mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_SIMULATOR_FRAME);
+                if (mTimer <= TIMER_STEP2)
+                {
+                    int simulatorX = MathTools.lerpi(mTimer, TIMER_STEP1, Dimensions.TITLE_LOGO_SIMULATOR_X_START, TIMER_STEP2, Dimensions.TITLE_LOGO_SIMULATOR_X_FINAL);
+                    
+                    mGame.everyUISprite.setPosition(simulatorX - VideoConstants.EVERYUI_ORIGIN_X,
+                                                    Dimensions.TITLE_LOGO_SIMULATOR_Y - VideoConstants.EVERYUI_ORIGIN_Y);
+                }
+                else
+                    mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_SIMULATOR_X_FINAL - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_SIMULATOR_Y - VideoConstants.EVERYUI_ORIGIN_Y);
+                mGame.everyUISprite.draw(screen);
+            }
             if (mTimer >= TIMER_END)
             {
                 screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(TITLE.bin())) / 2, Dimensions.TITLE_TITLE_Y);
@@ -280,6 +307,5 @@ class TitleScreenState
     private static final int TIMER_INIT = 0;
     private static final int TIMER_STEP1 = 30;
     private static final int TIMER_STEP2 = 60;
-    private static final int TIMER_STEP3 = 90;
     private static final int TIMER_END = 120;
 }

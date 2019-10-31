@@ -217,7 +217,7 @@ class PadMenuUI
         {
             screen.fillRectBlended(0, 0, Dimensions.SCREEN_WIDTH, Dimensions.HELPBAR_BOX_MIN_Y - 1,
                                    Colors.PADMENU_OVERLAY, 0,
-                                   AdvancedHiRes16Color.PATTERN_25_75_HEX);
+                                   AdvancedHiRes16Color.PATTERN_75_25_HEX);
             mPadMenuSprite.draw(screen, mX - VideoConstants.PAD_MENU_ORIGIN_X, mY - VideoConstants.PAD_MENU_ORIGIN_X);
             if (mRightTitle != null)
                 drawChoice(CHOICE_RIGHT, mRightTitle, mRightIsEnabled, screen);

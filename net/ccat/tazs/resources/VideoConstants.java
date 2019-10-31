@@ -54,8 +54,8 @@ class VideoConstants
     public static final int EVERYTHING_BRAWLERBODY_A_FRAME = 0;
     public static final int EVERYTHING_BRAWLERBODY_B_FRAME = 7;
     public static final int EVERYTHING_DASHCONVEYOR_FRAME = 100; // TODO: Should be 99, as Aseprite says it's 49. I'm not sure what's happening.
-    public static final int EVERYTHING_DASHERBODY_A_FRAME = 80; // TODO: Should be 79, as Aseprite says it's 49. I'm not sure what's happening.
-    public static final int EVERYTHING_DASHERBODY_B_FRAME = 90; // TODO: Should be 89, as Aseprite says it's 49. I'm not sure what's happening.
+    public static final int EVERYTHING_DASHERBODY_B_FRAME = 80; // TODO: Should be 79, as Aseprite says it's 49. I'm not sure what's happening.
+    public static final int EVERYTHING_DASHERBODY_A_FRAME = 90; // TODO: Should be 89, as Aseprite says it's 49. I'm not sure what's happening.
     public static final int EVERYTHING_HAND_FRAME = 49; // TODO: Should be 48, as Aseprite says it's 49. I'm not sure what's happening.
     public static final int EVERYTHING_PIKE_FRAME = 64; // TODO: Should be 63 as Aseprite says it's 64. I'm not sure what's happening.
     public static final int EVERYTHING_SHIELD_FRAME = 56; // TODO: Should be 55, as Aseprite says it's 56. I'm not sure what's happening.

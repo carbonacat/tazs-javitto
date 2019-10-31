@@ -26,6 +26,7 @@ import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.save.SaveCookie;
+import net.ccat.tazs.save.SaveStatus;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.PadMenuUI;
@@ -56,8 +57,10 @@ class TAZSGame
         Mixer.init(8000);
         
         music.play();
-        musicIdentifier = Musics.MUSIC02;
-        music.playMusic(Musics.musicPointerForIdentifier(musicIdentifier));
+        if (cookie.getStatus() == SaveStatus.OK)
+            music.playMusic(Musics.musicPointerForIdentifier(cookie.getMusicIdentifier()));
+        else
+            music.playMusic(Musics.musicPointerForIdentifier(Musics.MUSIC00));
     }
     
     
@@ -297,7 +300,6 @@ class TAZSGame
     public CursorCancelSound cursorCancelSound = new CursorCancelSound();
     public DammitSound dammitSound = new DammitSound(1);
     public MusicPlayerProcedural music = new MusicPlayerProcedural(3);
-    public int musicIdentifier = Musics.MUSIC00;
     
     
     /***** PRIVATE *****/

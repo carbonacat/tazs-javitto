@@ -8,6 +8,7 @@ import net.ccat.tazs.battle.modes.RandomBattleMode;
 import net.ccat.tazs.battle.modes.SandboxBattleMode;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
+import net.ccat.tazs.resources.musics.Musics;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.texts.MISC_ERROR;
@@ -171,6 +172,7 @@ class TitleScreenState
             {
                 mGame.cursorSelectSound.play();
                 mGame.cookie.clear();
+                mGame.cookie.setMusicIdentifier(Musics.MUSIC00);
                 mGame.cookie.saveCookie();
                 mCookieStatus = mGame.cookie.getStatus();
             }

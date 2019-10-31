@@ -27,7 +27,6 @@ public class Musics
         else if (musicIdentifier == MUSIC03)
             return Music03.bin();
         // Something went wrong here!
-        while (true);
-        return null;
+        return Silence.bin();
     }
 }

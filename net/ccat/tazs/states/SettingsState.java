@@ -132,6 +132,8 @@ class SettingsState
         if ((Button.A.justPressed()) && (Button.C.isPressed()))
         {
             mGame.cookie.clear();
+            mGame.cookie.setMusicIdentifier(Musics.MUSIC00);
+            mGame.music.playMusic(Musics.musicPointerForIdentifier(Musics.MUSIC00));
             mGame.cookie.saveCookie();
             mGame.cursorSelectSound.play();
             Game.changeState(new TitleScreenState(mGame));
@@ -140,16 +142,18 @@ class SettingsState
     
     private void handlePlayMusicChoice()
     {
-        int oldMusicIdentifier = mGame.musicIdentifier;
+        int musicIdentifier = mGame.cookie.getMusicIdentifier();
         
         if (Button.Left.justPressed())
-            mGame.musicIdentifier--;
+            musicIdentifier--;
         if (Button.Right.justPressed())
-            mGame.musicIdentifier++;
-        if (oldMusicIdentifier != mGame.musicIdentifier)
+            musicIdentifier++;
+        if (musicIdentifier != mGame.cookie.getMusicIdentifier())
         {
-            mGame.musicIdentifier = (mGame.musicIdentifier + Musics.COUNT) % Musics.COUNT;
-            mGame.music.playMusic(Musics.musicPointerForIdentifier(mGame.musicIdentifier));
+            musicIdentifier = (musicIdentifier + Musics.COUNT) % Musics.COUNT;
+            mGame.cookie.setMusicIdentifier(musicIdentifier);
+            mGame.cookie.saveCookie();
+            mGame.music.playMusic(Musics.musicPointerForIdentifier(musicIdentifier));
         }
     }
     
@@ -167,11 +171,13 @@ class SettingsState
         screen.setTextColor(Colors.TITLE_SUBTEXT);
         screen.printPText(SETTINGS_TITLE.bin());
 
+        int musicIdentifier = mGame.cookie.getMusicIdentifier();
+        
         drawMenuChoice(MENU_ENTRIES_DAMMIT, SETTINGS_DAMMIT.bin(), null, false, screen);
         drawMenuChoice(MENU_ENTRIES_ERASE_CAMPAIGN, SETTINGS_ERASE_CAMPAIGN.bin(), null, true, screen);
         drawMenuChoice(MENU_ENTRIES_ERASE_CHALLENGES, SETTINGS_ERASE_CHALLENGES.bin(), null, true, screen);
         drawMenuChoice(MENU_ENTRIES_ERASE_EVERYTHING, SETTINGS_ERASE_EVERYTHING.bin(), null, true, screen);
-        drawMenuChoice(MENU_ENTRIES_PLAY_MUSIC, SETTINGS_PLAY_MUSIC.bin(), MusicReader.titlePointerFromMusic(Musics.musicPointerForIdentifier(mGame.musicIdentifier)), false, screen);
+        drawMenuChoice(MENU_ENTRIES_PLAY_MUSIC, SETTINGS_PLAY_MUSIC.bin(), MusicReader.titlePointerFromMusic(Musics.musicPointerForIdentifier(musicIdentifier)), false, screen);
         
         screen.flush();
         Performances.onFlushedScreen();

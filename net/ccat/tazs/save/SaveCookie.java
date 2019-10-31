@@ -60,6 +60,9 @@ public class SaveCookie
         checksum = computeChecksum();
     }
     
+    
+    /***** CAMPAIGN *****/
+    
     /**
      * Clears all the challenges.
      */
@@ -68,6 +71,9 @@ public class SaveCookie
         campaignStore00 = campaignStore01 = campaignStore02 = campaignStore03 = 0;
         checksum = computeChecksum();
     }
+    
+    
+    /***** CHALLENGES *****/
     
     /**
      * Clears all the challenges.
@@ -117,6 +123,21 @@ public class SaveCookie
             challenges06 |= (1 << (challengeIdentifier - 48));
         else if ((challengeIdentifier >= 56) && (challengeIdentifier <= 63))
             challenges07 |= (1 << (challengeIdentifier - 56));
+        checksum = computeChecksum();
+    }
+    
+    
+    /***** AUDIO *****/
+    
+    public int getMusicIdentifier()
+    {
+        return (int)(settings00 & SETTINGS00_MUSIC_MASK);
+    }
+    
+    public void setMusicIdentifier(int musicIdentifier)
+    {
+        settings00 &= ~SETTINGS00_MUSIC_MASK;
+        settings00 |= (musicIdentifier & SETTINGS00_MUSIC_MASK);
         checksum = computeChecksum();
     }
     
@@ -182,4 +203,6 @@ public class SaveCookie
     
     private static final byte MAGIC_VALUE = 0xA2; // Accurate 2ombie :p
     private static final byte VERSION = 0x01; // Shouldn't change much.
+    
+    private static final byte SETTINGS00_MUSIC_MASK = 0x0F;
 }

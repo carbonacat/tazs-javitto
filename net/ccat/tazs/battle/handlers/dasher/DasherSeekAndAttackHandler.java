@@ -32,7 +32,9 @@ public class DasherSeekAndAttackHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
-        if (system.unitsTimers[unitIdentifier] > 0)
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        
+        if ((unitTimer >= DASH_TIMER_INIT) && (unitTimer <= DASH_TIMER_END))
             drawDashingDasherUnit(system, unitIdentifier, screen);
         else
             drawRunningDasherUnit(system, unitIdentifier, screen);
@@ -112,25 +114,31 @@ public class DasherSeekAndAttackHandler
             unitY += Math.sin(unitAngle) * DASH_SPEED;
             
             // Dash attack will hit the closest unit with a pushback.
-            int enemyIdentifier = system.findClosestLivingUnit(unitX, unitY, Teams.oppositeTeam(unitTeam), DASH_RADIUS);
             
-            if (enemyIdentifier != UnitsSystem.IDENTIFIER_NONE)
+            for (int hitI = 0; hitI < DASH_HITS; hitI++)
             {
-                float unitToEnemyX = system.unitsXs[enemyIdentifier] - unitX;
-                float unitToEnemyY = system.unitsYs[enemyIdentifier] - unitY;
-                float unitToEnemySquared = unitToEnemyX * unitToEnemyX + unitToEnemyY * unitToEnemyY;
-                float unitToEnemy = 0;
+                int enemyIdentifier = system.findClosestLivingUnit(unitX, unitY, Teams.oppositeTeam(unitTeam), DASH_RADIUS);
                 
-                if (unitToEnemySquared == 0)
+                if (enemyIdentifier != UnitsSystem.IDENTIFIER_NONE)
                 {
-                    unitToEnemyX = 1;
-                    unitToEnemyY = 0;
-                    unitToEnemy = 1;
+                    float unitToEnemyX = system.unitsXs[enemyIdentifier] - unitX;
+                    float unitToEnemyY = system.unitsYs[enemyIdentifier] - unitY;
+                    float unitToEnemySquared = unitToEnemyX * unitToEnemyX + unitToEnemyY * unitToEnemyY;
+                    float unitToEnemy = 0;
+                    
+                    if (unitToEnemySquared == 0)
+                    {
+                        unitToEnemyX = 1;
+                        unitToEnemyY = 0;
+                        unitToEnemy = 1;
+                    }
+                    else
+                        unitToEnemy = Math.sqrt(unitToEnemySquared);
+                    system.unitsHandlers[enemyIdentifier].onHit(system, enemyIdentifier,
+                                                                unitToEnemyX * DASH_POWER, unitToEnemyY * DASH_POWER, DASH_POWER);
                 }
                 else
-                    unitToEnemy = Math.sqrt(unitToEnemySquared);
-                system.unitsHandlers[enemyIdentifier].onHit(system, enemyIdentifier,
-                                                            unitToEnemyX * DASH_POWER, unitToEnemyY * DASH_POWER, DASH_POWER);
+                    hitI = DASH_HITS;
             }
         }
         else 

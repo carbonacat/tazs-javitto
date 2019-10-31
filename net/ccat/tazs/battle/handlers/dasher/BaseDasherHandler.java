@@ -20,14 +20,15 @@ public class BaseDasherHandler
     public static final float ANGLE_ROTATION_BY_TICK = 24.f / 256.f;
     public static final float DASH_SPEED = 2.f;
     public static final float DASH_RADIUS = 6.f;
-    public static final float DASH_POWER = 10.f;
+    public static final float DASH_POWER = 5.f;
     public static final int DASH_TIMER_INIT = 1;
-    public static final int DASH_TIMER_END = 15;
-    public static final int DASH_TIMER_RESTED = 30;
-    public static final int RUN_TIMER_CYCLE = 8;
+    public static final int DASH_TIMER_END = 30;
+    public static final int DASH_TIMER_RESTED = 60;
+    public static final int DASH_HITS = 2;
+    public static final int RUN_TIMER_CYCLE = 16;
     public static final float DASH_ANGLE_MAX = Math.PI * 0.5f;
     
-    public static final float CLOSE_DISTANCE = 10.f + DASH_RADIUS + HandlersTools.UNIT_RADIUS - 2;
+    public static final float CLOSE_DISTANCE = ((DASH_TIMER_END - DASH_TIMER_INIT) / 2) * DASH_SPEED + DASH_RADIUS + HandlersTools.UNIT_RADIUS - 2;
     public static final float CLOSE_DISTANCE_SQUARED = CLOSE_DISTANCE * CLOSE_DISTANCE;
     
     public static final int COST = 50;
@@ -87,10 +88,15 @@ public class BaseDasherHandler
     public void onHit(UnitsSystem system, int unitIdentifier,
                       float powerX, float powerY, float power)
     {
-        // TODO: Invincible when dashing.
-        // TODO: Automatic Dash when going to be hit while attack is ready.
-        if (HandlersTools.hitAndCheckIfBecameDead(system, unitIdentifier, powerX, powerY, power))
-            system.unitsHandlers[unitIdentifier] = DasherDeathHandler.instance;
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        
+        // Invisible when dashing.
+        if ((unitTimer < DASH_TIMER_INIT) || (unitTimer > DASH_TIMER_END))
+        {
+            // TODO: Automatic Dash when going to be hit while attack is ready.
+            if (HandlersTools.hitAndCheckIfBecameDead(system, unitIdentifier, powerX, powerY, power))
+                system.unitsHandlers[unitIdentifier] = DasherDeathHandler.instance;
+        }
     }
     
     

@@ -60,9 +60,27 @@ class SettingsState
         {
             if (mCurrentMenuIdentifier == MENU_ENTRIES_DAMMIT)
                 mGame.dammitSound.play();
-            else
+            else if ((mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_CAMPAIGN) && (Button.C.isPressed()))
             {
-                // TODO: The magic is here!
+                mGame.cookie.clearCampaign();
+                mGame.cookie.saveCookie();
+                mGame.cursorSelectSound.play();
+                Game.changeState(new TitleScreenState(mGame));
+            }
+            else if ((mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_CHALLENGES) && (Button.C.isPressed()))
+            {
+                mGame.cookie.clearChallenges();
+                mGame.cookie.saveCookie();
+                mGame.cursorSelectSound.play();
+                Game.changeState(new TitleScreenState(mGame));
+            }
+            
+            else if ((mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_EVERYTHING) && (Button.C.isPressed()))
+            {
+                mGame.cookie.clear();
+                mGame.cookie.saveCookie();
+                mGame.cursorSelectSound.play();
+                Game.changeState(new TitleScreenState(mGame));
             }
         }
         else

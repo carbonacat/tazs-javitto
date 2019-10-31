@@ -60,6 +60,24 @@ public class SaveCookie
         checksum = computeChecksum();
     }
     
+    /**
+     * Clears all the challenges.
+     */
+    public void clearCampaign()
+    {
+        campaignStore00 = campaignStore01 = campaignStore02 = campaignStore03 = 0;
+        checksum = computeChecksum();
+    }
+    
+    /**
+     * Clears all the challenges.
+     */
+    public void clearChallenges()
+    {
+        challenges00 = challenges01 = challenges02 = challenges03 = challenges04 = challenges05 = challenges06 = challenges07 = 0;
+        checksum = computeChecksum();
+    }
+    
     public boolean isChallengeDone(int challengeIdentifier)
     {
         if ((challengeIdentifier >= 0) && (challengeIdentifier <= 7))

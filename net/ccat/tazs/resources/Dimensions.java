@@ -111,6 +111,11 @@ public class Dimensions
     public static final int TITLE_LOGO_SIMULATOR_X_START = 300;
     public static final int TITLE_LOGO_SIMULATOR_X_FINAL = 134;
     
+    public static final int TITLE_LOGO_SHADOWS_X_MIN = 22;
+    public static final int TITLE_LOGO_SHADOWS_X_MAX = 220;
+    public static final int TITLE_LOGO_SHADOWS_Y_START = 200;
+    public static final int TITLE_LOGO_SHADOWS_Y_FINAL = 153;
+    
     
     /***** TOP BAR *****/
     

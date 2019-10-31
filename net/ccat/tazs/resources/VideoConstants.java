@@ -88,8 +88,8 @@ class VideoConstants
     public static final int EVERYUI_TITLE_ZOMBIE_FRAME = 15;
     public static final int EVERYUI_TITLE_SIMULATOR_FRAME = 16;
     public static final int EVERYUI_TITLE_TOTALLY_FRAME = 17;
-    public static final int EVERYUI_TITLE_ZOMBIES_FRAMES_FIRST = 18;
-    public static final int EVERYUI_TITLE_ZOMBIES_FRAMES_LAST = 23;
+    public static final int EVERYUI_TITLE_SHADOWS_FRAMES_FIRST = 18;
+    public static final int EVERYUI_TITLE_SHADOWS_FRAMES_LAST = 23;
     
     
     /***** MENU CURSOR *****/

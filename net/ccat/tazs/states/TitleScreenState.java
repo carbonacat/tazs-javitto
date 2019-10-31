@@ -262,6 +262,24 @@ class TitleScreenState
             else
                 game.everyUISprite.setPosition(Dimensions.TITLE_LOGO_SIMULATOR_X_FINAL - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_SIMULATOR_Y - VideoConstants.EVERYUI_ORIGIN_Y);
             game.everyUISprite.draw(screen);
+            
+            int shadowsY;
+            
+            if (timer < TIMER_END)
+                shadowsY = MathTools.lerpi(timer, TIMER_STEP1, Dimensions.TITLE_LOGO_SHADOWS_Y_START, TIMER_END, Dimensions.TITLE_LOGO_SHADOWS_Y_FINAL);
+            else
+                shadowsY = Dimensions.TITLE_LOGO_SHADOWS_Y_FINAL;
+
+            for (int frame = VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_FIRST; frame <= VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_LAST; frame++)
+            {
+                int shadowsX = MathTools.lerpi(frame,
+                                               VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_FIRST, Dimensions.TITLE_LOGO_SHADOWS_X_MIN,
+                                               VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_LAST, Dimensions.TITLE_LOGO_SHADOWS_X_MAX);
+                
+                game.everyUISprite.selectFrame(frame);
+                game.everyUISprite.setPosition(shadowsX - VideoConstants.EVERYUI_ORIGIN_X, shadowsY - VideoConstants.EVERYUI_ORIGIN_Y);
+                game.everyUISprite.draw(screen);
+            }
         }
         screen.setTextPosition(Dimensions.TITLE_VERSION_X, Dimensions.TITLE_VERSION_Y);
         screen.setTextColor(Colors.TITLE_VERSION);

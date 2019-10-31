@@ -19,11 +19,11 @@ public class BaseDasherHandler
     public static final float WALK_SPEED = 1.000f;
     public static final float ANGLE_ROTATION_BY_TICK = 24.f / 256.f;
     public static final float DASH_SPEED = 2.f;
-    public static final float DASH_RADIUS = 5.f;
-    public static final float DASH_POWER = 5.f;
+    public static final float DASH_RADIUS = 6.f;
+    public static final float DASH_POWER = 10.f;
     public static final int DASH_TIMER_INIT = 1;
-    public static final int DASH_TIMER_END = 30;
-    public static final int DASH_TIMER_RESTED = 60;
+    public static final int DASH_TIMER_END = 15;
+    public static final int DASH_TIMER_RESTED = 30;
     public static final int RUN_TIMER_CYCLE = 8;
     public static final float DASH_ANGLE_MAX = Math.PI * 0.5f;
     
@@ -228,10 +228,23 @@ public class BaseDasherHandler
                                              NonAnimatedSprite everythingSprite, int baseFrame,
                                              AdvancedHiRes16Color screen)
     {
-        // TODO: Render an after image.
-        everythingSprite.selectFrame(baseFrame + 1);
-        everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
+        float deltaX = Math.cos(unitAngle) * DASH_SPEED;
+        float deltaY = Math.sin(unitAngle) * DASH_SPEED;
+
+        everythingSprite.selectFrame(baseFrame);
         everythingSprite.setMirrored(unitAngle < -MathTools.PI_1_2 || unitAngle > MathTools.PI_1_2);
+            
+        if ((unitTimer & 0x2) == 0x2)
+        {
+            everythingSprite.setPosition(unitX - deltaX - deltaX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - deltaY - deltaY - VideoConstants.EVERYTHING_ORIGIN_Y);
+            everythingSprite.draw(screen);
+        }
+        if ((unitTimer & 0x1) == 0x1)
+        {
+            everythingSprite.setPosition(unitX - deltaX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - deltaY - VideoConstants.EVERYTHING_ORIGIN_Y);
+            everythingSprite.draw(screen);
+        }
+        everythingSprite.setPosition(unitX - VideoConstants.EVERYTHING_ORIGIN_X, unitY - VideoConstants.EVERYTHING_ORIGIN_Y);
         everythingSprite.draw(screen);
     }
     

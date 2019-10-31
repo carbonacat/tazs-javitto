@@ -32,8 +32,10 @@ public class DasherSeekAndAttackHandler
     
     public void draw(UnitsSystem system, int unitIdentifier, AdvancedHiRes16Color screen)
     {
-        // TODO: Render the dashing mode if applicable.
-        drawRunningDasherUnit(system, unitIdentifier, screen);
+        if (system.unitsTimers[unitIdentifier] > 0)
+            drawDashingDasherUnit(system, unitIdentifier, screen);
+        else
+            drawRunningDasherUnit(system, unitIdentifier, screen);
     }
     
     

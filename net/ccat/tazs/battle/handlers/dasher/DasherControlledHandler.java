@@ -55,7 +55,7 @@ public class DasherControlledHandler
         
         unitTimer++;
         if (unitTimer > 0)
-            unitTimer = RECONSIDER_TICKS;
+            unitTimer = READY_TICKS;
         if (system.playerPadLength > 0)
         {
             float targetAngle = system.playerPadAngle;
@@ -65,7 +65,7 @@ public class DasherControlledHandler
             system.unitsAngles[unitIdentifier] = unitAngle;
         }
         
-        if (system.playerPrimaryAction)
+        if ((unitTimer >= READY_TICKS) && (system.playerPrimaryAction))
             unitTimer = DASH_TIMER_INIT;
 
         // Can't stop!

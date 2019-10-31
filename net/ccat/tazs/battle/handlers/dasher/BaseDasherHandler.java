@@ -21,9 +21,11 @@ public class BaseDasherHandler
     public static final float DASH_SPEED = 2.f;
     public static final float DASH_RADIUS = 6.f;
     public static final float DASH_POWER = 5.f;
+    public static final int READY_TICKS = -60;
+    public static final int RECONSIDER_TICKS = 0;
     public static final int DASH_TIMER_INIT = 1;
     public static final int DASH_TIMER_END = 30;
-    public static final int DASH_TIMER_RESTED = 60;
+    public static final int DASH_TIMER_RECOVER = READY_TICKS - 30;
     public static final int DASH_HITS = 2;
     public static final int RUN_TIMER_CYCLE = 16;
     public static final float DASH_ANGLE_MAX = Math.PI * 0.5f;
@@ -34,9 +36,6 @@ public class BaseDasherHandler
     public static final int COST = 50;
     public static final float INVERSE_WEIGHT = 0.50;
     public static final int DEATH_TICKS = 30;
-    public static final int RECONSIDER_TICKS = -64;
-    
-    public static final int UI_TIMER_WRAPPER = DASH_TIMER_RESTED;
     
     
     /***** INFORMATION *****/
@@ -121,14 +120,14 @@ public class BaseDasherHandler
                          int unitTimer,
                          AdvancedHiRes16Color screen)
     {
-        unitTimer = unitTimer % UI_TIMER_WRAPPER;
+        unitTimer = unitTimer % (DASH_TIMER_END - READY_TICKS);
         
         if ((unitTimer >= DASH_TIMER_INIT) && (unitTimer <= DASH_TIMER_END))
-            drawDashingDasherBody(unitX, unitY, unitAngle, unitTimer % UI_TIMER_WRAPPER,
+            drawDashingDasherBody(unitX, unitY, unitAngle, unitTimer,
                                   system.everythingSprite, baseFrameForTeam(unitTeam),
                                   screen);
         else
-            drawRunningDasherBody(unitX, unitY, unitAngle, unitTimer % UI_TIMER_WRAPPER,
+            drawRunningDasherBody(unitX, unitY, unitAngle, unitTimer,
                                   system.everythingSprite, baseFrameForTeam(unitTeam),
                                   screen);
     }

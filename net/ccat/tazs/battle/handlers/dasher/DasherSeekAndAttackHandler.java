@@ -58,7 +58,7 @@ public class DasherSeekAndAttackHandler
             // It might be better to use a fitness function.
             targetIdentifier = system.findClosestLivingUnit(unitX, unitY, Teams.oppositeTeam(unitTeam), HandlersTools.SEEK_DISTANCE_MAX);
             system.unitsTargetIdentifiers[unitIdentifier] = targetIdentifier;
-            unitTimer = RECONSIDER_TICKS;
+            unitTimer = READY_TICKS;
         }
         if (targetIdentifier != UnitsSystem.IDENTIFIER_NONE)
         {
@@ -75,10 +75,18 @@ public class DasherSeekAndAttackHandler
                 
                 unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
             }
-            if ((squaredDistance < CLOSE_DISTANCE_SQUARED) && (MathTools.abs(MathTools.wrapAngle(targetAngle - unitAngle)) <= DASH_ANGLE_MAX))
+            if (unitTimer >= READY_TICKS)
             {
-                // Let's start dashing!
-                unitTimer = DASH_TIMER_INIT;
+                if (system.unitsHealths[targetIdentifier] == 0)
+                {
+                    // Target is already dead - time to reconsider things!.
+                    unitTimer = RECONSIDER_TICKS;
+                }
+                else if ((squaredDistance < CLOSE_DISTANCE_SQUARED) && (MathTools.abs(MathTools.wrapAngle(targetAngle - unitAngle)) <= DASH_ANGLE_MAX))
+                {
+                    // Let's start dashing!
+                    unitTimer = DASH_TIMER_INIT;
+                }
             }
         }
         else if (((MathTools.abs(unitX) >= HandlersTools.FAR_DISTANCE) || (MathTools.abs(unitY) >= HandlersTools.FAR_DISTANCE))
@@ -150,15 +158,13 @@ public class DasherSeekAndAttackHandler
                     hitI = DASH_HITS;
             }
         }
-        else 
+        else
         {
+            unitTimer = DASH_TIMER_RECOVER;
+            
             // Can't stop!
             unitX += Math.cos(unitAngle) * WALK_SPEED;
             unitY += Math.sin(unitAngle) * WALK_SPEED;
-            
-            // Go back to seeking.
-            if (unitTimer >= DASH_TIMER_RESTED)
-                unitTimer = 0;
         }
         
         // Updating the changed state.

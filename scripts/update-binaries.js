@@ -435,7 +435,7 @@ tazs.compileMusic = function(filename, musicSpecifications)
 {
     log("Updating musics.");
     
-    tazs.compileMusic("Music00",
+    tazs.compileMusic("Music01",
     {
         "title": "Stressed Clown",
         "instrument":
@@ -471,7 +471,7 @@ tazs.compileMusic = function(filename, musicSpecifications)
             ["jump", 0]
         ]
     });
-    tazs.compileMusic("Music01",
+    tazs.compileMusic("Music00",
     {
         "title": "Anxious Guy",
         // Describes the instrument.

@@ -35,7 +35,7 @@ import net.ccat.tazs.ui.UIModes;
  */
 class TAZSGame
 {
-    public static final float CAMERA_SPEED_PER_TICK = 4.f;
+    public static final float CAMERA_SPEED_PER_TICK = 16.f;
     
     
     public TAZSGame()

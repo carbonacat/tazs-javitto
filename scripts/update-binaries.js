@@ -435,36 +435,43 @@ tazs.compileMusic = function(filename, musicSpecifications)
 {
     log("Updating musics.");
     
-    /*tazs.compileMusic("Music00",
+    tazs.compileMusic("Music00",
     {
         "title": "Stressed Clown",
+        "instrument":
+        {
+            "attack": 1000,
+            "decay": 250,
+            "release": 2500,
+            "sustainMaxRatio": 0.5
+        },
         "events":
         [
-            -5, 2, 32,
-            0, 2, 0,
+            [-5, 2, 32],
+            [0, 2, 0],
             
-            -5, 2, 32,
-            -4, 2, 32,
+            [-5, 2, 32],
+            [-4, 2, 32],
             
-            -3, 2, 32,
-            -2, 2, 32,
+            [-3, 2, 32],
+            [-2, 2, 32],
             
-            -1, 2, 32,
-            0, 2, 0,
+            [-1, 2, 32],
+            [0, 2, 0],
             
-            -1, 2, 32,
-            0, 2, 0,
+            [-1, 2, 32],
+            [0, 2, 0],
             
-            -1, 2, 32,
-            0, 2, 0,
+            [-1, 2, 32],
+            [0, 2, 0],
             
-            0, 4, 32,
-            0, 4, 0,
+            [0, 4, 32],
+            [0, 4, 0],
             
-            "jump", 0
+            ["jump", 0]
         ]
     });
-    tazs.compileMusic("Music01",
+    /*tazs.compileMusic("Music01",
     {
         "title": "Anxious Guy",
         "events":

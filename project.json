@@ -1382,6 +1382,27 @@
 		},
 		"\\net\\ccat\\tazs\\resources/musics\\Music02.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources/musics/MusicReader.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources/musics\\MusicReader.java": {
+			"sdcard": false
+		},
+		"\\scripts\\update-binaries.js": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\musics\\Music02.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\musics\\MusicPlayerProcedural.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\musics\\MusicReader.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\musics\\Music00.bin": {
+			"sdcard": false
 		}
 	}
 }

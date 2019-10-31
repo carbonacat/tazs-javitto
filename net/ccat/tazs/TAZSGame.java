@@ -11,12 +11,16 @@ import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.battle.UnitTypes;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
+import net.ccat.tazs.resources.musics.Music00;
+import net.ccat.tazs.resources.musics.Music01;
+import net.ccat.tazs.resources.musics.Music02;
+import net.ccat.tazs.resources.musics.Music03;
+import net.ccat.tazs.resources.musics.MusicPlayerProcedural;
 import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
 import net.ccat.tazs.resources.sounds.CursorCancelSound;
 import net.ccat.tazs.resources.sounds.CursorMoveSound;
 import net.ccat.tazs.resources.sounds.CursorSelectSound;
 import net.ccat.tazs.resources.sounds.DammitSound;
-import net.ccat.tazs.resources.sounds.MusicProcedural;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.sprites.everything.EverythingSprite;
 import net.ccat.tazs.resources.sprites.everyui.EveryUISprite;
@@ -55,6 +59,7 @@ class TAZSGame
         Mixer.init(8000);
         
         music.play();
+        music.playMusic(Music00.bin());
     }
     
     
@@ -293,7 +298,7 @@ class TAZSGame
     public CursorSelectSound cursorSelectSound = new CursorSelectSound();
     public CursorCancelSound cursorCancelSound = new CursorCancelSound();
     public DammitSound dammitSound = new DammitSound(1);
-    public MusicProcedural music = new MusicProcedural(3);
+    public MusicPlayerProcedural music = new MusicPlayerProcedural(3);
     
     
     /***** PRIVATE *****/

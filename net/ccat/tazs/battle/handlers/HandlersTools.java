@@ -19,6 +19,8 @@ public class HandlersTools
     public static final float UNIT_RADIUS = 3.f;
     public static final int RADIUS_FREQUENCY = 256;
     public static final float POWER_TO_FORCE = 0.25f;
+    public static final float FAR_DISTANCE = SEEK_DISTANCE_MAX / 2.f;
+    public static final float FAR_DISTANCE_SQUARED = FAR_DISTANCE * FAR_DISTANCE;
     
     
     /***** RENDERING *****/
@@ -161,6 +163,17 @@ public class HandlersTools
                 unitTimer = 0;
                 closeEnough = true;
             }
+        }
+        else if (((MathTools.abs(unitX) >= FAR_DISTANCE) || (MathTools.abs(unitY) >= FAR_DISTANCE))
+                 || (unitX * unitX + unitY * unitY > FAR_DISTANCE_SQUARED))
+        {
+            // Make them return to the center.
+            float targetAngle = Math.atan2(-unitY, -unitX);
+            float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -rotationSpeed, rotationSpeed);
+                
+            unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
+            unitX += Math.cos(unitAngle) * walkSpeed;
+            unitY += Math.sin(unitAngle) * walkSpeed;
         }
 
         // Updating the changed state.

@@ -81,6 +81,15 @@ public class DasherSeekAndAttackHandler
                 unitTimer = DASH_TIMER_INIT;
             }
         }
+        else if (((MathTools.abs(unitX) >= HandlersTools.FAR_DISTANCE) || (MathTools.abs(unitY) >= HandlersTools.FAR_DISTANCE))
+                 || (unitX * unitX + unitY * unitY > HandlersTools.FAR_DISTANCE_SQUARED))
+        {
+            // Make them return to the center.
+            float targetAngle = Math.atan2(-unitY, -unitX);
+            float deltaAngle = MathTools.clamp(MathTools.wrapAngle(targetAngle - unitAngle), -ANGLE_ROTATION_BY_TICK, ANGLE_ROTATION_BY_TICK);
+                
+            unitAngle = MathTools.wrapAngle(unitAngle + deltaAngle);
+        }
         else
         {
             // Keep running in round. Or maybe bring out the conveyor?

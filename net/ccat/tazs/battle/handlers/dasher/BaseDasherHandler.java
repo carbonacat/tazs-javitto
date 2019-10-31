@@ -90,8 +90,23 @@ public class BaseDasherHandler
     {
         int unitTimer = system.unitsTimers[unitIdentifier];
         
-        // Invisible when dashing.
-        if ((unitTimer < DASH_TIMER_INIT) || (unitTimer > DASH_TIMER_END))
+        // Only 1 HP of damage when dashing.
+        if ((unitTimer >= DASH_TIMER_INIT) && (unitTimer <= DASH_TIMER_END))
+        {
+            int unitHealth = system.unitsHealths[unitIdentifier];
+            
+            if (unitHealth > 0)
+            {
+                unitHealth--;
+                if (unitHealth == 0)
+                {
+                    system.unitsTimers[unitIdentifier] = 0;
+                    system.unitsHandlers[unitIdentifier] = DasherDeathHandler.instance;
+                }
+                system.unitsHealths[unitIdentifier] = unitHealth;
+            }
+        }
+        else
         {
             // TODO: Automatic Dash when going to be hit while attack is ready.
             if (HandlersTools.hitAndCheckIfBecameDead(system, unitIdentifier, powerX, powerY, power))

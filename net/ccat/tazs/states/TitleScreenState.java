@@ -133,53 +133,13 @@ class TitleScreenState
             drawCookieDialog(screen);
         else
         {
-            if (mTimer >= TIMER_INIT)
-            {
-                mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_ZOMBIE_FRAME);
-                mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_ZOMBIE_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_ZOMBIE_Y - VideoConstants.EVERYUI_ORIGIN_Y);
-                mGame.everyUISprite.draw(screen);
-                if (mTimer <= TIMER_STEP1)
-                    screen.fillRectBlended(Dimensions.TITLE_LOGO_ZOMBIE_XMIN, Dimensions.TITLE_LOGO_ZOMBIE_YMIN, Dimensions.TITLE_LOGO_ZOMBIE_WIDTH, Dimensions.TITLE_LOGO_ZOMBIE_HEIGHT,
-                                           0, Colors.TITLE_BG, patternForFadein(mTimer, TIMER_INIT, TIMER_STEP1));
-            }
-            if (mTimer >= TIMER_STEP1)
-            {
-                // Totally Accurate
-                mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_TOTALLY_FRAME);
-                if (mTimer <= TIMER_STEP2)
-                {
-                    int totallyY = MathTools.lerpi(mTimer, TIMER_STEP1, Dimensions.TITLE_LOGO_TOTALLY_Y_START, TIMER_STEP2, Dimensions.TITLE_LOGO_TOTALLY_Y_FINAL);
-                    
-                    mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_TOTALLY_X - VideoConstants.EVERYUI_ORIGIN_X,
-                                                    totallyY - VideoConstants.EVERYUI_ORIGIN_Y);
-                }
-                else
-                    mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_TOTALLY_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_TOTALLY_Y_FINAL - VideoConstants.EVERYUI_ORIGIN_Y);
-                mGame.everyUISprite.draw(screen);
-                
-                // Simulator
-                mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_SIMULATOR_FRAME);
-                if (mTimer <= TIMER_STEP2)
-                {
-                    int simulatorX = MathTools.lerpi(mTimer, TIMER_STEP1, Dimensions.TITLE_LOGO_SIMULATOR_X_START, TIMER_STEP2, Dimensions.TITLE_LOGO_SIMULATOR_X_FINAL);
-                    
-                    mGame.everyUISprite.setPosition(simulatorX - VideoConstants.EVERYUI_ORIGIN_X,
-                                                    Dimensions.TITLE_LOGO_SIMULATOR_Y - VideoConstants.EVERYUI_ORIGIN_Y);
-                }
-                else
-                    mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_SIMULATOR_X_FINAL - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_SIMULATOR_Y - VideoConstants.EVERYUI_ORIGIN_Y);
-                mGame.everyUISprite.draw(screen);
-            }
+            drawTitleStuff(mGame, mTimer);
             if (mTimer >= TIMER_END)
             {
                 drawMenuChoice(MENU_ENTRIES_QUICKBATTLE, TITLE_MENU_QUICKBATTLE.bin(), screen);
                 drawMenuChoice(MENU_ENTRIES_SANDBOX, TITLE_MENU_SANDBOX.bin(), screen);
                 drawMenuChoice(MENU_ENTRIES_CHALLENGES, TITLE_MENU_CHALLENGES.bin(), screen);
                 drawMenuChoice(MENU_ENTRIES_SETTINGS, TITLE_MENU_SETTINGS.bin(), screen);
-    
-                screen.setTextPosition(Dimensions.TITLE_VERSION_X, Dimensions.TITLE_VERSION_Y);
-                screen.setTextColor(Colors.TITLE_VERSION);
-                screen.printPText(TITLE_VERSION.bin());
             }
         }
         
@@ -260,6 +220,52 @@ class TitleScreenState
                           Dimensions.WINDOW_PADDING,
                           Dimensions.SCREEN_WIDTH_2, Dimensions.SCREEN_HEIGHT_2 + Dimensions.WINDOW_PADDING + 10 + Dimensions.WINDOW_PADDING,
                           UITools.ALIGNMENT_CENTER, UITools.ALIGNMENT_START);
+    }
+    
+    static public void drawTitleStuff(TAZSGame game, int timer)
+    {
+        AdvancedHiRes16Color screen = game.screen;
+        
+        if (timer >= TIMER_INIT)
+        {
+            game.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_ZOMBIE_FRAME);
+            game.everyUISprite.setPosition(Dimensions.TITLE_LOGO_ZOMBIE_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_ZOMBIE_Y - VideoConstants.EVERYUI_ORIGIN_Y);
+            game.everyUISprite.draw(screen);
+            if (timer <= TIMER_STEP1)
+                screen.fillRectBlended(Dimensions.TITLE_LOGO_ZOMBIE_XMIN, Dimensions.TITLE_LOGO_ZOMBIE_YMIN, Dimensions.TITLE_LOGO_ZOMBIE_WIDTH, Dimensions.TITLE_LOGO_ZOMBIE_HEIGHT,
+                                       0, Colors.TITLE_BG, patternForFadein(timer, TIMER_INIT, TIMER_STEP1));
+        }
+        if (timer >= TIMER_STEP1)
+        {
+            // Totally Accurate
+            game.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_TOTALLY_FRAME);
+            if (timer <= TIMER_STEP2)
+            {
+                int totallyY = MathTools.lerpi(timer, TIMER_STEP1, Dimensions.TITLE_LOGO_TOTALLY_Y_START, TIMER_STEP2, Dimensions.TITLE_LOGO_TOTALLY_Y_FINAL);
+                
+                game.everyUISprite.setPosition(Dimensions.TITLE_LOGO_TOTALLY_X - VideoConstants.EVERYUI_ORIGIN_X,
+                                               totallyY - VideoConstants.EVERYUI_ORIGIN_Y);
+            }
+            else
+                game.everyUISprite.setPosition(Dimensions.TITLE_LOGO_TOTALLY_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_TOTALLY_Y_FINAL - VideoConstants.EVERYUI_ORIGIN_Y);
+            game.everyUISprite.draw(screen);
+            
+            // Simulator
+            game.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_SIMULATOR_FRAME);
+            if (timer <= TIMER_STEP2)
+            {
+                int simulatorX = MathTools.lerpi(timer, TIMER_STEP1, Dimensions.TITLE_LOGO_SIMULATOR_X_START, TIMER_STEP2, Dimensions.TITLE_LOGO_SIMULATOR_X_FINAL);
+                
+                game.everyUISprite.setPosition(simulatorX - VideoConstants.EVERYUI_ORIGIN_X,
+                                                Dimensions.TITLE_LOGO_SIMULATOR_Y - VideoConstants.EVERYUI_ORIGIN_Y);
+            }
+            else
+                game.everyUISprite.setPosition(Dimensions.TITLE_LOGO_SIMULATOR_X_FINAL - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_SIMULATOR_Y - VideoConstants.EVERYUI_ORIGIN_Y);
+            game.everyUISprite.draw(screen);
+        }
+        screen.setTextPosition(Dimensions.TITLE_VERSION_X, Dimensions.TITLE_VERSION_Y);
+        screen.setTextColor(Colors.TITLE_VERSION);
+        screen.printPText(TITLE_VERSION.bin());
     }
     
     static private int patternForFadein(int timer, int timerMin, int timerMax)

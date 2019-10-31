@@ -161,18 +161,7 @@ class SettingsState
     {
         screen.clear(Colors.TITLE_BG);
         
-        // ZOMBIE
-        mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_ZOMBIE_FRAME);
-        mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_ZOMBIE_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_ZOMBIE_Y - VideoConstants.EVERYUI_ORIGIN_Y);
-        mGame.everyUISprite.draw(screen);
-        // Totally Accurate
-        mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_TOTALLY_FRAME);
-        mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_TOTALLY_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_TOTALLY_Y_FINAL - VideoConstants.EVERYUI_ORIGIN_Y);
-        mGame.everyUISprite.draw(screen);
-        // Simulator
-        mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_SIMULATOR_FRAME);
-        mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_SIMULATOR_X_FINAL - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_SIMULATOR_Y - VideoConstants.EVERYUI_ORIGIN_Y);
-        mGame.everyUISprite.draw(screen);
+        TitleScreenState.drawTitleStuff(mGame, TitleScreenState.TIMER_END);
         
         screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(SETTINGS_TITLE.bin())) / 2, Dimensions.TITLE_SUBTITLE_Y);
         screen.setTextColor(Colors.TITLE_SUBTEXT);

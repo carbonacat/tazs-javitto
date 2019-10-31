@@ -22,12 +22,40 @@ public class AdvancedHiRes16Color
     /***** RENDERING *****/
     
     /**
+     * 0000
+     * 0000
+     * 0000
+     * 0000
+     */
+    public static final int PATTERN_100_0 = 0x0000;
+    /**
      * 1000
      * 0000
      * 0000
      * 0000
      */
-    public static final int PATTERN_1_16 = 0x8000;
+    public static final int PATTERN_93_6 = 0x8000;
+    /**
+     * 1000
+     * 0000
+     * 0010
+     * 0000
+     */
+    public static final int PATTERN_87_12 = 0x8000;
+    /**
+     * 1010
+     * 0000
+     * 1010
+     * 0000
+     */
+    public static final int PATTERN_75_25_GRID = 0xA0A0;
+    /**
+     * 1000
+     * 0010
+     * 1000
+     * 0010
+     */
+    public static final int PATTERN_75_25_HEX = 0x8282;
     /**
      * 1010
      * 0101
@@ -51,19 +79,26 @@ public class AdvancedHiRes16Color
     public static final int PATTERN_25_75_HEX = 0x7D7D;
     
     /**
-     * 1010
-     * 0000
-     * 1010
-     * 0000
+     * 0111
+     * 1111
+     * 1101
+     * 1111
      */
-    public static final int PATTERN_75_25_GRID = 0xA0A0;
+    public static final int PATTERN_12_87 = 0x7FDF;
     /**
-     * 1000
-     * 0010
-     * 1000
-     * 0010
+     * 0111
+     * 1111
+     * 1111
+     * 1111
      */
-    public static final int PATTERN_75_25_HEX = 0x8282;
+    public static final int PATTERN_6_93 = 0x7FFF;
+    /**
+     * 1111
+     * 1111
+     * 1111
+     * 1111
+     */
+    public static final int PATTERN_0_100 = 0xFFFF;
     
     /**
      * Fills the given rect with a 50%-50% blend of the two colors.
@@ -85,7 +120,7 @@ public class AdvancedHiRes16Color
         int yEnd = y + height;
         
         // TODO: This is optimizable. [017]
-        if (offColor != 0)
+        if (onColor != 0)
             for (int pY = y; pY < yEnd; pY++)
                 for (int pX = x; pX < xEnd; pX++)
                 {
@@ -95,7 +130,7 @@ public class AdvancedHiRes16Color
                     if ((pattern4x4 & bitMask) == 0)
                         setPixel(pX, pY, onColor);
                 }
-        if (onColor != 0)
+        if (offColor != 0)
             for (int pY = y; pY < yEnd; pY++)
                 for (int pX = x; pX < xEnd; pX++)
                 {

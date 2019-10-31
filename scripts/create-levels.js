@@ -303,6 +303,19 @@ tazs.compileChallengePack = function(filename, packSpecifications)
                     ["enemy", "brawler", 25, -25],
                     ["enemy", "brawler", 25, 25]
                 ]
+            },
+            {
+                "identifier": 99,
+                "title": "DEBUG",
+                "description": "Hehe",
+                "allowedResources": 50,
+                "allowedUnits": ["brawler", "slapper", "sworder", "pikebearer"],
+                "units":
+                [
+                    ["player", "shieldbearer", -75, -25],
+                    ["enemy", "pikebearer", 75, 10],
+                    ["enemy", "pikebearer", 75, -10]
+                ]
             }
         ]
     };

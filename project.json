@@ -1303,6 +1303,9 @@
 		},
 		"\\net\\ccat\\tazs\\battle\\handlers\\dasher\\DasherControlledHandler.java": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_COMMANDS_CANNOT_REMOVE.bin": {
+			"sdcard": false
 		}
 	}
 }

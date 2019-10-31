@@ -66,6 +66,11 @@ public abstract class ChallengeFromPackBattleMode
         return mAllowedCost;
     }
     
+    public int protectedUnitsCount()
+    {
+        return ChallengePackReader.countFromChallengeUnits(ChallengePackReader.unitsPointerFromChallenge(mChallengePointer));
+    }
+    
     
     /***** PRIVATE *****/
     

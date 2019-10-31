@@ -53,7 +53,9 @@ public abstract class ChallengeBattleMode
         
         if ((game.focusedUnitIdentifier != UnitsSystem.IDENTIFIER_NONE) && (game.unitsSystem.unitsTeams[game.focusedUnitIdentifier] == Teams.PLAYER))
         {
-            if (Button.B.isPressed())
+            boolean isProtected = game.focusedUnitIdentifier < protectedUnitsCount();
+            
+            if ((!isProtected) && (Button.B.isPressed()))
             {
                 UnitHandler unitHandler = game.unitsSystem.unitsHandlers[game.focusedUnitIdentifier];
                 
@@ -74,7 +76,7 @@ public abstract class ChallengeBattleMode
                     unitHandler.onPlayerControl(game.unitsSystem, game.focusedUnitIdentifier, true);
                 }
             }
-            game.uiMode = UIModes.REMOVE;
+            game.uiMode = isProtected ? UIModes.CANNOT_REMOVE : UIModes.REMOVE;
         }
         else
         {
@@ -163,6 +165,13 @@ public abstract class ChallengeBattleMode
      * @return the maximal cost.
      */
     public abstract int allowedCost();
+    
+    /**
+     * @return the number of protected units, from the beginning of the list.
+     * 
+     * Return 1 will protect the very first unit, for example.
+     */
+    public abstract int protectedUnitsCount();
     
     /**
      * @return true if the given unit would be considered too expensive.

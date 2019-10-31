@@ -18,8 +18,10 @@ public class UIModes
     private static final int PLACE = 2;
     // Can remove a Unit.
     private static final int REMOVE = 4;
+    // Cannot remove a Unit.
+    private static final int CANNOT_REMOVE = 5;
     // In PadMenu.
-    private static final int MENU = 5;
+    private static final int MENU = 6;
     // "No Man's Land.""
-    private static final int NOMANSLAND = 6;
+    private static final int NOMANSLAND = 7;
 }

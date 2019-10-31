@@ -21,6 +21,7 @@ import net.ccat.tazs.resources.texts.MISC_BIG_SEPARATOR;
 import net.ccat.tazs.resources.texts.MISC_ERROR;
 import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
 import net.ccat.tazs.resources.texts.MISC_UNKNOWN;
+import net.ccat.tazs.resources.texts.PREPARATION_COMMANDS_CANNOT_REMOVE;
 import net.ccat.tazs.resources.texts.PREPARATION_COMMANDS_CONTROL;
 import net.ccat.tazs.resources.texts.PREPARATION_COMMANDS_PLACE_INVALID_NO_MORE_FREE_UNITS;
 import net.ccat.tazs.resources.texts.PREPARATION_COMMANDS_PLACE_INVALID_TOO_EXPENSIVE;
@@ -253,11 +254,21 @@ public class BattlePreparationPhaseState
         }
         else if (game.uiMode == UIModes.REMOVE)
         {
-            screen.setTextColor(hasHoveredUnit ? Colors.HELP_ACTIVE : Colors.HELP_INACTIVE);
+            screen.setTextColor(Colors.HELP_ACTIVE);
             screen.printPText(BUTTON_B.bin());
             screen.printPText(MISC_SEPARATOR.bin());
             screen.printPText(PREPARATION_COMMANDS_REMOVE.bin());
             screen.printPText(MISC_BIG_SEPARATOR.bin());
+            screen.printPText(BUTTON_A.bin());
+            screen.printPText(MISC_SEPARATOR.bin());
+            screen.printPText(PREPARATION_COMMANDS_CONTROL.bin());
+        }
+        else if (game.uiMode == UIModes.CANNOT_REMOVE)
+        {
+            screen.setTextColor(Colors.HELP_INACTIVE);
+            screen.printPText(PREPARATION_COMMANDS_CANNOT_REMOVE.bin());
+            screen.printPText(MISC_BIG_SEPARATOR.bin());
+            screen.setTextColor(Colors.HELP_ACTIVE);
             screen.printPText(BUTTON_A.bin());
             screen.printPText(MISC_SEPARATOR.bin());
             screen.printPText(PREPARATION_COMMANDS_CONTROL.bin());

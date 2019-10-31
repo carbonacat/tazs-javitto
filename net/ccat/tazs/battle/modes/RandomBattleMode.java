@@ -113,6 +113,11 @@ public class RandomBattleMode
         return 0;
     }
     
+    public int protectedUnitsCount()
+    {
+        return 0;
+    }
+    
     public boolean isTooExpensive(TAZSGame game, UnitHandler unitHandler)
     {
         return false;

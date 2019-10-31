@@ -3,128 +3,208 @@
     "frame": { "x": 0, "y": 0, "w": 7, "h": 5 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 11, "y": 12, "w": 7, "h": 5 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 63, "y": 25, "w": 7, "h": 5 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 1.aseprite": {
     "frame": { "x": 7, "y": 0, "w": 7, "h": 5 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 11, "y": 12, "w": 7, "h": 5 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 63, "y": 25, "w": 7, "h": 5 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 2.aseprite": {
     "frame": { "x": 14, "y": 0, "w": 13, "h": 13 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 8, "y": 8, "w": 13, "h": 13 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 60, "y": 21, "w": 13, "h": 13 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 3.aseprite": {
     "frame": { "x": 27, "y": 0, "w": 11, "h": 11 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 9, "y": 9, "w": 11, "h": 11 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 61, "y": 22, "w": 11, "h": 11 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 4.aseprite": {
     "frame": { "x": 38, "y": 0, "w": 6, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 12, "y": 11, "w": 6, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 64, "y": 24, "w": 6, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 5.aseprite": {
     "frame": { "x": 44, "y": 0, "w": 6, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 12, "y": 11, "w": 6, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 64, "y": 24, "w": 6, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 6.aseprite": {
     "frame": { "x": 50, "y": 0, "w": 6, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 12, "y": 11, "w": 6, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 64, "y": 24, "w": 6, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 7.aseprite": {
     "frame": { "x": 56, "y": 0, "w": 6, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 12, "y": 11, "w": 6, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 64, "y": 24, "w": 6, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 8.aseprite": {
     "frame": { "x": 62, "y": 0, "w": 15, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 14, "y": 14, "w": 15, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 66, "y": 27, "w": 15, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 9.aseprite": {
     "frame": { "x": 77, "y": 0, "w": 15, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 14, "y": 14, "w": 15, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 66, "y": 27, "w": 15, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 10.aseprite": {
     "frame": { "x": 92, "y": 0, "w": 15, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 14, "y": 14, "w": 15, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 66, "y": 27, "w": 15, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 11.aseprite": {
     "frame": { "x": 107, "y": 0, "w": 15, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 14, "y": 14, "w": 15, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 66, "y": 27, "w": 15, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 12.aseprite": {
     "frame": { "x": 122, "y": 0, "w": 15, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 0, "y": 14, "w": 15, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 52, "y": 27, "w": 15, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 13.aseprite": {
     "frame": { "x": 137, "y": 0, "w": 15, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 0, "y": 14, "w": 15, "h": 7 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 52, "y": 27, "w": 15, "h": 7 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 14.aseprite": {
     "frame": { "x": 152, "y": 0, "w": 10, "h": 8 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 9, "y": 11, "w": 10, "h": 8 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "spriteSourceSize": { "x": 61, "y": 24, "w": 10, "h": 8 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    },
    "EveryUISprite 15.aseprite": {
+    "frame": { "x": 162, "y": 0, "w": 132, "h": 44 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 1, "y": 5, "w": 132, "h": 44 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 16.aseprite": {
+    "frame": { "x": 294, "y": 0, "w": 119, "h": 27 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 14, "w": 119, "h": 27 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 17.aseprite": {
+    "frame": { "x": 413, "y": 0, "w": 133, "h": 25 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 15, "w": 133, "h": 25 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 18.aseprite": {
+    "frame": { "x": 546, "y": 0, "w": 33, "h": 46 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 50, "y": 5, "w": 33, "h": 46 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 19.aseprite": {
+    "frame": { "x": 579, "y": 0, "w": 26, "h": 45 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 52, "y": 6, "w": 26, "h": 45 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 20.aseprite": {
+    "frame": { "x": 605, "y": 0, "w": 39, "h": 47 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 45, "y": 4, "w": 39, "h": 47 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 21.aseprite": {
+    "frame": { "x": 644, "y": 0, "w": 49, "h": 44 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 41, "y": 8, "w": 49, "h": 44 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 22.aseprite": {
+    "frame": { "x": 693, "y": 0, "w": 25, "h": 51 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 25, "h": 51 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 23.aseprite": {
     "frame": { "x": 0, "y": 0, "w": 0, "h": 0 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 0, "h": 0 },
-    "sourceSize": { "w": 29, "h": 29 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 24.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 0, "h": 0 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 0, "h": 0 },
+    "sourceSize": { "w": 133, "h": 55 },
+    "duration": 250
+   },
+   "EveryUISprite 25.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 0, "h": 0 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 0, "h": 0 },
+    "sourceSize": { "w": 133, "h": 55 },
     "duration": 250
    }
  },
@@ -133,7 +213,7 @@
   "version": "1.2.15-x64",
   "image": "EveryUIRawSprite.png",
   "format": "I8",
-  "size": { "w": 464, "h": 29 },
+  "size": { "w": 3458, "h": 55 },
   "scale": "1",
   "frameTags": [
    { "name": "playBeanNormal", "from": 0, "to": 0, "direction": "forward" },
@@ -146,7 +226,15 @@
    { "name": "playDeadLife", "from": 11, "to": 11, "direction": "forward" },
    { "name": "playAtkReady", "from": 12, "to": 12, "direction": "forward" },
    { "name": "playAtkDisabled", "from": 13, "to": 13, "direction": "forward" },
-   { "name": "playCompleted", "from": 14, "to": 14, "direction": "forward" }
+   { "name": "playCompleted", "from": 14, "to": 14, "direction": "forward" },
+   { "name": "playZombieLogo", "from": 15, "to": 15, "direction": "forward" },
+   { "name": "playSimulatorLogo", "from": 16, "to": 16, "direction": "forward" },
+   { "name": "playTotallyAccurateLogo", "from": 17, "to": 17, "direction": "forward" },
+   { "name": "playSilhouette1", "from": 18, "to": 18, "direction": "forward" },
+   { "name": "playSilhouette2", "from": 19, "to": 19, "direction": "forward" },
+   { "name": "playSilhouette3", "from": 20, "to": 20, "direction": "forward" },
+   { "name": "playSilhouette4", "from": 21, "to": 21, "direction": "forward" },
+   { "name": "playSilhouette5", "from": 22, "to": 22, "direction": "forward" }
   ],
   "layers": [
    { "name": "Main", "opacity": 255, "blendMode": "normal" }

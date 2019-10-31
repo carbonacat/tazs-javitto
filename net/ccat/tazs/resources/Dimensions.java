@@ -97,6 +97,13 @@ public class Dimensions
     public static final int TITLE_VERSION_X = 1;
     public static final int TITLE_VERSION_Y = SCREEN_HEIGHT - 6;
     
+    public static final int TITLE_LOGO_ZOMBIE_X = 98;
+    public static final int TITLE_LOGO_ZOMBIE_Y = 42;
+    public static final int TITLE_LOGO_ZOMBIE_XMIN = 32;
+    public static final int TITLE_LOGO_ZOMBIE_YMIN = 19;
+    public static final int TITLE_LOGO_ZOMBIE_WIDTH = 134;
+    public static final int TITLE_LOGO_ZOMBIE_HEIGHT = 46;
+    
     
     /***** TOP BAR *****/
     

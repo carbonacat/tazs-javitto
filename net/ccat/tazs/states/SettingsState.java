@@ -72,8 +72,9 @@ class SettingsState
                 mGame.cursorMoveSound.play();
             }
             mCurrentMenuIdentifier = (mCurrentMenuIdentifier + MENU_ENTRIES_COUNT) % MENU_ENTRIES_COUNT;
-            
-            if (mCurrentMenuIdentifier == MENU_ENTRIES_DAMMIT)
+            if (mCurrentMenuIdentifier == MENU_ENTRIES_PLAY_MUSIC)
+                handlePlayMusicChoice();
+            else if (mCurrentMenuIdentifier == MENU_ENTRIES_DAMMIT)
                 handleDammitChoice();
             else if (mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_CAMPAIGN)
                 handleEraseCampaignChoice();
@@ -81,8 +82,6 @@ class SettingsState
                 handleEraseChallengeChoice();
             else if (mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_EVERYTHING)
                 handleEraseEverythingChoice();
-            else if (mCurrentMenuIdentifier == MENU_ENTRIES_PLAY_MUSIC)
-                handlePlayMusicChoice();
         }
         draw(screen);
         
@@ -173,11 +172,11 @@ class SettingsState
 
         int musicIdentifier = mGame.cookie.getMusicIdentifier();
         
+        drawMenuChoice(MENU_ENTRIES_PLAY_MUSIC, SETTINGS_PLAY_MUSIC.bin(), MusicReader.titlePointerFromMusic(Musics.musicPointerForIdentifier(musicIdentifier)), false, screen);
         drawMenuChoice(MENU_ENTRIES_DAMMIT, SETTINGS_DAMMIT.bin(), null, false, screen);
         drawMenuChoice(MENU_ENTRIES_ERASE_CAMPAIGN, SETTINGS_ERASE_CAMPAIGN.bin(), null, true, screen);
         drawMenuChoice(MENU_ENTRIES_ERASE_CHALLENGES, SETTINGS_ERASE_CHALLENGES.bin(), null, true, screen);
         drawMenuChoice(MENU_ENTRIES_ERASE_EVERYTHING, SETTINGS_ERASE_EVERYTHING.bin(), null, true, screen);
-        drawMenuChoice(MENU_ENTRIES_PLAY_MUSIC, SETTINGS_PLAY_MUSIC.bin(), MusicReader.titlePointerFromMusic(Musics.musicPointerForIdentifier(musicIdentifier)), false, screen);
         
         screen.flush();
         Performances.onFlushedScreen();
@@ -215,10 +214,10 @@ class SettingsState
     
     private int mCurrentMenuIdentifier = 0;
     
-    private static final int MENU_ENTRIES_DAMMIT = 0;
+    private static final int MENU_ENTRIES_PLAY_MUSIC = 0;
+    private static final int MENU_ENTRIES_DAMMIT = MENU_ENTRIES_PLAY_MUSIC + 1;
     private static final int MENU_ENTRIES_ERASE_CAMPAIGN = MENU_ENTRIES_DAMMIT + 1;
     private static final int MENU_ENTRIES_ERASE_CHALLENGES = MENU_ENTRIES_ERASE_CAMPAIGN + 1;
     private static final int MENU_ENTRIES_ERASE_EVERYTHING = MENU_ENTRIES_ERASE_CHALLENGES + 1;
-    private static final int MENU_ENTRIES_PLAY_MUSIC = MENU_ENTRIES_ERASE_EVERYTHING + 1;
-    private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_PLAY_MUSIC + 1;
+    private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_ERASE_EVERYTHING + 1;
 }

@@ -25,6 +25,7 @@ import net.ccat.tazs.resources.texts.TITLE_MENU_SANDBOX;
 import net.ccat.tazs.resources.texts.TITLE_MENU_SETTINGS;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.save.SaveStatus;
+import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.tools.Performances;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.UITools;
@@ -52,6 +53,8 @@ class TitleScreenState
         
         if (mGame == null)
             mGame = new TAZSGame();
+        else // Don't need to show the animation again.
+            mTimer = TIMER_END;
         mGame.menuCursorSprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CURSOR_X, Dimensions.TITLE_MENU_ENTRY_Y_START - VideoConstants.MENU_CURSOR_ORIGIN_Y);
         mCookieStatus = mGame.cookie.getStatus();
     }
@@ -66,33 +69,44 @@ class TitleScreenState
             handleCookieDialog();
         else
         {
-            if (Button.A.justPressed())
+            mTimer++;
+            
+            if (mTimer < TIMER_END)
             {
-                mGame.cursorSelectSound.play();
-                if (mCurrentMenuIdentifier == MENU_ENTRIES_QUICKBATTLE)
-                {
-                    mGame.battleMode = new RandomBattleMode();
-                    mGame.battleMode.onLaunch(mGame);
-                }
-                else if (mCurrentMenuIdentifier == MENU_ENTRIES_SANDBOX)
-                {
-                    mGame.battleMode = new SandboxBattleMode();
-                    mGame.battleMode.onLaunch(mGame);
-                }
-                else if (mCurrentMenuIdentifier == MENU_ENTRIES_CHALLENGES)
-                    Game.changeState(new ChallengesListState(mGame, 0));
-                else if (mCurrentMenuIdentifier == MENU_ENTRIES_SETTINGS)
-                    Game.changeState(new SettingsState(mGame));
+                // Skips to the menu.
+                if (Button.A.justPressed())
+                    mTimer = TIMER_END;
             }
-            if (Button.Up.justPressed())
+            else
             {
-                mCurrentMenuIdentifier--;
-                mGame.cursorMoveSound.play();
-            }
-            if (Button.Down.justPressed())
-            {
-                mCurrentMenuIdentifier++;
-                mGame.cursorMoveSound.play();
+                if (Button.A.justPressed())
+                {
+                    mGame.cursorSelectSound.play();
+                    if (mCurrentMenuIdentifier == MENU_ENTRIES_QUICKBATTLE)
+                    {
+                        mGame.battleMode = new RandomBattleMode();
+                        mGame.battleMode.onLaunch(mGame);
+                    }
+                    else if (mCurrentMenuIdentifier == MENU_ENTRIES_SANDBOX)
+                    {
+                        mGame.battleMode = new SandboxBattleMode();
+                        mGame.battleMode.onLaunch(mGame);
+                    }
+                    else if (mCurrentMenuIdentifier == MENU_ENTRIES_CHALLENGES)
+                        Game.changeState(new ChallengesListState(mGame, 0));
+                    else if (mCurrentMenuIdentifier == MENU_ENTRIES_SETTINGS)
+                        Game.changeState(new SettingsState(mGame));
+                }
+                if (Button.Up.justPressed())
+                {
+                    mCurrentMenuIdentifier--;
+                    mGame.cursorMoveSound.play();
+                }
+                if (Button.Down.justPressed())
+                {
+                    mCurrentMenuIdentifier++;
+                    mGame.cursorMoveSound.play();
+                }
             }
         } 
         mCurrentMenuIdentifier = (mCurrentMenuIdentifier + MENU_ENTRIES_COUNT) % MENU_ENTRIES_COUNT;
@@ -114,26 +128,38 @@ class TitleScreenState
     
     private void draw(AdvancedHiRes16Color screen)
     {
-        // TODO: Proper title screen. [015]
         screen.clear(Colors.TITLE_BG);
-
-        screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(TITLE.bin())) / 2, Dimensions.TITLE_TITLE_Y);
-        screen.setTextColor(Colors.TITLE_TEXT);
-        screen.printPText(TITLE.bin());
-
-        if (mCookieStatus == SaveStatus.OK)
-        {
-            drawMenuChoice(MENU_ENTRIES_QUICKBATTLE, TITLE_MENU_QUICKBATTLE.bin(), screen);
-            drawMenuChoice(MENU_ENTRIES_SANDBOX, TITLE_MENU_SANDBOX.bin(), screen);
-            drawMenuChoice(MENU_ENTRIES_CHALLENGES, TITLE_MENU_CHALLENGES.bin(), screen);
-            drawMenuChoice(MENU_ENTRIES_SETTINGS, TITLE_MENU_SETTINGS.bin(), screen);
-        }
-        else
+        
+        if (mCookieStatus != SaveStatus.OK)
             drawCookieDialog(screen);
-
-        screen.setTextPosition(Dimensions.TITLE_VERSION_X, Dimensions.TITLE_VERSION_Y);
-        screen.setTextColor(Colors.TITLE_VERSION);
-        screen.printPText(TITLE_VERSION.bin());
+        else
+        {
+            if (mTimer >= TIMER_INIT)
+            {
+                mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_TITLE_ZOMBIE_FRAME);
+                mGame.everyUISprite.setPosition(Dimensions.TITLE_LOGO_ZOMBIE_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.TITLE_LOGO_ZOMBIE_Y - VideoConstants.EVERYUI_ORIGIN_Y);
+                mGame.everyUISprite.draw(screen);
+                if (mTimer <= TIMER_STEP1)
+                    screen.fillRectBlended(Dimensions.TITLE_LOGO_ZOMBIE_XMIN, Dimensions.TITLE_LOGO_ZOMBIE_YMIN, Dimensions.TITLE_LOGO_ZOMBIE_WIDTH, Dimensions.TITLE_LOGO_ZOMBIE_HEIGHT,
+                                           0, Colors.TITLE_BG, patternForFadein(mTimer, TIMER_INIT, TIMER_STEP1));
+            }
+            
+            if (mTimer >= TIMER_END)
+            {
+                screen.setTextPosition((Dimensions.SCREEN_WIDTH - screen.pTextWidth(TITLE.bin())) / 2, Dimensions.TITLE_TITLE_Y);
+                screen.setTextColor(Colors.TITLE_TEXT);
+                screen.printPText(TITLE.bin());
+        
+                drawMenuChoice(MENU_ENTRIES_QUICKBATTLE, TITLE_MENU_QUICKBATTLE.bin(), screen);
+                drawMenuChoice(MENU_ENTRIES_SANDBOX, TITLE_MENU_SANDBOX.bin(), screen);
+                drawMenuChoice(MENU_ENTRIES_CHALLENGES, TITLE_MENU_CHALLENGES.bin(), screen);
+                drawMenuChoice(MENU_ENTRIES_SETTINGS, TITLE_MENU_SETTINGS.bin(), screen);
+    
+                screen.setTextPosition(Dimensions.TITLE_VERSION_X, Dimensions.TITLE_VERSION_Y);
+                screen.setTextColor(Colors.TITLE_VERSION);
+                screen.printPText(TITLE_VERSION.bin());
+            }
+        }
         
         screen.flush();
         Performances.onFlushedScreen();
@@ -214,13 +240,46 @@ class TitleScreenState
                           UITools.ALIGNMENT_CENTER, UITools.ALIGNMENT_START);
     }
     
+    static private int patternForFadein(int timer, int timerMin, int timerMax)
+    {
+        switch (MathTools.lerpi(timer, timerMin, 0, timerMax, 8))
+        {
+        case 0:
+            return AdvancedHiRes16Color.PATTERN_100_0;
+        case 1:
+            return AdvancedHiRes16Color.PATTERN_93_6;
+        case 2:
+            return AdvancedHiRes16Color.PATTERN_87_12;
+        case 3:
+            return AdvancedHiRes16Color.PATTERN_75_25_GRID;
+        case 4:
+            return AdvancedHiRes16Color.PATTERN_50_50;
+        case 5:
+            return AdvancedHiRes16Color.PATTERN_25_75_GRID;
+        case 6:
+            return AdvancedHiRes16Color.PATTERN_12_87;
+        case 7:
+            return AdvancedHiRes16Color.PATTERN_6_93;
+        case 8:
+            return AdvancedHiRes16Color.PATTERN_0_100;
+        }
+        return AdvancedHiRes16Color.PATTERN_0_100;
+    }
+    
     private TAZSGame mGame;
     private int mCurrentMenuIdentifier = MENU_ENTRIES_QUICKBATTLE;
     private int mCookieStatus = SaveStatus.EMPTY;
+    private int mTimer;
 
     private static final int MENU_ENTRIES_QUICKBATTLE = 0;
     private static final int MENU_ENTRIES_SANDBOX = MENU_ENTRIES_QUICKBATTLE + 1;
     private static final int MENU_ENTRIES_CHALLENGES = MENU_ENTRIES_SANDBOX + 1;
     private static final int MENU_ENTRIES_SETTINGS = MENU_ENTRIES_CHALLENGES + 1;
     private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_SETTINGS + 1;
+    
+    private static final int TIMER_INIT = 0;
+    private static final int TIMER_STEP1 = 30;
+    private static final int TIMER_STEP2 = 60;
+    private static final int TIMER_STEP3 = 90;
+    private static final int TIMER_END = 120;
 }

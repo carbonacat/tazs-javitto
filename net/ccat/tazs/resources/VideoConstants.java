@@ -68,8 +68,8 @@ class VideoConstants
     
     /***** EVERYUI *****/
     
-    public static final float EVERYUI_ORIGIN_X = 14;
-    public static final float EVERYUI_ORIGIN_Y = 14;
+    public static final float EVERYUI_ORIGIN_X = 66;
+    public static final float EVERYUI_ORIGIN_Y = 27;
     public static final int EVERYUI_ATK_NORMAL_FRAME = 12;
     public static final int EVERYUI_ATK_DISABLED_FRAME = 13;
     public static final int EVERYUI_BEAN_NORMAL_FRAME = 0;
@@ -85,6 +85,11 @@ class VideoConstants
     public static final int EVERYUI_TIME_PLAY_FRAMES_LAST = 5;
     public static final int EVERYUI_TIME_PAUSE_FRAMES_START = 6;
     public static final int EVERYUI_TIME_PAUSE_FRAMES_LAST = 7;
+    public static final int EVERYUI_TITLE_ZOMBIE_FRAME = 15;
+    public static final int EVERYUI_TITLE_SIMULATOR_FRAME = 16;
+    public static final int EVERYUI_TITLE_TOTALLY_FRAME = 17;
+    public static final int EVERYUI_TITLE_ZOMBIES_FRAMES_FIRST = 18;
+    public static final int EVERYUI_TITLE_ZOMBIES_FRAMES_LAST = 23;
     
     
     /***** MENU CURSOR *****/

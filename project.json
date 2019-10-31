@@ -1306,6 +1306,51 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\PREPARATION_COMMANDS_CANNOT_REMOVE.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/save": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\save": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/save/SaveCookie.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/save\\SaveCookie.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/save/SaveStatus.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs/save\\SaveStatus.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\save\\SaveCookie.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\save\\SaveStatus.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SAVE_CORRUPTED.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SAVE_COMMANDS_ERASE.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SAVE_COMMANDS_DAMMIT.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SAVE_ERROR_CORRUPTED.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SAVE_ERROR_EMPTY.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SAVE_ERROR_VERSION.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\sounds\\DammitSound.wav": {
+			"sdcard": false
 		}
 	}
 }

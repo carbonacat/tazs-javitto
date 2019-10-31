@@ -15,6 +15,7 @@ import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
 import net.ccat.tazs.resources.sounds.CursorCancelSound;
 import net.ccat.tazs.resources.sounds.CursorMoveSound;
 import net.ccat.tazs.resources.sounds.CursorSelectSound;
+import net.ccat.tazs.resources.sounds.DammitSound;
 import net.ccat.tazs.resources.sounds.MusicProcedural;
 import net.ccat.tazs.resources.sprites.CursorSprite;
 import net.ccat.tazs.resources.sprites.everything.EverythingSprite;
@@ -23,6 +24,7 @@ import net.ccat.tazs.resources.sprites.life.LifeSprite;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.sprites.NonAnimatedSprite;
 import net.ccat.tazs.resources.VideoConstants;
+import net.ccat.tazs.save.SaveCookie;
 import net.ccat.tazs.tools.MathTools;
 import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.PadMenuUI;
@@ -54,6 +56,11 @@ class TAZSGame
         
         music.play();
     }
+    
+    
+    /***** META GAME *****/
+    
+    SaveCookie cookie = new SaveCookie();
     
     
     /***** RENDERING *****/
@@ -102,7 +109,7 @@ class TAZSGame
     public UnitsSystem unitsSystem;
     public int focusedUnitIdentifier = UnitsSystem.IDENTIFIER_NONE;
     public BattleMode battleMode;
-    
+
     /**
      * @param x
      * @param y
@@ -285,6 +292,7 @@ class TAZSGame
     public CursorMoveSound cursorMoveSound = new CursorMoveSound();
     public CursorSelectSound cursorSelectSound = new CursorSelectSound();
     public CursorCancelSound cursorCancelSound = new CursorCancelSound();
+    public DammitSound dammitSound = new DammitSound(1);
     public MusicProcedural music = new MusicProcedural(3);
     
     

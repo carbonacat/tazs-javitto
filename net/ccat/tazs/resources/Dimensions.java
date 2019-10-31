@@ -97,12 +97,6 @@ public class Dimensions
     public static final int TITLE_VERSION_Y = SCREEN_HEIGHT - 6;
     
     
-    /***** UNITS *****/
-    
-    public static final int UNIT_CONTROL_RADIUS = 10;
-    public static final float UNIT_CONTROL_DIRECTION_LENGTH = 12.5f;
-    
-    
     /***** TOP BAR *****/
     
     public static final int TOPBAR_HEIGHT = 17;
@@ -113,6 +107,12 @@ public class Dimensions
     public static final int TOPBAR_BAR_LENGTH_MAX = 107;
     
     
+    /***** UNITS *****/
+    
+    public static final int UNIT_CONTROL_RADIUS = 10;
+    public static final float UNIT_CONTROL_DIRECTION_LENGTH = 12.5f;
+    
+    
     /***** UNIT BOX *****/
     
     public static final int UNITBOX_WIDTH = 50;
@@ -121,4 +121,9 @@ public class Dimensions
     public static final int UNITBOX_Y = SCREEN_HEIGHT - UNITBOX_HEIGHT;
     public static final int UNITBOX_UNIT_X = SCREEN_WIDTH - 8;
     public static final int UNITBOX_UNIT_Y = SCREEN_HEIGHT - 5;
+    
+    
+    /***** WINDOW *****/
+    
+    public static final int WINDOW_PADDING = 1;
 }

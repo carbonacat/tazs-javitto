@@ -87,6 +87,7 @@ class Colors
     
     /***** WINDOW *****/
     
+    public static final int WINDOW_OVERLAY = 5;
     public static final int WINDOW_BACKGROUND = 5;
     public static final int WINDOW_BORDER = 15;
     public static final int WINDOW_TEXT = 15;

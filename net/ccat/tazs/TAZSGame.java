@@ -11,10 +11,7 @@ import net.ccat.tazs.battle.UnitsSystem;
 import net.ccat.tazs.battle.UnitTypes;
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
-import net.ccat.tazs.resources.musics.Music00;
-import net.ccat.tazs.resources.musics.Music01;
-import net.ccat.tazs.resources.musics.Music02;
-import net.ccat.tazs.resources.musics.Music03;
+import net.ccat.tazs.resources.musics.Musics;
 import net.ccat.tazs.resources.musics.MusicPlayerProcedural;
 import net.ccat.tazs.resources.palettes.ModifiedNAJI16;
 import net.ccat.tazs.resources.sounds.CursorCancelSound;
@@ -59,7 +56,8 @@ class TAZSGame
         Mixer.init(8000);
         
         music.play();
-        music.playMusic(Music03.bin());
+        musicIdentifier = Musics.MUSIC02;
+        music.playMusic(Musics.musicPointerForIdentifier(musicIdentifier));
     }
     
     
@@ -299,6 +297,7 @@ class TAZSGame
     public CursorCancelSound cursorCancelSound = new CursorCancelSound();
     public DammitSound dammitSound = new DammitSound(1);
     public MusicPlayerProcedural music = new MusicPlayerProcedural(3);
+    public int musicIdentifier = Musics.MUSIC00;
     
     
     /***** PRIVATE *****/

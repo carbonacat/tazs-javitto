@@ -599,4 +599,24 @@ tazs.compileMusic = function(filename, musicSpecifications)
             ["jump", 0]
         ]
     });
+    tazs.compileMusic("Silence",
+    {
+        "title": "(None)",
+        // Describes the instrument.
+        "instrument":
+        {
+            // Envelop's ATTACK duration.
+            "attack": 1,
+            // Envelop's DECAY duration.
+            "decay": 1,
+            // Envelop's RELEASE duration.
+            "release": 1,
+            // Ratio between Max and Sustain levels. Value above 1.f and below 0 aren't supported.
+            "sustainMaxRatio": 0
+        },
+        "events":
+        [
+            [0, 8, 0]
+        ]
+    });
 })();

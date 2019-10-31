@@ -1409,6 +1409,18 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\musics\\Music03.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SETTINGS_PLAY_MUSIC.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\musics/Musics.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\musics\\Musics.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\musics\\Silence.bin": {
+			"sdcard": false
 		}
 	}
 }

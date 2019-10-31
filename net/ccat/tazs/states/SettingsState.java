@@ -6,6 +6,8 @@ import femto.State;
 
 import net.ccat.tazs.resources.Colors;
 import net.ccat.tazs.resources.Dimensions;
+import net.ccat.tazs.resources.musics.Musics;
+import net.ccat.tazs.resources.musics.MusicReader;
 import net.ccat.tazs.resources.sprites.MenuCursorSprite;
 import net.ccat.tazs.resources.Texts;
 import net.ccat.tazs.resources.texts.MISC_SEPARATOR;
@@ -14,6 +16,7 @@ import net.ccat.tazs.resources.texts.SETTINGS_DAMMIT;
 import net.ccat.tazs.resources.texts.SETTINGS_ERASE_CAMPAIGN;
 import net.ccat.tazs.resources.texts.SETTINGS_ERASE_CHALLENGES;
 import net.ccat.tazs.resources.texts.SETTINGS_ERASE_EVERYTHING;
+import net.ccat.tazs.resources.texts.SETTINGS_PLAY_MUSIC;
 import net.ccat.tazs.resources.texts.TITLE;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.tools.Performances;
@@ -56,33 +59,6 @@ class SettingsState
             mGame.cursorCancelSound.play();
             Game.changeState(new TitleScreenState(mGame));
         }
-        else if (Button.A.justPressed())
-        {
-            if (mCurrentMenuIdentifier == MENU_ENTRIES_DAMMIT)
-                mGame.dammitSound.play();
-            else if ((mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_CAMPAIGN) && (Button.C.isPressed()))
-            {
-                mGame.cookie.clearCampaign();
-                mGame.cookie.saveCookie();
-                mGame.cursorSelectSound.play();
-                Game.changeState(new TitleScreenState(mGame));
-            }
-            else if ((mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_CHALLENGES) && (Button.C.isPressed()))
-            {
-                mGame.cookie.clearChallenges();
-                mGame.cookie.saveCookie();
-                mGame.cursorSelectSound.play();
-                Game.changeState(new TitleScreenState(mGame));
-            }
-            
-            else if ((mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_EVERYTHING) && (Button.C.isPressed()))
-            {
-                mGame.cookie.clear();
-                mGame.cookie.saveCookie();
-                mGame.cursorSelectSound.play();
-                Game.changeState(new TitleScreenState(mGame));
-            }
-        }
         else
         {
             if (Button.Up.justPressed())
@@ -96,8 +72,18 @@ class SettingsState
                 mGame.cursorMoveSound.play();
             }
             mCurrentMenuIdentifier = (mCurrentMenuIdentifier + MENU_ENTRIES_COUNT) % MENU_ENTRIES_COUNT;
+            
+            if (mCurrentMenuIdentifier == MENU_ENTRIES_DAMMIT)
+                handleDammitChoice();
+            else if (mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_CAMPAIGN)
+                handleEraseCampaignChoice();
+            else if (mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_CHALLENGES)
+                handleEraseChallengeChoice();
+            else if (mCurrentMenuIdentifier == MENU_ENTRIES_ERASE_EVERYTHING)
+                handleEraseEverythingChoice();
+            else if (mCurrentMenuIdentifier == MENU_ENTRIES_PLAY_MUSIC)
+                handlePlayMusicChoice();
         }
-        
         draw(screen);
         
         Performances.onUpdateEnd();
@@ -113,6 +99,61 @@ class SettingsState
     
     /***** PRIVATE STUFF *****/
     
+    private void handleDammitChoice()
+    {
+        if (Button.A.justPressed())
+            mGame.dammitSound.play();
+    }
+    
+    private void handleEraseCampaignChoice()
+    {
+        if ((Button.A.justPressed()) && (Button.C.isPressed()))
+        {
+            mGame.cookie.clearCampaign();
+            mGame.cookie.saveCookie();
+            mGame.cursorSelectSound.play();
+            Game.changeState(new TitleScreenState(mGame));
+        }
+    }
+    
+    private void handleEraseChallengeChoice()
+    {
+        if ((Button.A.justPressed()) && (Button.C.isPressed()))
+        {
+            mGame.cookie.clearChallenges();
+            mGame.cookie.saveCookie();
+            mGame.cursorSelectSound.play();
+            Game.changeState(new TitleScreenState(mGame));
+        }
+    }
+    
+    private void handleEraseEverythingChoice()
+    {
+        if ((Button.A.justPressed()) && (Button.C.isPressed()))
+        {
+            mGame.cookie.clear();
+            mGame.cookie.saveCookie();
+            mGame.cursorSelectSound.play();
+            Game.changeState(new TitleScreenState(mGame));
+        }
+    }
+    
+    private void handlePlayMusicChoice()
+    {
+        int oldMusicIdentifier = mGame.musicIdentifier;
+        
+        if (Button.Left.justPressed())
+            mGame.musicIdentifier--;
+        if (Button.Right.justPressed())
+            mGame.musicIdentifier++;
+        if (oldMusicIdentifier != mGame.musicIdentifier)
+        {
+            mGame.musicIdentifier = (mGame.musicIdentifier + Musics.COUNT) % Musics.COUNT;
+            mGame.music.playMusic(Musics.musicPointerForIdentifier(mGame.musicIdentifier));
+        }
+    }
+    
+    
     private void draw(AdvancedHiRes16Color screen)
     {
         // TODO: Proper title screen. [015]
@@ -126,16 +167,17 @@ class SettingsState
         screen.setTextColor(Colors.TITLE_SUBTEXT);
         screen.printPText(SETTINGS_TITLE.bin());
 
-        drawMenuChoice(MENU_ENTRIES_DAMMIT, SETTINGS_DAMMIT.bin(), false, screen);
-        drawMenuChoice(MENU_ENTRIES_ERASE_CAMPAIGN, SETTINGS_ERASE_CAMPAIGN.bin(), true, screen);
-        drawMenuChoice(MENU_ENTRIES_ERASE_CHALLENGES, SETTINGS_ERASE_CHALLENGES.bin(), true, screen);
-        drawMenuChoice(MENU_ENTRIES_ERASE_EVERYTHING, SETTINGS_ERASE_EVERYTHING.bin(), true, screen);
+        drawMenuChoice(MENU_ENTRIES_DAMMIT, SETTINGS_DAMMIT.bin(), null, false, screen);
+        drawMenuChoice(MENU_ENTRIES_ERASE_CAMPAIGN, SETTINGS_ERASE_CAMPAIGN.bin(), null, true, screen);
+        drawMenuChoice(MENU_ENTRIES_ERASE_CHALLENGES, SETTINGS_ERASE_CHALLENGES.bin(), null, true, screen);
+        drawMenuChoice(MENU_ENTRIES_ERASE_EVERYTHING, SETTINGS_ERASE_EVERYTHING.bin(), null, true, screen);
+        drawMenuChoice(MENU_ENTRIES_PLAY_MUSIC, SETTINGS_PLAY_MUSIC.bin(), MusicReader.titlePointerFromMusic(Musics.musicPointerForIdentifier(mGame.musicIdentifier)), false, screen);
         
         screen.flush();
         Performances.onFlushedScreen();
     }
     
-    private void drawMenuChoice(int menuIdentifier, pointer title, boolean isDangerous, AdvancedHiRes16Color screen)
+    private void drawMenuChoice(int menuIdentifier, pointer title, pointer postTitle, boolean isDangerous, AdvancedHiRes16Color screen)
     {
         int y = Dimensions.TITLE_MENU_ENTRY_Y_START + menuIdentifier * Dimensions.TITLE_MENU_ENTRY_HEIGHT;
         boolean menuIsCurrent = (menuIdentifier == mCurrentMenuIdentifier);
@@ -159,6 +201,8 @@ class SettingsState
         screen.setTextPosition(Dimensions.TITLE_MENU_ENTRY_X, y);
         screen.setTextColor(entryColor);
         screen.printPText(title);
+        if (postTitle != null)
+            screen.printPText(postTitle);
     }
     
     private TAZSGame mGame;
@@ -169,5 +213,6 @@ class SettingsState
     private static final int MENU_ENTRIES_ERASE_CAMPAIGN = MENU_ENTRIES_DAMMIT + 1;
     private static final int MENU_ENTRIES_ERASE_CHALLENGES = MENU_ENTRIES_ERASE_CAMPAIGN + 1;
     private static final int MENU_ENTRIES_ERASE_EVERYTHING = MENU_ENTRIES_ERASE_CHALLENGES + 1;
-    private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_ERASE_EVERYTHING + 1;
+    private static final int MENU_ENTRIES_PLAY_MUSIC = MENU_ENTRIES_ERASE_EVERYTHING + 1;
+    private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_PLAY_MUSIC + 1;
 }

@@ -78,9 +78,8 @@ public class BaseDasherHandler
     {
         if (control)
         {
-            // TODO: Implement Control.
-            //system.unitsHandlers[unitIdentifier] = DasherControlledHandler.instance;
-            //return true;
+            system.unitsHandlers[unitIdentifier] = DasherControlledHandler.instance;
+            return true;
         }
         return false;
     }

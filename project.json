@@ -1297,6 +1297,12 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\UNIT_DASHER.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\dasher/DasherControlledHandler.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\battle\\handlers\\dasher\\DasherControlledHandler.java": {
+			"sdcard": false
 		}
 	}
 }

@@ -59,7 +59,7 @@ class TAZSGame
         Mixer.init(8000);
         
         music.play();
-        music.playMusic(Music00.bin());
+        music.playMusic(Music03.bin());
     }
     
     

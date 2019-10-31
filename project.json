@@ -1403,6 +1403,12 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\musics\\Music00.bin": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\musics\\Music01.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\musics\\Music03.bin": {
+			"sdcard": false
 		}
 	}
 }

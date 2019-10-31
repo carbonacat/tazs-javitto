@@ -471,26 +471,38 @@ tazs.compileMusic = function(filename, musicSpecifications)
             ["jump", 0]
         ]
     });
-    /*tazs.compileMusic("Music01",
+    tazs.compileMusic("Music01",
     {
         "title": "Anxious Guy",
+        // Describes the instrument.
+        "instrument":
+        {
+            // Envelop's ATTACK duration.
+            "attack": 2500,
+            // Envelop's DECAY duration.
+            "decay": 2500,
+            // Envelop's RELEASE duration.
+            "release": 2500,
+            // Ratio between Max and Sustain levels. Value above 1.f and below 0 aren't supported.
+            "sustainMaxRatio": 0.500
+        },
         "events":
         [
-            -5, 8, 16,
-            -6, 8, 16,
-            -7, 8, 16,
-            0, 4, 32,
-            -1, 4, 32,
+            [-5, 8, 16],
+            [-6, 8, 16],
+            [-7, 8, 16],
+            [0, 4, 32],
+            [-1, 4, 32],
             
-            -10, 8, 16,
-            -9, 8, 16,
-            -8, 8, 16,
-            0, 4, 32,
-            -1, 4, 32,
+            [-10, 8, 16],
+            [-9, 8, 16],
+            [-8, 8, 16],
+            [0, 4, 32],
+            [-1, 4, 32],
             
-            "jump", 0
+            ["jump", 0]
         ]
-    });*/
+    });
     tazs.compileMusic("Music02",
     {
         "title": "Operation Room",
@@ -537,42 +549,54 @@ tazs.compileMusic = function(filename, musicSpecifications)
             ["jump", 0]
         ]
     });
-    /*tazs.compileMusic("Music03",
+    tazs.compileMusic("Music03",
     {
         "title": "Maddening Phone",
+        // Describes the instrument.
+        "instrument":
+        {
+            // Envelop's ATTACK duration.
+            "attack": 2000,
+            // Envelop's DECAY duration.
+            "decay": 2000,
+            // Envelop's RELEASE duration.
+            "release": 2000,
+            // Ratio between Max and Sustain levels. Value above 1.f and below 0 aren't supported.
+            "sustainMaxRatio": 0.25
+        },
         "events":
         [
-            -1, 16, 32,
-            -2, 16, 32,
+            [-1, 16, 32],
+            [-2, 16, 32],
             
-            -3, 32, 32,
+            [-3, 32, 32],
             
-            0, 4, 0,
-            -3, 4, 16,
-            0, 4, 0,
-            -3, 4, 8,
+            [0, 4, 0],
+            [-3, 4, 16],
+            [0, 4, 0],
+            [-3, 4, 8],
             
-            0, 4, 0,
-            -3, 4, 4,
-            0, 4, 0,
-            0, 8, 0,
+            [0, 4, 0],
+            [-3, 4, 4],
+            [0, 4, 0],
+            [0, 8, 0],
             
-            -3, 16, 32,
-            -2, 16, 32,
+            [-3, 16, 32],
+            [-2, 16, 32],
             
-            -1, 32, 32,
+            [-1, 32, 32],
             
-            0, 4, 0,
-            -1, 4, 16,
-            0, 4, 0,
-            -1, 4, 8,
+            [0, 4, 0],
+            [-1, 4, 16],
+            [0, 4, 0],
+            [-1, 4, 8],
             
-            0, 4, 0,
-            -1, 4, 4,
-            0, 4, 0,
-            0, 8, 0,
+            [0, 4, 0],
+            [-1, 4, 4],
+            [0, 4, 0],
+            [0, 8, 0],
             
-            "jump", 0
+            ["jump", 0]
         ]
-    });*/
+    });
 })();

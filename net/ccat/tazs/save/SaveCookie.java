@@ -60,6 +60,48 @@ public class SaveCookie
         checksum = computeChecksum();
     }
     
+    public boolean isChallengeDone(int challengeIdentifier)
+    {
+        if ((challengeIdentifier >= 0) && (challengeIdentifier <= 7))
+            return (challenges00 & (1 << (challengeIdentifier - 0))) != 0;
+        if ((challengeIdentifier >= 8) && (challengeIdentifier <= 15))
+            return (challenges01 & (1 << (challengeIdentifier - 8))) != 0;
+        if ((challengeIdentifier >= 16) && (challengeIdentifier <= 23))
+            return (challenges02 & (1 << (challengeIdentifier - 16))) != 0;
+        if ((challengeIdentifier >= 24) && (challengeIdentifier <= 31))
+            return (challenges03 & (1 << (challengeIdentifier - 24))) != 0;
+        if ((challengeIdentifier >= 32) && (challengeIdentifier <= 39))
+            return (challenges04 & (1 << (challengeIdentifier - 32))) != 0;
+        if ((challengeIdentifier >= 40) && (challengeIdentifier <= 47))
+            return (challenges05 & (1 << (challengeIdentifier - 40))) != 0;
+        if ((challengeIdentifier >= 48) && (challengeIdentifier <= 55))
+            return (challenges06 & (1 << (challengeIdentifier - 48))) != 0;
+        if ((challengeIdentifier >= 56) && (challengeIdentifier <= 63))
+            return (challenges07 & (1 << (challengeIdentifier - 56))) != 0;
+        return false;
+    }
+    
+    public void markChallengeAsDone(int challengeIdentifier)
+    {
+        if ((challengeIdentifier >= 0) && (challengeIdentifier <= 7))
+            challenges00 |= (1 << (challengeIdentifier - 0));
+        else if ((challengeIdentifier >= 8) && (challengeIdentifier <= 15))
+            challenges01 |= (1 << (challengeIdentifier - 8));
+        else if ((challengeIdentifier >= 16) && (challengeIdentifier <= 23))
+            challenges02 |= (1 << (challengeIdentifier - 16));
+        else if ((challengeIdentifier >= 24) && (challengeIdentifier <= 31))
+            challenges03 |= (1 << (challengeIdentifier - 24));
+        else if ((challengeIdentifier >= 32) && (challengeIdentifier <= 39))
+            challenges04 |= (1 << (challengeIdentifier - 32));
+        else if ((challengeIdentifier >= 40) && (challengeIdentifier <= 47))
+            challenges05 |= (1 << (challengeIdentifier - 40));
+        else if ((challengeIdentifier >= 48) && (challengeIdentifier <= 55))
+            challenges06 |= (1 << (challengeIdentifier - 48));
+        else if ((challengeIdentifier >= 56) && (challengeIdentifier <= 63))
+            challenges07 |= (1 << (challengeIdentifier - 56));
+        checksum = computeChecksum();
+    }
+    
     
     /***** PRIVATE *****/
     

@@ -50,6 +50,15 @@ public class ChallengePackReader
      * @param challengePointer A pointer given by challengePointerFromPack.
      * @return The title for this Challenge.
      */
+    public static final int identifierFromChallenge(pointer challengePointer)
+    {
+        return (int)System.memory.LDRB(challengePointer + CHALLENGE_IDENTIFIER_OFFSET);
+    }
+    
+    /**
+     * @param challengePointer A pointer given by challengePointerFromPack.
+     * @return The title for this Challenge.
+     */
     public static final pointer titlePointerFromChallenge(pointer challengePointer)
     {
         return challengePointer + readUnsigned16(challengePointer + CHALLENGE_TITLE_OFFSET_OFFSET);
@@ -69,7 +78,7 @@ public class ChallengePackReader
      */
     public static final int allowedResourcesFromChallenge(pointer challengePointer)
     {
-        return readUnsigned16(challengePointer + CHALLENGE_ALLOWED_RESOURCES_OFFSET_OFFSET);
+        return readUnsigned16(challengePointer + CHALLENGE_ALLOWED_RESOURCES_OFFSET);
     }
     
     /**
@@ -88,7 +97,7 @@ public class ChallengePackReader
      */
     public static final int allowedUnitTypesFromChallenge(pointer challengePointer)
     {
-        return readUnsigned16(challengePointer + CHALLENGE_ALLOWED_UNITTYPES_OFFSET_OFFSET);
+        return readUnsigned16(challengePointer + CHALLENGE_ALLOWED_UNITTYPES_OFFSET);
     }
     
     /**
@@ -171,11 +180,12 @@ public class ChallengePackReader
     private static final int PACK_TITLE_ADDRESS_OFFSET = 16;
     private static final int PACK_DESCRIPTION_ADDRESS_OFFSET = 18;
     private static final int PACK_CHALLENGES_ADDRESS_OFFSET = 20;
+    private static final int CHALLENGE_IDENTIFIER_OFFSET = 0;
     private static final int CHALLENGE_TITLE_OFFSET_OFFSET = 1;
     private static final int CHALLENGE_DESCRIPTION_OFFSET_OFFSET = 3;
     private static final int CHALLENGE_UNITS_OFFSET_OFFSET = 5;
-    private static final int CHALLENGE_ALLOWED_UNITTYPES_OFFSET_OFFSET = 7;
-    private static final int CHALLENGE_ALLOWED_RESOURCES_OFFSET_OFFSET = 9;
+    private static final int CHALLENGE_ALLOWED_UNITTYPES_OFFSET = 7;
+    private static final int CHALLENGE_ALLOWED_RESOURCES_OFFSET = 9;
     private static final int CHALLENGE_UNIT_SIZE = 3;
     private static final int CHALLENGE_UNIT_INFO_OFFSET = 0;
     private static final int CHALLENGE_UNIT_INFO_TEAM_MASK = 0xC0;

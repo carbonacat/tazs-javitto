@@ -117,7 +117,7 @@ public abstract class ChallengeBattleMode
     }
     
     
-    /***** RESULT *****/
+    /***** BATTLE *****/
     
     public void onBattleExit(TAZSGame game)
     {

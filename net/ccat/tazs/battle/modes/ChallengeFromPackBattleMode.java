@@ -49,6 +49,18 @@ public abstract class ChallengeFromPackBattleMode
     }
     
     
+    /***** RESULT *****/
+    
+    public void onResultInit(TAZSGame game, int winnerTeam)
+    {
+        if (winnerTeam == Teams.PLAYER)
+        {
+            game.cookie.markChallengeAsDone(ChallengePackReader.identifierFromChallenge(mChallengePointer));
+            game.cookie.saveCookie();
+        }
+        super.onResultInit(game, winnerTeam);
+    }
+    
     /***** INFORMATION *****/
     
     public pointer battleTitle()

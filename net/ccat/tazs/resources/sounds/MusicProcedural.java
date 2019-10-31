@@ -27,6 +27,7 @@ public class MusicProcedural
         switch (choice)
         {
         case 0:
+            // Stressed Clown
             mNotes = new byte[]
             {
                 -5, 2, 32,
@@ -52,6 +53,7 @@ public class MusicProcedural
             };
             break ;
         case 1:
+            // Anxious Guy
             mNotes = new byte[]
             {
                 -5, 8, 16,
@@ -68,6 +70,7 @@ public class MusicProcedural
             };
             break ;
         case 2:
+            // Operation Room
             mNotes = new byte[]
             {
                 -24, 1, 64,

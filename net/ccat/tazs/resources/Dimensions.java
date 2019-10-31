@@ -6,6 +6,18 @@ package net.ccat.tazs.resources;
  */
 public class Dimensions
 {
+    /***** CONTROLLED UNIT *****/
+    
+    public static final int CONTROLLED_UNIT_ATK_X = SCREEN_WIDTH - 2;
+    public static final int CONTROLLED_UNIT_ATK_Y = TOPBAR_HEIGHT + 1;
+    public static final int CONTROLLED_UNIT_LIFEBAR_X = 17;
+    public static final int CONTROLLED_UNIT_LIFEBAR_Y = TOPBAR_HEIGHT + 2;
+    public static final int CONTROLLED_UNIT_LIFE_X = 1;
+    public static final int CONTROLLED_UNIT_LIFE_Y = TOPBAR_HEIGHT + 1;
+    public static final int CONTROLLED_UNIT_LIFEBAR_HEALTH_DIVIDER = 5;
+    public static final int CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT = 3;
+    
+    
     /***** HELP BAR *****/
     
     public static final int HELPBAR_BOX_MIN_Y = 176 - 2 - 6 - 2;
@@ -99,16 +111,6 @@ public class Dimensions
     public static final int TOPBAR_BAR_Y_OFFSET = 8;
     public static final int TOPBAR_SECONDARYLINE_Y_OFFSET = 10;
     public static final int TOPBAR_BAR_LENGTH_MAX = 107;
-    
-    
-    /***** CONTROLLED UNIT *****/
-    
-    public static final int CONTROLLED_UNIT_LIFEBAR_X = 17;
-    public static final int CONTROLLED_UNIT_LIFEBAR_Y = TOPBAR_HEIGHT + 2;
-    public static final int CONTROLLED_UNIT_LIFE_X = 1;
-    public static final int CONTROLLED_UNIT_LIFE_Y = TOPBAR_HEIGHT + 1;
-    public static final int CONTROLLED_UNIT_LIFEBAR_HEALTH_DIVIDER = 5;
-    public static final int CONTROLLED_UNIT_LIFEBAR_INSIDE_HEIGHT = 3;
     
     
     /***** UNIT BOX *****/

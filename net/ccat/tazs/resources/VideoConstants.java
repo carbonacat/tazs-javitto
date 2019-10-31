@@ -68,10 +68,16 @@ class VideoConstants
     
     /***** EVERYUI *****/
     
-    public static final float EVERYUI_ORIGIN_X = 9;
-    public static final float EVERYUI_ORIGIN_Y = 9;
+    public static final float EVERYUI_ORIGIN_X = 14;
+    public static final float EVERYUI_ORIGIN_Y = 14;
+    public static final int EVERYUI_ATK_NORMAL_FRAME = 12;
+    public static final int EVERYUI_ATK_DISABLED_FRAME = 13;
     public static final int EVERYUI_BEAN_NORMAL_FRAME = 0;
     public static final int EVERYUI_BEAN_GOLDEN_FRAME = 1;
+    public static final int EVERYUI_LIFE_NORMAL_FRAME = 8;
+    public static final int EVERYUI_LIFE_DANGER_FRAMES_START = 9;
+    public static final int EVERYUI_LIFE_DANGER_FRAMES_LAST = 10;
+    public static final int EVERYUI_LIFE_DISABLED_FRAME = 11;
     public static final int EVERYUI_TARGET_FRAMES_START = 2;
     public static final int EVERYUI_TARGET_FRAMES_END = 3;
     public static final int EVERYUI_TIME_PLAY_FRAMES_START = 4;

@@ -28,6 +28,7 @@ import net.ccat.tazs.ui.AdvancedHiRes16Color;
 import net.ccat.tazs.ui.PadMenuUI;
 import net.ccat.tazs.ui.TopBarUI;
 import net.ccat.tazs.ui.UIModes;
+import net.ccat.tazs.ui.UITools;
 
 
 /**
@@ -44,9 +45,6 @@ class TAZSGame
         unitsSystem = new UnitsSystem(everythingSprite, everyUISprite);
         menuCursorSprite.playDefault();
         menuCursorSprite.setStatic(true);
-        lifeSprite.setStatic(true);
-        lifeSprite.playDefault();
-        lifeSprite.setPosition(Dimensions.CONTROLLED_UNIT_LIFE_X, Dimensions.CONTROLLED_UNIT_LIFE_Y);
         everyUISprite.setStatic(true);
 
         // Something went wrong if that went havoc!
@@ -188,17 +186,18 @@ class TAZSGame
             
             if (unitHealth <= 0)
             {
-                lifeSprite.playDead();
+                everyUISprite.selectFrame(VideoConstants.EVERYUI_LIFE_DISABLED_FRAME);
                 borderColor = Colors.CONTROLLED_UNIT_LIFEBAR_BORDER_DEAD;
             }
-            else if (unitHealth < unitStartingHealth / 2)
+            else if (unitHealth < unitStartingHealth / 4)
             {
-                lifeSprite.playDanger();
+                everyUISprite.selectFrame(UITools.blinkingValue() ? VideoConstants.EVERYUI_LIFE_DANGER_FRAMES_LAST : VideoConstants.EVERYUI_LIFE_DANGER_FRAMES_START);
                 borderColor = Colors.CONTROLLED_UNIT_LIFEBAR_BORDER_DANGER;
             }
             else
-                lifeSprite.playDefault();
-            lifeSprite.draw(screen);
+                everyUISprite.selectFrame(VideoConstants.EVERYUI_LIFE_NORMAL_FRAME);
+            everyUISprite.setPosition(Dimensions.CONTROLLED_UNIT_LIFE_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.CONTROLLED_UNIT_LIFE_Y - VideoConstants.EVERYUI_ORIGIN_Y);
+            everyUISprite.draw(screen);
             
             int barWidth = unitStartingHealth / Dimensions.CONTROLLED_UNIT_LIFEBAR_HEALTH_DIVIDER;
             int lifeBarWidth = MathTools.clampi(unitHealth / Dimensions.CONTROLLED_UNIT_LIFEBAR_HEALTH_DIVIDER, 0, barWidth);
@@ -217,6 +216,13 @@ class TAZSGame
                              lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_MIDDLE);
             screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 3,
                              lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_LOWER);
+                             
+            if ((unitHealth <= 0) || (false)) // TODO: Check for readiness.
+                everyUISprite.selectFrame(VideoConstants.EVERYUI_ATK_DISABLED_FRAME);
+            else
+                everyUISprite.selectFrame(VideoConstants.EVERYUI_ATK_NORMAL_FRAME);
+            everyUISprite.setPosition(Dimensions.CONTROLLED_UNIT_ATK_X - VideoConstants.EVERYUI_ORIGIN_X, Dimensions.CONTROLLED_UNIT_ATK_Y - VideoConstants.EVERYUI_ORIGIN_Y);
+            everyUISprite.draw(screen);
         }
     }
     
@@ -276,7 +282,6 @@ class TAZSGame
     public final NonAnimatedSprite everyUISprite = new EveryUISprite();
     public CursorSprite cursorSprite = new CursorSprite();
     public MenuCursorSprite menuCursorSprite = new MenuCursorSprite();
-    public LifeSprite lifeSprite = new LifeSprite();
     public CursorMoveSound cursorMoveSound = new CursorMoveSound();
     public CursorSelectSound cursorSelectSound = new CursorSelectSound();
     public CursorCancelSound cursorCancelSound = new CursorCancelSound();

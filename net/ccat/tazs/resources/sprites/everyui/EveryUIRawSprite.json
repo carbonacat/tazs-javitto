@@ -3,72 +3,128 @@
     "frame": { "x": 0, "y": 0, "w": 7, "h": 5 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 6, "y": 7, "w": 7, "h": 5 },
-    "sourceSize": { "w": 19, "h": 19 },
+    "spriteSourceSize": { "x": 11, "y": 12, "w": 7, "h": 5 },
+    "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    },
    "EveryUISprite 1.aseprite": {
     "frame": { "x": 7, "y": 0, "w": 7, "h": 5 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 6, "y": 7, "w": 7, "h": 5 },
-    "sourceSize": { "w": 19, "h": 19 },
+    "spriteSourceSize": { "x": 11, "y": 12, "w": 7, "h": 5 },
+    "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    },
    "EveryUISprite 2.aseprite": {
     "frame": { "x": 14, "y": 0, "w": 13, "h": 13 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 3, "y": 3, "w": 13, "h": 13 },
-    "sourceSize": { "w": 19, "h": 19 },
+    "spriteSourceSize": { "x": 8, "y": 8, "w": 13, "h": 13 },
+    "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    },
    "EveryUISprite 3.aseprite": {
     "frame": { "x": 27, "y": 0, "w": 11, "h": 11 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 4, "y": 4, "w": 11, "h": 11 },
-    "sourceSize": { "w": 19, "h": 19 },
+    "spriteSourceSize": { "x": 9, "y": 9, "w": 11, "h": 11 },
+    "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    },
    "EveryUISprite 4.aseprite": {
     "frame": { "x": 38, "y": 0, "w": 6, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 7, "y": 6, "w": 6, "h": 7 },
-    "sourceSize": { "w": 19, "h": 19 },
+    "spriteSourceSize": { "x": 12, "y": 11, "w": 6, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    },
    "EveryUISprite 5.aseprite": {
     "frame": { "x": 44, "y": 0, "w": 6, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 7, "y": 6, "w": 6, "h": 7 },
-    "sourceSize": { "w": 19, "h": 19 },
+    "spriteSourceSize": { "x": 12, "y": 11, "w": 6, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    },
    "EveryUISprite 6.aseprite": {
     "frame": { "x": 50, "y": 0, "w": 6, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 7, "y": 6, "w": 6, "h": 7 },
-    "sourceSize": { "w": 19, "h": 19 },
+    "spriteSourceSize": { "x": 12, "y": 11, "w": 6, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    },
    "EveryUISprite 7.aseprite": {
     "frame": { "x": 56, "y": 0, "w": 6, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 7, "y": 6, "w": 6, "h": 7 },
-    "sourceSize": { "w": 19, "h": 19 },
+    "spriteSourceSize": { "x": 12, "y": 11, "w": 6, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    },
    "EveryUISprite 8.aseprite": {
+    "frame": { "x": 62, "y": 0, "w": 15, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 14, "y": 14, "w": 15, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
+    "duration": 250
+   },
+   "EveryUISprite 9.aseprite": {
+    "frame": { "x": 77, "y": 0, "w": 15, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 14, "y": 14, "w": 15, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
+    "duration": 250
+   },
+   "EveryUISprite 10.aseprite": {
+    "frame": { "x": 92, "y": 0, "w": 15, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 14, "y": 14, "w": 15, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
+    "duration": 250
+   },
+   "EveryUISprite 11.aseprite": {
+    "frame": { "x": 107, "y": 0, "w": 15, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 14, "y": 14, "w": 15, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
+    "duration": 250
+   },
+   "EveryUISprite 12.aseprite": {
+    "frame": { "x": 122, "y": 0, "w": 15, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 14, "w": 15, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
+    "duration": 250
+   },
+   "EveryUISprite 13.aseprite": {
+    "frame": { "x": 137, "y": 0, "w": 15, "h": 7 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 14, "w": 15, "h": 7 },
+    "sourceSize": { "w": 29, "h": 29 },
+    "duration": 250
+   },
+   "EveryUISprite 14.aseprite": {
     "frame": { "x": 0, "y": 0, "w": 0, "h": 0 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 0, "h": 0 },
-    "sourceSize": { "w": 19, "h": 19 },
+    "sourceSize": { "w": 29, "h": 29 },
+    "duration": 250
+   },
+   "EveryUISprite 15.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 0, "h": 0 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 0, "h": 0 },
+    "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    }
  },
@@ -77,14 +133,19 @@
   "version": "1.2.15-x64",
   "image": "EveryUIRawSprite.png",
   "format": "I8",
-  "size": { "w": 171, "h": 19 },
+  "size": { "w": 464, "h": 29 },
   "scale": "1",
   "frameTags": [
    { "name": "playBeanNormal", "from": 0, "to": 0, "direction": "forward" },
    { "name": "playBeanGolden", "from": 1, "to": 1, "direction": "forward" },
    { "name": "playTarget", "from": 2, "to": 3, "direction": "forward" },
    { "name": "playPlay", "from": 4, "to": 5, "direction": "forward" },
-   { "name": "playPause", "from": 6, "to": 7, "direction": "forward" }
+   { "name": "playPause", "from": 6, "to": 7, "direction": "forward" },
+   { "name": "playLife", "from": 8, "to": 8, "direction": "forward" },
+   { "name": "playLifeDanger", "from": 9, "to": 10, "direction": "forward" },
+   { "name": "playDeadLife", "from": 11, "to": 11, "direction": "forward" },
+   { "name": "playAtkReady", "from": 12, "to": 12, "direction": "forward" },
+   { "name": "playAtkDisabled", "from": 13, "to": 13, "direction": "forward" }
   ],
   "layers": [
    { "name": "Main", "opacity": 255, "blendMode": "normal" }

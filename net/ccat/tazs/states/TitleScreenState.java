@@ -21,6 +21,7 @@ import net.ccat.tazs.resources.texts.TITLE_VERSION;
 import net.ccat.tazs.resources.texts.TITLE_MENU_CHALLENGES;
 import net.ccat.tazs.resources.texts.TITLE_MENU_QUICKBATTLE;
 import net.ccat.tazs.resources.texts.TITLE_MENU_SANDBOX;
+import net.ccat.tazs.resources.texts.TITLE_MENU_SETTINGS;
 import net.ccat.tazs.resources.VideoConstants;
 import net.ccat.tazs.save.SaveStatus;
 import net.ccat.tazs.tools.Performances;
@@ -79,6 +80,8 @@ class TitleScreenState
                 }
                 else if (mCurrentMenuIdentifier == MENU_ENTRIES_CHALLENGES)
                     Game.changeState(new ChallengesListState(mGame, 0));
+                else if (mCurrentMenuIdentifier == MENU_ENTRIES_SETTINGS)
+                    Game.changeState(new SettingsState(mGame));
             }
             if (Button.Up.justPressed())
             {
@@ -122,6 +125,7 @@ class TitleScreenState
             drawMenuChoice(MENU_ENTRIES_QUICKBATTLE, TITLE_MENU_QUICKBATTLE.bin(), screen);
             drawMenuChoice(MENU_ENTRIES_SANDBOX, TITLE_MENU_SANDBOX.bin(), screen);
             drawMenuChoice(MENU_ENTRIES_CHALLENGES, TITLE_MENU_CHALLENGES.bin(), screen);
+            drawMenuChoice(MENU_ENTRIES_SETTINGS, TITLE_MENU_SETTINGS.bin(), screen);
         }
         else
             drawCookieDialog(screen);
@@ -215,5 +219,6 @@ class TitleScreenState
     private static final int MENU_ENTRIES_QUICKBATTLE = 0;
     private static final int MENU_ENTRIES_SANDBOX = MENU_ENTRIES_QUICKBATTLE + 1;
     private static final int MENU_ENTRIES_CHALLENGES = MENU_ENTRIES_SANDBOX + 1;
-    private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_CHALLENGES + 1;
+    private static final int MENU_ENTRIES_SETTINGS = MENU_ENTRIES_CHALLENGES + 1;
+    private static final int MENU_ENTRIES_COUNT = MENU_ENTRIES_SETTINGS + 1;
 }

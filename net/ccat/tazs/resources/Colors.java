@@ -83,6 +83,8 @@ class Colors
     public static final int TITLE_VERSION = 3;
     public static final int TITLE_MENU_ENTRY = 15;
     public static final int TITLE_MENU_ENTRY_SELECTED = 11;
+    public static final int TITLE_MENU_ENTRY_DISABLED = 9;
+    public static final int TITLE_MENU_ENTRY_DANGEROUS = 8;
     
     
     /***** WINDOW *****/

@@ -1351,6 +1351,30 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\sounds\\DammitSound.wav": {
 			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states/SettingsState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\states\\SettingsState.java": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SETTINGS_ERASE_CAMPAIGN.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SETTINGS_ERASE_CHALLENGES.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SETTINGS_ERASE_EVERYTHING.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\TITLE_MENU_SETTINGS.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SETTINGS_DAMMIT.bin": {
+			"sdcard": false
+		},
+		"\\net\\ccat\\tazs\\resources\\texts\\SETTINGS_TITLE.bin": {
+			"sdcard": false
 		}
 	}
 }

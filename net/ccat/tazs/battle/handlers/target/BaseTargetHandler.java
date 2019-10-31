@@ -54,6 +54,11 @@ public class BaseTargetHandler
         return INVERSE_WEIGHT;
     }
     
+    public boolean isReadyToAttack(UnitsSystem system, int unitIdentifier)
+    {
+        return false;
+    }
+    
     
     /***** EVENTS *****/
     

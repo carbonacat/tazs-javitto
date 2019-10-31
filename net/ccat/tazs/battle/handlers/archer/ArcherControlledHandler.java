@@ -29,6 +29,11 @@ public class ArcherControlledHandler
         return true;
     }
     
+    public boolean isReadyToAttack(UnitsSystem system, int unitIdentifier)
+    {
+        return system.unitsTimers[unitIdentifier] == 0;
+    }
+    
     
     /***** LIFECYCLE *****/
     

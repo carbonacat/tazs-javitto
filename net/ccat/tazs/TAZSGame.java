@@ -217,7 +217,7 @@ class TAZSGame
             screen.drawHLine(Dimensions.CONTROLLED_UNIT_LIFEBAR_X + 1, Dimensions.CONTROLLED_UNIT_LIFEBAR_Y + 3,
                              lifeBarWidth, Colors.CONTROLLED_UNIT_LIFEBAR_FILL_LOWER);
                              
-            if ((unitHealth <= 0) || (false)) // TODO: Check for readiness.
+            if ((unitHealth <= 0) || (!unitHandler.isReadyToAttack(unitsSystem, unitIdentifier))) // TODO: Check for readiness.
                 everyUISprite.selectFrame(VideoConstants.EVERYUI_ATK_DISABLED_FRAME);
             else
                 everyUISprite.selectFrame(VideoConstants.EVERYUI_ATK_NORMAL_FRAME);

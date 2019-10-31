@@ -44,6 +44,13 @@ public interface UnitHandler
      */
     public abstract float inverseWeight();
     
+    /**
+     * @param system
+     * @param unitIdentifier
+     * @return true if this unit is ready to attack, false elsewhere.
+     */
+    public abstract boolean isReadyToAttack(UnitsSystem system, int unitIdentifier);
+    
     
     /***** LIFECYCLE *****/
     

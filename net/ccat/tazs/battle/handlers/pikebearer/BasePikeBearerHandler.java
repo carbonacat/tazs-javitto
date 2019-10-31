@@ -75,6 +75,11 @@ public class BasePikeBearerHandler
         return INVERSE_WEIGHT;
     }
     
+    public boolean isReadyToAttack(UnitsSystem system, int unitIdentifier)
+    {
+        return false;
+    }
+    
     
     /***** EVENTS *****/
     

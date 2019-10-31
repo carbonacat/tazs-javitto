@@ -70,6 +70,13 @@ public class BaseDasherHandler
         return INVERSE_WEIGHT;
     }
     
+    public boolean isReadyToAttack(UnitsSystem system, int unitIdentifier)
+    {
+        int unitTimer = system.unitsTimers[unitIdentifier];
+        
+        return (unitTimer >= READY_TICKS) && (unitTimer <= RECONSIDER_TICKS);
+    }
+    
     
     /***** EVENTS *****/
     

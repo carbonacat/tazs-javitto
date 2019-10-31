@@ -111,9 +111,13 @@ public class BaseDasherHandler
                 system.unitsHealths[unitIdentifier] = unitHealth;
             }
         }
+        else if ((unitTimer >= READY_TICKS) && (unitTimer <= RECONSIDER_TICKS))
+        {
+            // Automatically evades by dashing.
+            system.unitsTimers[unitIdentifier] = DASH_TIMER_INIT;
+        }
         else
         {
-            // TODO: Automatic Dash when going to be hit while attack is ready.
             if (HandlersTools.hitAndCheckIfBecameDead(system, unitIdentifier, powerX, powerY, power))
                 system.unitsHandlers[unitIdentifier] = DasherDeathHandler.instance;
         }

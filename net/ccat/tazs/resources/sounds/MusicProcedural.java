@@ -20,7 +20,11 @@ public class MusicProcedural
     {
         super(channel);
         // TODO: Can't wait to Binarify this.
-        switch (Math.random(0, 4))
+        
+        int choice = Math.random(0, 4);
+        
+        choice = 2;
+        switch (choice)
         {
         case 0:
             mNotes = new byte[]
@@ -63,8 +67,35 @@ public class MusicProcedural
                 -1, 4, 32,
             };
             break ;
-        default:
         case 2:
+            mNotes = new byte[]
+            {
+                -24, 1, 32,
+                -24, 3, 0,
+                
+                -24, 1, 32,
+                -24, 3, 0,
+                
+                -24, 4, 0,
+                
+                -24, 1, 32,
+                -24, 1, 0,
+                -24, 1, 32,
+                -24, 1, 0,
+                
+                -24, 1, 32,
+                -24, 3, 0,
+                
+                -24, 4, 0,
+                
+                -21, 1, 32,
+                -24, 3, 0,
+                
+                -24, 4, 0,
+            };
+            break ;
+        default:
+        case 3:
             mNotes = new byte[]
             {
                 -1, 16, 32,
@@ -224,9 +255,9 @@ public class MusicProcedural
     private static final int NOTE_LOUDNESS_OFFSET = 2;
     
     // Defines the envelop of a standard note.
-    final int INSTRUMENT_ATTACK_DURATION = 2000;
-    final int INSTRUMENT_DECAY_DURATION = 500;
-    final int INSTRUMENT_RELEASE_DURATION = 2500;
+    final int INSTRUMENT_ATTACK_DURATION = 250;
+    final int INSTRUMENT_DECAY_DURATION = 250;
+    final int INSTRUMENT_RELEASE_DURATION = 500;
     final int INSTRUMENT_DURATION_MIN = INSTRUMENT_ATTACK_DURATION + INSTRUMENT_DECAY_DURATION + INSTRUMENT_RELEASE_DURATION;
     final float INSTRUMENT_SUSTAIN_RATIO = 0.875f;
 }

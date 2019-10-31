@@ -145,8 +145,9 @@ class ChallengesListState
         screen.print(menuIdentifier + 1);
         screen.printPText(MISC_SEPARATOR.bin());
         screen.printPText(ChallengePackReader.titlePointerFromChallenge(challengePointer));
-        // TODO:
-        //screen.printPText(mChallenges[menuIdentifier].name());
+        mGame.everyUISprite.setPosition(Dimensions.TITLE_MENU_ENTRY_CHECK_X - VideoConstants.EVERYUI_ORIGIN_X, y - VideoConstants.EVERYUI_ORIGIN_Y);
+        mGame.everyUISprite.selectFrame(VideoConstants.EVERYUI_BLOOD_CHECK_FRAME);
+        mGame.everyUISprite.draw(screen);
     }
     
     private TAZSGame mGame;

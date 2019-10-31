@@ -74,6 +74,7 @@ class VideoConstants
     public static final int EVERYUI_ATK_DISABLED_FRAME = 13;
     public static final int EVERYUI_BEAN_NORMAL_FRAME = 0;
     public static final int EVERYUI_BEAN_GOLDEN_FRAME = 1;
+    public static final int EVERYUI_BLOOD_CHECK_FRAME = 14;
     public static final int EVERYUI_LIFE_NORMAL_FRAME = 8;
     public static final int EVERYUI_LIFE_DANGER_FRAMES_START = 9;
     public static final int EVERYUI_LIFE_DANGER_FRAMES_LAST = 10;

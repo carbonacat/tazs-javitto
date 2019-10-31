@@ -112,10 +112,10 @@
     "duration": 250
    },
    "EveryUISprite 14.aseprite": {
-    "frame": { "x": 0, "y": 0, "w": 0, "h": 0 },
+    "frame": { "x": 152, "y": 0, "w": 10, "h": 8 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 0, "h": 0 },
+    "spriteSourceSize": { "x": 9, "y": 11, "w": 10, "h": 8 },
     "sourceSize": { "w": 29, "h": 29 },
     "duration": 250
    },
@@ -145,7 +145,8 @@
    { "name": "playLifeDanger", "from": 9, "to": 10, "direction": "forward" },
    { "name": "playDeadLife", "from": 11, "to": 11, "direction": "forward" },
    { "name": "playAtkReady", "from": 12, "to": 12, "direction": "forward" },
-   { "name": "playAtkDisabled", "from": 13, "to": 13, "direction": "forward" }
+   { "name": "playAtkDisabled", "from": 13, "to": 13, "direction": "forward" },
+   { "name": "playCompleted", "from": 14, "to": 14, "direction": "forward" }
   ],
   "layers": [
    { "name": "Main", "opacity": 255, "blendMode": "normal" }

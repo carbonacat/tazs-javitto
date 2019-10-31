@@ -89,6 +89,7 @@ public class Dimensions
     public static final int TITLE_CURSOR_Y_SPEED = 4;
     public static final int TITLE_MENU_ENTRY_X = 32;
     public static final int TITLE_MENU_ENTRY_CURSOR_X = TITLE_MENU_ENTRY_X - VideoConstants.MENU_CURSOR_ORIGIN_X;
+    public static final int TITLE_MENU_ENTRY_CHECK_X = TITLE_MENU_ENTRY_X - 18;
     public static final int TITLE_MENU_ENTRY_Y_START = 64;
     public static final int TITLE_MENU_ENTRY_HEIGHT = 8;
     public static final int TITLE_SUBTITLE_Y = 48;

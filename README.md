@@ -3,6 +3,8 @@
 A recreation (and homage) of Totally Accurate Battle Simator as an entry for the Java of the Dead Pokitto Jam.
 - https://itch.io/jam/java-of-the-dead
 
+Copyright 2019 Carbonacat
+
 
 ## Description
 

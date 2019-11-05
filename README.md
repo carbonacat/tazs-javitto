@@ -34,6 +34,7 @@ The source of those files can be found in https://github.com/carbonacat/tazs-wor
 - Vampirics (https://github.com/vampirics), Torbuntu (https://github.com/torbuntu) and other ones for their support and advices.
 - Pharap (https://github.com/Pharap/) for the various advices, including how to make this code open-source.
 - And everyone else who helped or/and participated to the jam and made it awesome!!
+- Additionally, Landfall (https://landfall.se/) for having made TABS, the inspiration behind this game!
 
 
 ## Structure

@@ -11,6 +11,8 @@ Copyright 2019 Carbonacat
 TAZS is a game / toy where the Player has to place their Units against an opposite side comprised of other units.
 It runs on the Pokitto (https://www.pokitto.com/).
 
+The sources themselves need FemtoIDE 1.2 (https://github.com/felipemanga/FemtoIDE) to be compiled.
+
 
 ## Code License
 

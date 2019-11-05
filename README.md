@@ -27,11 +27,11 @@ The source of those files can be found in https://github.com/carbonacat/tazs-wor
 
 ## Credits
 
-- Jonne Valola and the Pokitto Oy company (https://pokitto.com)
-- FManga for creating FemtoIDE, his implication on the whole jam and his advices (https://github.com/felipemanga).
-- Vampirics (https://github.com/vampirics), Torbuntu (https://github.com/torbuntu) for their support and advices.
-- Pharap for the various advices, including how to make this code open-source.
-- And everyone else that participated to the jam and made it awesome!!
+- Jonne Valola (https://github.com/jonneva) and the Pokitto Oy company (https://pokitto.com) for that little but awesome console, the Pokitto, their implication, their support and their help!!
+- FManga (https://github.com/felipemanga) for creating FemtoIDE, his implication on the whole jam, his advices and his support.
+- Vampirics (https://github.com/vampirics), Torbuntu (https://github.com/torbuntu) and other ones for their support and advices.
+- Pharap (https://github.com/Pharap/) for the various advices, including how to make this code open-source.
+- And everyone else who helped or/and participated to the jam and made it awesome!!
 
 
 ## Structure

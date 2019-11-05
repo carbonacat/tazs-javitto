@@ -192,6 +192,7 @@ public abstract class ChallengeBattleMode
         game.topBarUI.setLeftCountAndCost(Texts.TEAMS_PLAYERX, game.unitsSystem.unitsCount(Teams.PLAYER), allowedCost() - playerCost);
         // TODO: Convert.
         //game.topBarUI.setRightNameAndSummary(name(), summary());
+        game.topBarUI.setRightNameAndSummary("", "");
         updateTopBarsWithHealth(game);
     }
     

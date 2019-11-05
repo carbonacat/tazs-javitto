@@ -1424,6 +1424,21 @@
 		},
 		"\\net\\ccat\\tazs\\resources\\texts\\TITLE-x.bin": {
 			"sdcard": false
+		},
+		"\\bin\\tazs-javitto.bin.1.gif": {
+			"sdcard": false
+		},
+		"\\bin\\2019-10-31 - Controlled Dasher.gif": {
+			"sdcard": false
+		},
+		"\\bin\\.gif": {
+			"sdcard": false
+		},
+		"\\bin\\2019-10-31 - Dasher and Archer vs The World.gif": {
+			"sdcard": false
+		},
+		"\\bin\\2019-10-31 - Time Control.gif": {
+			"sdcard": false
 		}
 	}
 }

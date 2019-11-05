@@ -272,9 +272,9 @@ class TitleScreenState
 
             for (int frame = VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_FIRST; frame <= VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_LAST; frame++)
             {
-                int shadowsX = MathTools.lerpi(frame,
-                                               VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_FIRST, Dimensions.TITLE_LOGO_SHADOWS_X_MIN,
-                                               VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_LAST, Dimensions.TITLE_LOGO_SHADOWS_X_MAX);
+                int shadowsX = MathTools.lerpi(frame, VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_FIRST, Dimensions.TITLE_LOGO_SHADOWS_X_MIN,
+                                               VideoConstants.EVERYUI_TITLE_SHADOWS_FRAMES_LAST, Dimensions.TITLE_LOGO_SHADOWS_X_MAX)
+                    + Math.random(-1, 1);
                 
                 game.everyUISprite.selectFrame(frame);
                 game.everyUISprite.setPosition(shadowsX - VideoConstants.EVERYUI_ORIGIN_X, shadowsY - VideoConstants.EVERYUI_ORIGIN_Y);
@@ -326,5 +326,5 @@ class TitleScreenState
     private static final int TIMER_INIT = 0;
     private static final int TIMER_STEP1 = 30;
     private static final int TIMER_STEP2 = 60;
-    private static final int TIMER_END = 120;
+    private static final int TIMER_END = 90;
 }

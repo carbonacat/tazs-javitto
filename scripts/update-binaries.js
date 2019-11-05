@@ -14,7 +14,8 @@ tazs.UNITTYPES =
     "shieldbearer": 3,
     "pikebearer": 4,
     "archer": 5,
-    "target": 6
+    "target": 6,
+    "dasher": 7
 };
 
 tazs.TEAMS =
@@ -413,8 +414,8 @@ tazs.compileMusic = function(filename, musicSpecifications)
                 ]
             },
             {
-                "identifier": 99,
-                "title": "DEBUG",
+                "identifier": 6,
+                "title": "Piking",
                 "description": "Hehe",
                 "allowedResources": 50,
                 "allowedUnits": ["brawler", "slapper", "sworder", "pikebearer"],
@@ -423,6 +424,40 @@ tazs.compileMusic = function(filename, musicSpecifications)
                     ["player", "shieldbearer", -75, -25],
                     ["enemy", "pikebearer", 75, 10],
                     ["enemy", "pikebearer", 75, -10]
+                ]
+            },
+            {
+                "identifier": 7,
+                "title": "Shield the Archer",
+                "description": "Hehe",
+                "allowedResources": 300,
+                "allowedUnits": ["pikebearer", "shieldbearer"],
+                "units":
+                [
+                    ["player", "archer", -75, -25],
+                    ["enemy", "pikebearer", 75, -40],
+                    ["enemy", "pikebearer", 75, -30],
+                    ["enemy", "pikebearer", 75, -20],
+                    ["enemy", "pikebearer", 75, -10],
+                    ["enemy", "pikebearer", 75, 0],
+                    ["enemy", "pikebearer", 75, 10],
+                    ["enemy", "pikebearer", 75, 20],
+                    ["enemy", "pikebearer", 75, 30],
+                    ["enemy", "pikebearer", 75, 40]
+                ]
+            },
+            {
+                "identifier": 8,
+                "title": "Running Wild",
+                "description": "Hehe",
+                "allowedResources": 300,
+                "allowedUnits": ["brawler", "slapper", "sworder", "pikebearer", "archer"],
+                "units":
+                [
+                    ["enemy", "dasher", 75, -40],
+                    ["enemy", "dasher", 75, -30],
+                    ["enemy", "dasher", 75, -20],
+                    ["enemy", "dasher", 75, -10]
                 ]
             }
         ]
